@@ -4,7 +4,7 @@
 ````toc
 :maxdepth: 2
 
-governing-equations
-particle-based
-grid-based
+navier-stokes
+sph-method
+eulerian-fluid
 ````
