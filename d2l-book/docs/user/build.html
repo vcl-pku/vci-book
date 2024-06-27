@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>2.3. Building &#8212; 可视计算与交互概论 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../../../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/d2l.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/d2l.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active"><span class="section-number">2.3. </span>Building</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../../_sources/d2l-book/docs/user/build.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fas fa-file-pdf"></i>
+                  PDF
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fab fa-github"></i>
+                  Github
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../../../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="building">
+<h1><span class="section-number">2.3. </span>Building<a class="headerlink" href="#building" title="Permalink to this heading">¶</a></h1>
+<p>This section we will explain various options to build your projects.
+This options can be grouped into four categories:</p>
+<ol class="arabic simple">
+<li><p>Sanity check</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">linkcheck</span></code> will check if all internal and
+external links are accessible.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">outputcheck</span></code> will check if no notebook will
+contain code outputs</p></li>
+</ul>
+</li>
+<li><p>Building results</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">html</span></code>: build the HTML version into
+<code class="docutils literal notranslate"><span class="pre">_build/html</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">pdf</span></code>: build the PDF version into <code class="docutils literal notranslate"><span class="pre">_build/pdf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">pkg</span></code>: build a zip file contains all <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>
+notebooks</p></li>
+</ul>
+</li>
+<li><p>Additional features</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">colab</span></code>: convert all notebooks can be run on
+Google Colab into <code class="docutils literal notranslate"><span class="pre">_build/colab</span></code>. See more in
+<a class="reference internal" href="colab.html#sec-colab"><span class="std std-numref">2.9节</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">lib</span></code>: build a Python package so we can reuse
+codes in other notebooks. See more in XXX.</p></li>
+</ul>
+</li>
+<li><p>Internal stages, which often are triggered automatically.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">eval</span></code>: evaluate all notebooks and save them as
+<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> notebooks into <code class="docutils literal notranslate"><span class="pre">_build/eval</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">build</span> <span class="pre">rst</span></code>: convert all notebooks into <code class="docutils literal notranslate"><span class="pre">rst</span></code> files
+and create a Sphinx project in <code class="docutils literal notranslate"><span class="pre">_build/rst</span></code></p></li>
+</ul>
+</li>
+</ol>
+<div class="section" id="building-cache">
+<h2><span class="section-number">2.3.1. </span>Building Cache<a class="headerlink" href="#building-cache" title="Permalink to this heading">¶</a></h2>
+<p>We encourage you to evaluate your notebooks to obtain code cell results,
+instead of keeping these results in the source files for two reasons: 1.
+These results make code review difficult, especially when they have
+randomness either due to numerical precision or random number
+generators. 1. A notebook hasn’t evaluated for a while may be broken due
+to package upgrading.</p>
+<p>But the evaluation costs additional overhead during building. We
+recommend to limit the runtime for each notebook within a few minutes.
+And <code class="docutils literal notranslate"><span class="pre">d2lbook</span></code> will reuse the previous built and only evaluate the
+modified notebooks.</p>
+<p>For example, the average runtime of a notebook (section) in <a class="reference external" href="https://d2l.ai">Dive into
+Deep Learning</a> is about 2 minutes on a GPU machine,
+due to training neural networks. It contains more than 100 notebooks,
+which make the total runtime cost 2-3 hours. In reality, each code
+change will only modify a few notebooks and therefore the <a class="reference external" href="http://ci.d2l.ai/blue/organizations/jenkins/d2l-en/activity">build
+time</a> is
+often less than 10 minutes.</p>
+<p>Let’s see how it works. First create a project as we did in
+<a class="reference internal" href="create.html#sec-create"><span class="std std-numref">2.1节</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!mkdir -p cache
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>%%writefile cache/index.md
+# My Book
+
+The starting page of my book with `d2lbook`.
+
+````toc
+get_started
+````
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>%%writefile cache/get_started.md
+# Getting Started
+
+Please first install my favorite package `numpy`.
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!cd cache; d2lbook build html
+</pre></div>
+</div>
+<p>You can see <code class="docutils literal notranslate"><span class="pre">index.md</span></code> is evaluated. (Though it doesn’t contain codes,
+it’s fine to evaluate it as a Jupyter notebook.)</p>
+<p>If building again, we will see no notebook will be evaluated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!cd cache; d2lbook build html
+</pre></div>
+</div>
+<p>Now let’s modify <code class="docutils literal notranslate"><span class="pre">get_started.md</span></code>, you will see it will be
+re-evaluated, but not <code class="docutils literal notranslate"><span class="pre">index.md</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>%%writefile cache/get_started.md
+# Getting Started
+
+Please first install my favorite package `numpy&gt;=1.18`.
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!cd cache; d2lbook build html
+</pre></div>
+</div>
+<p>One way to trigger the whole built is removing the saved notebooks in
+<code class="docutils literal notranslate"><span class="pre">_build/eval</span></code>, or simply deleting <code class="docutils literal notranslate"><span class="pre">_build</span></code>. Another way is
+specifying some dependencies. For example, in the following cell we add
+<code class="docutils literal notranslate"><span class="pre">config.ini</span></code> into the dependencies. Every time <code class="docutils literal notranslate"><span class="pre">config.ini</span></code> is
+modified, it will invalid the cache of all notebooks and trigger a build
+from scratch.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">writefile</span> <span class="n">cache</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">ini</span>
+
+<span class="p">[</span><span class="n">build</span><span class="p">]</span>
+<span class="n">dependencies</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">ini</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!cd cache; d2lbook build html
+</pre></div>
+</div>
+<p>Last, let’s clean our workspace.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!rm -rf cache
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">2.3. Building</a><ul>
+<li><a class="reference internal" href="#building-cache">2.3.1. Building Cache</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>

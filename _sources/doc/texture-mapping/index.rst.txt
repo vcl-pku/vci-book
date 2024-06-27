@@ -1,0 +1,6 @@
+
+.. _chap_texture-mapping:
+
+纹理映射
+========
+

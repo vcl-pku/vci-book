@@ -1,0 +1,6 @@
+
+.. _chap_animation-principles:
+
+动画原理
+========
+

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>2.7. Group Code Blocks into Tabs &#8212; 可视计算与交互概论 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../../../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/d2l.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active"><span class="section-number">2.7. </span>Group Code Blocks into Tabs</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../../_sources/d2l-book/docs/user/code_tabs.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fas fa-file-pdf"></i>
+                  PDF
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fab fa-github"></i>
+                  Github
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../../../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="group-code-blocks-into-tabs">
+<h1><span class="section-number">2.7. </span>Group Code Blocks into Tabs<a class="headerlink" href="#group-code-blocks-into-tabs" title="Permalink to this heading">¶</a></h1>
+<p>Here is an example showing grouping code blocks into three tabs.</p>
+<div class="section" id="example">
+<h2><span class="section-number">2.7.1. </span>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<p>Let’s implement <span class="math notranslate nohighlight">\(a+b\)</span>. We first show instructions, then
+demonstrate the codes.</p>
+<blockquote>
+<div><p>You need to have python installed :end_tab:</p>
+<p>You can install numpy by :end_tab:</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>pip<span class="w"> </span>install<span class="w"> </span>numpy
+
+Please<span class="w"> </span>install<span class="w"> </span>cpython<span class="w"> </span>:end_tab:
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="n">ia</span><span class="o">+</span><span class="n">ib</span> <span class="k">for</span> <span class="n">ia</span><span class="p">,</span> <span class="n">ib</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#@tab numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
+<span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#@tab cpython</span>
+<span class="c1"># Just a place holder</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next let’s implement <span class="math notranslate nohighlight">\(a - b\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="n">ia</span><span class="o">-</span><span class="n">ib</span> <span class="k">for</span> <span class="n">ia</span><span class="p">,</span> <span class="n">ib</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#@tab numpy</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
+<span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usages">
+<h2><span class="section-number">2.7.2. </span>Usages<a class="headerlink" href="#usages" title="Permalink to this heading">¶</a></h2>
+<p>To enable multi-tabs, first configure the <code class="docutils literal notranslate"><span class="pre">tabs</span></code> entry in the
+<code class="docutils literal notranslate"><span class="pre">config.ini</span></code> file. For example, here we use
+<code class="docutils literal notranslate"><span class="pre">tabs</span> <span class="pre">=</span> <span class="pre">python,</span> <span class="pre">numpy,</span> <span class="pre">cpython</span></code>. <code class="docutils literal notranslate"><span class="pre">python</span></code> is the default tab. To
+specify a code block that doesn’t belong to the default tab, add
+<code class="docutils literal notranslate"><span class="pre">#&#64;tab</span></code>, followed by the tab name (case insensitive), in the first
+line of the code block.</p>
+<p>Sometimes these codes blocks conflict with each others. We can activate
+one tab at a time, so only code blocks belong to this tab can be
+evaluated in Jupyter. For example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>d2lbook<span class="w"> </span>activate<span class="w"> </span>default<span class="w"> </span>user/code_tabs.md<span class="w">  </span><span class="c1"># activate the default tab</span>
+d2lbook<span class="w"> </span>activate<span class="w"> </span>numpy<span class="w"> </span>user/code_tabs.md<span class="w">    </span><span class="c1"># activate the numpy tab</span>
+d2lbook<span class="w"> </span>activate<span class="w"> </span>all<span class="w"> </span>user/code_tabs.md<span class="w">      </span><span class="c1"># activate all tabs</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">2.7. Group Code Blocks into Tabs</a><ul>
+<li><a class="reference internal" href="#example">2.7.1. Example</a></li>
+<li><a class="reference internal" href="#usages">2.7.2. Usages</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>

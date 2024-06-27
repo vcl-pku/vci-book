@@ -1,0 +1,23 @@
+
+User Guide
+==========
+
+In this part, we will cover
+
+1. How to create a project
+2. How to build and deploy the documents
+3. Various configuration options
+4. Markdown and code examples
+
+.. toctree::
+   :maxdepth: 2
+
+   create
+   edit
+   build
+   deploy
+   markdown
+   code
+   code_tabs
+   slides
+   colab

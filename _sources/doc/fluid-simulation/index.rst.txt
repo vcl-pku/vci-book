@@ -1,0 +1,13 @@
+
+.. _chap_fluid-simulation:
+
+流体模拟
+========
+
+
+.. toctree::
+   :maxdepth: 2
+
+   navier-stokes
+   sph-method
+   eulerian-fluid

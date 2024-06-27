@@ -1,0 +1,6 @@
+
+.. _chap_global-illumination:
+
+全局光照
+========
+

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>2.5. Markdown Cells &#8212; 可视计算与交互概论 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../../../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/d2l.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/d2l.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active"><span class="section-number">2.5. </span>Markdown Cells</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../../_sources/d2l-book/docs/user/markdown.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fas fa-file-pdf"></i>
+                  PDF
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fab fa-github"></i>
+                  Github
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../../../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="markdown-cells">
+<span id="sec-markdown"></span><h1><span class="section-number">2.5. </span>Markdown Cells<a class="headerlink" href="#markdown-cells" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">d2lbook</span></code> provide additional features beyond the normal markdown
+supports in Jupyter.</p>
+<div class="section" id="table-of-contents">
+<h2><span class="section-number">2.5.1. </span>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">¶</a></h2>
+<p>You can use a <code class="docutils literal notranslate"><span class="pre">toc</span></code> code block to specify the table of contents. Here
+<code class="docutils literal notranslate"><span class="pre">:maxdepth:</span> <span class="pre">2</span></code> means display two levels of files, and <code class="docutils literal notranslate"><span class="pre">:numbered:</span></code>
+means adding number to each section (default is not enabled). Also note
+that you don’t need to specify the file extension.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```toc
+:maxdepth: 2
+:numbered:
+
+guide/index
+```
+</pre></div>
+</div>
+</div>
+<div class="section" id="images">
+<h2><span class="section-number">2.5.2. </span>Images<a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h2>
+<p>We can put the image caption in <code class="docutils literal notranslate"><span class="pre">[]</span></code>. In addition, we can use
+<code class="docutils literal notranslate"><span class="pre">:width:</span></code> followed by its value in an inline block to specify the
+image width, similarly use <code class="docutils literal notranslate"><span class="pre">:height:</span></code>for height.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>![Estimating the length of a foot](../img/koebel.jpg)
+:width:`400px`
+</pre></div>
+</div>
+<div class="figure align-default" id="id11">
+<a class="reference internal image-reference" href="d2l-book/docs/img/koebel.jpg"><img alt="d2l-book/docs/img/koebel.jpg" src="d2l-book/docs/img/koebel.jpg" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-text">Estimating the length of a foot</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="svg-images">
+<h3><span class="section-number">2.5.2.1. </span>SVG Images<a class="headerlink" href="#svg-images" title="Permalink to this heading">¶</a></h3>
+<p>We recommend you to use SVG images as much as you can. It is sharp and
+its size is small. But since Latex doesn’t support SVG images, if you
+want to build a PDF output, you need to install <code class="docutils literal notranslate"><span class="pre">rsvg-convert</span></code>. On
+Macos, you can simply <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">librsvg</span></code> or
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">librsvg2-bin</span></code> for Ubuntu.</p>
+<div class="figure align-default" id="id12">
+<img alt="d2l-book/docs/img/lstm.svg" src="d2l-book/docs/img/lstm.svg" /><p class="caption"><span class="caption-text">A LSTM cell in SVG</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="tables">
+<h2><span class="section-number">2.5.3. </span>Tables<a class="headerlink" href="#tables" title="Permalink to this heading">¶</a></h2>
+<p>You can insert table caption before the table by starting it with a
+<code class="docutils literal notranslate"><span class="pre">:</span></code>. Note that you need to leave an empty line between the caption and
+the table itself.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>: The number is computed by $z_{ij} = \sum_{k}x_{ik}y_{kj}$.
+
+| Year | Number | Comment |
+| ---  | --- | --- |
+| 2018 | 100 | Good year |
+| 2019 | 200 | Even better, add something to make this column wider |
+</pre></div>
+</div>
+<table class="docutils align-default" id="id13">
+<caption><span class="caption-text">The number is computed by
+<span class="math notranslate nohighlight">\(z_{ij} = \sum_{k}x_{ik}y_{kj}\)</span>.</span><a class="headerlink" href="#id13" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Number</p></th>
+<th class="head"><p>Comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2018</p></td>
+<td><p>100</p></td>
+<td><p>Good year</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019</p></td>
+<td><p>200</p></td>
+<td><p>Even better, add something to make this column wider</p></td>
+</tr>
+</tbody>
+</table>
+<p>If the Table caption number doesn’t show properly, you may need to
+update <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> to the latest version.</p>
+</div>
+<div class="section" id="cross-references">
+<h2><span class="section-number">2.5.4. </span>Cross References<a class="headerlink" href="#cross-references" title="Permalink to this heading">¶</a></h2>
+<p>We often want to reference sections, figures, tables and equations in a
+book.</p>
+<div class="section" id="referencing-sections">
+<span id="my-sec3"></span><h3><span class="section-number">2.5.4.1. </span>Referencing Sections<a class="headerlink" href="#referencing-sections" title="Permalink to this heading">¶</a></h3>
+<p>We can put a label immediately after the section title to allow this
+section to be referenced by its label. The label format is <code class="docutils literal notranslate"><span class="pre">:label:</span></code>
+followed by its label name in an inline code block.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>### Referencing Sections
+:label:`my_sec3`
+</pre></div>
+</div>
+<p>Then we can reference this section through <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> followed by label
+name in an inline code block</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>:ref:`my_sec3` demonstrates how to reference a section.
+</pre></div>
+</div>
+<p><a class="reference internal" href="#my-sec3"><span class="std std-ref">Referencing Sections</span></a> demonstrates how to reference a section.</p>
+<p>Note that it displays the referenced section title with a clickable
+link. We can also use a numbered version by changing <code class="docutils literal notranslate"><span class="pre">:num:</span></code> to
+<code class="docutils literal notranslate"><span class="pre">:numref:</span></code>, e.g. <a class="reference internal" href="#my-sec3"><span class="std std-numref">2.5.4.1节</span></a>.</p>
+<p>If the label is incorrect, say we put <code class="docutils literal notranslate"><span class="pre">my_sec2</span></code> here, the build log
+will contains a warning such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">WARNING</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">label</span><span class="p">:</span> <span class="n">my_sec2</span>
+</pre></div>
+</div>
+<p>You can turn it into error by setting <code class="docutils literal notranslate"><span class="pre">warning_is_error</span> <span class="pre">=</span> <span class="pre">True</span></code> in
+<code class="docutils literal notranslate"><span class="pre">config.ini</span></code>.</p>
+<p>Besides, we can cross reference label from other files as well,
+e.g. <a class="reference internal" href="code.html#sec-code"><span class="std std-numref">2.6节</span></a>. This applies to figures, tables and equations
+as well.</p>
+</div>
+<div class="section" id="referencing-images">
+<h3><span class="section-number">2.5.4.2. </span>Referencing Images<a class="headerlink" href="#referencing-images" title="Permalink to this heading">¶</a></h3>
+<p>Similarly we can label an image and reference it later.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>![A nice image with a cat and a dog.](../img/catdog.jpg)
+:width:`300px`
+:label:`img_catdog`
+
+As can be seen from :numref:`img_catdog`,
+</pre></div>
+</div>
+<div class="figure align-default" id="id14">
+<span id="img-catdog"></span><a class="reference internal image-reference" href="d2l-book/docs/img/catdog.jpg"><img alt="d2l-book/docs/img/catdog.jpg" src="d2l-book/docs/img/catdog.jpg" style="width: 300px;" /></a>
+<p class="caption"><span class="caption-text">A nice image with a cat and a dog.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<p>As can be seen from <code class="xref std std-numref docutils literal notranslate"><span class="pre">img_catdog</span></code>, there is a cat and a dog.</p>
+</div>
+<div class="section" id="referencing-tables">
+<h3><span class="section-number">2.5.4.3. </span>Referencing Tables<a class="headerlink" href="#referencing-tables" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>:This a is very long table caption. It will breaks into several lines. And
+contains a math equation as well. $z_{ij} = \sum_{k}x_{ik}y_{kj}$.
+
+| Year | Number | Comment |
+| ---  | --- | --- |
+| 2018 | 100 | Good year |
+:label:`table`
+
+Refer to :numref:`table`
+</pre></div>
+</div>
+<span id="table"></span><table class="docutils align-default" id="id15">
+<caption><span class="caption-text">This a is very long table caption. It will breaks into
+several lines. And contains a math equation as well.
+<span class="math notranslate nohighlight">\(z_{ij} = \sum_{k}x_{ik}y_{kj}\)</span>.</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 32%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Number</p></th>
+<th class="head"><p>Comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2018</p></td>
+<td><p>100</p></td>
+<td><p>Good year</p></td>
+</tr>
+</tbody>
+</table>
+<p>Refer to <code class="xref std std-numref docutils literal notranslate"><span class="pre">table</span></code></p>
+</div>
+<div class="section" id="referencing-equations">
+<h3><span class="section-number">2.5.4.4. </span>Referencing Equations<a class="headerlink" href="#referencing-equations" title="Permalink to this heading">¶</a></h3>
+<p>The difference here is that we need to use <code class="docutils literal notranslate"><span class="pre">eqlabel</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">label</span></code>. For example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$\hat{\mathbf{y}}=\mathbf X \mathbf{w}+b$$
+:eqlabel:`linear`
+
+
+In :eqref:`linear`, we define the linear model.
+</pre></div>
+</div>
+<div class="math notranslate nohighlight" id="equation-linear">
+<span class="eqno">()<a class="headerlink" href="#equation-linear" title="Permalink to this equation">¶</a></span>\[\hat{\mathbf{y}}=\mathbf X \mathbf{w}+b\]</div>
+<p>In <a class="reference internal" href="#equation-linear">()</a>, we define the linear model.</p>
+</div>
+</div>
+<div class="section" id="citations">
+<h2><span class="section-number">2.5.5. </span>Citations<a class="headerlink" href="#citations" title="Permalink to this heading">¶</a></h2>
+<p>First put your bib file at somewhere. All references will be displayed
+on the place where it inserted in HTML. But in PDF, all references will
+be moved to end of the document. Then we can cite a paper through
+<code class="docutils literal notranslate"><span class="pre">:cite:</span></code>. Multipel papers can be separated by commans (note there
+should be no space)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The breakthrough of deep learning origins from :cite:`krizhevsky2012imagenet` for...
+
+Two keys together :cite:`he2016deep,devlin2018bert`...
+
+:bibliography:`../refs.bib`
+</pre></div>
+</div>
+<p>The breakthrough of deep learning origins from
+<span id="id1">()</span> for computer vision, there is a rich of
+following up works, such as <span id="id2">()</span>. NLP is catching up as
+well, the recent work <span id="id3">()</span> shows significant
+improvements.</p>
+<p>Two keys together <span id="id4">()</span>. Single author
+<span id="id5">()</span>, two authors <span id="id6">()</span></p>
+<p>Note that :cite: is the same as <code class="docutils literal notranslate"><span class="pre">\citep</span></code> in LaTeX. To use <code class="docutils literal notranslate"><span class="pre">\citet</span></code>
+in LaTeX, just use :citet:. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Two keys together :citet:`he2016deep,devlin2018bert`. Single author
+:citet:`mitchell80`, two authors :citet:`Newell81`
+</pre></div>
+</div>
+<p>Two keys together <span id="id7"></span>. Single author
+<span id="id8"></span>, two authors <span id="id9"></span></p>
+</div>
+<div class="section" id="references">
+<h2><span class="section-number">2.5.6. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<span class="target" id="id10"></span></div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">2.5. Markdown Cells</a><ul>
+<li><a class="reference internal" href="#table-of-contents">2.5.1. Table of Contents</a></li>
+<li><a class="reference internal" href="#images">2.5.2. Images</a><ul>
+<li><a class="reference internal" href="#svg-images">2.5.2.1. SVG Images</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tables">2.5.3. Tables</a></li>
+<li><a class="reference internal" href="#cross-references">2.5.4. Cross References</a><ul>
+<li><a class="reference internal" href="#referencing-sections">2.5.4.1. Referencing Sections</a></li>
+<li><a class="reference internal" href="#referencing-images">2.5.4.2. Referencing Images</a></li>
+<li><a class="reference internal" href="#referencing-tables">2.5.4.3. Referencing Tables</a></li>
+<li><a class="reference internal" href="#referencing-equations">2.5.4.4. Referencing Equations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#citations">2.5.5. Citations</a></li>
+<li><a class="reference internal" href="#references">2.5.6. References</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>

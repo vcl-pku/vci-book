@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>2.8. Creating Slides &#8212; 可视计算与交互概论 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../../../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/d2l.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/d2l.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active"><span class="section-number">2.8. </span>Creating Slides</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../../_sources/d2l-book/docs/user/slides.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fas fa-file-pdf"></i>
+                  PDF
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fab fa-github"></i>
+                  Github
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../../../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="creating-slides">
+<h1><span class="section-number">2.8. </span>Creating Slides<a class="headerlink" href="#creating-slides" title="Permalink to this heading">¶</a></h1>
+<p>We can mark a notebook and then create slides from that notebook. For
+example, here is the generate
+<a class="reference external" href="https://nbviewer.jupyter.org/format/slides/github/d2l-ai/d2l-pytorch-slides/blob/main/chapter_preliminaries/ndarray.ipynb#/">slides</a>
+from the markdown <a class="reference external" href="https://github.com/d2l-ai/d2l-en/blob/master/chapter_preliminaries/ndarray.md">source
+file</a>.
+Let explain how to do it by the following example. It’s a markdown file
+with marks to generate slides.</p>
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><span class="gh"># Data Manipulation</span>
+
+<span class="gu">## Getting Started</span>
+
+To start, we can use <span class="sb">`arange`</span> to create a row vector <span class="sb">`x`</span>
+containing the first 12 integers starting with 0,
+though they are created as floats by default.
+
+A tensor represents a (possibly multi-dimensional) array of numerical values. We can access a tensor&#39;s <span class="ge">*shape*</span>.
+
+
+```{.python .input}
+import numpy as np
+
+x = np.arange(12)
+x
+<span class="sb">```</span>
+
+<span class="sb">Many more operations can be applied elementwise,</span>
+<span class="sb">including unary operators like exponentiation.</span>
+
+
+<span class="sb">```{.python .input}</span>
+<span class="sb">np.exp(x)</span>
+<span class="sb">```</span>
+
+Even when shapes differ, we can still perform elementwise operations
+by invoking the <span class="ge">*broadcasting mechanism*</span>.
+
+
+```{.python .input}
+a = np.arange(3).reshape(3, 1)
+b = np.arange(2).reshape(1, 2)
+a, b
+```
+</pre></div>
+</div>
+<p>The above code block will generate 2 slides. The first slide contains
+the following contents:</p>
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><span class="gh"># Data Manipulation</span>
+
+A tensor represents a (possibly multi-dimensional) array of numerical values. We can access a tensor&#39;s <span class="ge">*shape*</span>.
+
+```{.python .input}
+import numpy as np
+
+x = np.arange(12)
+x
+```
+</pre></div>
+</div>
+<p>You can see that we automatically copied the level-1 heading and the
+code block. In addition, we copied the text between <code class="docutils literal notranslate"><span class="pre">and</span></code>, while
+dropped all others.</p>
+<p>The second slide contains the following:</p>
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span>Many operations can be applied elementwise,
+e.g. <span class="sb">`exp`</span>
+
+```{.python .input}
+np.exp(x)
+<span class="sb">```</span>
+
+<span class="sb">Even when shapes differ, we can still perform elementwise operations</span>
+
+<span class="sb">```{.python .input}</span>
+<span class="sb">a = np.arange(3).reshape(3, 1)</span>
+<span class="sb">b = np.arange(2).reshape(1, 2)</span>
+<span class="sb">a, b</span>
+<span class="sb">```</span>
+</pre></div>
+</div>
+<p>First you can see is that all text between these three paris (<code class="docutils literal notranslate"><span class="pre">,</span></code>),
+(<code class="docutils literal notranslate"><span class="pre">,</span></code>), and
+(`<code class="docutils literal notranslate"><span class="pre">)</span> <span class="pre">are</span> <span class="pre">kept.</span> <span class="pre">Here</span></code>[<code class="docutils literal notranslate"><span class="pre">means</span> <span class="pre">starting</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">slide,</span> <span class="pre">while</span></code>(<code class="docutils literal notranslate"><span class="pre">means</span> <span class="pre">continuing</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">slide.</span> <span class="pre">(Level-1</span> <span class="pre">heading</span> <span class="pre">will</span> <span class="pre">start</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">slide,</span> <span class="pre">so</span> <span class="pre">we</span> <span class="pre">used</span></code>(<code class="docutils literal notranslate"><span class="pre">in</span> <span class="pre">the</span> <span class="pre">previous</span> <span class="pre">block).</span> <span class="pre">In</span> <span class="pre">addition,</span></code>~~`
+means the text will only appear in slides, why not in the normal
+notebooks, htmls or pdfs.</p>
+<p>Second, we didn’t start a new slide before the last code block,
+i.e. there is no level-1 heading and no (<code class="docutils literal notranslate"><span class="pre">,</span></code>) pair, so the last two
+code blocks are merged into the same slide.</p>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>

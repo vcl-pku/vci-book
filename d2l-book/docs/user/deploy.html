@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>2.4. Deploying &#8212; 可视计算与交互概论 1.0.0 documentation</title>
+
+    <link rel="stylesheet" href="../../../_static/material-design-lite-1.3.0/material.blue-deep_orange.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx_materialdesign_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fontawesome/all.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/fonts.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/d2l.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/d2l.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active"><span class="section-number">2.4. </span>Deploying</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../../_sources/d2l-book/docs/user/deploy.rst.txt" rel="nofollow">
+  <i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fas fa-file-pdf"></i>
+                  PDF
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/vcl-pku/vci-book.git">
+                  <i class="fab fa-github"></i>
+                  Github
+              </a>
+      </nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+
+	<script type="text/javascript" src="../../../_static/sphinx_materialdesign_theme.js "></script>
+    <header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="可视计算与交互概论"/>
+          </a>
+      </span>
+    
+    
+      <div class="globaltoc">
+        <span class="mdl-layout-title toc">Table Of Contents</span>
+        
+        
+            
+            <nav class="mdl-navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/introduction/index.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/color/index.html">2. 颜色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/display/index.html">3. 显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/drawing-2d/index.html">4. 画图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/anti-aliasing/index.html">5. 反走样</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/curves/index.html">6. 曲线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/image-processing/index.html">7. 图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-representation/index.html">8. 几何表达</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-reconstruction/index.html">9. 几何重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-processing/index.html">10. 几何处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/geometric-transformation/index.html">11. 几何变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-basics/index.html">12. 渲染基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/shading/index.html">13. 光照与着色</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/texture-mapping/index.html">14. 纹理映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rendering-pipeline/index.html">15. 渲染管线</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/global-illumination/index.html">16. 全局光照</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-data-structures/index.html">17. 空间数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/animation-principles/index.html">18. 动画原理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/elastomer-simulation/index.html">19. 弹性体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/rigid-body-simulation/index.html">20. 刚体模拟</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/fluid-simulation/index.html">21. 流体模拟</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/navier-stokes.html">21.1. 纳维—斯托克斯方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/sph-method.html">21.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../doc/fluid-simulation/eulerian-fluid.html">21.3. 欧拉网格流体</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/character-animation/index.html">22. 角色动画</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/visualization-basics/index.html">23. 可视化基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/scientific-visualization/index.html">24. 科学数据可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/interaction-basics/index.html">25. 人机交互基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/spatial-interaction/index.html">26. 空间交互技术</a></li>
+</ul>
+
+            </nav>
+        
+        </div>
+    
+</header>
+
+    <div class="document">
+        <div class="page-content" role="main">
+        
+  <div class="section" id="deploying">
+<h1><span class="section-number">2.4. </span>Deploying<a class="headerlink" href="#deploying" title="Permalink to this heading">¶</a></h1>
+<p>You can copy the built result to any of your favorite places that can
+serve content online. Otherwise <code class="docutils literal notranslate"><span class="pre">d2lbook</span></code> provides two ways to deploy
+your build results: deploying through <a class="reference external" href="http://github.com/">Github</a> or
+through <a class="reference external" href="https://aws.amazon.com/">AWS</a>.</p>
+<div class="section" id="deploying-through-github">
+<h2><span class="section-number">2.4.1. </span>Deploying Through Github<a class="headerlink" href="#deploying-through-github" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://pages.github.com/">Github Pages</a> allow us to host a website
+through a Github repo. To do so, we first need to create a github repo,
+for example we created
+<a class="reference external" href="https://github.com/d2l-ai/d2l-book-deploy-demo">d2l-ai/d2l-book-deploy-demo</a>
+for this example. Then enable serving from the master branch in
+<code class="docutils literal notranslate"><span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">GitHub</span> <span class="pre">Pages</span></code>. You will get a URL to access it. It is
+<a class="reference external" href="https://d2l-ai.github.io/d2l-book-deploy-demo/">d2l-ai.github.io/d2l-book-deploy-demo</a>
+for this example. You can add anything to <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, which will not
+show on the website.</p>
+<div class="figure align-default" id="id1">
+<a class="reference internal image-reference" href="d2l-book/docs/img/github_pages.png"><img alt="d2l-book/docs/img/github_pages.png" src="d2l-book/docs/img/github_pages.png" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-text">Enable serving from master branch at Github</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Now let’s create a project with <code class="docutils literal notranslate"><span class="pre">[deploy]</span> <span class="pre">github_repo</span></code> specified and
+build both HTML and PDF. You will see a large amount of logging
+information thanks to LaTeX, more exactly, <code class="docutils literal notranslate"><span class="pre">xelatex</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!mkdir -p deploy
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>%%writefile deploy/index.md
+# Deploying Demo for d2lbook
+
+This is a demo to deploy on Github.
+
+````toc
+get_started
+````
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>%%writefile deploy/get_started.md
+# Getting Started
+
+Please first install my favorite package `numpy`.
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">writefile</span> <span class="n">deploy</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">ini</span>
+<span class="p">[</span><span class="n">project</span><span class="p">]</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">deply</span><span class="o">-</span><span class="n">demo</span>
+
+<span class="p">[</span><span class="n">html</span><span class="p">]</span>
+<span class="n">header_links</span> <span class="o">=</span> <span class="n">PDF</span><span class="p">,</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">d2l</span><span class="o">-</span><span class="n">ai</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">d2l</span><span class="o">-</span><span class="n">book</span><span class="o">-</span><span class="n">deploy</span><span class="o">-</span><span class="n">demo</span><span class="o">/</span><span class="n">deply</span><span class="o">-</span><span class="n">demo</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span> <span class="n">fas</span> <span class="n">fa</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">pdf</span>
+
+<span class="p">[</span><span class="n">deploy</span><span class="p">]</span>
+<span class="n">github_repo</span> <span class="o">=</span> <span class="n">d2l</span><span class="o">-</span><span class="n">ai</span><span class="o">/</span><span class="n">d2l</span><span class="o">-</span><span class="n">book</span><span class="o">-</span><span class="n">deploy</span><span class="o">-</span><span class="n">demo</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!cd deploy; d2lbook build html pdf
+</pre></div>
+</div>
+<p>To deploy to Github, you need to have your machine’s <a class="reference external" href="https://github.com/settings/keys">SSH key imported
+to Github</a>. Otherwise, you may need
+to type in your account and password. When it is done, you can assess
+the results online in one or two minutes. For this example, the URL is
+<a class="reference external" href="https://d2l-ai.github.io/d2l-book-deploy-demo/">/d2l-ai.github.io/d2l-book-deploy-demo/</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!cd deploy; d2lbook deploy html pdf
+</pre></div>
+</div>
+<p>Lastly, let’s clean our workspace.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!rm -rf deploy
+</pre></div>
+</div>
+</div>
+<div class="section" id="deploying-through-aws">
+<h2><span class="section-number">2.4.2. </span>Deploying Through AWS<a class="headerlink" href="#deploying-through-aws" title="Permalink to this heading">¶</a></h2>
+<p>Another supported option is deploying through AWS. This option provides
+more flexibility but requires you to know the basic usage of AWS.</p>
+<p>We recommend the following procedure for the deployment:</p>
+<ol class="arabic simple">
+<li><p>Copying results into <a class="reference external" href="https://aws.amazon.com/s3/">S3</a>.</p></li>
+<li><p>Serving with a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Content_delivery_network">CDN</a> by
+using <a class="reference external" href="https://aws.amazon.com/cloudfront/">CloudFront</a> to reduce
+the latency.</p></li>
+<li><p>Buying and adding a customized domain at <a class="reference external" href="https://aws.amazon.com/route53/">Route
+53</a></p></li>
+</ol>
+<p>Now let’s walk through these three steps one-by-one. Before getting
+started, you need to have a valid AWS account and type in your <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html">AWS
+access
+key</a>
+by running <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">configure</span></code>.</p>
+<p>First, create a S3 bucket. You can use the targeted domain name as your
+bucket name. For example, this site is deployed at book.d2l.ai, then we
+created a bucket with the name <code class="docutils literal notranslate"><span class="pre">book.d2l.ai</span></code>. In addition, we need to
+disable blocking public access through ACLs when creating this bucket,
+see <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig_s3-acl</span></code> and enable static website hosting, see
+<code class="xref std std-numref docutils literal notranslate"><span class="pre">fig_s3-web-hosting</span></code>. Then you will get a URL to access this
+bucket. In our example, it’s
+<a class="reference external" href="http://book.d2l.ai.s3-website-us-west-2.amazonaws.com/">http://book.d2l.ai.s3-website-us-west-2.amazonaws.com/</a>.</p>
+<div class="figure align-default" id="id2">
+<span id="fig-s3-acl"></span><img alt="d2l-book/docs/img/s3-acl.png" src="d2l-book/docs/img/s3-acl.png" />
+<p class="caption"><span class="caption-text">Disable blocking public access through ACLs</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<div class="legend">
+<dl class="field-list simple">
+<dt class="field-odd">width</dt>
+<dd class="field-odd"><p>500px</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="figure align-default" id="id3">
+<span id="fig-s3-web-hosting"></span><img alt="d2l-book/docs/img/s3-web-hosting.png" src="d2l-book/docs/img/s3-web-hosting.png" />
+<p class="caption"><span class="caption-text">Enable static web hosting</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<div class="legend">
+<dl class="field-list simple">
+<dt class="field-odd">width</dt>
+<dd class="field-odd"><p>500px</p>
+</dd>
+</dl>
+</div>
+</div>
+<p>Second, create a new CloudFront distribution, by specifying the
+following options: - Origin Domain Name: the previous S3 URL without
+<code class="docutils literal notranslate"><span class="pre">http://</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">book.d2l.ai.s3-website-us-west-2.amazonaws.com</span></code> -
+Default Root Object: <code class="docutils literal notranslate"><span class="pre">index.html</span></code> - [optional] Alternate Domain Names
+(CNAMEs): your target domain name, e.g. <code class="docutils literal notranslate"><span class="pre">book.d2l.ai</span></code> - [optional] SSL
+Certificate: you can create one in <a class="reference external" href="https://aws.amazon.com/certificate-manager/">Certificate
+Manager</a> and then select
+it.</p>
+<p>After a few minute, we will obtain the domain name such as
+<code class="docutils literal notranslate"><span class="pre">d1y0wi2ibwmzrt.cloudfront.net</span></code>.</p>
+<p>Third, you can either buy a domain at Route 53 or add Route 53’s DNS
+into your existing domain. After that, create a “Hosted Zone” and then a
+Type-A Record Set with the CoundFront domain name as the alias target,
+see <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig_record-set</span></code> for an example.</p>
+<div class="figure align-default" id="id4">
+<span id="fig-record-set"></span><img alt="d2l-book/docs/img/record-set.png" src="d2l-book/docs/img/record-set.png" />
+<p class="caption"><span class="caption-text">Create a Record Set</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<div class="legend">
+<dl class="field-list simple">
+<dt class="field-odd">width</dt>
+<dd class="field-odd"><p>350px</p>
+</dd>
+</dl>
+</div>
+</div>
+<p>Once you are done, specify your S3 bucket name in the following
+<code class="docutils literal notranslate"><span class="pre">config.ini</span></code> entry.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>deploy<span class="o">]</span>
+<span class="nv">s3_bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>s3://book.d2l.ai
+</pre></div>
+</div>
+<p>Each time you run <code class="docutils literal notranslate"><span class="pre">d2lbook</span> <span class="pre">deploy</span></code>, all results will be synchronized
+to this bucket and deployed automatically. Note that since we enabled a
+CDN, any new change may take a while to be shown in your URL
+(e.g. <a class="reference external" href="http://book.d2l.ai">http://book.d2l.ai</a>). But you can check the S3 bucket URL
+(e.g. <a class="reference external" href="http://book.d2l.ai.s3-website-us-west-2.amazonaws.com">http://book.d2l.ai.s3-website-us-west-2.amazonaws.com</a>) to review
+the changes immediately.</p>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">2.4. Deploying</a><ul>
+<li><a class="reference internal" href="#deploying-through-github">2.4.1. Deploying Through Github</a></li>
+<li><a class="reference internal" href="#deploying-through-aws">2.4.2. Deploying Through AWS</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+  </div>
+        
+        </main>
+    </div>
+  </body>
+</html>
