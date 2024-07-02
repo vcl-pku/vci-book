@@ -21,12 +21,17 @@ python3 -m pip install .
 
 ### 本地部署
 
+将本仓库下载到本地：
+```shell
+git clone https://github.com/vcl-pku/vci-book.git
+```
+
 在环境配置完成后，每当希望本地部署网站以进行预览时，可在本项目主目录 `vci-book` 下，通过 `shell` 依次执行下列语句：
 ```shell
 conda activate d2l
 ./deploy.sh
 ```
-随后网站将自动进行生成及本地部署。命令执行完毕后可通过 https://localhost:8000 访问网站内容。
+随后网站将自动进行生成及本地部署。命令执行完毕后可通过 http://localhost:8000 访问网站内容。
 
 ## 编纂格式与规范
 
@@ -70,7 +75,7 @@ eulerian-fluid
 > - 对于张量运算，常使用爱因斯坦求和标记。
 > - 冯·诺依曼提出了经典的计算机模型。
 > - 美国物理学家理查德·费恩曼（Richard Feynman）写过一本著名的讲义。
-> - 乔斯·斯塔姆（Jos Stam）博士曾获得过三次奥斯卡技术奖。
+> - 尤斯·斯塔姆（Jos Stam）博士曾获得过三次奥斯卡技术奖。
 
 对于含人名的学术名词，应当遵循前述规范，同时在标注英文时尽量整体标注，例如：
 > - 牛顿第二定律（Newton's second law）
