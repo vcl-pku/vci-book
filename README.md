@@ -50,13 +50,15 @@ conda activate d2l
 navier-stokes
 sph-method
 eulerian-fluid
+summary
 ````
 `````
 其中，`` :label:`chap_fluid-simulation` `` 用来添加标签以便交叉引用，`navier-stokes`、`sph-method`、`eulerian-method` 是该章各节的 Markdown 文件名（无需添加后缀名）。注意无论是章还是节，最终显示在电子书目录中的名称都是其 Markdown 文件的一级标题。
 
 此外，Markdown 文件名及其对应小节的命名须遵循一定的规范：
-1. 尽量使得每章各小节的名称具有独特性。例如，对于“流体模拟”一章的小节，使用“纳维—斯托克斯方程”而非“控制方程”，以避免与其它各章的控制方程混淆。
-2. 小节的 Markdown 文件名应与其名称对应，必要时可以使用通行的英文简写。如“纳维—斯托克斯方程”对应于 `navier-stokes.md`，“光滑粒子流体”对应于 `sph-method.md` 等。类似地，小节的 Markdown 文件名也应具有独特性。
+1. 每章最后（除引言外）一节为“本章小结”，对应于 `summary.md`，总结、讨论、展望、习题、参考文献等应位于此处。
+2. 尽量使得每章各小节（除“本章小结”外）的名称具有独特性。例如，对于“流体模拟”一章的小节，使用“纳维—斯托克斯方程”而非“控制方程”，以避免与其它各章的控制方程混淆。
+3. 小节的 Markdown 文件名（除 `summary.md` 外）应与其名称对应，必要时可以使用通行的英文简写。如“纳维—斯托克斯方程”对应于 `navier-stokes.md`，“光滑粒子流体”对应于 `sph-method.md` 等。类似地，小节的 Markdown 文件名也应具有独特性。
 
 ### 术语和人名
 
@@ -68,7 +70,7 @@ eulerian-fluid
 1. 有汉字书写的姓名者（如中国大陆、港澳台、新马泰、朝韩、日本、越南等国公民及其海外族裔），应使用规范简体汉字标注，必要时可在首次出现时括弧标注西文。西文姓、名顺序应与中文相同，中间加逗号。
 2. 已经成名的西方学者或其他名人，使用规范简体汉字标注，视翻译的通行性决定是否需要在首次出现时标注英文。
 3. 其它西方人名，应尽量选用通行翻译的简体汉字标注，并在首次出现时标注英文。
-4. 引用文献时的人名标注方式参见[后文](#参考文献)。
+4. 引用文献时的人名标注由命令自动产生，参见[后文](#参考文献)。
 
 例如：
 > - 汤川秀树（Yukawa Hideki）提出了一种用以描述粒子之间短程相互作用的势能模型。
@@ -84,10 +86,45 @@ eulerian-fluid
 
 除上述标注规范外，本书计划设立专门的术语及人名对照表。
 
-### 文本
+### Markdown 语法扩展
+
+本项目基于 d2lbook 框架，该框架对 Markdown 的语法进行了大量的扩展，例如：
+
+1. 图像、表格的标题与序号，公式及序号，章节序号；
+2. 图像、表格、公式、章节的交叉引用；
+3. 引用 `.bib` 文件中的参考文献；
+4. 插入 `.svg` 格式的矢量图片。
+
+有关上述扩展的具体语法格式，请参考[官方文档](https://book.d2l.ai/user/markdown.html)。
 
 ### 图表
 
 ### 数学
 
 ### 参考文献
+
+参考文献条目位于 `reference.bib` 中，条目语法与 BibTeX 相同，例如：
+
+```bibtex
+@inproceedings{Stam1999,
+  author = {Stam, Jos},
+  title = {Stable Fluids},
+  year = {1999},
+  publisher = {ACM Press/Addison-Wesley Publishing Co.},
+  address = {USA},
+  booktitle = {Proceedings of the 26th Annual Conference on Computer Graphics and Interactive Techniques},
+  pages = {121--128},
+  numpages = {8},
+  series = {SIGGRAPH '99}
+}
+```
+
+随后可以使用 `` :cite:`Stam1999` `` 或 `` :citet:`Stam1999` `` 来引用该文献，它们分别等同于 LaTeX 中的 `\citep{Stam1999}` 和 `citet{Stam1999}`。
+
+在每章最后的“本章小结”一节中，应在末尾添加如下语句以产生参考文献列表：
+
+```markdown
+## 参考文献
+
+:bibliography:`../../reference.bib`
+```
