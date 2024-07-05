@@ -1,6 +1,6 @@
 # 颜色填充
 
-在上面介绍的算法中，我们只介绍了如何绘制纯色图形，在更一般的情况下我们希望在多边形内部填充不一样的内容。比如，我们可以指定多边形各个顶点的颜色，然后希望在多边形的内部进行颜色的插值，如图 :numref:`fig_paint-opengl` 所示。再比如，我们有一张图片，我们希望通过移动四个顶点将其拉伸成不规则的四边形，如图 :numref:`fig_paint-image-warp` 所示。这种填充到多边形中的图片可以被称之为 **纹理（Texture）**，我们将在之后的三维渲染部分 :numref:`chap_texture-mapping` 进一步接触这个概念。
+在上面介绍的算法中，我们只介绍了如何绘制纯色图形，在更一般的情况下我们希望在多边形内部填充不一样的内容。比如，我们可以指定多边形各个顶点的颜色，然后希望在多边形的内部进行颜色的插值，如图 :numref:`fig_paint-opengl` 所示。再比如，我们有一张图片，我们希望通过移动四个顶点将其拉伸成不规则的四边形，如 :numref:`fig_paint-image-warp` 所示。这种填充到多边形中的图片可以被称之为 **纹理（Texture）**，我们将在之后的三维渲染部分 :numref:`chap_texture-mapping` 进一步接触这个概念。
 
 ![颜色插值](../../img/paint/OpenGL_triangle.png)
 :width:`400px`
@@ -17,7 +17,7 @@
 $$c = c_0 (1 - t) + c_1 t\text{, } t = \frac{x - x_0}{x_1 - x_0}$$
 :eqlabel:`eq_paint-intp`
 
-通过这种方式线段上的颜色就能从$c_0$渐变到$c_1$。在填充多边形时，我们可以通过上面介绍的扫描线算法来实现内部颜色的插值。如图 :numref:`fig_paint-color-intp` 所示，在扫描线算法中，我们可以通过公式 :eqref:`eq_paint-intp` 的线性插值得到左右端点的颜色，然后再在左右端点之间再使用公式 :eqref:`eq_paint-intp` 的线性插值。这样两次线性插值的方法被称为 **双线性插值（Bi-linear Interpolation）**。
+通过这种方式线段上的颜色就能从$c_0$渐变到$c_1$。在填充多边形时，我们可以通过上面介绍的扫描线算法来实现内部颜色的插值。如 :numref:`fig_paint-color-intp` 所示，在扫描线算法中，我们可以通过公式 :eqref:`eq_paint-intp` 的线性插值得到左右端点的颜色，然后再在左右端点之间再使用公式 :eqref:`eq_paint-intp` 的线性插值。这样两次线性插值的方法被称为 **双线性插值（Bi-linear Interpolation）**。
 
 ![颜色插值](../../img/paint/color-intp.png)
 :width:`700px`
@@ -42,9 +42,9 @@ $$c = c_0 (1 - t) + c_1 t\text{, } t = \frac{x - x_0}{x_1 - x_0}$$
 $$c = (1-t)(1-s)c_0 + (1-t)sc_1 + (1-s)tc_3 + stc_2$$
 :eqlabel:`eq_paint-bilinear-intp`
 
-如果先做水平方向的插值，后做竖直方向的插值我们将会得到和公式 :eqref:`eq_paint-bilinear-intp` 一样的结果。从结果可以看出，最终插值得到的颜色可以看成是四个端点颜色的加权平均，权重就是图 :numref:`fig_paint-bilinear` 中对应矩形的面积。
+如果先做水平方向的插值，后做竖直方向的插值我们将会得到和公式 :eqref:`eq_paint-bilinear-intp` 一样的结果。从结果可以看出，最终插值得到的颜色可以看成是四个端点颜色的加权平均，权重就是 :numref:`fig_paint-bilinear` 中对应矩形的面积。
 
-尽管我们这里介绍的纹理填充方法非常简单直接，但是需要注意纹理填充、图像拉伸并不是一个简单的课题，我们这里介绍的方法也不是唯一的方法。如图 :numref:`fig_paint-different-warping` 所示，右边两个结果都是合理的插值结果，但是两种颜色的比重完全不同。在不同的场景下，我们需要根据目标的不同进行选择。在之后的三维渲染 :numref:`chap_shading` 中我们还会更细致地研究插值相关的问题。
+尽管我们这里介绍的纹理填充方法非常简单直接，但是需要注意纹理填充、图像拉伸并不是一个简单的课题，我们这里介绍的方法也不是唯一的方法。如 :numref:`fig_paint-different-warping` 所示，右边两个结果都是合理的插值结果，但是两种颜色的比重完全不同。在不同的场景下，我们需要根据目标的不同进行选择。在之后的三维渲染 :numref:`chap_shading` 中我们还会更细致地研究插值相关的问题。
 
 ![不同的图像拉伸插值结果](../../img/paint/different-warping.png)
 :width:`700px`
