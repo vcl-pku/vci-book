@@ -31,10 +31,10 @@ doc/global-illumination/index
 doc/spatial-data-structures/index
 
 doc/animation-principles/index
+doc/character-animation/index
 doc/elastomer-simulation/index
 doc/rigid-body-simulation/index
 doc/fluid-simulation/index
-doc/character-animation/index
 
 doc/visualization-basics/index
 doc/scientific-visualization/index
