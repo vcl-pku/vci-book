@@ -4,7 +4,7 @@
 ````toc
 :maxdepth: 2
 
-navier-stokes
+fluid-physics
 sph-method
 eulerian-fluid
 summary
