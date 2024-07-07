@@ -3,6 +3,7 @@
 
 > The screen is a window through which one sees a virtual world. The challenge is to make that world look real, act real, sound real, feel real. 
 >                                                        ——Ivan Sutherland
+
 如果说眼睛是人观察现实世界的窗户，那显示设备就是观察数字世界的窗口．显示设备
 将数字信号转变为人能观察到的光照、声音、触觉等信号，在日常生活中有广泛的应用．如
 十字路口的交通信号灯，计算器、电脑、手机的显示屏幕，新兴的虚拟现实和增强现实眼镜
