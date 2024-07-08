@@ -7,5 +7,6 @@
 empirical-lighting
 physically-based-lighting
 shading-frequencies
+non-photorealistic
 summary
 ````

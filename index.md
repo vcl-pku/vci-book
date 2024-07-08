@@ -25,8 +25,8 @@ doc/geometric-transformation/index
 
 doc/rendering-basics/index
 doc/shading/index
-doc/texture-mapping/index
 doc/rendering-pipeline/index
+doc/texture-mapping/index
 doc/global-illumination/index
 doc/spatial-data-structures/index
 
