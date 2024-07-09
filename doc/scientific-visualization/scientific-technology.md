@@ -9,7 +9,7 @@
 
 体渲染的主体是三维的数据，一种经典的数据类型是体素（voxels）。如图 1 所示。
 
-![三维数据体素](/../../figures/visualization/sci/voxels.png)
+![三维数据体素](/../../img/visualization/sci/voxels.png)
 
 体渲染（Volume Rendering）最初用于在计算机图形中生成非刚性物体的可视化效果，如云、烟、果冻等。这些物体通常不具有明确的表面边界，并且其物质的密度相对较低。体渲染技术的关键在于处理这些物体的半透明和不规则特性，使其在视觉上更为真实。
 
@@ -28,7 +28,7 @@
 
 表面渲染和体渲染的对比如图 2 所示，可见体渲染可以在给出相应的形状的前提下并对于内部给出一些信息。
 
-![表面渲染和体渲染的对比图](/../../figures/visualization/sci/surface_vs_volumetric_example.png)
+![表面渲染和体渲染的对比图](/../../img/visualization/sci/surface_vs_volumetric_example.png)
 
 **体渲染的原理**
 
@@ -40,7 +40,7 @@
 
 我们通过示意图 1 来说明这些系数导致的光学方程。
 
-![体渲染的光与介质作用的示意图](/../../figures/visualization/sci/beam.png)
+![体渲染的光与介质作用的示意图](/../../img/visualization/sci/beam.png)
 
 这有一个介质，光线从介质的一个面到另一个面。其中假设介质的厚度为 $\Delta s$，介质中的杂质粒子的横截面积为 $A=\pi r^2$，这个介质的横截面积为 $E$，粒子密度为 $\rho$，则在这个空间内的粒子数目为 $\rho E \Delta s$，总的遮挡的面积为 $\rho E \Delta s A$。则遮挡的比率为 $\rho E \Delta s A / E = \rho A \Delta s$，于是可以有以下的式子：
 
@@ -95,7 +95,7 @@ $$
 
 总结来说，流线是关于速度的，路径线是关于粒子路径的，而条纹线是关于特定点随时间流过的粒子。这三者的关系可以参考课件中的动图，其中红色的是由原点释放的粒子进行轨迹跟踪得到的路径线。蓝色的是通过不断释放粒子得到的痕迹线。而随着时间不断改变整个场的流场速度线则由灰色的流线显示。
 
-![流场可视化中的三种线形，动图请参考流场可视化课件](/../../figures/visualization/sci/three_lines.png)
+![流场可视化中的三种线形，动图请参考流场可视化课件](/../../img/visualization/sci/three_lines.png)
 
 下面我们分别介绍三种线形。
 
@@ -112,7 +112,7 @@ s = \int_t \mathbf{v}ds
 $$
 
 因为流线只有在很短的时间内才可以认为是恒定的，于是实验上观测流线的方法是，观察摄入染料的短时间内（曝光时间量级）线形。一些流线展示的实验结果如下图。
-![一些流线实验结果](/../../figures/visualization/sci/streamline_exp.png)
+![一些流线实验结果](/../../img/visualization/sci/streamline_exp.png)
 
 **路径线**
 
@@ -122,7 +122,7 @@ $$
 $$
 可以跟踪射入的粒子的长程轨迹来实验得到。
 如下面的实验图。
-![路径线实验例子](/../../figures/visualization/sci/pathline_exp.png)
+![路径线实验例子](/../../img/visualization/sci/pathline_exp.png)
 
 **条纹线**
 
@@ -152,9 +152,9 @@ $$
 
 最后，必须考虑网格的类型。数据可以以均匀、矩形、曲线或非结构化网格的形式提供。网格类型会影响可视化算法，主要涉及数据存储和访问机制或插值方案。一些经典的可视化算法如下图所示，我们将按分类分别介绍相关算法。我们会先介绍稀疏结构的可视化，再介绍稠密结构的可视化。
 
-<!--![Comparison of visualization techniques applied to the same 2D flow: (a) arrow plot, (b) streamlets, (c) line integral convolution (LIC), and (d) topology-based. （CR：d courtesy of Gerik Scheuermann)](/../../figures/visualization/sci/traditional_method.png)-->
+<!--![Comparison of visualization techniques applied to the same 2D flow: (a) arrow plot, (b) streamlets, (c) line integral convolution (LIC), and (d) topology-based. （CR：d courtesy of Gerik Scheuermann)](/../../img/visualization/sci/traditional_method.png)-->
 
-![不同可视化技术在相同2D流场中的比较: (a) 箭头图, (b) 流线段, (c) 线积分卷积 (LIC), (d) 基于拓扑的方法](/../../figures/visualization/sci/traditional_method.png)
+![不同可视化技术在相同2D流场中的比较: (a) 箭头图, (b) 流线段, (c) 线积分卷积 (LIC), (d) 基于拓扑的方法](/../../img/visualization/sci/traditional_method.png)
 
 **基于点的可视化**
 
@@ -167,19 +167,19 @@ $$
 5. 重建每个箭头表示
 6. 其他的增强功能
 
-![基于点的可视化，源自From Vector Glyphs for Surfaces: A Fast and Simple Glyph Placement Algorithm for Adaptive Resolution Meshes.](/../../figures/visualization/sci/pointbased.png)
+![基于点的可视化，源自From Vector Glyphs for Surfaces: A Fast and Simple Glyph Placement Algorithm for Adaptive Resolution Meshes.](/../../img/visualization/sci/pointbased.png)
 
 **粒子追踪**
 
 粒子追踪是在流场域的指定位置释放一定数量的无质量粒子，然后跟踪这些粒子在域内的轨迹。在稳定和时变的流场中，生成的轨迹分别被称为流线和路径线。这些轨迹在视觉上反映了流场的局部或全局变化，并帮助用户提取流场中固有隐藏的重要特征。
 
-![基于粒子追踪的可视化](/../../figures/visualization/sci/particle_tracing.png)
+![基于粒子追踪的可视化](/../../img/visualization/sci/particle_tracing.png)
 
 **点噪声法**
 
 接下来我们介绍稠密模式的可视化。稠密是指连续的，建立在基于纹理的技术之上的可视化技术。根据矢量场的局部特性进行连续化的扩展，然后渲染。适合2D和3D的物体表面，但不适合体渲染。具体算法有点噪声（Spot noise），用于矢量场可视化通过在场中的随机位置插入带有随机强度的扭曲点来生成，以及线性积分卷积算法LIC（Line Integral Convolution）以矢量场和白噪声纹理作为输入来进行绘制。
 
-![点噪声法来可视化一个标量场，(a) value. (b) gradients, (c) flow, (d) velocity potential](/../../figures/visualization/sci/spotnoise.png)
+![点噪声法来可视化一个标量场，(a) value. (b) gradients, (c) flow, (d) velocity potential](/../../img/visualization/sci/spotnoise.png)
 
 点噪声法使用随机分布的点（即"斑点"）来可视化向量场，尤其是流体流动。其核心思想是通过噪声模式来展示流场的特性，使观察者能够直观地理解流动的方向和强度。斑点是随机分布在整个流场中的小点。它们可以被表示为噪声函数 $N(x, y)$，其中 $x, y$ 是流场中的位置坐标。斑点的密度和分布通常与流场的速度或其他物理量相关。例如，可以使用速度向量场 $\mathbf{V}(x, y)$ 来调整斑点密度，使得流速大的区域斑点更密集。
 
@@ -199,7 +199,7 @@ $$
 
 在引入LIC之前，我们先介绍图线和纹理之间的卷积融合。数字微分法（Digital Differential Analyzer, DDA）是一种用于栅格化直线段的技术，即将数学上的连续直线转换为像素网格上的近似表示。通过将曲线进行栅格化，然后和背景纹理进行求卷积，可以得到包含两者信息的融合。DDA-Concolution算法的流程如下图所示：
 
-![数字微分卷积法的操作流程](/../../figures/visualization/sci/ddac.png)
+![数字微分卷积法的操作流程](/../../img/visualization/sci/ddac.png)
 
 对于DDAC算法，假设速度场近似成直线效果还好，但是对于曲率半径很小的点不准确。而且本身简单地应用卷积，自带一个去噪平均化效果，高频的会看不出，造成信息频率缺失不平衡。还有aliasing的问题，受制于分辨率限制，导致可能会有不对称的结果。因此后续会提出LIC算法来修缮上述问题。
 
@@ -233,9 +233,9 @@ $$
 
 我们引用[此网站](http://www.zhanpingliu.org/Research/FlowVis/LIC/LIC.htm)的LIC的分析来总结算法。此博客同时给出了其他经典的流场可视化实现例子，感兴趣的同学请自行阅读。
 
-![LIC类似于一堆细沙被强风吹散](/../../figures/visualization/sci/lic1.png)
+![LIC类似于一堆细沙被强风吹散](/../../img/visualization/sci/lic1.png)
 
-![LIC算法流程](/../../figures/visualization/sci/lic.png)
+![LIC算法流程](/../../img/visualization/sci/lic.png)
 
 在传统的 LIC 方法中，每个像素点的计算都是独立的，而 TexMap LIC 则通过将 LIC 运算映射到纹理空间中来优化这一过程。这种方法使得 LIC 能够更好地利用现代图形硬件的能力，尤其是在处理大规模或复杂的矢量场数据时，能够显著提高渲染速度和图像质量。Volume LIC 是将 LIC 方法扩展到三维空间的一种技术，用于三维矢量场的可视化。它通过在体积数据中沿着矢量流线进行积分卷积，生成能够表现三维流动特性的图像。
 

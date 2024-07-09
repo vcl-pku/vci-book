@@ -21,33 +21,33 @@ $$
 
 查找表的更通用形式被称为传递函数。传递函数是任何将标量值映射到颜色规格的表达式。
 
-![颜色映射表的形式](/../../figures/visualization/sci/colormapping.png)
+![颜色映射表的形式](/../../img/visualization/sci/colormapping.png)
 
 
 考虑到映射得到的颜色如果跃变过于显著会过于尖锐，可以按照一定的分布来呈现，参考图。
 
-![映射得到的颜色的分布](/../../figures/visualization/sci/rgb_color_mapping.png)
+![映射得到的颜色的分布](/../../img/visualization/sci/rgb_color_mapping.png)
 
 
 颜色映射的一个自然扩展是等高线绘制。当我们看到一个用数据值着色的表面时，眼睛常常将颜色相近的区域区分为不同的区域。当我们绘制等高线时，实际上就是在构造这些区域之间的边界。特定的边界可以表示为两个区域 $F(x) < c$ 和 $F(x) > c$ 之间的 $n$ 维分隔面，其中 $c$ 是等高线值，$x$ 是数据集中的 $n$ 维点。
 
-![一个简单的等值线测绘示意图](/../../figures/visualization/sci/isometric.png)
+![一个简单的等值线测绘示意图](/../../img/visualization/sci/isometric.png)
 
 
 考虑这幅图中显示的 2D 结构化网格。标量值显示在定义网格的点旁边。绘制等高线始终是从指定定义要生成的等高线或表面的等高线值开始的。为了生成等高线，必须使用某种形式的插值。这是因为我们在数据集中有一组离散的（样本）点的标量值，而我们的等高线值可能位于点值之间。由于最常见的插值技术是线性的，我们通过沿边缘进行线性插值来在等高线表面上生成点。例如，如果一条边在其两个端点的标量值为10和0，并且我们试图生成值为5的等高线，则边缘插值计算等高线通过边缘的中点。一旦在单元格边缘生成了点，我们就可以使用几种方法将这些点连接成等高线。
 
 把这个过程推广到一个大一点的2D温度场中，将会得到下面的等温线结果。
-![2D温度场的等温线可视化](/../../figures/visualization/sci/isometric.png)
+![2D温度场的等温线可视化](/../../img/visualization/sci/isometric.png)
 
 对于等值线的连接一种方法是使用分而治之的技术，独立处理每个单元格。这在二维中称为“行进方块算法”（Marching Squares），在三维中称为“行进立方体算法”（Marching Cubes）。这些技术的基本假设是，等高线只能以有限的方式通过一个单元格。拓扑状态的数量取决于单元格顶点的数量以及顶点与等高线值相对的内部/外部关系的数量。如果顶点的标量值大于等高线的标量值，则认为该顶点在等高线内部。标量值小于等高线值的顶点则被认为在等高线外部。对于一个方形单元格，有16种组合。通过将每个顶点的状态编码为一个二进制数字，可以计算出案例表中的索引。对于三维数据，考虑到立方体单元格中有八个点，有256种不同的标量值组合。但是由于旋转平移对称性可以进一步缩减案例中的数目。由于我们这里主要讲可视化算法，关于Marching Cubes(行进立方体)的算法流程请参。图给出一些Marching Cubes算法的结果。
 
-![行进立方体算法的一些结果](/../../figures/visualization/sci/marching_cubes.png)
+![行进立方体算法的一些结果](/../../img/visualization/sci/marching_cubes.png)
 
 ## 矢量可视化
 
 对于矢量场的可视化，常见的方法是使用箭头来表示矢量的方向和大小。如图\ref{fig:vec_field}展示了一些常用的箭头和用箭头表示的矢量场。
 
-![常用来描述矢量场的箭头和可视化的效果](/../../figures/visualization/sci/glyphs_vec_field.png)
+![常用来描述矢量场的箭头和可视化的效果](/../../img/visualization/sci/glyphs_vec_field.png)
 
 设 $\mathbf{V} $ 为定义在域 $D$ 上的矢量场，其中 $\mathbf{V}: D \rightarrow \mathbb{R}^n$（通常 $n$ = 2 或 3 ），表示每个点 $x \in D$ 的矢量值。
 
@@ -74,15 +74,15 @@ $$
 
 为了构建流线，你需要选择一个初始点 $\mathbf{F}(s_0)$ 并积分上述方程。这可以通过数值方法实现，如欧拉方法或龙格-库塔方法。流线可视化在流体动力学、气象学和海洋学等领域中非常有用，它们帮助揭示流体流动的模式和结构。在动态矢量场中，流线可以用来表示特定时间点的流动特性，但不应用于展示流体随时间的实际运动路径。对于展示随时间变化的流动，通常使用路径线（Pathlines）或踪迹线（Streaklines），如图。
 
-![流线描述动态矢量场的效果](/../../figures/visualization/sci/steamlines.png)
+![流线描述动态矢量场的效果](/../../img/visualization/sci/steamlines.png)
 
 其他的一些流场的可视化例子如图 2 展示。
 
-![Jarke J. van Wijk, Image Based Flow Visualization ©http://www.win.tue.nl/~vanwijk/ibfv/](/../../figures/visualization/sci/flow_vis.png)
+![Jarke J. van Wijk, Image Based Flow Visualization ©http://www.win.tue.nl/~vanwijk/ibfv/](/../../img/visualization/sci/flow_vis.png)
 
 标量场也常和矢量场叠加在一起来更清楚的表示可视化效果，一个常见的组合是天气预报时的温度场和风场，如图 3。
 
-![A wind and temperature field depicted by (a) traditional wind barbs and (b) a combination of streamlines and wind barbs. From D. H. F. Pilar and C. Ware, “Representing flow patterns by using streamlines with glyphs,” IEEE Trans. Vis. Comput. Graph., vol. 19, no. 8, pp. 1331–1341, Aug. 2013.](/../../figures/visualization/sci/scalar_and_vector.png)
+![A wind and temperature field depicted by (a) traditional wind barbs and (b) a combination of streamlines and wind barbs. From D. H. F. Pilar and C. Ware, “Representing flow patterns by using streamlines with glyphs,” IEEE Trans. Vis. Comput. Graph., vol. 19, no. 8, pp. 1331–1341, Aug. 2013.](/../../img/visualization/sci/scalar_and_vector.png)
 
 ## 张量场可视化
 
@@ -94,10 +94,10 @@ $$
 
 每种方法都有其特定的应用场景和优势，选择哪一种取决于要可视化的数据类型和需要强调的数据特征。例如，箭头方案适合强调数据点的局部特征，而纹理和几何方案则更适合展示数据的整体流动和结构。图 1 和 图 2 给出相应的张量可视化效果。
 
-![通过箭头来可视化核磁共振图像。](/../../figures/visualization/sci/tensor1.png)
+![通过箭头来可视化核磁共振图像。](/../../img/visualization/sci/tensor1.png)
 
 
-![三种张量可视化的例子图。](/../../figures/visualization/sci/tensor_types.png)
+![三种张量可视化的例子图。](/../../img/visualization/sci/tensor_types.png)
 
 
 ## 表面数据和体数据可视化
@@ -116,4 +116,4 @@ $$
 
 鉴于前面章节已经介绍了表面网格和体积网格，我们便只展示一些可视化结果图，如图 2。
 
-![左图：使用 3D 等值面来可视化标量场，右图：对于生物组织的体渲染。](/../../figures/visualization/sci/surface_vs_volume.png)
+![左图：使用 3D 等值面来可视化标量场，右图：对于生物组织的体渲染。](/../../img/visualization/sci/surface_vs_volume.png)
