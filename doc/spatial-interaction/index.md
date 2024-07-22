@@ -12,7 +12,6 @@
 ````toc
 :maxdepth: 2
 
-interaction3d-3din2d
 interaction3d-input
 interaction3d-method
 summary
