@@ -27,13 +27,9 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install ghp-import
-      - name: Conda info
-        run: |
-          conda info
-          conda list
       - name: Build
         run: |
-          build html
+          make html
       - name: Github
         run: |
           git config --global user.name "GitHub Actions"
