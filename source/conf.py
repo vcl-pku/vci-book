@@ -33,6 +33,10 @@ numfig_format = {
 	'section': '§%s'
 }
 
+# -- Build Options -----------------------------------------------------------
+
+html_favicon = '_static/favicon.png'
+
 # -- Options for Math --------------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-math
 
