@@ -1,0 +1,45 @@
+name: sphinx
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: s-weigand/setup-conda@v1
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+      - name: Config
+        run: |
+          pip install -r requirements.txt
+          pip install ghp-import
+      - name: Conda info
+        run: |
+          conda info
+          conda list
+      - name: Build
+        run: |
+          build html
+      - name: Github
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+      - name: Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ghp-import -n -p -f build/html
