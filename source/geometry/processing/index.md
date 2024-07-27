@@ -4,5 +4,10 @@
 ```{toctree}
 :maxdepth: 2
 
+ddg
+mesh-smoothing
+mesh-simplification
+mesh-subdivision
+mesh-editing
 summary
 ```

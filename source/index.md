@@ -28,7 +28,10 @@ getting-started/curves/index
 :caption: II. 几何建模
 
 geometry/basics/index
+geometry/representation/index
+geometry/reconstruction/index
 geometry/processing/index
+geometry/transformation/index
 ```
 
 ```{toctree}

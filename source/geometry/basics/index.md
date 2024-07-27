@@ -4,5 +4,9 @@
 ```{toctree}
 :maxdepth: 2
 
+shape-representation
+shape-modeling
+shape-processing
+shape-rendering
 summary
 ```
