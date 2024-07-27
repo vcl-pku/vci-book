@@ -6,9 +6,9 @@
 
 ### 环境配置
 
-推荐在 `conda` 环境下配置本地部署所需的依赖项，其中 Python 版本须大于等于 3.9，`conda` 的安装请参考 [miniconda 官方网站](https://docs.anaconda.com/miniconda/)。安装完毕后，以 Python 3.9 为例，应在 `shell` 中依次执行下列语句：
+推荐在 `conda` 环境下配置本地部署所需的依赖项，其中 Python 版本须大于等于 3.10，`conda` 的安装请参考 [miniconda 官方网站](https://docs.anaconda.com/miniconda/)。安装完毕后，以 Python 3.10 为例，应在 `shell` 中依次执行下列语句：
 ```shell
-conda create -n sphinx -y python=3.9
+conda create -n sphinx -y python=3.10
 conda activate sphinx
 ```
 随后将本仓库下载到本地，并安装相应依赖项：
@@ -46,13 +46,13 @@ sphinx-autobuild source build/html
 (chap-rendering-basics)=
 # 场景渲染基础
 
-````toc
+```{toctree}
 :maxdepth: 2
 
 rasterization
 ray-tracing
 summary
-````
+```
 `````
 其中，`(chap-rendering-basics)=` 用来向各级标题添加标签以便交叉引用，`rasterization`、`ray-tracing` 是该 *Chapter* 各 *Section* 的 Markdown 文件名（无需添加后缀名）。注意无论是 *Chapter* 还是 *Section*，最终显示在电子书目录中的名称都是其 Markdown 文件的一级标题。
 
