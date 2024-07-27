@@ -58,11 +58,11 @@ summary
 
 此外，各个 *Chapter* 及 *Section* 以及它们对应的目录或文件名也须遵循一定的规范：
 1. 每个 *Chapter* 的命名应完整、准确，如使用“几何变换”而非“变换”。
-2. 每个 *Chapter* 的目录名应在考虑 *Part* 目录名的基础上精炼、准确，如使用 `geometry/transformation` 而非 `geometry/geometric-transformation`。
-3. 每个 *Chapter* 的最后一个 *Section* 必须为“本章小结”，对应于 `summary.md`，总结、讨论、展望、本章引用信息、习题、参考文献等应位于此处。
+2. 每个 *Chapter* 的目录名应在考虑 *Part* 目录名的基础上精炼、准确，如使用 `geometry/transformation` 而非 `geometry/geometric-transformation`，使用 `rendering/textures` 而非 `rendering/texture-mapping`。
+3. 每个 *Chapter* 的最后一个 *Section* 必须为“本章小结”，对应于 `summary.md`，其中选择性包含“拓展阅读”、“开源与商业软件”、“总结与展望”、“习题”、“引用”、“参考文献”等内容。
 4. 每个 *Section* 的 Markdown 文件名应与其名称对应，但略去 *Part* 和 *Chapter* 中已有的内容。必要时使用通行的英文缩写。如“基于点云的表面重建”对应于 `geometry/reconstruction/point-cloud.md`，“光滑粒子流体”对应于 `sph-method.md` 等。
 5. 各级标题的标签命名由小写字母、数字和短横线组成，不使用下划线。
-6. 各级标题的标签命名应完整、准确，包含 `part_name` 和 `chap_name`，方便索引，避免冲突。如 `chap-[part_name]-[chap_name]`、`sec-[part_name]-[chap_name]-[sec_name]`、`subsec-[part_name]-[chap_name]-[subsec_name]`。
+6. 各级标题的标签命名应完整、准确，包含 `part_name` 和 `chap_name`，用短横线连接，方便索引，避免冲突。如 `chap-[part_name]-[chap_name]`、`sec-[part_name]-[chap_name]-[sec_name]`、`subsec-[part_name]-[chap_name]-[subsec_name]`。允许 `part_name`、`chap_name`、`sec_name` 或 `subsec_name` 本身包含短横线，无需省略或用别的符号代替。
 
 ### 术语和人名
 
