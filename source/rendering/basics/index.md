@@ -1,8 +1,11 @@
 (chap-rendering-basics)=
-# 场景渲染基础
+# 渲染基础
 
 ```{toctree}
 :maxdepth: 2
 
+context
+description
+paradigm
 summary
 ```
