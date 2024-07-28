@@ -63,5 +63,7 @@ animation/fluids/index
 visualization/basics/index
 visualization/scientific/index
 visualization/informational/index
+visualization/analytics/index
 interaction/basics/index
+interaction/spatial/index
 ```

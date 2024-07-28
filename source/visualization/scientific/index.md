@@ -4,5 +4,8 @@
 ```{toctree}
 :maxdepth: 2
 
+visualization
+types
+technology
 summary
 ```
