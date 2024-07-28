@@ -6,8 +6,6 @@
 
 overview
 data
-design
-evaluation
 interaction
 summary
 ```
