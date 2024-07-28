@@ -4,7 +4,7 @@
 ```{toctree}
 :maxdepth: 2
 
-point-cloud-recon
-surface-recon
+point-cloud
+surface
 summary
 ```

@@ -4,8 +4,8 @@
 ```{toctree}
 :maxdepth: 2
 
-2d-transformation
-3d-transformation
+2d
+3d
 projection
 summary
 ```
