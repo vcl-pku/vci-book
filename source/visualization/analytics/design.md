@@ -28,7 +28,7 @@
 
 了解要处理的数据类型是开始选择可视化类型的关键。不同类型的数据需要不同类型的可视化方法。定量数据，如数字和测量值，通常适合使用柱状图、折线图或散点图来表示。而定性数据，如类别或标签，更适合使用饼图、条形图或词云等可视化方式。时序数据，即随时间变化的数据，如股价、气温等，适合用瀑布图、折线图、时间轴、流程图等方式可视化。
 
-![2014年美国新闻热度可视化 ©https://echeloninsights.tumblr.com/post/105911206078/theyearinnews-2014](/../../img/visualization/basis/theyearinnews20141.png)
+<!-- ![2014年美国新闻热度可视化 ©https://echeloninsights.tumblr.com/post/105911206078/theyearinnews-2014](/../../img/visualization/basis/theyearinnews20141.png) -->
 
 **目标驱动选择**
 
@@ -44,7 +44,7 @@
 
 如图所示，单个可视化文件中的过多数据会立即使观看者不知所措。当可视化包含太多数据时，信息就会淹没，并且数据会融化成大多数观众无法忍受的图形。
 
-![单个可视化文件中的过多数据会立即使观看者不知所措。当可视化包含太多数据时，信息就会淹没，并且数据会融化成大多数观众无法忍受的图形](/../../img/visualization/basis/WrongVis1.png)
+<!-- ![单个可视化文件中的过多数据会立即使观看者不知所措。当可视化包含太多数据时，信息就会淹没，并且数据会融化成大多数观众无法忍受的图形](/../../img/visualization/basis/WrongVis1.png) -->
 
 **一致性**
 
@@ -60,7 +60,7 @@
 
 如图所示，这里的三维图形就造成了遮挡。
 
-![这里的三维图形造成了遮挡](/../../img/visualization/basis/WrongVis0.jpg)
+<!-- ![这里的三维图形造成了遮挡](/../../img/visualization/basis/WrongVis0.jpg) -->
 
 
 **色彩和标签**
@@ -80,17 +80,17 @@
 
 有许多可视化工具可供选择，具体取决于数据类型和可视化需求。以下是一些常见的可视化工具：
 
-![世界人口数量条形图 ©Apache ECharts](/../../img/visualization/basis/WorldPopuBar.png)
+<!-- ![世界人口数量条形图 ©Apache ECharts](/../../img/visualization/basis/WorldPopuBar.png) -->
 
-![空气质量折线图 ©Apache ECharts](/../../img/visualization/basis/LineAQI.png)
+<!-- ![空气质量折线图 ©Apache ECharts](/../../img/visualization/basis/LineAQI.png) -->
 
-![男女身高体重分布图](/../../img/visualization/basis/MaleFemale.png)
+<!-- ![男女身高体重分布图](/../../img/visualization/basis/MaleFemale.png) -->
 
-![饼状图](/../../img/visualization/basis/pie-nest.png)
+<!-- ![饼状图](/../../img/visualization/basis/pie-nest.png) -->
 
-![工资使用情况图 ©Reddit](/../../img/visualization/basis/HowToIncomeSankey.png)
+<!-- ![工资使用情况图 ©Reddit](/../../img/visualization/basis/HowToIncomeSankey.png) -->
 
-![美国国会议员路径图 ©The New York Times](/../../img/visualization/basis/AmericaPathToCongress.PNG)
+<!-- ![美国国会议员路径图 ©The New York Times](/../../img/visualization/basis/AmericaPathToCongress.PNG) -->
 
 
 - 条形图和柱状图：用于比较不同类别的数据，如图 1。

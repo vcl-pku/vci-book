@@ -84,9 +84,9 @@
 
 图1和图2给出一个文本网络的例子。
 
-![原始文本](/../../img/visualization/basis/InfoVisTextNetworkGroupVar.png)
+<!-- ![原始文本](/../../img/visualization/basis/InfoVisTextNetworkGroupVar.png) -->
 
-![文本网络](/../../img/visualization/basis/TextNetworkVis.png)
+<!-- ![文本网络](/../../img/visualization/basis/TextNetworkVis.png) -->
 
 **文本时间轴可视化（Text Timeline Visualization）**
 
@@ -96,7 +96,7 @@
 
 文本时间轴可视化在多个领域中都有应用，包括新闻分析、历史研究、社交媒体分析、品牌监测和事件追踪。它可以帮助用户更全面地理解文本数据的演变和变化，以便支持决策制定、趋势分析和见解发现。文本时间轴可视化通常需要使用时间序列数据的处理和可视化技术，以有效地呈现和分析时间相关的文本数据。
 
-![文本时间轴https://asana.com/ ](/../../img/visualization/basis/TimeLineVisualize.png)
+<!-- ![文本时间轴https://asana.com/ ](/../../img/visualization/basis/TimeLineVisualize.png) -->
 
 **主题建模和热度图（Topic Modeling and Heatmaps）**
 
