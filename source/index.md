@@ -24,7 +24,7 @@ getting-started/display/index
 getting-started/drawing-2d/index
 getting-started/anti-aliasing/index
 getting-started/curves/index
-getting-started/image/index
+getting-started/images/index
 ```
 
 ```{toctree}
@@ -42,10 +42,13 @@ geometry/transformation/index
 ```{toctree}
 :maxdepth: 2
 :numbered:
-:caption: III. 场景渲染
+:caption: III. 渲染
 
 rendering/basics/index
-rendering/global/index
+rendering/shading/index
+rendering/textures/index
+rendering/global-illum/index
+rendering/acc-structs/index
 ```
 
 ```{toctree}

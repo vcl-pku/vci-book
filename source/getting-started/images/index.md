@@ -1,4 +1,4 @@
-(chap-getting-started-image)=
+(chap-getting-started-images)=
 # 图像处理
 
 ```{toctree}
