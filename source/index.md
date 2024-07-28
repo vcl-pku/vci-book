@@ -16,7 +16,7 @@ introduction/index
 ```{toctree}
 :maxdepth: 2
 :numbered:
-:caption: I. 二维图形入门
+:caption: I. 入门：二维图形
 
 getting-started/basics/index
 getting-started/color/index
