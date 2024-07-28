@@ -16,10 +16,15 @@ introduction/index
 ```{toctree}
 :maxdepth: 2
 :numbered:
-:caption: I. 可视计算入门
+:caption: I. 二维图形入门
 
 getting-started/basics/index
+getting-started/color/index
+getting-started/display/index
+getting-started/drawing-2d/index
+getting-started/anti-aliasing/index
 getting-started/curves/index
+getting-started/image/index
 ```
 
 ```{toctree}
