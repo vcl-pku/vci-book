@@ -4,5 +4,8 @@
 ```{toctree}
 :maxdepth: 2
 
+fluid-physics
+sph-method
+eulerian-fluid
 summary
 ```

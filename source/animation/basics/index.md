@@ -4,5 +4,7 @@
 ```{toctree}
 :maxdepth: 2
 
+rotation-representation
+kinematics
 summary
 ```
