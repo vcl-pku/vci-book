@@ -57,6 +57,7 @@ rendering/acc-structs/index
 :caption: IV. 动态生成
 
 animation/basics/index
+animation/kinematic-principles/index
 animation/character/index
 animation/elastomers/index
 animation/rigid-bodies/index

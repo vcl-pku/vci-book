@@ -1,10 +1,16 @@
 (chap-animation-basics)=
 # 动态生成基础
 
+在前面的部分中，我们关注的都是**静态**的场景，而在本部分我们将学习如何生成**动态**的场景序列。与之前内容最大的不同在于，动态生成会引入一个新的维度——时间；物体状态随着时间而变化，才能够让场景“活”起来。我们在自然界中看到的绝大多数物体的运动都是连续的，即，若将物体的状态（如位置、朝向、形状等）表示成关于时间的函数，那么这个函数在我们关注的一段时间区间 {math}`[t_l,t_r]` 内任意一点都是有定义的。然而，任何一段时间区间都会包含无穷多个时刻，我们无法使用计算机有限的内存精确地表达场景的运动。万幸的是，人类视觉对运动的感知能力也是有限的：视觉神经网络的视觉暂留（persistence of vision）特性会导致人类无法注意到过快的视觉变化，而频闪效应（stroboscopic effect）则表明物体的影像在以足够高的频率呈现给视觉系统时，人类将会从心理上产生对运动的感知。因此，我们只需要以足够高的频率采样时间区间 {math}`[t_l,t_r]` 得到一些离散的时刻 {math}`\{t_0,t_1,\cdots,t_{N-1}\}\subset[t_l,t_r]`，并表示出这些时刻下物体的状态，即可将问题转变成有限的规模了。
+
+> jr: 视觉暂留和频闪效应，二者都来自维基百科（https://en.wikipedia.org/wiki/Persistence_of_vision & https://en.wikipedia.org/wiki/Stroboscopic_effect）。
+
+为了得到一段视觉上连续的动画，我们需要对上述每一个时刻的场景都渲染成图像，这样的图像又称为帧（frame）。在动画或电影中，大量的帧会被快速地依次展现给观众，这个展现的速度由帧率（frame rate）定量地描述，帧率是指一秒钟显示的帧数（frame per second，FPS）。
+
 ```{toctree}
 :maxdepth: 2
 
-rotation-representation
-kinematics
+subjective
+physics
 summary
 ```
