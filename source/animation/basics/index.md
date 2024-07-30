@@ -5,7 +5,7 @@
 
 > jr: 视觉暂留和频闪效应，二者都来自维基百科（https://en.wikipedia.org/wiki/Persistence_of_vision & https://en.wikipedia.org/wiki/Stroboscopic_effect）。
 
-为了得到一段视觉上连续的动画，我们需要对上述每一个时刻的场景都渲染成图像，这样的图像又称为帧（frame）。在动画或电影中，大量的帧会被快速地依次展现给观众，这个展现的速度由帧率（frame rate）定量地描述，帧率是指一秒钟显示的帧数（frame per second，FPS）。
+为了得到一段视觉上连续的动画，我们需要对上述每一个时刻的场景都渲染成图像，这样的图像又称为帧（frame）。在动画或电影中，大量的帧会被快速地依次展现给观众，这个展现的速度由帧率（frame rate）定量地描述，帧率通常表示为一秒钟显示的帧数（frame per second，FPS）。
 
 ```{toctree}
 :maxdepth: 2
