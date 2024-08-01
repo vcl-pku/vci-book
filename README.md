@@ -64,6 +64,12 @@ summary
 5. 各级标题的标签命名由小写字母、数字和短横线组成，不使用下划线。
 6. 各级标题的标签命名应完整、准确，包含 `part_name` 和 `chap_name`，用短横线连接，方便索引，避免冲突。如 `chap-[part_name]-[chap_name]`、`sec-[part_name]-[chap_name]-[sec_name]`、`subsec-[part_name]-[chap_name]-[subsec_name]`。允许 `part_name`、`chap_name`、`sec_name` 或 `subsec_name` 本身包含短横线，无需省略或用别的符号代替。
 
+### 中英文混排
+
+无论是标题还是正文，请在中文（不含标点）与拉丁字母、希腊字母、公式、数字之间增加空格。使用标点符号的场合（包括公式末尾），请一律使用中文标点。例如：
+> - 第一台电子计算机是发明于 1946 年的 ENIAC。
+> - 计算机图形学的顶级会议包括 SIGGRAPH 和 SIGGRAPH Asia。
+
 ### 术语和人名
 
 对于不含人名的学术名词，应当使用中文，并在首次（不含各级标题，下同）出现时，括弧标注其英文形式，必要时可以逗号标注简写。注意标点符号均应使用中文模式（全角）。例如：
@@ -90,13 +96,74 @@ summary
 
 除上述标注规范外，本书计划设立专门的术语及人名对照表。
 
-### 图表
+### 图片
 
-TODO: 添加图表的编写及引用格式。
+请将各 *Chapter* 的图片文件存放于 `source/[part_name]/[chap_name]/fig` 目录下，并以 `[part_name]-[chap_name]-[fig_name].[extension]` 的格式命名以避免冲突（在编译时，所有的图片将被统一复制到相同的目录中）。
+
+插入带标题图片的详细格式请参考 `MysT Parser` 的[官方文档](https://myst-parser.readthedocs.io/en/latest/syntax/images_and_figures.html#figures-images-with-captions)。Markdown 文件中常用的图片插入方式如下：
+````markdown
+```{figure} fig/fun-fish.png
+:scale: 50 %
+:name: fig-[part_name]-[chap_name]-[fig_name]
+
+图片的标题（甚至可以是一段话）。
+```
+````
+其中 `:scale:` 用以控制图片的缩放比例，可以用 `:width:` 或 `:height:` 替代。`:name:` 指定图片的标签，用以进行交叉引用。
+
+### 表格
+
+插入带标题表格的详细格式请参考 `MysT Parser` 的[官方文档](https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#table-with-captions)。Markdown 文件中常用的表格插入方式如下：
+````markdown
+```{table} 表格的标题
+:widths: auto
+:align: center
+:name: tab-[part_name]-[chap_name]-[code_name]
+
+| foo | bar |
+| --- | --- |
+| baz | bim |
+```
+````
+其中 `:widths: auto` 指定表格的宽度为自动，`:align:` 标记表格的位置为居中。`:name:` 指定表格的标签，用以进行交叉引用。
+
+### 代码块
+
+插入带标题代码块的详细格式请参考 `MysT Parser` 的[官方文档](https://myst-parser.readthedocs.io/en/latest/syntax/code_and_apis.html#adding-a-caption)。Markdown 文件中常用的代码块插入方式如下：
+````markdown
+```{code-block} python
+:caption: 代码块的标题
+:lineno-start: 1
+:emphasize-lines: 2,3
+:name: `code-[part_name]-[chap_name]-[code_name]`
+
+a = 1
+b = 2
+c = 3
+```
+````
+其中 `:lineno-start:` 启用行号并设置起始值，`:emphasize-lines:` 用以标记需要高亮的行（用逗号隔开）。`:name:` 指定代码块的标签，用以进行交叉引用。
+
+### 交叉引用
+
+图片、表格、代码块、章节均可进行交叉引用。其引用格式均为 `` {numref}`ref_name` ``，`ref_name` 可以是上述对象的标签名，在遵循本规范的前提下，也即 `chap-`、`sec-`、`fig-`、`tab-`、`code-` 开头的各类 `name`。
+
+使用 `` {numref}`ref_name` `` 产生的引用链接会自动包含“图”、“表”等前缀，无需自行输入。但请注意依照中英文混排的要求，必要时在引用之后加入空格。
 
 ### 数学
 
-TODO: 添加数学公式的编写及引用格式。
+插入数学的详细格式请参考 `MysT Parser` 的[官方文档](https://myst-parser.readthedocs.io/en/latest/syntax/math.html)。推荐使用 `$...$` 插入行内公式，使用下列方式插入行间公式：
+```markdown
+$$
+(a + b)^2  &=  (a + b)(a + b) \\
+           &=  a^2 + 2ab + b^2
+$$ ([part_name]-[chap_name]-[eq_name])
+```
+无需使用 `aligned` 环境即可实现简单的对齐功能。末尾括号中的内容指定的是公式的标签。尽管公式标签可以省略，但请注意，只有有标签的公式才会被编号。因此一般而言建议对所有公式增加标签。
+
+公式的标签是独立于前述图、表、章节、代码块的，因此无需增加 `eq-` 作为前缀，也不使用 `{numref}` 进行引用。直接使用 `` {eq}`ref_name` `` 即可。
+
+此外，请使用 `\boldsymbol{}` 标记所有矢量与张量，使用 `\mathrm{}` 标记涉及英文字母的常量（如自然底数等）、数学运算（如取最大值或转置等），以及非表示变量的上下标（例如 `$E_{\mathrm{p}}` 表示势能）。
 
 ### 参考文献
 
@@ -115,8 +182,7 @@ TODO: 添加数学公式的编写及引用格式。
   series = {SIGGRAPH '99}
 }
 ```
-
-TODO: 添加参考文献的引用格式。
+并使用 `` {cite}`Stam1999` `` 加以引用。请注意引用与中文（除标点符号外）之间应有空格隔开。
 
 在每章最后的“本章小结”一节中，应在末尾添加如下语句以产生参考文献列表：
 
@@ -125,3 +191,14 @@ TODO: 添加参考文献的引用格式。
 
 :bibliography:`../../reference.bib`
 ```
+
+### 定理环境
+
+请参考 `sphinx-proof` 插件的[官方文档](https://sphinx-proof.readthedocs.io/en/latest/)，注意标签在命名时应遵循类似图表的规则。即 `thm-{part_name}-{sec_name}-{thm_name}`、`prf-{part_name}-{sec_name}-{prf_name}` 等。
+证明、定理、公理、引理、定义、准则、评注、猜想、推论、算法、示例、性质、观察、命题、假设的前缀分别为 `prf-`、`thm-`、`axm-`、`lem-`、`def-`、`crt-`、`rmk-`、`conj-`、`cor-`、`alg-`、`exa-`、`prop-`、`obs-`、`prps-`、`asm-`。
+
+请注意，`sphinx-proof` 插件尚不支持中文本地化，因此产生的引用文本仍为英文，请遵循中英文混排规则。
+
+### 提示环境
+
+请参考 `MysT Parser` 的[官方文档](https://myst-parser.readthedocs.io/en/latest/syntax/admonitions.html)。可以实现彩色的提示块、折叠块、选项卡等功能。
