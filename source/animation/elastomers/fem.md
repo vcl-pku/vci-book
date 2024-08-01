@@ -1,3 +1,4 @@
+(sec-animation-elastomers-fem)=
 # 有限元方法
 
 ## 物理模型
