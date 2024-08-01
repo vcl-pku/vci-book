@@ -167,7 +167,7 @@ $$ ([part_name]-[chap_name]-[eq_name])
 
 ### 参考文献
 
-参考文献条目位于 `reference.bib` 中，条目语法与 BibTeX 相同，例如：
+参考文献条目位于 `source/[part_name]/[chap_name]/ref.bib` 中，条目语法与 BibTeX 相同，例如：
 
 ```bibtex
 @inproceedings{Stam1999,
@@ -184,13 +184,15 @@ $$ ([part_name]-[chap_name]-[eq_name])
 ```
 并使用 `` {cite}`Stam1999` `` 加以引用。请注意引用与中文（除标点符号外）之间应有空格隔开。
 
-在每章最后的“本章小结”一节中，应在末尾添加如下语句以产生参考文献列表：
-
-```markdown
+在每个 *Chapter* 最后的 *Section*（本章小结）中，应在末尾添加如下语句以产生参考文献列表：
+````markdown
 ## 参考文献
 
-:bibliography:`../../reference.bib`
+```{bibliography} ref.bib
+:filter: {"doc1", "doc2"} & docnames
 ```
+````
+其中 `:filter:` 语句中的 `doc1`、`doc2` 等请使用本 `Chapter` 的 `Markdown` 文件名替代（不含后缀名）。
 
 ### 定理环境
 
