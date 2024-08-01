@@ -17,7 +17,8 @@ release = '0.1'
 extensions = [
     'myst_parser',
     'sphinx_multitoc_numbering',
-    'sphinxcontrib.bibtex'
+    'sphinxcontrib.bibtex',
+	'sphinx_subfigure'
 ]
 
 templates_path = ['_templates']
