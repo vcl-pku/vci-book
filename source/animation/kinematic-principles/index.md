@@ -1,4 +1,4 @@
-(chap-animation-kinematic-principles)=
+(chap-animation-kinematic_principles)=
 # 运动学原理
 
 ```{toctree}

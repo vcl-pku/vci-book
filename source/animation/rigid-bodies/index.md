@@ -1,4 +1,4 @@
-(chap-animation-rigid-bodies)=
+(chap-animation-rigid_bodies)=
 # 刚体模拟
 
 ```{toctree}
