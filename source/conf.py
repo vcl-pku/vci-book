@@ -55,7 +55,8 @@ html_title = '可视计算与交互概论'
 bibtex_bibfiles = ['reference.bib']
 
 myst_enable_extensions = [
-    "dollarmath"
+    "dollarmath",
+	"amsmath"
 ]
 
 myst_dmath_double_inline = True
