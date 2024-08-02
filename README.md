@@ -111,6 +111,50 @@ summary
 ````
 其中 `:scale:` 用以控制图片的缩放比例，可以用 `:width:` 或 `:height:` 替代。`:name:` 指定图片的标签，用以进行交叉引用。
 
+#### 子图
+
+子图是通过 `subfigure` 环境插入的，如下方例子所示：
+`````markdown
+````{subfigure} AB|CD|EF
+:layout-sm: A|B|C|D|E|F
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-basics-physics_demo
+:width: 100 %
+
+```{image} fig/animation-basics-rigid_demo.png
+:alt: 刚体模拟
+```
+
+```{image} fig/animation-basics-elastic_demo.png
+:alt: 弹性体模拟
+```
+
+```{image} fig/animation-basics-thinshell_demo.png
+:alt: 布料模拟
+```
+
+```{image} fig/animation-basics-fluid_demo.png
+:alt: 烟雾模拟
+```
+
+```{image} fig/animation-basics-magnetic_demo.png
+:alt: 磁流体模拟
+```
+
+```{image} fig/animation-basics-surfacetension_demo.png
+:alt: 流体表面现象模拟
+```
+
+各种物理现象的模拟
+````
+`````
+其中在 `{subfigure}` 后跟的字符串指定了子图的排布方式，字符串中的每一个大写字母对应于一张子图，同一个大写字母可以出现多次，表明对应的子图所覆盖的区域，`|` 代表换行符；`:layout-sm:` 为额外指定的针对小屏幕的排布方式，格式与 `{subfigure}` 后跟的字符串相同；`:gap:` 用于指定子图的间距；`:subcaptions:` 可以是 `below` 或 `above`，分别表示子图的标题在图片的下方或上方；`:name:` 指定整个图片的标签；`:width:` 指定整个图片的宽度，可以以像素为单位，也可以是百分比，当是百分比时表示的是整个图片的宽度占屏幕宽度的比例。更多参数的含义可见 [sphinx subfigures 文档](https://sphinx-subfigure.readthedocs.io/en/latest/)。
+
+在参数之后跟有若干个嵌套的 `image` 环境，与 `figure` 环境类似，但其只能包含用于指定子图标题的 `:alt:` 参数，此外不能有任何多余信息。这也导致我们无法直接交叉引用一个子图，一个简单的解决办法是在子图标题前手动加入 `(a)`、`(b)`、`(c)` 等序号，并在交叉引用整张图片后手动打出相应的子图序号。
+
+最后是整张图片的标题，与 `figure` 环境一样，也可以是任何使用 markdown 语法的一段话。
+
 ### 表格
 
 插入带标题表格的详细格式请参考 `MysT Parser` 的[官方文档](https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#table-with-captions)。Markdown 文件中常用的表格插入方式如下：
