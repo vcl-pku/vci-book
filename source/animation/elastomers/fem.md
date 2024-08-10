@@ -40,6 +40,48 @@
 
 ## 物理模型
 
+在本章中，我们需要借助连续介质力学（continuum mechanics）中的一些概念来刻画弹性体的物理动态。在接触一个新的力学分支时，我们应当先了解它的语言，理解它描述各种力学概念的方式，随后才能够应用它完成我们想要的任务。对于弹性体来讲，我们先从其运动学开始，理解如何描述一个弹性体的形变；随后再进入到动力学，从弹性体的能量到它的内力；再将二者联系起来，从而理解力如何影响弹性体的运动。
+
+### 描述形变
+
+在弹簧质点系统中，我们通过记录每个质点的位置来描述弹性体的当前形状；但对于一个连续介质，存在不可数个质点，因此我们也应当将形变的描述方式拓展成场，将未形变状态下每一个点的位置都映射成形变后的位置。具体来讲，我们首先将未形变的弹性体放置于一个空间坐标系当中，并记其所占据的空间区域为 $\Omega$，这个区域又称为参考构型（reference configuration）；我们记参考构型内的点为 $\mathbf X$，该点在形变后的位置为 $\mathbf x$，定义变形函数（deformation function）
+
+$$
+\begin{aligned}
+\phi:\Omega&\to\mathbb R^3\\
+\mathbf X&\mapsto\mathbf x
+\end{aligned}
+$$
+
+即为对弹性体形变的描述。
+
+```{figure} fig/animation-elastomers-deform_map.png
+:width: 100 %
+:name: fig-animation-elastomers-deform_map
+
+参考构型 $\Omega$、形变前位置 $\mathbf X$、形变后位置 $\mathbf x$ 与变形函数 $\phi$ 的关系
+```
+
+> jr: {numref}`fig-animation-elastomers-deform_map` 需要重画。
+
+变形函数 $\phi$ 确实能够充分地表示出弹性体的形变，但作为一个**全局**的信息表示，它包含了过多的信息。我们马上就会看到，弹性体每一个点的能量与内力只由其**局部**的形变所决定。因此，在连续介质力学中会引入形变梯度（deformation gradient）的概念，形变梯度一般记为 $\mathbf F$，其定义为变形函数 $\phi$ 关于形变前位置 $\mathbf X$ 的雅可比矩阵：
+
+$$
+\mathbf F\mathrel{\mathop:}=\frac{\partial(\phi_1,\phi_2,\phi_3)}{\partial(X_1,X_2,X_3)}=\begin{bmatrix}\frac{\partial\phi_1}{\partial X_1}&\frac{\partial\phi_1}{\partial X_2}&\frac{\partial\phi_1}{\partial X_3}\\\frac{\partial\phi_2}{\partial X_1}&\frac{\partial\phi_2}{\partial X_2}&\frac{\partial\phi_2}{\partial X_3}\\\frac{\partial\phi_3}{\partial X_1}&\frac{\partial\phi_3}{\partial X_2}&\frac{\partial\phi_3}{\partial X_3}\end{bmatrix}，
+$$ (eqn-deformation_gradient)
+
+其中 $\phi(\mathbf X)=\begin{pmatrix}\phi_1&\phi_2&\phi_3\end{pmatrix}^\top$，$\mathbf X=\begin{pmatrix}X_1&X_2&X_3\end{pmatrix}^\top$。我们知道导数可以很好地反映原函数的局部特征，所以在连续介质力学中形变梯度是最常用也最直观的刻画弹性体形变的量之一，变形函数反而没有那么重要。
+
+```{attention}
+由式 {eq}`eqn-deformation_gradient` 可见，形变梯度 $\mathbf F$ 是一个关于形变前坐标 $\mathbf X$ 的矩阵函数。
+```
+
+### 描述能量
+
+### 描述力
+
+### 能量与力的关系
+
 ## 空间离散化
 
 ## 数值求解算法
