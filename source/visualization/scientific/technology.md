@@ -7,9 +7,13 @@
 体渲染(Volume Rendering)是标量数据可视化中的一类经典技术。
 体渲染是指通过半透明的着色将三维标量场整体投射到二维屏幕的技术。与等值面提取特定层面不同,体绘制强调全局的整体感知。体绘制的关键是设计合理的"传输函数",将标量值映射到颜色和不透明度,模拟光线在介质中的吸收、发射和折射。代表性方法有光线投射、正交切片等。在传递函数设计中,常根据数据的梯度、曲率等属性导出界面,并用层次树等结构组织,以应对可视化参数调节之繁复。
 
-体渲染的主体是三维的数据，一种经典的数据类型是体素（voxels）。如图 1 所示。
+体渲染的主体是三维的数据，一种经典的数据类型是体素（voxels）。如{numref}`fig-visualization-scientific-voxels` 所示。
 
-<!-- ![三维数据体素](/../../img/visualization/sci/voxels.png) -->
+```{figure} fig/visualization-scientific-voxels.png
+:scale: 70%
+:name: fig-visualization-scientific-voxels
+三维数据体素
+```
 
 体渲染（Volume Rendering）最初用于在计算机图形中生成非刚性物体的可视化效果，如云、烟、果冻等。这些物体通常不具有明确的表面边界，并且其物质的密度相对较低。体渲染技术的关键在于处理这些物体的半透明和不规则特性，使其在视觉上更为真实。
 
@@ -17,18 +21,24 @@
 
 **体渲染和表面渲染的对比**
 
+```{table} 表面渲染与体渲染的比较
+:widths: auto
+:align: center
+:name: tab-visualization-scientific-rendering_comparison
 | **特性**  | **表面渲染 (Surface Rendering)**   | **体渲染 (Volume Rendering)**  |
 |:-----------:|:---------------------------:|:---------------------------:|
 | 数据转换     | 数据被转换为表面基元（如三角形），然后进行绘制。       | 不需要提取表面基元，数据由一个或多个（假定连续的）3D 场构成。 |
 | 可视化表示   | 所有可见内容都是嵌入在 3D 空间中的 2D 表面。          | 直接渲染整个体积，类似于一团彩色的果冻。                    |
 | 数据隐藏风险 | 转换为几何基元可能会丢失或隐藏某些数据。              | 数据较少可能被隐藏，提供更全面的视觉信息。                   |
 | 适用场景     | 适用于不透明物体。                                  | 适用于需要详细展示内部结构的应用场景。                      |
+```
 
-*表 2: 表面渲染与体渲染的比较*
+表面渲染和体渲染的对比如{numref}`fig-visualization-scientific-rendering_comparison` 所示，可见体渲染可以在给出相应的形状的前提下并对于内部给出一些信息。
 
-表面渲染和体渲染的对比如图 2 所示，可见体渲染可以在给出相应的形状的前提下并对于内部给出一些信息。
-
-<!-- ![表面渲染和体渲染的对比图](/../../img/visualization/sci/surface_vs_volumetric_example.png) -->
+```{figure} fig/visualization-scientific-rendering_comparison.png
+:name: fig-visualization-scientific-rendering_comparison
+表面渲染和体渲染的对比图
+```
 
 **体渲染的原理**
 
@@ -38,9 +48,12 @@
 2. 放射 (emission)：粒子本身可能发光，这会进一步增大辐射强度。
 3. 散射 (scattering)：光子和其他粒子相碰撞后，导致方向发生偏移，如果偏移朝向光束方向则会增加光路上的辐射强度，反之则会减弱入射光强度。
 
-我们通过示意图 1 来说明这些系数导致的光学方程。
+我们通过{numref}`fig-visualization-scientific-beam` 来说明这些系数导致的光学方程。
 
-<!-- ![体渲染的光与介质作用的示意图](/../../img/visualization/sci/beam.png) -->
+```{figure} fig/visualization-scientific-beam.png
+:name: fig-visualization-scientific-beam
+体渲染的光与介质作用的示意图
+```
 
 这有一个介质，光线从介质的一个面到另一个面。其中假设介质的厚度为 $\Delta s$，介质中的杂质粒子的横截面积为 $A=\pi r^2$，这个介质的横截面积为 $E$，粒子密度为 $\rho$，则在这个空间内的粒子数目为 $\rho E \Delta s$，总的遮挡的面积为 $\rho E \Delta s A$。则遮挡的比率为 $\rho E \Delta s A / E = \rho A \Delta s$，于是可以有以下的式子：
 
@@ -74,16 +87,48 @@ $$
 4. 分类：按照当前位置的物体的属性去查找该数据的颜色-亮度关系。
 5. 着色：按照光照模型的计算，比如 Phong 光照模型，来确定物体在当前位置和历史光照条件下的外颜色。
 6. 合成：沿着光线路径采样的多个数据值结合起来，以生成最终的像素值。
-上述步骤的操作如图 1 所示。
+上述步骤的操作如{numref}`fig-visualization-scientific-ray_casting` 所示。
 
-<!-- ![光线投影示意图]() -->
+````{subfigure} AB|CD|EF
+:layout-sm: A|B|C|D|E|F
+:gap: 20px
+:subcaptions: below
+:name: fig-visualization-scientific-ray_casting
+:width: 80 %
+
+```{image} fig/visualization-scientific-ray_casting0.png
+:alt: 步骤1：发射光线
+```
+
+```{image} fig/visualization-scientific-ray_casting1.png
+:alt: 步骤2：找交点
+```
+
+```{image} fig/visualization-scientific-ray_casting2.png
+:alt: 步骤3：法线计算
+```
+
+```{image} fig/visualization-scientific-ray_casting3.png
+:alt: 步骤4：分类
+```
+
+```{image} fig/visualization-scientific-ray_casting4.png
+:alt: 步骤5：着色
+```
+
+```{image} fig/visualization-scientific-ray_casting5.png
+:alt: 步骤6：合成
+```
+
+光线投影示意图
+````
 
 除了光线投影之外，其他的体渲染方法还有纹理映射体积渲染，它利用 GPU 加速将体积数据分解为一系列二维纹理，以及光线行进（Ray Marching），这是一种以固定步长沿光线路径进行采样的简化版光线投影。另一种方法是剖面法（Splatting），它将体积数据表示为一系列具有位置、颜色和不透明度的点，然后在视平面上进行重构和混合。为了加速体积渲染，常用的技术包括多级渐进纹理（MIP Mapping），它根据视图距离选择不同分辨率的纹理来优化渲染；使用空间数据结构（如八叉树或 K-D 树）组织数据，快速剔除不可见区域；以及预积分技术，预计算光线穿过体积元素时的颜色和不透明度积分。这些方法和技术在提高渲染速度和处理大型体积数据集方面会有显著效果。
 
 
 
 ## 流场可视化
-:label:`FFV-concepts`
+<!-- :label:`FFV-concepts` -->
 
 流场可视化用于研究和理解复杂的三维涡流动和湍流的物理过程。这些流动模式可以以多种方式显示，它们可以是染料或烟雾注入流场后拍摄的照片。流动可能是稳定的或非稳定的。它们可以是使用一些条件平均技术（如热线或数字粒子图像测速法）测量的矢量场。无论使用何种技术生成流动模式，最终都会得到流动模式的单张或多张图像，通过解释这些图像，可以理解流场的物理特性。对于非稳定流动会引入一系列的辅助线形来展示，如路径线、流线和线迹，来明确描述流场。
 
@@ -95,7 +140,10 @@ $$
 
 总结来说，流线是关于速度的，路径线是关于粒子路径的，而条纹线是关于特定点随时间流过的粒子。这三者的关系可以参考课件中的动图，其中红色的是由原点释放的粒子进行轨迹跟踪得到的路径线。蓝色的是通过不断释放粒子得到的痕迹线。而随着时间不断改变整个场的流场速度线则由灰色的流线显示。
 
-<!-- ![流场可视化中的三种线形，动图请参考流场可视化课件](/../../img/visualization/sci/three_lines.png) -->
+```{figure} fig/visualization-scientific-three_lines.png
+:name: fig-visualization-scientific-three_lines
+流场可视化中的三种线形，动图请参考流场可视化课件。
+```
 
 下面我们分别介绍三种线形。
 
@@ -112,7 +160,11 @@ s = \int_t \mathbf{v}ds
 $$
 
 因为流线只有在很短的时间内才可以认为是恒定的，于是实验上观测流线的方法是，观察摄入染料的短时间内（曝光时间量级）线形。一些流线展示的实验结果如下图。
-<!-- ![一些流线实验结果](/../../img/visualization/sci/streamline_exp.png) -->
+
+```{figure} fig/visualization-scientific-streamline.png
+:name: fig-visualization-scientific-streamline
+一些流线实验例子。
+```
 
 **路径线**
 
@@ -122,7 +174,11 @@ $$
 $$
 可以跟踪射入的粒子的长程轨迹来实验得到。
 如下面的实验图。
-<!-- ![路径线实验例子](/../../img/visualization/sci/pathline_exp.png) -->
+
+```{figure} fig/visualization-scientific-pathline.png
+:name: fig-visualization-scientific-pathline
+一些路径线实验例子。
+```
 
 **条纹线**
 
@@ -138,7 +194,7 @@ $$
 
 
 ## 流场可视化经典算法
-:label:`FFV-classic-algorithms`
+<!-- :label:`FFV-classic-algorithms` -->
 
 下面我们回归可视化内容，存在许多不同的流场可视化技术，它们可以根据在若干方面的特性来进行区分。
 
@@ -152,9 +208,10 @@ $$
 
 最后，必须考虑网格的类型。数据可以以均匀、矩形、曲线或非结构化网格的形式提供。网格类型会影响可视化算法，主要涉及数据存储和访问机制或插值方案。一些经典的可视化算法如下图所示，我们将按分类分别介绍相关算法。我们会先介绍稀疏结构的可视化，再介绍稠密结构的可视化。
 
-<!--![Comparison of visualization techniques applied to the same 2D flow: (a) arrow plot, (b) streamlets, (c) line integral convolution (LIC), and (d) topology-based. （CR：d courtesy of Gerik Scheuermann)](/../../img/visualization/sci/traditional_method.png)-->
-
-<!-- ![不同可视化技术在相同2D流场中的比较: (a) 箭头图, (b) 流线段, (c) 线积分卷积 (LIC), (d) 基于拓扑的方法](/../../img/visualization/sci/traditional_method.png) -->
+```{figure} fig/visualization-scientific-traditional_method.png
+:name: fig-visualization-scientific-traditional_method
+不同可视化技术在相同2D流场中的比较: (a) 箭头图, (b) 流线段, (c) 线积分卷积 (LIC), (d) 基于拓扑的方法。
+```
 
 **基于点的可视化**
 
@@ -168,18 +225,29 @@ $$
 6. 其他的增强功能
 
 <!-- ![基于点的可视化，源自From Vector Glyphs for Surfaces: A Fast and Simple Glyph Placement Algorithm for Adaptive Resolution Meshes.](/../../img/visualization/sci/pointbased.png) -->
+```{figure} fig/visualization-scientific-point_based.png
+:name: fig-visualization-scientific-point_based
+基于点的可视化，源自From Vector Glyphs for Surfaces: A Fast and Simple Glyph Placement Algorithm for Adaptive Resolution Meshes。
+```
 
 **粒子追踪**
 
 粒子追踪是在流场域的指定位置释放一定数量的无质量粒子，然后跟踪这些粒子在域内的轨迹。在稳定和时变的流场中，生成的轨迹分别被称为流线和路径线。这些轨迹在视觉上反映了流场的局部或全局变化，并帮助用户提取流场中固有隐藏的重要特征。
 
-<!-- ![基于粒子追踪的可视化](/../../img/visualization/sci/particle_tracing.png) -->
+```{figure} fig/visualization-scientific-particle_tracing.png
+:name: fig-visualization-scientific-particle_tracing
+基于粒子追踪的可视化。
+```
 
 **点噪声法**
 
 接下来我们介绍稠密模式的可视化。稠密是指连续的，建立在基于纹理的技术之上的可视化技术。根据矢量场的局部特性进行连续化的扩展，然后渲染。适合2D和3D的物体表面，但不适合体渲染。具体算法有点噪声（Spot noise），用于矢量场可视化通过在场中的随机位置插入带有随机强度的扭曲点来生成，以及线性积分卷积算法LIC（Line Integral Convolution）以矢量场和白噪声纹理作为输入来进行绘制。
 
-<!-- ![点噪声法来可视化一个标量场，(a) value. (b) gradients, (c) flow, (d) velocity potential](/../../img/visualization/sci/spotnoise.png) -->
+<!-- (a) value. (b) gradients, (c) flow, (d) velocity potential -->
+```{figure} fig/visualization-scientific-particle_tracing.png
+:name: fig-visualization-scientific-particle_tracing
+基于点噪声法可视化标量场，（a）值，（b）梯度，（c）流，（d）速度势。
+```
 
 点噪声法使用随机分布的点（即"斑点"）来可视化向量场，尤其是流体流动。其核心思想是通过噪声模式来展示流场的特性，使观察者能够直观地理解流动的方向和强度。斑点是随机分布在整个流场中的小点。它们可以被表示为噪声函数 $N(x, y)$，其中 $x, y$ 是流场中的位置坐标。斑点的密度和分布通常与流场的速度或其他物理量相关。例如，可以使用速度向量场 $\mathbf{V}(x, y)$ 来调整斑点密度，使得流速大的区域斑点更密集。
 
@@ -199,7 +267,10 @@ $$
 
 在引入LIC之前，我们先介绍图线和纹理之间的卷积融合。数字微分法（Digital Differential Analyzer, DDA）是一种用于栅格化直线段的技术，即将数学上的连续直线转换为像素网格上的近似表示。通过将曲线进行栅格化，然后和背景纹理进行求卷积，可以得到包含两者信息的融合。DDA-Concolution算法的流程如下图所示：
 
-<!-- ![数字微分卷积法的操作流程](/../../img/visualization/sci/ddac.png) -->
+```{figure} fig/visualization-scientific-ddac.png
+:name: fig-visualization-scientific-ddac
+数字微分卷积法的操作流程。
+```
 
 对于DDAC算法，假设速度场近似成直线效果还好，但是对于曲率半径很小的点不准确。而且本身简单地应用卷积，自带一个去噪平均化效果，高频的会看不出，造成信息频率缺失不平衡。还有aliasing的问题，受制于分辨率限制，导致可能会有不对称的结果。因此后续会提出LIC算法来修缮上述问题。
 
@@ -233,15 +304,21 @@ $$
 
 我们引用[此网站](http://www.zhanpingliu.org/Research/FlowVis/LIC/LIC.htm)的LIC的分析来总结算法。此博客同时给出了其他经典的流场可视化实现例子，感兴趣的同学请自行阅读。
 
-<!-- ![LIC类似于一堆细沙被强风吹散](/../../img/visualization/sci/lic1.png) -->
+```{figure} fig/visualization-scientific-lic_wind.png
+:name: fig-visualization-scientific-lic_wind
+LIC算法效果类似于一堆细沙被强风吹散。
+```
 
-<!-- ![LIC算法流程](/../../img/visualization/sci/lic.png) -->
+```{figure} fig/visualization-scientific-lic_pipeline.png
+:name: fig-visualization-scientific-lic_pipeline
+LIC算法流程。
+```
 
 在传统的 LIC 方法中，每个像素点的计算都是独立的，而 TexMap LIC 则通过将 LIC 运算映射到纹理空间中来优化这一过程。这种方法使得 LIC 能够更好地利用现代图形硬件的能力，尤其是在处理大规模或复杂的矢量场数据时，能够显著提高渲染速度和图像质量。Volume LIC 是将 LIC 方法扩展到三维空间的一种技术，用于三维矢量场的可视化。它通过在体积数据中沿着矢量流线进行积分卷积，生成能够表现三维流动特性的图像。
 
 
 ## 流场可视化前沿
-:label:`FFV-frontiers`
+<!-- :label:`FFV-frontiers` -->
 
 可视化的前沿领域集中于对于以下问题的探索，如不稳定流的可视化、可视化算法的加速、结合网络的可视化。我们在此只是简单介绍，感兴趣的同学可以根据课件翻阅对应的论文。不稳定流（Unsteady Flow）可视化专注于展示随时间变化的流体动力学特性，VAUFLIC (Vector-Advection Upstream Line Integral Convolution)对传统 LIC 的一种改进，专门用于可视化非稳定流。该方法通过考虑矢量场中的流动方向和速度，增强了图像的细节和流线的连续性，特别适合于描绘复杂的流动模式，如涡旋、湍流等。
 

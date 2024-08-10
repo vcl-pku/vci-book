@@ -14,10 +14,12 @@
 
 **拿破仑征俄图**
 
-1869 年，法国工程师查尔斯·约瑟夫·米纳德（Charles Joseph Minard）绘制了1812年拿破仑征俄图（Map of Napolean’s Russian Campaign of 1812），如图19.3，描述了拿破仑在1812 到1813 年进攻俄国时所遭受的灾难性损失。此图将法军东征俄国的过程，精确而巧妙地通过数据可视化的方式展现出来，让人直观感受到拿破仑的40 万大军，如何在长途跋涉和严寒之中逐步溃散。
+1869 年，法国工程师查尔斯·约瑟夫·米纳德（Charles Joseph Minard）绘制了1812年拿破仑征俄图（Map of Napolean’s Russian Campaign of 1812），如{numref}`fig-visualization-basics-Napoleon`，描述了拿破仑在1812 到1813 年进攻俄国时所遭受的灾难性损失。此图将法军东征俄国的过程，精确而巧妙地通过数据可视化的方式展现出来，让人直观感受到拿破仑的40 万大军，如何在长途跋涉和严寒之中逐步溃散。
 
-<!-- ![拿破仑征俄图](/../../img/visualization/basis/Sankey0.png) -->
-<!-- :label:`fig2` -->
+```{figure} fig/visualization-basics-Napoleon.png
+:name: fig-visualization-basics-Napoleon
+拿破仑征俄图。
+```
 
 线条宽度代表拿破仑的军队人数变化，黄色为进军路线，黑色为撤退路线．各地理位置连线反映时空关系（从立陶宛到莫斯科军队位移经纬度），文字标明了行军途经的特定地点、河流以及具体人数。底部温度折线从右到左反映了撤退途中的温度变化。
 
@@ -25,9 +27,13 @@
 
 **地球演化历史可视化**
 
-<!-- ![地球演化历史 ©https://www.behance.net/gallery/10901127/History-of-Life](/../../img/visualization/basis/WorldHistory.PNG) -->
+```{figure} fig/visualization-basics-world_history.png
+:scale: 35 %
+:name: fig-visualization-basics-world_history
+地球演化历史图。 ©https://www.behance.net/gallery/10901127/History-of-Life
+```
 
-图出自2013年 胡安·大卫·马丁内斯（Juan David Martinez）及其团队的设计，将地球近 46 亿年的进化过程浓缩成这样一张五颜六色的螺旋图。
+{numref}`fig-visualization-basics-world_history` 出自2013年 胡安·大卫·马丁内斯（Juan David Martinez）及其团队的设计，将地球近 46 亿年的进化过程浓缩成这样一张五颜六色的螺旋图。
 
 
 - 支持对信息的推理和分析
@@ -36,13 +42,19 @@
 
 十九世纪中叶，霍乱在伦敦几度流行，四万多人死于瘟疫。当时的医学界普遍认为瘟疫是靠笼罩在伦敦上空的“瘴气”传播的，而英国医生约翰·斯诺（John Snow）却认为霍乱是通过水源传播。为了证明这一点，在伦敦爆发霍乱的1854年，他冒着生命危险，走进病情高发的街区，挨家挨户地调查了整片街区的居民死亡情况，并绘制了一张死亡地图。
 
-<!-- ![医生约翰·斯诺在伦敦地图上标注死者住过的地点 ©From www.theguardian.com](/../../img/visualization/basis/John-Snows-cholera-map-of-008.jpg) -->
+```{figure} fig/visualization-basics-London.jpg
+:name: fig-visualization-basics-London
+医生约翰·斯诺在伦敦地图上标注死者住过的地点。©From www.theguardian.com
+```
 
-如图1所示，约翰·斯诺使用点分布图（Dot Distribution Map）在地图上标出了所有死者曾经居住过的确切地点，于是他可以直观地在图上看到疾病爆发的密度和分布。当约翰走访过发病的一整个街区之后，他从图上发现了异常——有一幢房屋的死亡人数远高于其他，而这幢房子紧挨着一个生活水源。经过调查，这个水泵连通河水，那里也是生活污水的排放场所。饮用水被污染了。
+如{numref}`fig-visualization-basics-London` 所示，约翰·斯诺使用点分布图（Dot Distribution Map）在地图上标出了所有死者曾经居住过的确切地点，于是他可以直观地在图上看到疾病爆发的密度和分布。当约翰走访过发病的一整个街区之后，他从图上发现了异常——有一幢房屋的死亡人数远高于其他，而这幢房子紧挨着一个生活水源。经过调查，这个水泵连通河水，那里也是生活污水的排放场所。饮用水被污染了。
 
-<!-- ![为了纪念，有人根据约翰·斯诺的数据，重新标注了疫情区域 ©From www.r-bloggers.com](/../../img/visualization/basis/SnowMap_Points.png) -->
+```{figure} fig/visualization-basics-London_new.png
+:name: fig-visualization-basics-London_new
+为了纪念，有人根据约翰·斯诺的数据，重新标注了疫情区域。 ©From www.r-bloggers.com
+```
 
-这张地图配合约翰调研的数据，为证明霍乱是经由受污染的水源传播提供了足够的证据。于是受污染的水源被拆掉把手，人们无法再从这里取水。不久后，整个街区的疾病流行得到了遏制。为了纪念，有人根据约翰·斯诺的数据，重新标注了疫情区域，见图2。约翰·斯诺的研究在公共卫生与健康地理学中有重大意义，并被视为流行病学的发端。而死亡地图对人类做出的贡献远远超出了医学范畴。这种方法后来被广泛应用于疾病传播、犯罪、地理分析、建筑学等诸多领域的研究，甚至衍生了一门专门绘制信息地图的学科：GIS（Geographic Information System）。
+这张地图配合约翰调研的数据，为证明霍乱是经由受污染的水源传播提供了足够的证据。于是受污染的水源被拆掉把手，人们无法再从这里取水。不久后，整个街区的疾病流行得到了遏制。为了纪念，有人根据约翰·斯诺的数据，重新标注了疫情区域，见{numref}`fig-visualization-basics-London_new`。约翰·斯诺的研究在公共卫生与健康地理学中有重大意义，并被视为流行病学的发端。而死亡地图对人类做出的贡献远远超出了医学范畴。这种方法后来被广泛应用于疾病传播、犯罪、地理分析、建筑学等诸多领域的研究，甚至衍生了一门专门绘制信息地图的学科：GIS（Geographic Information System）。
 
 
 - 信息传递与协同
@@ -51,21 +63,29 @@
 
 南丁格尔玫瑰图诞生于19世纪的克里米亚战争时期，该图表由一位名叫弗洛伦斯·南丁格尔（Florence Nightingale）的英国护士长汇总数据并绘制完成。这张图表不仅清楚地显示了士兵死亡的原因和时间分布，还揭示出医疗条件的不足和卫生环境的恶劣。南丁格尔玫瑰图因此成为了统计图表的先驱之一，被广泛地运用于各个领域。
 
-<!-- ![南丁格尔玫瑰图；蓝色表示死于可预防疾病的士兵人数，红色表示死于枪伤只的人数，黑色表示死于其他意外的人数。](/../../img/visualization/basis/DiagArmy.png) -->
+```{figure} fig/visualization-basics-army.png
+:name: fig-visualization-basics-army
+南丁格尔玫瑰图；蓝色表示死于可预防疾病的士兵人数，红色表示死于枪伤只的人数，黑色表示死于其他意外的人数。
+```
 
-如图，这里展示了1854年4月到1855年3月这一年间士兵的死亡情况。图中又分为两张小图左图表示1855年4月到1856年3月的死亡人数，右图表示1854年4月到1855年3月的死亡人数。对比两张图，可清楚地看到这两年军队死亡人数的变化。
+如{numref}`fig-visualization-basics-army`，这里展示了1854年4月到1855年3月这一年间士兵的死亡情况。图中又分为两张小图左图表示1855年4月到1856年3月的死亡人数，右图表示1854年4月到1855年3月的死亡人数。对比两张图，可清楚地看到这两年军队死亡人数的变化。
 
 从图中可看出，这一年时间里，死亡人数最多的并不是在战争中受枪伤(红色部分)，大部分士兵是死于可预防疾病(蓝色部分)，特别是冬天的时候 (1854年11月-1855年2月)，死于可预防疾病的士兵人数大幅增加。由此，可知军队伤亡的真正原因: 影响战争伤亡的并非战争本身，而是由于军队缺乏有效的医疗护理。正是因为南丁格尔玫瑰图的应用，发现军队伤亡的真正原因，从而，推动军队医疗卫生的改善，挽救更多可预防疾病的士兵，对社会有着现实意义。
 
 **2020 美国大选可视化**
 
-<!-- ![原始地图直接映射，观感上与实际结果不一致 ©https://www.politico.com/2020-election/results/president/](/../../img/visualization/basis/America2020RawMap.PNG) -->
-
+```{figure} fig/visualization-basics-America2020_raw.png
+:name: fig-visualization-basics-America2020_raw
+原始地图直接映射，观感上与实际结果不一致。 ©https://www.politico.com/2020-election/results/president/
+```
 
 <!-- ![根据选票数量调整各州面积，观感上与投票数一致。](/../../img/visualization/basis/Americs2020CountMap.PNG) -->
+```{figure} fig/visualization-basics-America2020_count.png
+:name: fig-visualization-basics-America2020_count
+根据选票数量调整各州面积，观感上与投票数一致。
+```
 
-<!-- 图{numref}`fig1`和图[fig2]分别展示了两种不同的选票可视化结果，可以看到图1原始地图直接映射的结果在观感上与实际选举结果不一致，而图2的可视化根据选票数量调整各州面积，观感上与投票数一致。 -->
-上图分别展示了两种不同的选票可视化结果，可以看到图1原始地图直接映射的结果在观感上与实际选举结果不一致，而图2的可视化根据选票数量调整各州面积，观感上与投票数一致。
+{numref}`fig-visualization-basics-America2020_raw` 和{numref}`fig-visualization-basics-America2020_count` 分别展示了两种不同的选票可视化结果，可以看到{numref}`fig-visualization-basics-America2020_raw` 原始地图直接映射的结果在观感上与实际选举结果不一致，而{numref}`fig-visualization-basics-America2020_count` 的可视化根据选票数量调整各州面积，观感上与投票数一致。
 
 
 

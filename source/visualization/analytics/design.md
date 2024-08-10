@@ -28,7 +28,10 @@
 
 了解要处理的数据类型是开始选择可视化类型的关键。不同类型的数据需要不同类型的可视化方法。定量数据，如数字和测量值，通常适合使用柱状图、折线图或散点图来表示。而定性数据，如类别或标签，更适合使用饼图、条形图或词云等可视化方式。时序数据，即随时间变化的数据，如股价、气温等，适合用瀑布图、折线图、时间轴、流程图等方式可视化。
 
-<!-- ![2014年美国新闻热度可视化 ©https://echeloninsights.tumblr.com/post/105911206078/theyearinnews-2014](/../../img/visualization/basis/theyearinnews20141.png) -->
+```{figure} fig/visualization-analytics-news.png
+:name: fig-visualization-analytics-news
+2014年美国新闻热度可视化。 ©https://echeloninsights.tumblr.com/post/105911206078/theyearinnews-2014
+```
 
 **目标驱动选择**
 
@@ -44,8 +47,10 @@
 
 如图所示，单个可视化文件中的过多数据会立即使观看者不知所措。当可视化包含太多数据时，信息就会淹没，并且数据会融化成大多数观众无法忍受的图形。
 
-<!-- ![单个可视化文件中的过多数据会立即使观看者不知所措。当可视化包含太多数据时，信息就会淹没，并且数据会融化成大多数观众无法忍受的图形](/../../img/visualization/basis/WrongVis1.png) -->
-
+```{figure} fig/visualization-analytics-wrong_redundant.png
+:name: fig-visualization-analytics-wrong_redundant
+单个可视化文件中包含过多数据会令观看者不知所措。
+```
 **一致性**
 
 保持可视化元素的一致性是重要的，包括颜色、字体、标签和图表样式。一致性有助于降低观众的认知负担，使他们更容易理解和比较不同的数据。
@@ -58,9 +63,12 @@
 
 设计师应该努力避免制造误导性的图表或图形。这包括避免截断轴、使用不恰当的比例、选择不合适的图表类型等。可视化应该真实反映数据，而不是歪曲或夸大。
 
-如图所示，这里的三维图形就造成了遮挡。
+如{numref}`fig-visualization-analytics-wrong_block` 所示，这里的三维图形就造成了遮挡。
 
-<!-- ![这里的三维图形造成了遮挡](/../../img/visualization/basis/WrongVis0.jpg) -->
+```{figure} fig/visualization-analytics-wrong_block.jpg
+:name: fig-visualization-analytics-wrong_block
+三维图形会造成遮挡。
+```
 
 
 **色彩和标签**
@@ -80,27 +88,39 @@
 
 有许多可视化工具可供选择，具体取决于数据类型和可视化需求。以下是一些常见的可视化工具：
 
-<!-- ![世界人口数量条形图 ©Apache ECharts](/../../img/visualization/basis/WorldPopuBar.png) -->
+```{figure} fig/visualization-analytics-popularity.png
+:name: fig-visualization-analytics-popularity
+世界人口数量条形图。 ©Apache ECharts
+```
+```{figure} fig/visualization-analytics-aqi.png
+:name: fig-visualization-analytics-aqi
+空气质量折线图。 ©Apache ECharts
+```
+```{figure} fig/visualization-analytics-gender.png
+:name: fig-visualization-analytics-gender
+男女身高体重分布图。
+```
+```{figure} fig/visualization-analytics-pie.png
+:name: fig-visualization-analytics-pie
+饼状图。
+```
+```{figure} fig/visualization-analytics-income.png
+:name: fig-visualization-analytics-income
+工资使用情况图。 ©Reddit
+```
+```{figure} fig/visualization-analytics-congress.png
+:name: fig-visualization-analytics-congress
+美国国会议员路径图。 ©The New York Times
+```
 
-<!-- ![空气质量折线图 ©Apache ECharts](/../../img/visualization/basis/LineAQI.png) -->
-
-<!-- ![男女身高体重分布图](/../../img/visualization/basis/MaleFemale.png) -->
-
-<!-- ![饼状图](/../../img/visualization/basis/pie-nest.png) -->
-
-<!-- ![工资使用情况图 ©Reddit](/../../img/visualization/basis/HowToIncomeSankey.png) -->
-
-<!-- ![美国国会议员路径图 ©The New York Times](/../../img/visualization/basis/AmericaPathToCongress.PNG) -->
-
-
-- 条形图和柱状图：用于比较不同类别的数据，如图 1。
-- 折线图：用于显示数据随时间变化的趋势，如图 2。
-- 散点图：用于显示两个变量之间的关系，如图 3。
-- 饼图：用于显示数据的组成部分，如图 4。
+- 条形图和柱状图：用于比较不同类别的数据，如{numref}`fig-visualization-analytics-popularity`。
+- 折线图：用于显示数据随时间变化的趋势，如{numref}`fig-visualization-analytics-aqi`。
+- 散点图：用于显示两个变量之间的关系，如{numref}`fig-visualization-analytics-gender`。
+- 饼图：用于显示数据的组成部分，如{numref}`fig-visualization-analytics-pie`。
 - 热力图：用于显示数据的密度和分布。
 - 地图：用于可视化地理数据。
 - 雷达图：用于比较多个变量之间的关系。
-- 树状图和网络图：用于可视化层次结构和关系数据，如图 5 和图 6。
+- 树状图和网络图：用于可视化层次结构和关系数据，如{numref}`fig-visualization-analytics-income`和{numref}`fig-visualization-analytics-congress`。
 
 
 学习可视化最好的方法是实际操作。使用真实数据集创建可视化，尝试不同的图形类型和设计选择，以提高可视化技能。有许多可视化工具和库可供使用，例如：

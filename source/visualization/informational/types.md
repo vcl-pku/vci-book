@@ -82,21 +82,30 @@
 - 文本摘要：通过分析文本网络中的节点和边，可以生成文本摘要，其中包含文本中的关键信息和关系。
 
 
-图1和图2给出一个文本网络的例子。
+{numref}`fig-visualization-information-text_group` 和{numref}`fig-visualization-information-text_network` 给出一个文本网络的例子。
 
-<!-- ![原始文本](/../../img/visualization/basis/InfoVisTextNetworkGroupVar.png) -->
+```{figure} fig/visualization-information-text_group.png
+:name: fig-visualization-information-text_group
+原始文本
+```
 
-<!-- ![文本网络](/../../img/visualization/basis/TextNetworkVis.png) -->
+```{figure} fig/visualization-information-text_network.png
+:name: fig-visualization-information-text_network
+文本网络
+```
 
 **文本时间轴可视化（Text Timeline Visualization）**
 
 文本时间轴可视化（Text Timeline Visualization）是一种用于可视化和分析文本数据随时间变化的技术。它将文本数据按照时间顺序呈现在一个时间轴上，以便用户可以追踪文本数据的演变、事件发展和趋势变化。文本时间轴可视化通常用于分析新闻文章、社交媒体帖子、历史文本和其他与时间相关的文本数据。
 
-文本数据按照时间顺序排列在一个时间轴上，通常是从左到右或从下到上。每个时间点对应一个文本文档或事件，如图1。通过观察文本时间轴上的趋势、峰值和突发事件，用户可以识别文本数据中的重要事件和趋势变化。这有助于了解文本数据的发展动态。用户可以在文本时间轴上选择特定时间范围内的文本数据，以进行文本检索和过滤。这有助于查找与特定事件或时间段相关的文本。文本时间轴可视化还可以与情感分析结合使用，以显示文本数据中情感的变化趋势。这有助于理解文本数据中的情感极性。用户可以观察文本时间轴上的主题和关键词汇随时间的变化，以了解文本数据中的主题演变。文本时间轴可视化通常具有交互性，用户可以通过缩放、拖动和选择时间范围等方式与数据进行互动，以更深入地探索文本数据。
+文本数据按照时间顺序排列在一个时间轴上，通常是从左到右或从下到上。每个时间点对应一个文本文档或事件，如{numref}`fig-visualization-information-timeline`。通过观察文本时间轴上的趋势、峰值和突发事件，用户可以识别文本数据中的重要事件和趋势变化。这有助于了解文本数据的发展动态。用户可以在文本时间轴上选择特定时间范围内的文本数据，以进行文本检索和过滤。这有助于查找与特定事件或时间段相关的文本。文本时间轴可视化还可以与情感分析结合使用，以显示文本数据中情感的变化趋势。这有助于理解文本数据中的情感极性。用户可以观察文本时间轴上的主题和关键词汇随时间的变化，以了解文本数据中的主题演变。文本时间轴可视化通常具有交互性，用户可以通过缩放、拖动和选择时间范围等方式与数据进行互动，以更深入地探索文本数据。
 
 文本时间轴可视化在多个领域中都有应用，包括新闻分析、历史研究、社交媒体分析、品牌监测和事件追踪。它可以帮助用户更全面地理解文本数据的演变和变化，以便支持决策制定、趋势分析和见解发现。文本时间轴可视化通常需要使用时间序列数据的处理和可视化技术，以有效地呈现和分析时间相关的文本数据。
 
-<!-- ![文本时间轴https://asana.com/ ](/../../img/visualization/basis/TimeLineVisualize.png) -->
+```{figure} fig/visualization-information-timeline.png
+:name: fig-visualization-information-timeline
+文本时间轴https://asana.com/
+```
 
 **主题建模和热度图（Topic Modeling and Heatmaps）**
 
@@ -131,7 +140,7 @@
 文本可视化的目标是将复杂的文本数据转化为可理解和可交互的形式，以支持决策制定、见解发现和知识提取。不同的文本可视化技术可以根据数据和分析任务的需求选择和定制。
 
 ## 高维数据可视化
-:label:`high-d-visualization`
+<!-- :label:`high-d-visualization` -->
 
 高维数据可视化是数据科学和机器学习领域中的一个重要挑战，因为人类的视觉系统通常只能有效地理解三维空间以下的数据。在处理高维数据时，有几个难点需要克服：
 
