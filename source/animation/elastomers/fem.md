@@ -68,12 +68,12 @@ $$
 
 $$
 \mathbf F\mathrel{\mathop:}=\frac{\partial(\phi_1,\phi_2,\phi_3)}{\partial(X_1,X_2,X_3)}=\begin{bmatrix}\frac{\partial\phi_1}{\partial X_1}&\frac{\partial\phi_1}{\partial X_2}&\frac{\partial\phi_1}{\partial X_3}\\\frac{\partial\phi_2}{\partial X_1}&\frac{\partial\phi_2}{\partial X_2}&\frac{\partial\phi_2}{\partial X_3}\\\frac{\partial\phi_3}{\partial X_1}&\frac{\partial\phi_3}{\partial X_2}&\frac{\partial\phi_3}{\partial X_3}\end{bmatrix}，
-$$ (eqn-deformation_gradient)
+$$ (animation-elastomers-deformation_gradient)
 
 其中 $\phi(\mathbf X)=\begin{pmatrix}\phi_1&\phi_2&\phi_3\end{pmatrix}^\top$，$\mathbf X=\begin{pmatrix}X_1&X_2&X_3\end{pmatrix}^\top$。我们知道导数可以很好地反映原函数的局部特征，所以在连续介质力学中形变梯度是最常用也最直观的刻画弹性体形变的量之一，变形函数反而没有那么重要。
 
 ```{attention}
-由式 {eq}`eqn-deformation_gradient` 可见，形变梯度 $\mathbf F$ 是一个关于形变前坐标 $\mathbf X$ 的矩阵函数。
+由式 {eq}`animation-elastomers-deformation_gradient` 可见，形变梯度 $\mathbf F$ 是一个关于形变前坐标 $\mathbf X$ 的矩阵函数。
 ```
 
 ### 描述能量
