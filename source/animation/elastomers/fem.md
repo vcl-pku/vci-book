@@ -76,6 +76,28 @@ $$ (animation-elastomers-deformation_gradient)
 
 ### 描述能量
 
+弹性体的形变会累积弹性势能，在连续介质力学中又称为应变能（strain energy）。由于总能量完全由弹性体的形变决定，我们可以将应变能表示成变形函数的泛函 $E[\phi]$。值得注意的是，在这种表示中，应变能的值仅与弹性体的**最终**形变有关，和弹性体的变形**路径**（或**历史时刻**的形变）无关，也即弹性力是保守力（conservative force）。这个性质是超弹性（hyperelastic）材料的特性，在本章中我们只会讨论这一种材料的模拟。
+
+一般来讲，弹性体不同位置的材料会有不同的形变，因此为了准确描述每一处材料的动态，我们应当把能量定义在局部范围上。与变形函数的定义类似，我们定义一个以参考构型下的位置为自变量的能量密度函数 $\Psi[\phi;\boldsymbol X]$，其含义为单位体积未形变材料所蕴含的应变能。将能量密度在参考构型上积分即可得到应变能：
+
+$$
+E[\phi]=\int_\Omega\Psi[\phi;\boldsymbol X]\mathrm d\boldsymbol X。
+$$
+
+```{attention}
+我们现在没有给出能量密度 $\Psi$ 的具体形式，只描述了能量由什么决定。事实上，$\Psi$ 的形式有多种，对应于不同性质的弹性材料，后文将会给出一些常见的形式。
+```
+
+下面我们考虑参考构型下一个特定位置 $\boldsymbol X_0$ 的能量密度 $\Psi[\phi;\boldsymbol X_0]$。由于能量密度是一个局部的物理量，它应当只与 $\boldsymbol X_0$ 附近一个无穷小的邻域形变后的状态相关，在 $\boldsymbol X_0$ 处 $\phi(\boldsymbol X)$ 进行一阶泰勒展开
+
+$$
+\phi(\boldsymbol X)&\approx\phi(\boldsymbol X_0)+\frac{\partial\phi}{\partial\boldsymbol X}(\boldsymbol X_0)(\boldsymbol X-\boldsymbol X_0)\\
+&=\boldsymbol x_0+\boldsymbol F(\boldsymbol X_0)(\boldsymbol X-\boldsymbol X_0)\\
+&=\boldsymbol F(\boldsymbol X_0)\boldsymbol X+\boldsymbol x_0-\boldsymbol F(\boldsymbol X_0)\boldsymbol X_0，
+$$ (animation-elastomers-phi_taylor_expansion)
+
+其中，$\boldsymbol x_0=\phi(\boldsymbol X_0)$ 为其大写字母符号对应的形变后位置，本章中将继续遵循这个命名习惯。令 $\boldsymbol F_0=\boldsymbol F(\boldsymbol X_0)$（这个命名习惯也会在本章中继续使用），$\boldsymbol t=\boldsymbol x_0-\boldsymbol F_0\boldsymbol X_0$，则式 {eq}`animation-elastomers-phi_taylor_expansion` 最终可化为 $\phi(\boldsymbol X)\approx\boldsymbol F_0\boldsymbol X+\boldsymbol t$。这告诉我们参考构型下 $\boldsymbol X_0$ 周围很小一块区域的形变可以完全由 $\boldsymbol F_0$ 和 $\boldsymbol t$ 刻画，而 $\boldsymbol t$ 仅仅代表这个小区域整体的平移，不会带来任何变形，所以这个小区域的能量应当完全由 $\boldsymbol F_0$ 决定，也即 $\Psi$ 能够表示成只关于形变梯度的函数：$\Psi[\phi;\boldsymbol X_0]=\hat\Psi(\boldsymbol F(\boldsymbol X_0))$。为了简便，我们在接下来将使用 $\Psi(\boldsymbol F)$ 来表示能量密度函数。
+
 ### 描述力
 
 ### 能量与力的关系
