@@ -9,16 +9,14 @@
 
 经典交互技术依赖于二维屏幕进行显示，基于这类技术的三维交互的主题挑战在于如何将二维的输入输出同三维空间建立联系。经典的方法基于多视图，如{numref}`fig-interaction-spatial-4panel`，常见于各种三维建模软件，这一类方法往往建立四个视图窗口，由三维对象的三视图和一个来自用户控制的自由视角主视图组成。当用户需要对物体进行三维变换时，主视图可以进行六自由度的三维变换，而三视图的每个视角可以进行相应视角下的四自由度二维变换，这有效地缓解了视角遮蔽和三维变换自由度高的问题。
 
-另一类方法(Snibbe et al.)则将二维中的控制杆(handle)扩展到三维，如{numref}`fig-interaction-spatial-3Dhandle` 所示。这一类方法往往不依赖多角度视图，提供了更加自然的交互方式。
-<!-- 另一类方法(Snibbe et al. {cite}`snibbe1992deformation`)则将二维中的控制杆(handle)扩展到三维，如{numref}`fig-interaction-spatial-3Dhandle` 所示。这一类方法往往不依赖多角度视图，提供了更加自然的交互方式。 -->
+另一类方法(Snibbe et al. {cite}`snibbe1992deformation`)则将二维中的控制杆(handle)扩展到三维，如{numref}`fig-interaction-spatial-3Dhandle` 所示。这一类方法往往不依赖多角度视图，提供了更加自然的交互方式。
 
 ```{figure} fig/interaction-spatial-3Dhandle.png
 :name: fig-interaction-spatial-3Dhandle
 3D控制杆：左图所示的标准长方体上具有一系列可交互的三维控制杆，右图展示了缩短蓝色控制杆后因此变形的三维物体。
 ```
 
-除了上述鼠标操作的经典方法外，也有一些方法允许用户使用触控笔草绘来进行三维交互，如{numref}`fig-interaction-spatial-sketch` (Igarashi et al.)和{numref}`fig-interaction-spatial-sketch2` (Shesh et al.)
-<!-- 除了上述鼠标操作的经典方法外，也有一些方法允许用户使用触控笔草绘来进行三维交互，如{numref}`fig-interaction-spatial-sketch` (Igarashi et al. {cite}`igarashi1999teddy`)和{numref}`fig-interaction-spatial-sketch2` (Shesh et al. {cite}`shesh2004smartpaper`) -->
+除了上述鼠标操作的经典方法外，也有一些方法允许用户使用触控笔草绘来进行三维交互，如{numref}`fig-interaction-spatial-sketch` (Igarashi et al. {cite}`igarashi1999teddy`)和{numref}`fig-interaction-spatial-sketch2` (Shesh et al. {cite}`shesh2004smartpaper`)
 
 ```{figure} fig/interaction-spatial-sketch.png
 :name: fig-interaction-spatial-sketch
@@ -96,23 +94,20 @@ Teddy：一个3D自由形式设计的草图界面。
 
 ### 实体用户界面(Tangible User Interface, TUI)
 
-实体用户界面是一种用户通过物理环境与数字信息互动的界面，最初称做可抓取用户界面(Graspable User Interface)。开发实体用户界面的目的是通过赋予数字信息物理形态，从而增强协作、学习和设计，利用人类抓取和操作物理对象与材料的能力。实体用户界面的先驱是在麻省理工学院(MIT) Media Lab带领实体媒体小组(Tangible Media Group)的教授Hiroshi Ishii。他和Brygg Ullmer在1997年提出了对实体UI的愿景，称为Tangible Bits，旨在给数字信息赋予物理形态，使比特直接可操控和感知，追求物理对象与虚拟数据之间的无缝结合。他们描述了实体用户界面关于物理表现(Physical Representation)和交互控制的几点准则：
-<!-- 实体用户界面是一种用户通过物理环境与数字信息互动的界面，最初称做可抓取用户界面(Graspable User Interface)。开发实体用户界面的目的是通过赋予数字信息物理形态，从而增强协作、学习和设计，利用人类抓取和操作物理对象与材料的能力。实体用户界面的先驱是在麻省理工学院(MIT) Media Lab带领实体媒体小组(Tangible Media Group)的教授Hiroshi Ishii。他和Brygg Ullmer在1997年提出了对实体UI的愿景 {cite}`ishii1997tangible`，称为Tangible Bits，旨在给数字信息赋予物理形态，使比特直接可操控和感知，追求物理对象与虚拟数据之间的无缝结合。他们描述了实体用户界面关于物理表现(Physical Representation)和交互控制的几点准则： -->
+实体用户界面是一种用户通过物理环境与数字信息互动的界面，最初称做可抓取用户界面(Graspable User Interface)。开发实体用户界面的目的是通过赋予数字信息物理形态，从而增强协作、学习和设计，利用人类抓取和操作物理对象与材料的能力。实体用户界面的先驱是在麻省理工学院(MIT) Media Lab带领实体媒体小组(Tangible Media Group)的教授Hiroshi Ishii。他和Brygg Ullmer在1997年提出了对实体UI的愿景 {cite}`ishii1997tangible`，称为Tangible Bits，旨在给数字信息赋予物理形态，使比特直接可操控和感知，追求物理对象与虚拟数据之间的无缝结合。他们描述了实体用户界面关于物理表现(Physical Representation)和交互控制的几点准则：
 
 - 物理表现与底层数字信息计算耦合
 - 物理表现体现交互控制的机制
 - 物理表现在感知上与数字表现耦合
 - 实体的物理状态体现系统数字状态的关键方面
 
-在2012年，Hiroshi Ishii发表了关于实体用户界面的综述论文，提出：“实体设计需要在物理世界的不同材料和形态中精心设计界面，寻求不同属性的融合。”他提出了一种实体用户界面的新范式，在未来我们可以直接操作物理世界的实体，在其上施加的变换与各种操作都能对应到数字世界，如{numref}`fig-interaction-spatial-radical_atoms` 展示了直接操作实体界面来制作一个正红色外壳的过程。
-<!-- 在2012年，Hiroshi Ishii发表了关于实体用户界面的综述论文 {cite}`ishii2012radical`，提出：“实体设计需要在物理世界的不同材料和形态中精心设计界面，寻求不同属性的融合。”他提出了一种实体用户界面的新范式，在未来我们可以直接操作物理世界的实体，在其上施加的变换与各种操作都能对应到数字世界，如{numref}`fig-interaction-spatial-radical_atoms` 展示了直接操作实体界面来制作一个正红色外壳的过程。 -->
+在2012年，Hiroshi Ishii发表了关于实体用户界面的综述论文 {cite}`ishii2012radical`，提出：“实体设计需要在物理世界的不同材料和形态中精心设计界面，寻求不同属性的融合。”他提出了一种实体用户界面的新范式，在未来我们可以直接操作物理世界的实体，在其上施加的变换与各种操作都能对应到数字世界，如{numref}`fig-interaction-spatial-radical_atoms` 展示了直接操作实体界面来制作一个正红色外壳的过程。
 
 ```{figure} fig/interaction-spatial-radical_atoms.png
 :name: fig-interaction-spatial-radical_atoms
 Radical Atoms
 ```
-实体用户界面的另一个典型例子可以参见Karen Vanderloock提出的Skweezee系统，他们通过在实体设备上定义了标准的交互操作来使得用户可以通过直接的物理实体实现交互控制。{numref}`fig-interaction-spatial-skweezee`展示了Skweezee中一种设备(cuboid)的七种标准交互操作。
-<!-- 实体用户界面的另一个典型例子可以参见Karen Vanderloock提出的Skweezee系统 {cite}`vanderloock2013skweezee`，他们通过在实体设备上定义了标准的交互操作来使得用户可以通过直接的物理实体实现交互控制。{numref}`fig-interaction-spatial-skweezee`展示了Skweezee中一种设备(cuboid)的七种标准交互操作。 -->
+实体用户界面的另一个典型例子可以参见Karen Vanderloock提出的Skweezee系统 {cite}`vanderloock2013skweezee`，他们通过在实体设备上定义了标准的交互操作来使得用户可以通过直接的物理实体实现交互控制。{numref}`fig-interaction-spatial-skweezee`展示了Skweezee中一种设备(cuboid)的七种标准交互操作。
 ```{figure} fig/interaction-spatial-skweezee.png
 :name: fig-interaction-spatial-skweezee
 Skweezee: cuboid

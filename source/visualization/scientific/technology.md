@@ -244,8 +244,8 @@ $$
 接下来我们介绍稠密模式的可视化。稠密是指连续的，建立在基于纹理的技术之上的可视化技术。根据矢量场的局部特性进行连续化的扩展，然后渲染。适合2D和3D的物体表面，但不适合体渲染。具体算法有点噪声（Spot noise），用于矢量场可视化通过在场中的随机位置插入带有随机强度的扭曲点来生成，以及线性积分卷积算法LIC（Line Integral Convolution）以矢量场和白噪声纹理作为输入来进行绘制。
 
 <!-- (a) value. (b) gradients, (c) flow, (d) velocity potential -->
-```{figure} fig/visualization-scientific-particle_tracing.png
-:name: fig-visualization-scientific-particle_tracing
+```{figure} fig/visualization-scientific-spot_noise.png
+:name: fig-visualization-scientific-spot_noise
 基于点噪声法可视化标量场，（a）值，（b）梯度，（c）流，（d）速度势。
 ```
 

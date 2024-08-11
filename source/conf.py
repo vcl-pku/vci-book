@@ -52,7 +52,7 @@ html_title = '可视计算与交互概论'
 
 ## -- Extensions configuration ------------------------------------------------
 
-bibtex_bibfiles = ['reference.bib']
+bibtex_bibfiles = ['interaction/spatial/reference.bib']
 
 myst_enable_extensions = [
     "dollarmath",
