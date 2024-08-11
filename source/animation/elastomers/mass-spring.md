@@ -74,10 +74,8 @@ $$ (animation-elastomers-spring_energy)
 对 $E_{ij}$ 关于 $\mathbf x_i$ 求负梯度可得 $i$ 受该弹簧的弹力 $\mathbf f_{ij}$，同理关于 $\mathbf x_j$ 求负梯度可得 $\mathbf f_{ji}$，$\mathbf f_{ij},\mathbf f_{ji}$ 的表达式如下：
 
 $$
-\begin{aligned}
-	\mathbf{f}_{ij}&=-\nabla_iE_{ij}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\frac{\mathbf{x}_j-\mathbf{x}_i}{\|\mathbf x_j-\mathbf x_i\|}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\mathbf{n}_{ij}，\\
-	\mathbf{f}_{ji}&=-\nabla_jE_{ij}=-\mathbf{f}_{ij}，
-\end{aligned}
+\mathbf{f}_{ij}&=-\nabla_iE_{ij}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\frac{\mathbf{x}_j-\mathbf{x}_i}{\|\mathbf x_j-\mathbf x_i\|}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\mathbf{n}_{ij}，\\
+\mathbf{f}_{ji}&=-\nabla_jE_{ij}=-\mathbf{f}_{ij}，
 $$ (animation-elastomers-spring_force)
 
 其中 $\mathbf{n}_{ij}$ 为从质点 $i$ 指向 $j$ 方向的单位向量。
@@ -95,31 +93,27 @@ $$ (animation-elastomers-particle_force)
 物体运动状态随时间连续变化，因此在时间维度上同样需要进行离散化。这意味着对式 {eq}`animation-elastomers-newtons_law` 的微分方程进行离散化。一般来说，我们在时间区间上均匀采样，物理动画的帧率即由采样的时间间隔 $h$（通常也称为时间步长，单位秒，帧率即为时间步长的倒数）决定。当已知当前物体的状态 (如质点系统中每个质点的位置和速度)，可以计算出相应的受力情况，因此可以通过时间积分求出下一采样时刻的物体状态。我们记 $t$ 时刻的位置和速度向量为 $\mathbf{x}(t)$ 和 $\mathbf{v}(t)$，并简记第 $k$ 次采样时刻 $t_k$ 的位置与速度向量为 $\mathbf{x}^k=\mathbf{x}(t_k)$ 和 $\mathbf{v}^k=\mathbf{v}(t_k)$，对于一个 $n$ 个质点组成的质点系统而言，分别为 $n$ 个质点的位置和速度的堆叠向量，$\mathbf{x}^k,\mathbf{v}^k\in\mathbb R^{3n}$，即
 
 $$
-\begin{aligned}
-    \mathbf{x}^k &= 
-    \begin{pmatrix}
-     \mathbf{x}_1(t_k)\\
-     \mathbf{x}_2(t_k)\\
-     \vdots\\
-     \mathbf{x}_n(t_k)
-    \end{pmatrix}，\\
-    \dot{\mathbf{x}}^k &= \mathbf{v}^k=
-    \begin{pmatrix}
-     \mathbf{v}_1(t_k)\\
-     \mathbf{v}_2(t_k)\\
-     \vdots\\
-     \mathbf{v}_n(t_k)
-    \end{pmatrix}。
-\end{aligned}
+\mathbf{x}^k &= 
+\begin{pmatrix}
+	\mathbf{x}_1(t_k)\\
+	\mathbf{x}_2(t_k)\\
+	\vdots\\
+	\mathbf{x}_n(t_k)
+\end{pmatrix}，\\
+\dot{\mathbf{x}}^k &= \mathbf{v}^k=
+\begin{pmatrix}
+	\mathbf{v}_1(t_k)\\
+	\mathbf{v}_2(t_k)\\
+	\vdots\\
+	\mathbf{v}_n(t_k)
+\end{pmatrix}。
 $$
 
 递进一个时间步意味着物体状态从 $t_k$ 时刻到 $t_{k+1}$ 时刻的更新，具体来说，就是基于牛顿第二定律的离散化表达，计算出下一时刻物体的状态：
 
 $$
-\begin{aligned}
-	\mathbf{x}^{k+1}&=\mathbf{x}^k+\int_{t_k}^{t_{k+1}}\mathbf{v}(t)\mathrm dt， \\
-	\mathbf{v}^{k+1}&=\mathbf{v}^k+\mathbf{M}^{-1}\int_{t_k}^{t_{k+1}}\mathbf{f}(t, \mathbf{x}(t), \mathbf{v}(t))\mathrm dt，
-\end{aligned}
+\mathbf{x}^{k+1}&=\mathbf{x}^k+\int_{t_k}^{t_{k+1}}\mathbf{v}(t)\mathrm dt， \\
+\mathbf{v}^{k+1}&=\mathbf{v}^k+\mathbf{M}^{-1}\int_{t_k}^{t_{k+1}}\mathbf{f}(t, \mathbf{x}(t), \mathbf{v}(t))\mathrm dt，
 $$ (animation-elastomers-newton_disc)
 
 其中，式 {eq}`animation-elastomers-newton_disc` 中的标量质量 $m$ 需要处理成质量矩阵 $\mathbf{M}$，对于质点系统来说，可以取为对角矩阵，这也便于并行求解。
@@ -240,10 +234,8 @@ $$ (animation-elastomers-newton_iteration_equation)
 现在我们来计算 $\nabla g(\mathbf x^k)$ 和 $\mathbf H_g(\mathbf x^k)$，由 $g(\mathbf x)$ 的定义得
 
 $$
-\begin{aligned}
-	\nabla g(\mathbf x^k)&=\frac 1{h^2}\mathbf M(\mathbf x^k-\mathbf y^k)+\nabla E(\mathbf x^k)，\\
-	\mathbf H_g(\mathbf x^k)&=\frac 1{h^2}\mathbf M+\mathbf H(\mathbf x^k)，
-\end{aligned}
+\nabla g(\mathbf x^k)&=\frac 1{h^2}\mathbf M(\mathbf x^k-\mathbf y^k)+\nabla E(\mathbf x^k)，\\
+\mathbf H_g(\mathbf x^k)&=\frac 1{h^2}\mathbf M+\mathbf H(\mathbf x^k)，
 $$ (animation-elastomers-calculate_gradient_and_hessian)
 
 其中 $\mathbf H(\mathbf x^k)$ 是弹性势能 $E(\mathbf x)$ 的海瑟矩阵。我们在式 {eq}`animation-elastomers-spring_force` 中已经写出了对于一根弹簧的能量 $E_{ij}$ 关于一个质点 $i$ 的梯度 $\nabla_iE_{ij}(\mathbf x^k)$ 的表达式，那么总能量对质点 $i$ 的梯度即为
@@ -261,11 +253,9 @@ $$ (animation-elastomers-energy_gradient)
 同样地，我们考虑一个弹簧 $(i,j)$ 关于质点 $i$ 的海瑟矩阵，即对式 {eq}`animation-elastomers-spring_force` 两边求梯度，得到
 
 $$
-\begin{aligned}
-	\mathbf H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i^2}&=k_{ij}\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\mathbf x_i-\mathbf x_j\|}\right)\left(\mathbf I-\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}\right)，\\
-	\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i\partial\mathbf x_j}&=-\mathbf H_e，\\
-	\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_j^2}&=\mathbf H_e。
-\end{aligned}
+\mathbf H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i^2}&=k_{ij}\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\mathbf x_i-\mathbf x_j\|}\right)\left(\mathbf I-\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}\right)，\\
+\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i\partial\mathbf x_j}&=-\mathbf H_e，\\
+\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_j^2}&=\mathbf H_e。
 $$
 
 那么这个弹簧关于所有质点坐标的海瑟矩阵可以写成如下形式：

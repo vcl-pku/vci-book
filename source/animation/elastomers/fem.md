@@ -47,11 +47,9 @@
 在弹簧质点系统中，我们通过记录每个质点的位置来描述弹性体的当前形状；但对于一个连续介质，存在不可数个质点，因此我们也应当将形变的描述方式拓展成场，将未形变状态下每一个点的位置都映射成形变后的位置。具体来讲，我们首先将未形变的弹性体放置于一个空间坐标系当中，并记其所占据的空间区域为 $\Omega$，这个区域又称为参考构型（reference configuration）；我们记参考构型内的点为 $\mathbf X$，该点在形变后的位置为 $\mathbf x$，定义变形函数（deformation function）
 
 $$
-\begin{aligned}
 \phi:\Omega&\to\mathbb R^3\\
 \mathbf X&\mapsto\mathbf x
-\end{aligned}
-$$
+$$ (animation-elastomers-deformation_function)
 
 即为对弹性体形变的描述。
 
