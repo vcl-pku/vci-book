@@ -3,6 +3,6 @@
 ## 习题
 
 ## 参考文献
-<!-- chap-interaction-spatial -->
-```{bibliography} reference.bib
+
+```{bibliography} ref.bib
 ```

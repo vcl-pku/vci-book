@@ -226,17 +226,17 @@ $$ ([part_name]-[chap_name]-[eq_name])
   series = {SIGGRAPH '99}
 }
 ```
-并使用 `` {cite}`Stam1999` `` 加以引用。请注意引用与中文（除标点符号外）之间应有空格隔开。
+并使用 `` {cite}`Stam1999` `` 加以引用。请注意引用与中文（除标点符号外）之间应有空格隔开。另外请删除参考文献条目中的 `url`、`doi`、`issn`、`abstract` 等字段以避免生成冗余信息。
 
 在每个 *Chapter* 最后的 *Section*（本章小结）中，应在末尾添加如下语句以产生参考文献列表：
 ````markdown
 ## 参考文献
 
 ```{bibliography} ref.bib
-:filter: {"doc1", "doc2"} & docnames
 ```
 ````
-其中 `:filter:` 语句中的 `doc1`、`doc2` 等请使用本 `Chapter` 的 `Markdown` 文件名替代（不含后缀名）。
+
+若编译产生警告，请检查 `source/conf.py` 的 `bibtex_bibfiles` 字段是否包含对应的 `bib` 文件。
 
 ### 定理环境
 
