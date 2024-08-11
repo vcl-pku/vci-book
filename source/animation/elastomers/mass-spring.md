@@ -7,7 +7,7 @@
 
 $$
 \mathbf f=m\ddot{\mathbf x}。
-$$ (eqn-newtons_law)
+$$ (animation-elastomers-newtons_law)
 
 这里，我们常用 $\dot{\mathbf{x}}$ 和 $\ddot{\mathbf{x}}$ 表示位置对时间求一阶导和二阶导得到的梯度向量（有时也分别记为 $\mathbf v$ 和 $\mathbf a$），即速度和加速度。我们关心的物体的受力 $\mathbf f$ 可以是这个世界上具有的任何力，包括重力、弹性力、浮力、表面张力、磁力等等。
 
@@ -23,7 +23,7 @@ $$
 \mathbf f=\begin{bmatrix}0\\-mg\end{bmatrix}，
 $$
 
-其中 $m$ 为粒子的质量。根据式 {eq}`eqn-newtons_law` 可得粒子的加速度
+其中 $m$ 为粒子的质量。根据式 {eq}`animation-elastomers-newtons_law` 可得粒子的加速度
 
 $$
 \ddot{\mathbf x}=\begin{bmatrix}0\\-g\end{bmatrix}。
@@ -69,16 +69,14 @@ $$
 
 $$
 E_{ij}=\frac 12k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)^2。
-$$ (eqn-spring_energy)
+$$ (animation-elastomers-spring_energy)
 
 对 $E_{ij}$ 关于 $\mathbf x_i$ 求负梯度可得 $i$ 受该弹簧的弹力 $\mathbf f_{ij}$，同理关于 $\mathbf x_j$ 求负梯度可得 $\mathbf f_{ji}$，$\mathbf f_{ij},\mathbf f_{ji}$ 的表达式如下：
 
 $$
-\begin{aligned}
-	\mathbf{f}_{ij}&=-\nabla_iE_{ij}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\frac{\mathbf{x}_j-\mathbf{x}_i}{\|\mathbf x_j-\mathbf x_i\|}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\mathbf{n}_{ij}，\\
-	\mathbf{f}_{ji}&=-\nabla_jE_{ij}=-\mathbf{f}_{ij}，
-\end{aligned}
-$$ (eqn-spring_force)
+\mathbf{f}_{ij}&=-\nabla_iE_{ij}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\frac{\mathbf{x}_j-\mathbf{x}_i}{\|\mathbf x_j-\mathbf x_i\|}=k_{ij}\left(\|\mathbf x_j-\mathbf x_i\|-l_{ij}\right)\mathbf{n}_{ij}，\\
+\mathbf{f}_{ji}&=-\nabla_jE_{ij}=-\mathbf{f}_{ij}，
+$$ (animation-elastomers-spring_force)
 
 其中 $\mathbf{n}_{ij}$ 为从质点 $i$ 指向 $j$ 方向的单位向量。
 
@@ -86,57 +84,53 @@ $$ (eqn-spring_force)
 
 $$
 \mathbf f_i=\sum_{j\in N(i)}\mathbf f_{ij}+\mathbf f_i^{\mathrm{ext}}，
-$$ (eqn-particle_force)
+$$ (animation-elastomers-particle_force)
 
 其中 $N(i)$ 表示所有和 $i$ 之间有弹簧连接的质点的集合；$\mathbf f_i^{\mathrm{ext}}$ 表示质点 $i$ 所受的外力，如重力，外力与位置无关，一般可以提前计算出来，我们在后面就会看到为什么要将外力写成额外的一项。
 
 ## 时间离散化
 
-物体运动状态随时间连续变化，因此在时间维度上同样需要进行离散化。这意味着对式 {eq}`eqn-newtons_law` 的微分方程进行离散化。一般来说，我们在时间区间上均匀采样，物理动画的帧率即由采样的时间间隔 $h$（通常也称为时间步长，单位秒，帧率即为时间步长的倒数）决定。当已知当前物体的状态 (如质点系统中每个质点的位置和速度)，可以计算出相应的受力情况，因此可以通过时间积分求出下一采样时刻的物体状态。我们记 $t$ 时刻的位置和速度向量为 $\mathbf{x}(t)$ 和 $\mathbf{v}(t)$，并简记第 $k$ 次采样时刻 $t_k$ 的位置与速度向量为 $\mathbf{x}^k=\mathbf{x}(t_k)$ 和 $\mathbf{v}^k=\mathbf{v}(t_k)$，对于一个 $n$ 个质点组成的质点系统而言，分别为 $n$ 个质点的位置和速度的堆叠向量，$\mathbf{x}^k,\mathbf{v}^k\in\mathbb R^{3n}$，即
+物体运动状态随时间连续变化，因此在时间维度上同样需要进行离散化。这意味着对式 {eq}`animation-elastomers-newtons_law` 的微分方程进行离散化。一般来说，我们在时间区间上均匀采样，物理动画的帧率即由采样的时间间隔 $h$（通常也称为时间步长，单位秒，帧率即为时间步长的倒数）决定。当已知当前物体的状态 (如质点系统中每个质点的位置和速度)，可以计算出相应的受力情况，因此可以通过时间积分求出下一采样时刻的物体状态。我们记 $t$ 时刻的位置和速度向量为 $\mathbf{x}(t)$ 和 $\mathbf{v}(t)$，并简记第 $k$ 次采样时刻 $t_k$ 的位置与速度向量为 $\mathbf{x}^k=\mathbf{x}(t_k)$ 和 $\mathbf{v}^k=\mathbf{v}(t_k)$，对于一个 $n$ 个质点组成的质点系统而言，分别为 $n$ 个质点的位置和速度的堆叠向量，$\mathbf{x}^k,\mathbf{v}^k\in\mathbb R^{3n}$，即
 
 $$
-\begin{aligned}
-    \mathbf{x}^k &= 
-    \begin{pmatrix}
-     \mathbf{x}_1(t_k)\\
-     \mathbf{x}_2(t_k)\\
-     \vdots\\
-     \mathbf{x}_n(t_k)
-    \end{pmatrix}，\\
-    \dot{\mathbf{x}}^k &= \mathbf{v}^k=
-    \begin{pmatrix}
-     \mathbf{v}_1(t_k)\\
-     \mathbf{v}_2(t_k)\\
-     \vdots\\
-     \mathbf{v}_n(t_k)
-    \end{pmatrix}。
-\end{aligned}
+\mathbf{x}^k &= 
+\begin{pmatrix}
+	\mathbf{x}_1(t_k)\\
+	\mathbf{x}_2(t_k)\\
+	\vdots\\
+	\mathbf{x}_n(t_k)
+\end{pmatrix}，\\
+\dot{\mathbf{x}}^k &= \mathbf{v}^k=
+\begin{pmatrix}
+	\mathbf{v}_1(t_k)\\
+	\mathbf{v}_2(t_k)\\
+	\vdots\\
+	\mathbf{v}_n(t_k)
+\end{pmatrix}。
 $$
 
 递进一个时间步意味着物体状态从 $t_k$ 时刻到 $t_{k+1}$ 时刻的更新，具体来说，就是基于牛顿第二定律的离散化表达，计算出下一时刻物体的状态：
 
 $$
-\begin{aligned}
-	\mathbf{x}^{k+1}&=\mathbf{x}^k+\int_{t_k}^{t_{k+1}}\mathbf{v}(t)\mathrm dt， \\
-	\mathbf{v}^{k+1}&=\mathbf{v}^k+\mathbf{M}^{-1}\int_{t_k}^{t_{k+1}}\mathbf{f}(t, \mathbf{x}(t), \mathbf{v}(t))\mathrm dt，
-\end{aligned}
-$$ (eqn-newton_disc)
+\mathbf{x}^{k+1}&=\mathbf{x}^k+\int_{t_k}^{t_{k+1}}\mathbf{v}(t)\mathrm dt， \\
+\mathbf{v}^{k+1}&=\mathbf{v}^k+\mathbf{M}^{-1}\int_{t_k}^{t_{k+1}}\mathbf{f}(t, \mathbf{x}(t), \mathbf{v}(t))\mathrm dt，
+$$ (animation-elastomers-newton_disc)
 
-其中，式 {eq}`eqn-newton_disc` 中的标量质量 $m$ 需要处理成质量矩阵 $\mathbf{M}$，对于质点系统来说，可以取为对角矩阵，这也便于并行求解。
+其中，式 {eq}`animation-elastomers-newton_disc` 中的标量质量 $m$ 需要处理成质量矩阵 $\mathbf{M}$，对于质点系统来说，可以取为对角矩阵，这也便于并行求解。
 
-因此，给定系统的初始位置 $\mathbf{x}_0$ 和初始速度 $\mathbf{v}_0$，通过上式循环迭代，理论上就可以依次求出后续每个采样时刻的系统状态，从而得到一段物理动画。故剩下的任务是计算式 {eq}`eqn-newton_disc` 中的时间积分，接下来介绍两种典型的计算方法：**显式欧拉积分（explicit/forward Euler）​**和**隐式欧拉积分（implicit/backward Euler）**。
+因此，给定系统的初始位置 $\mathbf{x}_0$ 和初始速度 $\mathbf{v}_0$，通过上式循环迭代，理论上就可以依次求出后续每个采样时刻的系统状态，从而得到一段物理动画。故剩下的任务是计算式 {eq}`animation-elastomers-newton_disc` 中的时间积分，接下来介绍两种典型的计算方法：**显式欧拉积分（explicit/forward Euler）​**和**隐式欧拉积分（implicit/backward Euler）**。
 
 ### 显式欧拉积分
 
-在较为复杂的场景中，式 {eq}`eqn-newton_disc` 中的积分项可能不存在解析表达，好在积分区间 $[t_k,t_{k+1}]$ 比较小，所以我们可以用简单的形式近似这个积分的值。最简单的方式就是用每个时间步刚开始的值去近似这个时间步内任意时刻的值，于是式 {eq}`eqn-newton_disc` 转化成
+在较为复杂的场景中，式 {eq}`animation-elastomers-newton_disc` 中的积分项可能不存在解析表达，好在积分区间 $[t_k,t_{k+1}]$ 比较小，所以我们可以用简单的形式近似这个积分的值。最简单的方式就是用每个时间步刚开始的值去近似这个时间步内任意时刻的值，于是式 {eq}`animation-elastomers-newton_disc` 转化成
 
-$$ \mathbf{x}^{k+1}=\mathbf{x}^k+h\mathbf{v}^k $$ (eqn-explicit_euler_a)
-$$ \mathbf{v}^{k+1}=\mathbf{v}^k+h\mathbf{M}^{-1}\mathbf{f}(\mathbf{x}^k) $$ (eqn-explicit_euler_b)
+$$ \mathbf{x}^{k+1}=\mathbf{x}^k+h\mathbf{v}^k $$ (animation-elastomers-explicit_euler_a)
+$$ \mathbf{v}^{k+1}=\mathbf{v}^k+h\mathbf{M}^{-1}\mathbf{f}(\mathbf{x}^k) $$ (animation-elastomers-explicit_euler_b)
 
 这就是显示欧拉积分，只需要根据已知的位置和速度状态就可以直接计算出下一时刻的状态，计算过程十分简便。每个时间步内的计算步骤如下所示：
-- 利用当前时刻的位置 $\mathbf x^k$ 使用式 {eq}`eqn-spring_force` 计算每个弹簧的力，然后用式 {eq}`eqn-particle_force` 计算每个质点的受力；
-- 利用当前时刻速度 $\mathbf v^k$ 使用式 {eq}`eqn-explicit_euler_a` 更新位置；
-- 利用前面算好的每个质点的受力使用式 {eq}`eqn-explicit_euler_b` 更新速度。
+- 利用当前时刻的位置 $\mathbf x^k$ 使用式 {eq}`animation-elastomers-spring_force` 计算每个弹簧的力，然后用式 {eq}`animation-elastomers-particle_force` 计算每个质点的受力；
+- 利用当前时刻速度 $\mathbf v^k$ 使用式 {eq}`animation-elastomers-explicit_euler_a` 更新位置；
+- 利用前面算好的每个质点的受力使用式 {eq}`animation-elastomers-explicit_euler_b` 更新速度。
 
 但是，显示时间积分有稳定性差的缺点。我们不妨想象一个质点被一根弹簧吊在天花板上的情形，如{numref}`fig-animation-elastomers-spring_explode` 最左一列所示，假设质点初始时有一个向下的速度，质点在重力和弹簧拉力的作用下在水平虚线处达到平衡。若时间步很大，那么由于质点具有一定初速度，在第一个时间步过后质点就会越过平衡位置并且超出很多；那么在下一个时间步开始时弹簧的拉力会大于重力，导致质点的速度变成向上，且速度大小比初始速度更快，于是经过第二个时间步之后粒子会冲得更高，以此类推。我们可以很明显注意到这个过程中整个系统的能量大大地增加了，所以会导致这个粒子运动速度越来越快、运动幅度越来越大，直至冲出屏幕，或是超出浮点运算范围。
 
@@ -157,18 +151,18 @@ $$ \mathbf{v}^{k+1}=\mathbf{v}^k+h\mathbf{M}^{-1}\mathbf{f}(\mathbf{x}^k) $$ (eq
 
 ### 隐式欧拉积分
 
-在隐式欧拉积分中，我们将式 {eq}`eqn-newton_disc` 转化成
+在隐式欧拉积分中，我们将式 {eq}`animation-elastomers-newton_disc` 转化成
 
-$$ \mathbf{x}^{k+1}=\mathbf{x}^k+h\mathbf{v}^{k+1}， $$ (eqn-implicit_euler_a)
-$$ \mathbf{v}^{k+1}=\mathbf{v}^k+h\mathbf{M}^{-1}\mathbf{f}(\mathbf{x}^{k+1})。 $$ (eqn-implicit_euler_b)
+$$ \mathbf{x}^{k+1}=\mathbf{x}^k+h\mathbf{v}^{k+1}， $$ (animation-elastomers-implicit_euler_a)
+$$ \mathbf{v}^{k+1}=\mathbf{v}^k+h\mathbf{M}^{-1}\mathbf{f}(\mathbf{x}^{k+1})。 $$ (animation-elastomers-implicit_euler_b)
 
 可以看出，它和显式欧拉积分的区别在于，隐式欧拉法选取 $t_{k+1}$ 时刻 (而非 $t_k$ 时刻) 的位置和速度来近似整个时间步内的值。
 
-隐式欧拉法中我们无法直接计算 $\mathbf{x}^{k+1}$ 和 $\mathbf{v}^{k+1}$，而是需要求解方程组。将式 {eq}`eqn-implicit_euler_b` 代入到式 {eq}`eqn-implicit_euler_a` 中，得到
+隐式欧拉法中我们无法直接计算 $\mathbf{x}^{k+1}$ 和 $\mathbf{v}^{k+1}$，而是需要求解方程组。将式 {eq}`animation-elastomers-implicit_euler_b` 代入到式 {eq}`animation-elastomers-implicit_euler_a` 中，得到
 
 $$
 \mathbf{x}^{k+1}=\mathbf{x}^k+h\mathbf{v}^k+h^2\mathbf{M}^{-1}\mathbf{f}(\mathbf{x}^{k+1})。
-$$ (eqn-substitute_imeuler)
+$$ (animation-elastomers-substitute_imeuler)
 
 然后我们将 $\mathbf f(\mathbf x^{k+1})$ 分成内力和外力两部分：
 
@@ -176,7 +170,7 @@ $$
 \mathbf{f}(\mathbf{x}^{k+1})=\mathbf{f}_{\mathrm{int}}(\mathbf{x}^{k+1})+\mathbf{f}_{\mathrm{ext}}。
 $$
 
-前面已经提到过，$\mathbf f_{\mathrm{ext}}$ 与位置无关，可以视为已知量，那么式 {eq}`eqn-substitute_imeuler` 变为
+前面已经提到过，$\mathbf f_{\mathrm{ext}}$ 与位置无关，可以视为已知量，那么式 {eq}`animation-elastomers-substitute_imeuler` 变为
 
 $$
 \mathbf x^{k+1}=(\mathbf x^k+h\mathbf v^k+h^2\mathbf M^{-1}\mathbf f_{\mathrm{ext}})+h^2\mathbf M^{-1}\mathbf f_{\mathrm{int}}(\mathbf x^{k+1})，
@@ -194,7 +188,7 @@ $$
 \mathbf x^{k+1}=\mathop{\arg\min}\limits_{\mathbf x}\frac{1}{2h^2}\|\mathbf x-\mathbf y^k\|^2_{\mathbf M}+E(\mathbf x)，
 $$
 
-其中 $\|\mathbf r\|^2_{\mathbf M}=\mathbf r^\top\mathbf M\mathbf r$。这就是说，隐式欧拉积分等价于求解一个能量最小化问题，这个能量包含惯性项（inertia）$\frac{1}{2h^2}\|\mathbf x-\mathbf y^k\|^2_{\mathbf M}$ 和弹性项（elasticity）$E(\mathbf x)$（还记得式 {eq}`eqn-spring_energy` 定义的弹性势能吗？$E(\mathbf x)$ 就定义为每个弹簧势能之和 $E(\mathbf x)=\sum_{(i,j)}E_{ij}$），这也就是为什么我们说隐式欧拉法可以解决稳定性问题——它可以在任意长的时间步下稳定，因为它时刻保证系统的能量最小化。
+其中 $\|\mathbf r\|^2_{\mathbf M}=\mathbf r^\top\mathbf M\mathbf r$。这就是说，隐式欧拉积分等价于求解一个能量最小化问题，这个能量包含惯性项（inertia）$\frac{1}{2h^2}\|\mathbf x-\mathbf y^k\|^2_{\mathbf M}$ 和弹性项（elasticity）$E(\mathbf x)$（还记得式 {eq}`animation-elastomers-spring_energy` 定义的弹性势能吗？$E(\mathbf x)$ 就定义为每个弹簧势能之和 $E(\mathbf x)=\sum_{(i,j)}E_{ij}$），这也就是为什么我们说隐式欧拉法可以解决稳定性问题——它可以在任意长的时间步下稳定，因为它时刻保证系统的能量最小化。
 
 所以在很多情况下，我们会采用隐式欧拉法。隐式欧拉法的单步计算代价较高，但是允许更大的时间步长，这反而提高了仿真的效率，并且极大地改善了系统的稳定性。二者对比的一个实例可参见{numref}`fig-animation-elastomers-euler`。
 
@@ -213,9 +207,9 @@ $$
 
 $$
 g(\mathbf x)=g(\mathbf x_i)+\nabla g(\mathbf x_i)\cdot(\mathbf x-\mathbf x_i)+\frac 12(\mathbf x-\mathbf x_i)^\top\mathbf H_g(\mathbf x_i)(\mathbf x-\mathbf x_i)+O(\|\mathbf x-\mathbf x_i\|^3)。
-$$ (eqn-newton_2nd_taylor)
+$$ (animation-elastomers-newton_2nd_taylor)
 
-这里我们把梯度写成列向量 $\nabla g(\mathbf x_i)=\begin{bmatrix}\frac{\partial g(\mathbf x_i)}{\partial x}\\\frac{\partial g(\mathbf x_i)}{\partial y}\\\frac{\partial g(\mathbf x_i)}{\partial z}\end{bmatrix}$，$\mathbf H_g(\mathbf x_i)=\begin{bmatrix}\frac{\partial^2 g(\mathbf x_i)}{\partial x^2}&\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial y}&\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial z}\\\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial y}&\frac{\partial^2 g(\mathbf x_i)}{\partial y^2}&\frac{\partial^2 g(\mathbf x_i)}{\partial y\partial z}\\\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial z}&\frac{\partial^2 g(\mathbf x_i)}{\partial y\partial z}&\frac{\partial^2 g(\mathbf x_i)}{\partial z^2}\end{bmatrix}$ 是 $g$ 的海瑟矩阵（Hessian matrix）。我们忽略三阶小量 $O(\|\mathbf x-\mathbf x_i\|^3)$，就得到了一个用于近似 $g(\mathbf x)$ 的二次函数（请注意，这个近似仅仅是对 $g(\mathbf x)$ 在 $\mathbf x_i$ 附近的近似，当 $\mathbf x$ 太远的时候三阶“小”量将不能忽略！），下一轮迭代的尝试解 $\mathbf x_{i+1}$ 取这个二次函数的极小值，通过对式 {eq}`eqn-newton_2nd_taylor` 两边求梯度，再代入 $\mathbf x_{i+1}$ 可得
+这里我们把梯度写成列向量 $\nabla g(\mathbf x_i)=\begin{bmatrix}\frac{\partial g(\mathbf x_i)}{\partial x}\\\frac{\partial g(\mathbf x_i)}{\partial y}\\\frac{\partial g(\mathbf x_i)}{\partial z}\end{bmatrix}$，$\mathbf H_g(\mathbf x_i)=\begin{bmatrix}\frac{\partial^2 g(\mathbf x_i)}{\partial x^2}&\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial y}&\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial z}\\\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial y}&\frac{\partial^2 g(\mathbf x_i)}{\partial y^2}&\frac{\partial^2 g(\mathbf x_i)}{\partial y\partial z}\\\frac{\partial^2 g(\mathbf x_i)}{\partial x\partial z}&\frac{\partial^2 g(\mathbf x_i)}{\partial y\partial z}&\frac{\partial^2 g(\mathbf x_i)}{\partial z^2}\end{bmatrix}$ 是 $g$ 的海瑟矩阵（Hessian matrix）。我们忽略三阶小量 $O(\|\mathbf x-\mathbf x_i\|^3)$，就得到了一个用于近似 $g(\mathbf x)$ 的二次函数（请注意，这个近似仅仅是对 $g(\mathbf x)$ 在 $\mathbf x_i$ 附近的近似，当 $\mathbf x$ 太远的时候三阶“小”量将不能忽略！），下一轮迭代的尝试解 $\mathbf x_{i+1}$ 取这个二次函数的极小值，通过对式 {eq}`animation-elastomers-newton_2nd_taylor` 两边求梯度，再代入 $\mathbf x_{i+1}$ 可得
 
 $$
 \nabla g(\mathbf x_{i+1})\approx\nabla g(\mathbf x_i)+\mathbf H_g(\mathbf x_i)(\mathbf x_{i+1}-\mathbf x_i)=\mathbf 0。
@@ -225,28 +219,26 @@ $$
 
 $$
 \mathbf x_{i+1} = \mathbf x_i - \mathbf{H}_g^{-1}(\mathbf x_i)\nabla g(\mathbf x_i)。
-$$ (eqn-newton_iteration)
+$$ (animation-elastomers-newton_iteration)
 
 牛顿法相比于普通的梯度下降法（gradient descent）能做到更快的收敛。而它的缺点在于，每步迭代中需要求解 $\mathbf{H}_g$ 矩阵的逆，计算代价较大，且一般要求 $\mathbf{H}_g$ 为正定矩阵，否则方程可能无解（牛顿法一般用于解凸优化问题）或解不出正确下降方向。
 
 在此基础上还有拟牛顿法（quasi-Newton method）、柏萝登-弗莱彻-戈德福布-生纳法（Broyden-Fletcher-Goldfarb-Shanno method，BFGS method）等。为了避免海瑟矩阵的计算和存储，共轭梯度法（conjugated gradient）也是常用的优化方法之一。更多的优化算法这里不再赘述。
 
-对于本节中的弹簧质点系统，$g(\mathbf x)$ 性质足够好，我们认为只需要进行一步牛顿迭代即可求得最小值点（这里是一个简化的假设，事实上 $g(\mathbf x)$ 不是凸函数）。我们只需要将式 {eq}`eqn-newton_iteration` 中的 $\mathbf x_i$ 和 $\mathbf x_{i+1}$ 分别替换成 $\mathbf x^k$ 和 $\mathbf x^{k+1}$ 即可。所以我们需要解如下关于 $\mathbf x^{k+1}-\mathbf x^k$ 的方程组，随后即可计算出 $\mathbf x^{k+1}$ 和 $\mathbf v^{k+1}$：
+对于本节中的弹簧质点系统，$g(\mathbf x)$ 性质足够好，我们认为只需要进行一步牛顿迭代即可求得最小值点（这里是一个简化的假设，事实上 $g(\mathbf x)$ 不是凸函数）。我们只需要将式 {eq}`animation-elastomers-newton_iteration` 中的 $\mathbf x_i$ 和 $\mathbf x_{i+1}$ 分别替换成 $\mathbf x^k$ 和 $\mathbf x^{k+1}$ 即可。所以我们需要解如下关于 $\mathbf x^{k+1}-\mathbf x^k$ 的方程组，随后即可计算出 $\mathbf x^{k+1}$ 和 $\mathbf v^{k+1}$：
 
 $$
 \mathbf H_g(\mathbf x^k)(\mathbf x^{k+1}-\mathbf x^k)=-\nabla g(\mathbf x^k)。
-$$ (eqn-newton_iteration_equation)
+$$ (animation-elastomers-newton_iteration_equation)
 
 现在我们来计算 $\nabla g(\mathbf x^k)$ 和 $\mathbf H_g(\mathbf x^k)$，由 $g(\mathbf x)$ 的定义得
 
 $$
-\begin{aligned}
-	\nabla g(\mathbf x^k)&=\frac 1{h^2}\mathbf M(\mathbf x^k-\mathbf y^k)+\nabla E(\mathbf x^k)，\\
-	\mathbf H_g(\mathbf x^k)&=\frac 1{h^2}\mathbf M+\mathbf H(\mathbf x^k)，
-\end{aligned}
-$$ (eqn-calculate_gradient_and_hessian)
+\nabla g(\mathbf x^k)&=\frac 1{h^2}\mathbf M(\mathbf x^k-\mathbf y^k)+\nabla E(\mathbf x^k)，\\
+\mathbf H_g(\mathbf x^k)&=\frac 1{h^2}\mathbf M+\mathbf H(\mathbf x^k)，
+$$ (animation-elastomers-calculate_gradient_and_hessian)
 
-其中 $\mathbf H(\mathbf x^k)$ 是弹性势能 $E(\mathbf x)$ 的海瑟矩阵。我们在式 {eq}`eqn-spring_force` 中已经写出了对于一根弹簧的能量 $E_{ij}$ 关于一个质点 $i$ 的梯度 $\nabla_iE_{ij}(\mathbf x^k)$ 的表达式，那么总能量对质点 $i$ 的梯度即为
+其中 $\mathbf H(\mathbf x^k)$ 是弹性势能 $E(\mathbf x)$ 的海瑟矩阵。我们在式 {eq}`animation-elastomers-spring_force` 中已经写出了对于一根弹簧的能量 $E_{ij}$ 关于一个质点 $i$ 的梯度 $\nabla_iE_{ij}(\mathbf x^k)$ 的表达式，那么总能量对质点 $i$ 的梯度即为
 
 $$
 \nabla_iE(\mathbf x^k)=\sum_j\nabla_iE_{ij}(\mathbf x^k)。
@@ -256,16 +248,14 @@ $$
 
 $$
 \nabla E(\mathbf x^k)=\begin{bmatrix}\nabla_1E(\mathbf x^k)\\\vdots\\\nabla_nE(\mathbf x^k)\end{bmatrix}。
-$$ (eqn-energy_gradient)
+$$ (animation-elastomers-energy_gradient)
 
-同样地，我们考虑一个弹簧 $(i,j)$ 关于质点 $i$ 的海瑟矩阵，即对式 {eq}`eqn-spring_force` 两边求梯度，得到
+同样地，我们考虑一个弹簧 $(i,j)$ 关于质点 $i$ 的海瑟矩阵，即对式 {eq}`animation-elastomers-spring_force` 两边求梯度，得到
 
 $$
-\begin{aligned}
-	\mathbf H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i^2}&=k_{ij}\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\mathbf x_i-\mathbf x_j\|}\right)\left(\mathbf I-\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}\right)，\\
-	\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i\partial\mathbf x_j}&=-\mathbf H_e，\\
-	\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_j^2}&=\mathbf H_e。
-\end{aligned}
+\mathbf H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i^2}&=k_{ij}\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\mathbf x_i-\mathbf x_j\|}\right)\left(\mathbf I-\frac{(\mathbf x_i-\mathbf x_j)(\mathbf x_i-\mathbf x_j)^\top}{\|\mathbf x_i-\mathbf x_j\|^2}\right)，\\
+\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_i\partial\mathbf x_j}&=-\mathbf H_e，\\
+\frac{\partial^2E_{ij}(\mathbf x^k)}{\partial\mathbf x_j^2}&=\mathbf H_e。
 $$
 
 那么这个弹簧关于所有质点坐标的海瑟矩阵可以写成如下形式：
@@ -285,6 +275,6 @@ $$
 
 $$
 \mathbf H(\mathbf x^k)=\sum_{(i,j)}\mathbf H_{ij}(\mathbf x^k)。
-$$ (eqn-energy_hessian)
+$$ (animation-elastomers-energy_hessian)
 
-最后，我们将式 {eq}`eqn-energy_gradient`、{eq}`eqn-energy_hessian` 代入到式 {eq}`eqn-calculate_gradient_and_hessian` 中计算 $\nabla g(\mathbf x^k)$ 和 $\mathbf H_g(\mathbf x^k)$，然后即可求解方程 {eq}`eqn-newton_iteration_equation`。
+最后，我们将式 {eq}`animation-elastomers-energy_gradient`、{eq}`animation-elastomers-energy_hessian` 代入到式 {eq}`animation-elastomers-calculate_gradient_and_hessian` 中计算 $\nabla g(\mathbf x^k)$ 和 $\mathbf H_g(\mathbf x^k)$，然后即可求解方程 {eq}`animation-elastomers-newton_iteration_equation`。
