@@ -98,6 +98,7 @@ $$ (animation-elastomers-phi_taylor_expansion)
 
 其中，$\boldsymbol x_0=\boldsymbol\phi(\boldsymbol X_0)$ 为其大写字母符号对应的形变后位置，本章中将继续遵循这个命名习惯。令 $\boldsymbol F_0=\boldsymbol F(\boldsymbol X_0)$（这个命名习惯也会在本章中继续使用），$\boldsymbol t=\boldsymbol x_0-\boldsymbol F_0\boldsymbol X_0$，则式 {eq}`animation-elastomers-phi_taylor_expansion` 最终可化为 $\boldsymbol\phi(\boldsymbol X)\approx\boldsymbol F_0\boldsymbol X+\boldsymbol t$。这告诉我们参考构型下 $\boldsymbol X_0$ 周围很小一块区域的形变可以完全由 $\boldsymbol F_0$ 和 $\boldsymbol t$ 刻画，而 $\boldsymbol t$ 仅仅代表这个小区域整体的平移，不会带来任何变形，所以这个小区域的能量应当完全由 $\boldsymbol F_0$ 决定，也即 $\Psi$ 能够表示成只关于形变梯度的函数：$\Psi[\boldsymbol\phi;\boldsymbol X_0]=\hat\Psi(\boldsymbol F(\boldsymbol X_0))$。为了简便，我们在接下来将使用 $\Psi(\boldsymbol F)$ 来表示能量密度函数。
 
+(sec-animation-elastomers-fem-force)=
 ### 描述力
 
 弹性体积累了弹性势能就会产生弹性力，我们仍然可以借助{numref}`fig-animation-elastomers-simple_example` 中的例子来回顾一下势能与保守力之间的关系：当粒子处于位置 $\boldsymbol x=\begin{pmatrix}x&y&z\end{pmatrix}^\top$ 时，其重力势能为 $E(\boldsymbol x)=m\boldsymbol{G\cdot x}=mgz$，其中 $\boldsymbol G=\begin{pmatrix}0&0&g\end{pmatrix}^\top$ 为重力加速度（取 $z$ 轴正方向为竖直向上），那么粒子所受重力即为
@@ -130,6 +131,34 @@ $$
 ```
 
 ### 能量与力的关系
+
+在 {numref}`sec-animation-elastomers-fem-force` 的开头我们回顾了质点重力场中能量与力的关系，但是对本章讨论的弹性体而言情况会更加复杂一些，我们不能直接建立能量密度 $\Psi$ 与力密度 $\boldsymbol f(\boldsymbol X)$ 和牵引力 $\boldsymbol\tau(\boldsymbol X)$ 之间的关系。幸运的是，这个关系可以通过引入一个中间变量建立起来，这个中间变量叫做第一类皮奥拉-基尔霍夫应力张量（first Piola-Kirchhoff stress tensor），一般记作 $\boldsymbol P$。接下来我们不加证明地给出 $\boldsymbol P$ 的性质，对更深层原理感兴趣的同学可以参考 {cite}`sifakis2012fem`。
+
+首先，我们可以通过能量密度 $\Psi$ 计算 $\boldsymbol P$：
+
+$$
+\boldsymbol P=\frac{\partial\Psi(\boldsymbol F)}{\partial\boldsymbol F}。
+$$ (animation-elastomers-calc_stress)
+
+边界上的牵引力 $\boldsymbol\tau$ 与 $\boldsymbol P$ 具有如下的关系：
+
+$$
+\boldsymbol\tau(\boldsymbol X)=-\boldsymbol P\cdot\boldsymbol N,\quad\forall\boldsymbol X\in\partial\Omega，
+$$
+
+其中 $\boldsymbol N$ 为 $\boldsymbol X$ 处**形变前**物体的表面法向。
+
+另外，力密度 $\boldsymbol f$ 与 $\boldsymbol P$ 具有如下的关系：
+
+$$
+\boldsymbol f(\boldsymbol X)=\mathrm{div}\boldsymbol P(\boldsymbol X)，
+$$
+
+写成分量形式就是（省略自变量 $\boldsymbol X$）
+
+$$
+f_i=\sum_{j=1}^3\frac{\partial P_{ij}}{\partial X_j}。
+$$
 
 (sec-animation-elastomers-fem-models)=
 ### 常见超弹性模型
