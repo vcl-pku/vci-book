@@ -146,7 +146,7 @@ $$
 \boldsymbol\tau(\boldsymbol X)=-\boldsymbol P\cdot\boldsymbol N,\quad\forall\boldsymbol X\in\partial\Omega，
 $$
 
-其中 $\boldsymbol N$ 为 $\boldsymbol X$ 处**形变前**物体的表面法向。
+其中 $\boldsymbol N$ 为 $\boldsymbol X$ 处**形变前**物体的表面法向，这里的点乘就是矩阵乘法。
 
 另外，力密度 $\boldsymbol f$ 与 $\boldsymbol P$ 具有如下的关系：
 
@@ -162,6 +162,8 @@ $$
 
 (sec-animation-elastomers-fem-models)=
 ### 常见超弹性模型
+
+前面的讨论中我们给出了弹性体的形变、能量和应力之间的关系，但是我们还没办法计算一个弹性体的具体受力情况，事实上，我们只需要知道能量密度 $\Psi(\boldsymbol F)$ 的具体表达式即可进行计算。在本节，我们将给出一些常见超弹性模型的能量密度的具体形式，并且为了避免每次都计算一遍矩阵求导，我们会同时给出 $\boldsymbol P$ 的表达式。
 
 ## 空间离散化
 
