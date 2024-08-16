@@ -74,6 +74,7 @@ $$ (animation-elastomers-deformation_gradient)
 由式 {eq}`animation-elastomers-deformation_gradient` 可见，形变梯度 $\boldsymbol F$ 是一个关于形变前坐标 $\boldsymbol X$ 的矩阵函数。
 ```
 
+(sec-animation-elastomers-fem-energy)=
 ### 描述能量
 
 弹性体的形变会累积弹性势能，在连续介质力学中又称为应变能（strain energy）。由于总能量完全由弹性体的形变决定，我们可以将应变能表示成变形函数的泛函 $E[\boldsymbol\phi]$。值得注意的是，在这种表示中，应变能的值仅与弹性体的**最终**形变有关，和弹性体的变形**路径**（或**历史时刻**的形变）无关，也即弹性力是保守力（conservative force）。这个性质是超弹性（hyperelastic）材料的特性，在本章中我们只会讨论这一种材料的模拟。
@@ -163,7 +164,69 @@ $$
 (sec-animation-elastomers-fem-models)=
 ### 常见超弹性模型
 
-前面的讨论中我们给出了弹性体的形变、能量和应力之间的关系，但是我们还没办法计算一个弹性体的具体受力情况，事实上，我们只需要知道能量密度 $\Psi(\boldsymbol F)$ 的具体表达式即可进行计算。在本节，我们将给出一些常见超弹性模型的能量密度的具体形式，并且为了避免每次都计算一遍矩阵求导，我们会同时给出 $\boldsymbol P$ 的表达式。
+前面的讨论中我们给出了弹性体的形变、能量和应力之间的关系，但是我们还没办法计算一个弹性体的具体受力情况。事实上，我们只需要知道能量密度 $\Psi(\boldsymbol F)$ 的具体表达式即可进行计算，每一种能量密度的具体形式对应于一种本构模型（constitutive model），它充分描述了弹性体的全部力学性质。在本节，我们将给出一些常见超弹性模型的能量密度的具体形式，并且为了避免每次都计算一遍矩阵求导，我们会同时给出 $\boldsymbol P$ 的表达式。
+
+#### 线性弹性模型
+
+正常来讲，能量密度的具体形式应当是 $\boldsymbol F$ 的表达式。但是我们往往难以直接使用 $\boldsymbol F$ 的元素直接描述出形变与力的关系，而是需要借助一些中间变量。现在我们介绍其中一种中间变量——格林应变张量（Green strain tensor），定义如下：
+
+$$
+\boldsymbol E=\frac 12\left(\boldsymbol F^\top\boldsymbol F-\mathbf I\right)。
+$$ (animation-elastomers-fem-green_strain_tensor)
+
+格林应变张量具有一些良好的性质，使其能够较好地反映出弹性形变的程度。当弹性体只经历了刚性运动时，其变形函数为 $\boldsymbol\phi(\boldsymbol X)=\boldsymbol{RX}+\boldsymbol t$，其中 $\boldsymbol R$ 为旋转矩阵，$\boldsymbol t$ 为平移向量，则 $\boldsymbol F=\boldsymbol R$，此时格林应变张量为 $\boldsymbol E=\frac 12\left(\boldsymbol R^\top\boldsymbol R-\mathbf I\right)=\mathbf 0$——这表明格林应变张量不会受刚性运动的影响，又称为刚性运动下的不变量（invariant）。对于更一般的形变，我们可以将形变梯度进行极分解 $\boldsymbol F=\boldsymbol{RS}$，表示成旋转矩阵 $\boldsymbol R$ 和对称矩阵 $\boldsymbol S$ 乘积的形式，那么格林应变张量可化为
+
+$$
+\boldsymbol E=\frac 12\left(\boldsymbol S^\top\boldsymbol R^\top\boldsymbol{RS}-\mathbf I\right)=\frac 12\left(\boldsymbol S^2-\mathbf I\right)。
+$$
+
+这表明格林应变张量只和形变梯度的对称因子 $\boldsymbol S$ 有关，而 $\boldsymbol S$ 中包含了拉伸、剪切这些真正导致弹力的信息。
+
+但是，格林应变张量也存在缺点——关于 $\boldsymbol F$ 非线性，相比线性能量形式的本构模型而言，这会加大模拟的计算量。因此，为了解决这个问题，我们引入一个 $\boldsymbol E$ 的线性近似作为小应变张量（small strain tensor），其定义如下：
+
+$$
+\boldsymbol\epsilon=\frac 12\left(\boldsymbol F+\boldsymbol F^\top\right)-\mathbf I。
+$$
+
+关于 $\boldsymbol\epsilon$ 是 $\boldsymbol E$ 的线性近似的证明可以参考 {cite}`sifakis2012fem`。借助小应变张量，我们立即可以定义出线性弹性模型的能量密度：
+
+$$
+\Psi(\boldsymbol F)=\mu\mathrm{tr}\left(\boldsymbol\epsilon^2\right)+\frac\lambda 2\mathrm{tr}^2(\boldsymbol\epsilon)，
+$$ (animation-elastomers-fem-linear_elasticity_energy)
+
+其中，$\mu,\lambda$ 是拉美系数（Lamé coefficients），它们可以通过杨氏模量（Young's modulus）$k$ 和泊松比（Poisson's ratio）$\nu$ 计算得到：
+
+$$
+\begin{array}
+&\mu=\frac k{2(1+\nu)}，&\lambda=\frac{k\nu}{(1+\nu)(1-2\nu)}，
+\end{array}
+$$
+
+其中杨氏模量反应了材料对拉伸的抵抗能力，泊松比反应了材料的不可压性。线性弹性模型的第一类皮奥拉-基尔霍夫应力张量为
+
+$$
+\boldsymbol P=2\mu\boldsymbol\epsilon+\lambda\mathrm{tr}(\boldsymbol\epsilon)\mathbf I。
+$$ (animation-elastomers-fem-linear_elasticity_stress)
+
+在线性弹性模型中，虽然应力能够表示成形变梯度的线性函数从而能够快速地模拟，但由于小应变张量 $\boldsymbol\epsilon$ 对格林应变张量 $\boldsymbol E$ 在无形变（$\boldsymbol F=\mathbf I$）处进行了线性近似，所以只在材料形变很小的情况下才具有较好的性质。当材料形变过大时，$\boldsymbol\epsilon$ 会与 $\boldsymbol E$ 相差甚远，从而不再具有 $\boldsymbol E$ 的忽略刚性运动等性质，模拟会产生错误的结果。
+
+#### 圣维南-基尔霍夫模型
+
+圣维南-基尔霍夫模型（St. Venant-Kirchhoff model）的能量形式就是将式 {eq}`animation-elastomers-fem-linear_elasticity_energy` 中的小应变张量替换成格林应变张量：
+
+$$
+\Psi(\boldsymbol F)=\mu\mathrm{tr}\left(\boldsymbol E^2\right)+\frac\lambda 2\mathrm{tr}^2(\boldsymbol E)，
+$$ (animation-elastomers-fem-stvk_energy)
+
+从而此模型具有格林应变张量的全部良好性质，但它不再是一个线性的本构模型。此模型的第一类皮奥拉-基尔霍夫应力张量为
+
+$$
+\boldsymbol P=\boldsymbol F[2\mu\boldsymbol E+\lambda\mathrm{tr}(\boldsymbol E)\mathbf I]。
+$$ (animation-elastomers-fem-stvk_stress)
+
+圣维南-基尔霍夫模型的一个典型问题在于无法抵抗过强的压缩。当一个该模型的材料从自然状态被压缩时，在刚开始它会产生抗拒压缩、恢复原体积的弹力；但随着压缩的力度逐渐增大、材料的体积逐渐减小，会出现弹力的最大值，此后弹力将逐渐减小；直至整个材料被压缩成一个质点，此时 $\boldsymbol F=\mathbf 0$，代入式 {eq}`animation-elastomers-fem-stvk_stress` 得到 $\boldsymbol P=\mathbf 0$，所以产生的力密度和牵引力均为 $\mathbf 0$；如果力的方向保持不变导致弹性体翻转，则产生出的弹力会试图恢复成翻转的参考构型，类似本章开头提到的弹簧质点系统产生的效果。这样的性质会导致模拟出的弹性体在强力的压缩作用下很容易产生打结、翻转等非物理的现象。
+
+> jr: 这里可以加几张图片展示 STVK 的 failure case。
 
 ## 空间离散化
 

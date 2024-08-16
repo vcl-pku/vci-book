@@ -253,7 +253,7 @@ $$ (animation-elastomers-energy_gradient)
 同样地，我们考虑一个弹簧 $(i,j)$ 关于质点 $i$ 的海瑟矩阵，即对式 {eq}`animation-elastomers-spring_force` 两边求梯度，得到
 
 $$
-\boldsymbol H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\boldsymbol x^k)}{\partial\boldsymbol x_i^2}&=k_{ij}\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\boldsymbol x_i-\boldsymbol x_j\|}\right)\left(\boldsymbol I-\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}\right)，\\
+\boldsymbol H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\boldsymbol x^k)}{\partial\boldsymbol x_i^2}&=k_{ij}\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\boldsymbol x_i-\boldsymbol x_j\|}\right)\left(\mathbf I-\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}\right)，\\
 \frac{\partial^2E_{ij}(\boldsymbol x^k)}{\partial\boldsymbol x_i\partial\boldsymbol x_j}&=-\boldsymbol H_e，\\
 \frac{\partial^2E_{ij}(\boldsymbol x^k)}{\partial\boldsymbol x_j^2}&=\boldsymbol H_e。
 $$
