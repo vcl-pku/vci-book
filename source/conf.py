@@ -18,7 +18,8 @@ extensions = [
     'myst_parser',
     'sphinx_multitoc_numbering',
     'sphinxcontrib.bibtex',
-	'sphinx_subfigure'
+	'sphinx_subfigure',
+	'sphinx_proof'
 ]
 
 templates_path = ['_templates']

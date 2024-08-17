@@ -248,6 +248,16 @@ $$ (animation-elastomers-fem-corotated_stress)
 
 我们已经知道，圣维南-基尔霍夫模型和共旋转线性模型的能量和力在刚体运动下都不会发生变化，这种性质叫做旋转不变性（rotationally invariance）。关于这个名称，由于能量密度的形式 $\Psi(\boldsymbol F)$ 已经表明了平移下的不变性（形变梯度 $\boldsymbol F$ 不受材料平移的影响），所以我们只会关注刚体运动中的旋转变换。下面我们给出旋转不变性的数学定义：
 
+```{prf:definition}
+:label: def-animation-elastomers-fem-rotationally_invariance
+
+我们称一个超弹性本构模型是旋转不变的（或具有旋转不变性），当且仅当对于任意旋转矩阵 $\boldsymbol R$ 和任意形变梯度 $\boldsymbol F$，其能量密度函数满足
+
+$$
+\Psi(\boldsymbol{RF})=\Psi(\boldsymbol F)。
+$$
+```
+
 ## 空间离散化
 
 ## 数值求解算法
