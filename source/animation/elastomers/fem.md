@@ -166,7 +166,7 @@ $$
 
 前面的讨论中我们给出了弹性体的形变、能量和应力之间的关系，但是我们还没办法计算一个弹性体的具体受力情况。事实上，我们只需要知道能量密度 $\Psi(\boldsymbol F)$ 的具体表达式即可进行计算，每一种能量密度的具体形式对应于一种本构模型（constitutive model），它充分描述了弹性体的全部力学性质。在本节，我们将给出一些常见超弹性模型的能量密度的具体形式，并且为了避免每次都计算一遍矩阵求导，我们会同时给出 $\boldsymbol P$ 的表达式。
 
-#### 线性弹性模型
+#### 线性模型
 
 正常来讲，能量密度的具体形式应当是 $\boldsymbol F$ 的表达式。但是我们往往难以直接使用 $\boldsymbol F$ 的元素直接描述出形变与力的关系，而是需要借助一些中间变量。现在我们介绍其中一种中间变量——格林应变张量（Green strain tensor），定义如下：
 
@@ -188,7 +188,7 @@ $$
 \boldsymbol\epsilon=\frac 12\left(\boldsymbol F+\boldsymbol F^\top\right)-\mathbf I。
 $$
 
-关于 $\boldsymbol\epsilon$ 是 $\boldsymbol E$ 的线性近似的证明可以参考 {cite}`sifakis2012fem`。借助小应变张量，我们立即可以定义出线性弹性模型的能量密度：
+关于 $\boldsymbol\epsilon$ 是 $\boldsymbol E$ 的线性近似的证明可以参考 {cite}`sifakis2012fem`。借助小应变张量，我们立即可以定义出线性模型的能量密度：
 
 $$
 \Psi(\boldsymbol F)=\mu\mathrm{tr}\left(\boldsymbol\epsilon^2\right)+\frac\lambda 2\mathrm{tr}^2(\boldsymbol\epsilon)，
@@ -202,13 +202,13 @@ $$
 \end{array}
 $$
 
-其中杨氏模量反应了材料对拉伸的抵抗能力，泊松比反应了材料的不可压性。线性弹性模型的第一类皮奥拉-基尔霍夫应力张量为
+其中杨氏模量反应了材料对拉伸的抵抗能力，泊松比反应了材料的不可压性。线性模型的第一类皮奥拉-基尔霍夫应力张量为
 
 $$
 \boldsymbol P=2\mu\boldsymbol\epsilon+\lambda\mathrm{tr}(\boldsymbol\epsilon)\mathbf I。
 $$ (animation-elastomers-fem-linear_elasticity_stress)
 
-在线性弹性模型中，虽然应力能够表示成形变梯度的线性函数从而能够快速地模拟，但由于小应变张量 $\boldsymbol\epsilon$ 对格林应变张量 $\boldsymbol E$ 在无形变（$\boldsymbol F=\mathbf I$）处进行了线性近似，所以只在材料形变很小的情况下才具有较好的性质。当材料形变过大时，$\boldsymbol\epsilon$ 会与 $\boldsymbol E$ 相差甚远，从而不再具有 $\boldsymbol E$ 的忽略刚性运动等性质，模拟会产生错误的结果。
+在线性模型中，虽然应力能够表示成形变梯度的线性函数从而能够快速地模拟，但由于小应变张量 $\boldsymbol\epsilon$ 对格林应变张量 $\boldsymbol E$ 在无形变（$\boldsymbol F=\mathbf I$）处进行了线性近似，所以只在材料形变很小的情况下才具有较好的性质。当材料形变过大时，$\boldsymbol\epsilon$ 会与 $\boldsymbol E$ 相差甚远，从而不再具有 $\boldsymbol E$ 的忽略刚性运动等性质，模拟会产生错误的结果。
 
 #### 圣维南-基尔霍夫模型
 
