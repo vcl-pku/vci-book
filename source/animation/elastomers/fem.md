@@ -228,6 +228,26 @@ $$ (animation-elastomers-fem-stvk_stress)
 
 > jr: 这里可以加几张图片展示 STVK 的 failure case。
 
+#### 共旋转线性模型
+
+线性模型只能处理微小形变，圣维南-基尔霍夫模型又引入了过多的非线性项从而导致非物理的零应力现象，共旋转线性模型（corotated linear elasticity）的提出就是为了结合二者的设计、避免二者的问题，此模型尽可能地使用形变梯度的线性项去刻画应力，同时采用最少的非线性项来保证刚性运动下的不变性。此模型的能量形式为
+
+$$
+\Psi(\boldsymbol F)=\mu\|\boldsymbol S-\mathbf I\|_\mathrm F^2+\frac\lambda 2\mathrm{tr}^2(\boldsymbol S-\mathbf I)，
+$$ (animation-elastomers-fem-corotated_energy)
+
+其中形变梯度的极分解为 $\boldsymbol F=\boldsymbol S-\mathbf I$，所以这个模型的能量形式可以完全过滤掉材料的刚体运动，同时相比于式 {eq}`animation-elastomers-fem-stvk_energy`，式 {eq}`animation-elastomers-fem-corotated_energy` 中的能量模型关于 $\boldsymbol S$ 的次数更低（前者为 $4$ 次，后者为 $2$ 次）。此模型的第一类皮奥拉-基尔霍夫应力张量为
+
+$$
+\boldsymbol P=2\mu(\boldsymbol F-\boldsymbol R)+\lambda\mathrm{tr}\left(\boldsymbol R^\top\boldsymbol F-\mathbf I\right)\boldsymbol R。
+$$ (animation-elastomers-fem-corotated_stress)
+
+共旋转线性模型试图找到一个最贴近形变后位置的旋转，并在这个旋转下模仿线性模型的行为，其模拟的计算量介于线性模型与圣维南-基尔霍夫模型之间，并且不会有非物理的零应力现象。
+
+#### 新胡克模型
+
+我们已经知道，圣维南-基尔霍夫模型和共旋转线性模型的能量和力在刚体运动下都不会发生变化，这种性质叫做旋转不变性（rotationally invariance）。关于这个名称，由于能量密度的形式 $\Psi(\boldsymbol F)$ 已经表明了平移下的不变性（形变梯度 $\boldsymbol F$ 不受材料平移的影响），所以我们只会关注刚体运动中的旋转变换。下面我们给出旋转不变性的数学定义：
+
 ## 空间离散化
 
 ## 数值求解算法
