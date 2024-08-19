@@ -20,7 +20,6 @@ introduction/index
 
 getting-started/basics/index
 getting-started/color/index
-getting-started/display/index
 getting-started/drawing-2d/index
 getting-started/anti-aliasing/index
 getting-started/curves/index

@@ -1,11 +1,5 @@
 # 像素与矢量
 
-<!-- ```{figure} fig/sunday.jpg
-:name: fig-sunday
-
-Seurat, Georges. "A Sunday Afternoon on the Island of La Grande Jatte". 1886, Art Institute of Chicago
-``` -->
-
 如果我们将显示的问题用数学的语言表达出来，我们可以在矩形的屏幕上建立一个直角坐标系，然后说“请在点 $(x_1, y_1)$ 和点 $(x_2, y_2)$ 之间画一条直线”，“请以点 $(x, y)$ 为圆心画一个半径为 $r$ 的圆”之类的话。问题在于，显示的硬件设备应该如何执行这样的描述呢？
 
 ## 矢量显示
