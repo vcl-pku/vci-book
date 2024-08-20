@@ -65,10 +65,10 @@ $$ (animation-elastomers-deformation_function)
 变形函数 $\boldsymbol\phi$ 确实能够充分地表示出弹性体的形变，但作为一个**全局**的信息表示，它包含了过多的信息。我们马上就会看到，弹性体每一个点的能量与内力只由其**局部**的形变所决定。因此，在连续介质力学中会引入形变梯度（deformation gradient）的概念，形变梯度一般记为 $\boldsymbol F$，其定义为变形函数 $\boldsymbol\phi$ 关于形变前位置 $\boldsymbol X$ 的雅可比矩阵：
 
 $$
-\boldsymbol F\mathrel{\mathop:}=\frac{\partial(\phi_1,\phi_2,\phi_3)}{\partial(X_1,X_2,X_3)}=\begin{bmatrix}\frac{\partial\phi_1}{\partial X_1}&\frac{\partial\phi_1}{\partial X_2}&\frac{\partial\phi_1}{\partial X_3}\\\frac{\partial\phi_2}{\partial X_1}&\frac{\partial\phi_2}{\partial X_2}&\frac{\partial\phi_2}{\partial X_3}\\\frac{\partial\phi_3}{\partial X_1}&\frac{\partial\phi_3}{\partial X_2}&\frac{\partial\phi_3}{\partial X_3}\end{bmatrix}，
+\boldsymbol F\mathrel{\mathop:}=\frac{\partial(\phi_x,\phi_y,\phi_z)}{\partial(X,Y,Z)}=\begin{bmatrix}\frac{\partial\phi_x}{\partial X}&\frac{\partial\phi_x}{\partial Y}&\frac{\partial\phi_x}{\partial Z}\\\frac{\partial\phi_y}{\partial X}&\frac{\partial\phi_y}{\partial Y}&\frac{\partial\phi_z}{\partial Z}\\\frac{\partial\phi_z}{\partial X}&\frac{\partial\phi_z}{\partial Y}&\frac{\partial\phi_z}{\partial Z}\end{bmatrix}，
 $$ (animation-elastomers-deformation_gradient)
 
-其中 $\boldsymbol\phi(\boldsymbol X)=\begin{pmatrix}\phi_1&\phi_2&\phi_3\end{pmatrix}^\top$，$\boldsymbol X=\begin{pmatrix}X_1&X_2&X_3\end{pmatrix}^\top$。我们知道导数可以很好地反映原函数的局部特征，所以在连续介质力学中形变梯度是最常用也最直观的刻画弹性体形变的量之一，变形函数反而没有那么重要。
+其中 $\boldsymbol\phi(\boldsymbol X)=\begin{pmatrix}\phi_x&\phi_y&\phi_z\end{pmatrix}^\top$，$\boldsymbol X=\begin{pmatrix}X&Y&Z\end{pmatrix}^\top$。我们知道导数可以很好地反映原函数的局部特征，所以在连续介质力学中形变梯度是最常用也最直观的刻画弹性体形变的量之一，变形函数反而没有那么重要。
 
 ```{attention}
 由式 {eq}`animation-elastomers-deformation_gradient` 可见，形变梯度 $\boldsymbol F$ 是一个关于形变前坐标 $\boldsymbol X$ 的矩阵函数。
@@ -178,7 +178,7 @@ $$ (animation-elastomers-fem-green_strain_tensor)
 
 $$
 \boldsymbol E=\frac 12\left(\boldsymbol S^\top\boldsymbol R^\top\boldsymbol{RS}-\mathbf I\right)=\frac 12\left(\boldsymbol S^2-\mathbf I\right)。
-$$
+$$ (animation-elastomers-fem-green_strain_tensor_in_terms_of_s)
 
 这表明格林应变张量只和形变梯度的对称因子 $\boldsymbol S$ 有关，而 $\boldsymbol S$ 中包含了拉伸、剪切这些真正导致弹力的信息。
 
@@ -186,7 +186,7 @@ $$
 
 $$
 \boldsymbol\epsilon=\frac 12\left(\boldsymbol F+\boldsymbol F^\top\right)-\mathbf I。
-$$
+$$ (animation-elastomers-fem-small_strain_tensor)
 
 关于 $\boldsymbol\epsilon$ 是 $\boldsymbol E$ 的线性近似的证明可以参考 {cite}`sifakis2012fem`。借助小应变张量，我们立即可以定义出线性模型的能量密度：
 
@@ -205,7 +205,7 @@ $$
 其中杨氏模量反应了材料对拉伸的抵抗能力，泊松比反应了材料的不可压性。线性模型的第一类皮奥拉-基尔霍夫应力张量为
 
 $$
-\boldsymbol P=2\mu\boldsymbol\epsilon+\lambda\mathrm{tr}(\boldsymbol\epsilon)\mathbf I。
+\boldsymbol P(\boldsymbol F)=2\mu\boldsymbol\epsilon+\lambda\mathrm{tr}(\boldsymbol\epsilon)\mathbf I。
 $$ (animation-elastomers-fem-linear_elasticity_stress)
 
 在线性模型中，虽然应力能够表示成形变梯度的线性函数从而能够快速地模拟，但由于小应变张量 $\boldsymbol\epsilon$ 对格林应变张量 $\boldsymbol E$ 在无形变（$\boldsymbol F=\mathbf I$）处进行了线性近似，所以只在材料形变很小的情况下才具有较好的性质。当材料形变过大时，$\boldsymbol\epsilon$ 会与 $\boldsymbol E$ 相差甚远，从而不再具有 $\boldsymbol E$ 的忽略刚性运动等性质，模拟会产生错误的结果。
@@ -221,7 +221,7 @@ $$ (animation-elastomers-fem-stvk_energy)
 从而此模型具有格林应变张量的全部良好性质，但它不再是一个线性的本构模型。此模型的第一类皮奥拉-基尔霍夫应力张量为
 
 $$
-\boldsymbol P=\boldsymbol F[2\mu\boldsymbol E+\lambda\mathrm{tr}(\boldsymbol E)\mathbf I]。
+\boldsymbol P(\boldsymbol F)=\boldsymbol F[2\mu\boldsymbol E+\lambda\mathrm{tr}(\boldsymbol E)\mathbf I]。
 $$ (animation-elastomers-fem-stvk_stress)
 
 圣维南-基尔霍夫模型的一个典型问题在于无法抵抗过强的压缩。当一个该模型的材料从自然状态被压缩时，在刚开始它会产生抗拒压缩、恢复原体积的弹力；但随着压缩的力度逐渐增大、材料的体积逐渐减小，会出现弹力的最大值，此后弹力将逐渐减小；直至整个材料被压缩成一个质点，此时 $\boldsymbol F=\mathbf 0$，代入式 {eq}`animation-elastomers-fem-stvk_stress` 得到 $\boldsymbol P=\mathbf 0$，所以产生的力密度和牵引力均为 $\mathbf 0$；如果力的方向保持不变导致弹性体翻转，则产生出的弹力会试图恢复成翻转的参考构型，类似本章开头提到的弹簧质点系统产生的效果。这样的性质会导致模拟出的弹性体在强力的压缩作用下很容易产生打结、翻转等非物理的现象。
@@ -239,23 +239,112 @@ $$ (animation-elastomers-fem-corotated_energy)
 其中形变梯度的极分解为 $\boldsymbol F=\boldsymbol S-\mathbf I$，所以这个模型的能量形式可以完全过滤掉材料的刚体运动，同时相比于式 {eq}`animation-elastomers-fem-stvk_energy`，式 {eq}`animation-elastomers-fem-corotated_energy` 中的能量模型关于 $\boldsymbol S$ 的次数更低（前者为 $4$ 次，后者为 $2$ 次）。此模型的第一类皮奥拉-基尔霍夫应力张量为
 
 $$
-\boldsymbol P=2\mu(\boldsymbol F-\boldsymbol R)+\lambda\mathrm{tr}\left(\boldsymbol R^\top\boldsymbol F-\mathbf I\right)\boldsymbol R。
+\boldsymbol P(\boldsymbol F)=2\mu(\boldsymbol F-\boldsymbol R)+\lambda\mathrm{tr}\left(\boldsymbol R^\top\boldsymbol F-\mathbf I\right)\boldsymbol R。
 $$ (animation-elastomers-fem-corotated_stress)
 
 共旋转线性模型试图找到一个最贴近形变后位置的旋转，并在这个旋转下模仿线性模型的行为，其模拟的计算量介于线性模型与圣维南-基尔霍夫模型之间，并且不会有非物理的零应力现象。
 
 #### 新胡克模型
 
-我们已经知道，圣维南-基尔霍夫模型和共旋转线性模型的能量和力在刚体运动下都不会发生变化，这种性质叫做旋转不变性（rotationally invariance）。关于这个名称，由于能量密度的形式 $\Psi(\boldsymbol F)$ 已经表明了平移下的不变性（形变梯度 $\boldsymbol F$ 不受材料平移的影响），所以我们只会关注刚体运动中的旋转变换。下面我们给出旋转不变性的数学定义：
+我们已经知道，圣维南-基尔霍夫模型和共旋转线性模型的能量和力在刚体运动下都不会发生变化，这种性质叫做旋转不变性（rotational invariance）。关于这个名称，由于能量密度的形式 $\Psi(\boldsymbol F)$ 已经表明了平移下的不变性（形变梯度 $\boldsymbol F$ 不受材料平移的影响），所以我们只会关注刚体运动中的旋转变换。下面我们给出旋转不变性的数学定义：
 
 ```{prf:definition}
-:label: def-animation-elastomers-fem-rotationally_invariance
+:label: def-animation-elastomers-fem-rotational_invariance
 
 我们称一个超弹性本构模型是旋转不变的（或具有旋转不变性），当且仅当对于任意旋转矩阵 $\boldsymbol R$ 和任意形变梯度 $\boldsymbol F$，其能量密度函数满足
 
 $$
 \Psi(\boldsymbol{RF})=\Psi(\boldsymbol F)。
 $$
+```
+
+一个本构模型具有旋转不变性，等价于其能量形式能够表示成形变梯度对称因子的函数，即对于任意形变梯度 $\boldsymbol F=\boldsymbol{RS}$，有 $\Psi(\boldsymbol F)=\Psi(\boldsymbol{RS})=\Psi(\boldsymbol S)$。显然，圣维南-基尔霍夫模型和共旋转线性模型的能量形式都能够表示成 $\boldsymbol S$ 的函数。
+
+另外一个形似但不同的概念叫做各向同性（isotropy），它表明一个超弹性材料对任意方向形变的抵抗是同样强的。这个概念只有在研究材料的局部性质时才有意义，因为如果从宏观角度考虑，任意一种材料组成的物体都可以通过巧妙地设计它的形状来使得它在总体上对某个方向的形变与其他方向不同。我们考虑一个体积无限小的球形弹性体，首先将其关于一个过球心的轴进行旋转，然后再对它施加一个特定的形变，各向同性的材料意味着无论第一步的旋转变换如何，最终得到的能量都是相等的。下面我们给出各向同性的数学定义：
+
+```{prf:definition}
+:label: def-animation-elastomers-fem-isotropy
+
+我们称一个超弹性本构模型是各向同性的，当且仅当对于任意旋转矩阵 $\boldsymbol R$ 和任意形变梯度 $\boldsymbol F$，其能量密度函数满足
+
+$$
+\Psi(\boldsymbol{FR})=\Psi(\boldsymbol F)。
+$$
+```
+
+````{subfigure} A|B
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-elastomers-rotational_invariance_isotropy
+
+```{image} fig/animation-elastomers-rotational_invariance.png
+:alt: 旋转不变性
+```
+
+```{image} fig/animation-elastomers-isotropy.png
+:alt: 各向同性
+```
+
+旋转不变性与各向同性的区别。考虑一个微小的球体超弹性材料，球心处于原点，设 $\boldsymbol F=\begin{bmatrix}\frac 12&0&0\\0&1&0\\0&0&1\end{bmatrix}$ 为将材料在 $x$ 轴方向压缩的形变，$\boldsymbol R=\begin{bmatrix}0&-1&0\\1&0&0\\0&0&1\end{bmatrix}$ 为将材料绕 $z$ 轴旋转 $\frac\pi 2$ 的变换。在旋转不变性的定义中，等式左侧的能量密度是在先进行 $\boldsymbol F$ 变换、后进行 $\boldsymbol R$ 变换的形变上度量的，它等于只进行 $\boldsymbol F$ 变换带来的能量密度，这表明后续进行的旋转变换不会改变能量密度。在各向同性的定义中，等式左侧的能量密度是在先进行 $\boldsymbol R$ 变换、后进行 $\boldsymbol F$ 变换的形变上度量的，原本沿 $y$ 轴分布的材料在第一步旋转之后变成了沿 $x$ 轴分布，第二步的 $\boldsymbol F$ 在 $x$ 轴方向压缩了原先沿 $y$ 轴分布的材料，而这样带来的能量密度与只进行 $\boldsymbol F$ 变换的能量密度表明材料沿 $x$ 轴的抵抗和沿 $y$ 轴的抵抗相同。
+````
+
+可以看到 {prf:ref}`def-animation-elastomers-fem-rotational_invariance` 和 {prf:ref}`def-animation-elastomers-fem-isotropy` 的区别仅仅在于旋转矩阵与形变梯度乘积的次序，但这个细微差别带来的含义是迥然不同的——前者指的是对材料进行旋转不影响能量，后者指的是对形变梯度的方向进行旋转不影响能量，如{numref}`fig-animation-elastomers-rotational_invariance_isotropy` 所示。
+
+在我们身边，各向同性与各向异性的材料随处可见，如图所示。金属、橡胶等材料对各个方向的抵抗能力均相同，是典型的各向同性材料。我们每个人身上都有一种很典型的各向异性材料——肌肉，肌肉由多束平行的肌纤维组成，它对平行于肌纤维的形变与垂直方向的形变有着显著不同的响应。其余各向异性的材料还包括木材、各向异性的材料一般都在微观结构上具有一定的方向性。
+
+> jr: 需要找一些各向同性、各向异性材料的图片。
+
+对于同时满足旋转不变性且各向同性的材料而言，对于任意两个旋转矩阵 $\boldsymbol P,\boldsymbol Q$ 以及任意的形变梯度 $\boldsymbol F$，都有 $\Psi(\boldsymbol{PFQ})=\Psi(\boldsymbol F)$。那么如果我们对形变梯度进行奇异值分解 $\boldsymbol F=\boldsymbol{U\Sigma}\boldsymbol V^\top$，就可以立刻得到 $\Psi(\boldsymbol F)=\Psi(\boldsymbol\Sigma)$，也就是说能量密度的形式可以表示成形变梯度所有奇异值的函数。虽然任何一个旋转不变且各向同性的能量形式都能够直接用奇异值表示出来，但是在实践中	进行奇异值分解的计算量较大，所以我们会引入一些各向同性不变量（isotropic invariant），这些不变量只和奇异值相关，但无须奇异值分解就能计算出来；用这些不变量定义能量形式，就能够得到一个旋转不变且各向同性的本构模型，同时减少其模拟的计算量。这些不变量分别如下：
+
+$$
+&I_1(\boldsymbol F)=\mathrm{tr}\left(\boldsymbol\Sigma^2\right)=\mathrm{tr}\left(\boldsymbol F^\top\boldsymbol F\right)，\\
+&I_2(\boldsymbol F)=\mathrm{tr}\left(\boldsymbol\Sigma^4\right)=\mathrm{tr}\left[\left(\boldsymbol F^\top\boldsymbol F\right)^2\right]，\\
+&I_3(\boldsymbol F)=\det\left(\boldsymbol\Sigma^2\right)=(\det\boldsymbol F)^2。
+$$ (animation-elastomers-fem-isotropic_invariants)
+
+它们的导数分别是
+
+$$
+\begin{array}
+&\frac{\partial I_1}{\partial\boldsymbol F}=2\boldsymbol F，&\frac{\partial I_2}{\partial\boldsymbol F}=4\boldsymbol F\boldsymbol F^\top\boldsymbol F，&\frac{\partial I_3}{\partial\boldsymbol F}=2I_3\boldsymbol F^{-\top}。
+\end{array}
+$$
+
+因此，对于用这些不变量表示的能量形式 $\Psi(I_1,I_2,I_3)$，其第一类皮奥拉-基尔霍夫应力张量为
+
+$$
+\boldsymbol P(\boldsymbol F)=\frac{\partial\Psi}{\partial I_1}\cdot 2\boldsymbol F+\frac{\partial\Psi}{\partial I_2}\cdot 4\boldsymbol F\boldsymbol F^\top\boldsymbol F+\frac{\partial\Psi}{\partial I_3}\cdot 2I_3\boldsymbol F^{-\top}。
+$$
+
+新胡克模型（Neohookean elasticity）就是一个使用各向同性不变量定义能量形式的本构模型，其能量密度为
+
+$$
+\Psi(I_1,I_3)=\frac\mu 2[I_1-\log(I_3)-3]+\frac\lambda 8\log^2(I_3)，
+$$ (animation-elastomers-fem-neohookean_energy)
+
+其第一类皮奥拉-基尔霍夫应力张量为
+
+$$
+\boldsymbol P(\boldsymbol F)=\mu\boldsymbol F-\mu\boldsymbol F^{-\top}+\frac{\lambda\log(I_3)}2\boldsymbol F^{-\top}。
+$$ (animation-elastomers-fem-neohookean_stress)
+
+从 $I_3$ 的表达式可以看出，它反映了形变后材料相对形变前的体积大小。当体积被压缩至 $0$ 时，$I_3$ 会趋于 $0$，则式 {eq}`animation-elastomers-fem-neohookean_energy` 中的 $\log^2(I_3)$ 项会占主导地位，让能量密度趋于正无穷；这样快速增长的能量会让材料对强烈的压缩产生巨大的抵抗，与圣维南-基尔霍夫模型形成了对比。利用这个性质，在模拟高度不可压的弹性体时，第二拉美系数 $\lambda$ 会非常大，从而式 {eq}`animation-elastomers-fem-neohookean_energy` 中的 $\log^2(I_3)$ 项的权重变大，惩罚形变后的体积变化。与此同时，这个性质也会是此模型的一个缺点，在模拟当中不可避免地会出现一些因数值爆炸或边缘情况导致的体积变零甚至反向的情况（即 $\det\boldsymbol F\le 0$ 的情况），此时能量形式将不会有定义，所以在实际处理时会将当前形变梯度 $\boldsymbol F$ 替换为一个最接近的、行列式为一个很小的正值 $\varepsilon$ 的形变梯度。
+
+#### 各种本构模型的比较
+
+我们小结一下前面介绍的所有本构模型，{numref}`tab-animation-elastomers-constitutive_models` 总结了所有模型的优缺点，在了解每个模型的性质之后我们应当根据模拟的需求适当地选择。
+
+```{table} 各种本构模型
+:widths: auto
+:align: center
+:name: tab-animation-elastomers-constitutive_models
+
+|名称|$\Psi$|$\boldsymbol P$|模拟效率|旋转不变性|各向同性|能处理强压缩|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|线性模型|$\mu\mathrm{tr}\left(\boldsymbol\epsilon^2\right)+\frac\lambda 2\mathrm{tr}^2(\boldsymbol\epsilon)$|$2\mu\boldsymbol\epsilon+\lambda\mathrm{tr}(\boldsymbol\epsilon)\mathbf I$|高|无|无|否|
+|圣维南-基尔霍夫模型|$\mu\mathrm{tr}\left(\boldsymbol E^2\right)+\frac\lambda 2\mathrm{tr}^2(\boldsymbol E)$|$\boldsymbol F[2\mu\boldsymbol E+\lambda\mathrm{tr}(\boldsymbol E)\mathbf I]$|低|有|有|否|
+|共旋转线性模型|$\mu\|\boldsymbol S-\mathbf I\|_\mathrm F^2+\frac\lambda 2\mathrm{tr}^2(\boldsymbol S-\mathbf I)$|$2\mu(\boldsymbol F-\boldsymbol R)+\lambda\mathrm{tr}\left(\boldsymbol R^\top\boldsymbol F-\mathbf I\right)\boldsymbol R$|中|有|有|否|
+|新胡克模型|$\frac\mu 2[I_1-\log(I_3)-3]+\frac\lambda 8\log^2(I_3)$|$\mu\boldsymbol F-\mu\boldsymbol F^{-\top}+\frac{\lambda\log(I_3)}2\boldsymbol F^{-\top}$|低|有|有|是|
 ```
 
 ## 空间离散化
