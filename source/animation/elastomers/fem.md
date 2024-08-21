@@ -8,7 +8,7 @@
 一个正四面体形状的弹性体被离散化成弹簧质点系统，其底面三个黑色顶点固定，顶部蓝色顶点受到向下的力 $\boldsymbol F$ 的作用。
 ```
 
-弹簧质点系统给出了一个对弹性物体十分简单的建模，在一定范围内的形变下能够较好地模拟出弹性的动态；然而对于一些较为极端的情形，它将会产生错误的结果。我们以一个体积很小的弹性正四面体为例，其底面固定，一较大的向下的外力 $\boldsymbol F$ 作用于四面体的顶部。如{numref}`fig-animation-elastomers-tetrahedron` 所示，在弹簧质点系统下这个正四面体会自然地被空间离散化成四个处于顶点处、由弹簧两两连接的质点，每根弹簧的原长为正四面体的边长 $l$，劲度系数为 $k$；底面的三个质点（{numref}`fig-animation-elastomers-tetrahedron` 中的黑色顶点）固定，顶部的质点（{numref}`fig-animation-elastomers-tetrahedron` 中的蓝色顶点）受到力 $\boldsymbol F$ 的作用。这个场景的动态如{numref}`fig-animation-elastomers-tetrahedron_dynamics` 所示：初始时四面体静止，顶部质点只受到 $\boldsymbol F$ 的作用开始向下运动；随后由于顶部质点所连接的三根弹簧被压缩，顶部质点还会受到三根弹簧的弹力，由于是正四面体，三个弹力的合力向上，这也符合弹性体总是倾向于恢复原状的性质；但是三根弹簧的合力大小存在上界，当 $\|\boldsymbol F\|>3kl$（即 $\boldsymbol F$ 的大小比三根弹簧压缩至 $0$ 长度的弹力总和还大）时，顶部质点的合力一直向下，从而会一直加速向下运动，即便整个四面体已经被完全压扁乃至反向；在四面体反向后更严重的问题发生了，此时弹簧的合力朝下，也就是说即便撤掉力 $\boldsymbol F$，四面体也不会恢复至原状。
+弹簧质点系统给出了一个对弹性物体十分简单的建模，在一定范围内的形变下能够较好地模拟出弹性的动态；然而对于一些较为极端的情形，它将会产生错误的结果。我们以一个体积很小的弹性正四面体为例，其底面固定，一较大的向下的外力 $\boldsymbol F$ 作用于四面体的顶部。如{numref}`fig-animation-elastomers-tetrahedron` 所示，在弹簧质点系统下这个正四面体会自然地被空间离散化成四个处于顶点处、由弹簧两两连接的质点，每根弹簧的原长为正四面体的边长 $l$，劲度系数为 $k$；底面的三个质点（{numref}`fig-animation-elastomers-tetrahedron` 中的黑色顶点）固定，顶部的质点（{numref}`fig-animation-elastomers-tetrahedron` 中的蓝色顶点）受到力 $\boldsymbol F$ 的作用。这个场景的动态如{numref}`fig-animation-elastomers-tetrahedron_dynamics` 所示：初始时四面体静止，顶部质点只受到 $\boldsymbol F$ 的作用开始向下运动；随后由于顶部质点所连接的三根弹簧被压缩，顶部质点还会受到三根弹簧的弹力，由于是正四面体，三个弹力的合力向上，这也符合弹性体总是倾向于恢复原状的性质；但是三根弹簧的合力大小存在上界，当 $\Vert\boldsymbol F\Vert>3kl$（即 $\boldsymbol F$ 的大小比三根弹簧压缩至 $0$ 长度的弹力总和还大）时，顶部质点的合力一直向下，从而会一直加速向下运动，即便整个四面体已经被完全压扁乃至反向；在四面体反向后更严重的问题发生了，此时弹簧的合力朝下，也就是说即便撤掉力 $\boldsymbol F$，四面体也不会恢复至原状。
 
 ````{subfigure} ABCD
 :layout-sm: AB|CD
@@ -131,6 +131,7 @@ $$
 内部与表面处受力的区别
 ```
 
+(sec-animation-elastomers-fem-energy_force)=
 ### 能量与力的关系
 
 在 {numref}`sec-animation-elastomers-fem-force` 的开头我们回顾了质点重力场中能量与力的关系，但是对本章讨论的弹性体而言情况会更加复杂一些，我们不能直接建立能量密度 $\Psi$ 与力密度 $\boldsymbol f(\boldsymbol X)$ 和牵引力 $\boldsymbol\tau(\boldsymbol X)$ 之间的关系。幸运的是，这个关系可以通过引入一个中间变量建立起来，这个中间变量叫做第一类皮奥拉-基尔霍夫应力张量（first Piola-Kirchhoff stress tensor），一般记作 $\boldsymbol P$。接下来我们不加证明地给出 $\boldsymbol P$ 的性质，对更深层原理感兴趣的同学可以参考 {cite}`sifakis2012fem`。
@@ -233,7 +234,7 @@ $$ (animation-elastomers-fem-stvk_stress)
 线性模型只能处理微小形变，圣维南-基尔霍夫模型又引入了过多的非线性项从而导致非物理的零应力现象，共旋转线性模型（corotated linear elasticity）的提出就是为了结合二者的设计、避免二者的问题，此模型尽可能地使用形变梯度的线性项去刻画应力，同时采用最少的非线性项来保证刚性运动下的不变性。此模型的能量形式为
 
 $$
-\Psi(\boldsymbol F)=\mu\|\boldsymbol S-\mathbf I\|_\mathrm F^2+\frac\lambda 2\mathrm{tr}^2(\boldsymbol S-\mathbf I)，
+\Psi(\boldsymbol F)=\mu\Vert\boldsymbol S-\mathbf I\Vert_\mathrm F^2+\frac\lambda 2\mathrm{tr}^2(\boldsymbol S-\mathbf I)，
 $$ (animation-elastomers-fem-corotated_energy)
 
 其中形变梯度的极分解为 $\boldsymbol F=\boldsymbol S-\mathbf I$，所以这个模型的能量形式可以完全过滤掉材料的刚体运动，同时相比于式 {eq}`animation-elastomers-fem-stvk_energy`，式 {eq}`animation-elastomers-fem-corotated_energy` 中的能量模型关于 $\boldsymbol S$ 的次数更低（前者为 $4$ 次，后者为 $2$ 次）。此模型的第一类皮奥拉-基尔霍夫应力张量为
@@ -343,10 +344,44 @@ $$ (animation-elastomers-fem-neohookean_stress)
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |线性模型|$\mu\mathrm{tr}\left(\boldsymbol\epsilon^2\right)+\frac\lambda 2\mathrm{tr}^2(\boldsymbol\epsilon)$|$2\mu\boldsymbol\epsilon+\lambda\mathrm{tr}(\boldsymbol\epsilon)\mathbf I$|高|无|无|否|
 |圣维南-基尔霍夫模型|$\mu\mathrm{tr}\left(\boldsymbol E^2\right)+\frac\lambda 2\mathrm{tr}^2(\boldsymbol E)$|$\boldsymbol F[2\mu\boldsymbol E+\lambda\mathrm{tr}(\boldsymbol E)\mathbf I]$|低|有|有|否|
-|共旋转线性模型|$\mu\|\boldsymbol S-\mathbf I\|_\mathrm F^2+\frac\lambda 2\mathrm{tr}^2(\boldsymbol S-\mathbf I)$|$2\mu(\boldsymbol F-\boldsymbol R)+\lambda\mathrm{tr}\left(\boldsymbol R^\top\boldsymbol F-\mathbf I\right)\boldsymbol R$|中|有|有|否|
+|共旋转线性模型|$\mu\Vert\boldsymbol S-\mathbf I\Vert_\mathrm F^2+\frac\lambda 2\mathrm{tr}^2(\boldsymbol S-\mathbf I)$|$2\mu(\boldsymbol F-\boldsymbol R)+\lambda\mathrm{tr}\left(\boldsymbol R^\top\boldsymbol F-\mathbf I\right)\boldsymbol R$|中|有|有|否|
 |新胡克模型|$\frac\mu 2[I_1-\log(I_3)-3]+\frac\lambda 8\log^2(I_3)$|$\mu\boldsymbol F-\mu\boldsymbol F^{-\top}+\frac{\lambda\log(I_3)}2\boldsymbol F^{-\top}$|低|有|有|是|
 ```
 
 ## 空间离散化
+
+我们在前文讲到的所有物理模型都是建立在连续体上的，与弹簧质点系统一样，要使用计算机将这些物理模型模拟出来也需要进行空间离散化。在有限元方法中，一个连续的超弹性材料被表示成一个四面体网格（tetrahedral mesh），即一些紧密相连的四面体组成的图（如{numref}`fig-animation-elastomers-hand` 所示）。
+
+```{figure} fig/animation-elastomers-hand.png
+:name: fig-animation-elastomers-hand
+
+一个手形弹性体分别在有限元方法（左）和弹簧质点系统（右）中的离散化
+```
+
+设四面体网格拥有 $N$ 个顶点和 $M$ 个四面体单元，离散化后的弹性体的全部自由度即为所有四面体的顶点，我们记未形变状态下顶点的坐标为 $\boldsymbol X_1,\cdots,\boldsymbol X_N$，形变后的顶点坐标为 $\boldsymbol x_1,\cdots,\boldsymbol x_N$。利用这些自由度，我们需要构造出一个合适的变形函数 $\boldsymbol\phi(\boldsymbol X)$，使其满足 $\boldsymbol\phi(\boldsymbol X_i)=\boldsymbol x_i,i=1,\cdots,N$；这样，我们就从离散的定点上定义的变形映射延拓到了一个连续区域内，便可以进一步地计算出形变梯度 $\boldsymbol F$，再结合本构模型计算出 $\Psi$ 和 $\boldsymbol P$。但是，在离散意义下，我们并不能简单地使用 {numref}`sec-animation-elastomers-fem-energy_force` 中的方法计算到的力密度和牵引力去更新弹性体的状态；因为在离散化之后，我们只能够通过更新这 $N$ 个顶点的位置来实现弹性体的动态，定义在连续域上的力密度和牵引力就不能直接使用了；我们的方法是利用力密度的积分计算总能量，然后将整个弹性体的质量分配在每个顶点上，每个顶点的受力就变成负能量梯度了。接下来，我们将一一讲述这些步骤。
+
+### 变形函数的选择
+
+我们假设每个四面体单元都只能经历线性形变，即在任意一个四面体 $\mathcal T_i$ 内部，变形函数都是线性函数。因此，整个变形函数 $\boldsymbol\phi$ 可以表示为一个分段线性函数：
+
+$$
+\boldsymbol\phi(\boldsymbol X)=\boldsymbol A_i\boldsymbol X+\boldsymbol b_i,\quad\boldsymbol X\in\mathcal T_i,\quad\quad i=1,\cdots,M，
+$$ (animation-elastomers-discrete_deformation_map)
+
+其中 $\boldsymbol A_i\in\mathbb R^{3\times 3}$ 和 $\boldsymbol b_i\in\mathbb R^3$ 刻画了第 $i$ 个四面体经历的线性变换。通过对式 {eq}`animation-elastomers-discrete_deformation_map` 两端关于 $\boldsymbol X$ 求导，可以得到每个四面体内的形变梯度：
+
+$$
+\boldsymbol F(\boldsymbol X)=\boldsymbol A_i,\quad\boldsymbol X\in\mathcal T_i,\quad\quad i=1,\cdots,M，
+$$
+
+因此在后文我们记四面体 $i$ 的形变梯度为 $\boldsymbol F_i$，式 {eq}`animation-elastomers-discrete_deformation_map` 又可以写为
+
+$$
+\boldsymbol\phi(\boldsymbol X)=\boldsymbol F_i\boldsymbol X+\boldsymbol b_i,\quad\boldsymbol X\in\mathcal T_i,\quad\quad i=1,\cdots,M。
+$$
+
+### 形变梯度的计算
+
+### 能量与力的计算
 
 ## 数值求解算法
