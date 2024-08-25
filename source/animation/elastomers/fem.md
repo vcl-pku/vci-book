@@ -71,7 +71,8 @@ $$ (animation-elastomers-deformation_gradient)
 其中 $\boldsymbol\phi(\boldsymbol X)=\begin{pmatrix}\phi_x&\phi_y&\phi_z\end{pmatrix}^\top$，$\boldsymbol X=\begin{pmatrix}X&Y&Z\end{pmatrix}^\top$。我们知道导数可以很好地反映原函数的局部特征，所以在连续介质力学中形变梯度是最常用也最直观的刻画弹性体形变的量之一，变形函数反而没有那么重要。
 
 ```{attention}
-由式 {eq}`animation-elastomers-deformation_gradient` 可见，形变梯度 $\boldsymbol F$ 是一个关于形变前坐标 $\boldsymbol X$ 的矩阵函数。
+1. 由式 {eq}`animation-elastomers-deformation_gradient` 可见，形变梯度 $\boldsymbol F$ 是一个关于形变前坐标 $\boldsymbol X$ 的矩阵函数。
+2. 在本章的后续内容中，我们将继续使用不加粗的 $x,y,z$ 和 $X,Y,Z$ 分别表示形变后和参考构型下的坐标分量。
 ```
 
 (sec-animation-elastomers-fem-energy)=
@@ -83,7 +84,7 @@ $$ (animation-elastomers-deformation_gradient)
 
 $$
 E[\boldsymbol\phi]=\int_\Omega\Psi[\boldsymbol\phi;\boldsymbol X]\mathrm d\boldsymbol X。
-$$
+$$ (animation-elastomers-energy)
 
 ```{attention}
 我们现在没有给出能量密度 $\Psi$ 的具体形式，只描述了能量由什么决定。事实上，$\Psi$ 的形式有多种，对应于不同性质的弹性材料，{numref}`sec-animation-elastomers-fem-models` 将会给出一些常见的形式。
@@ -378,10 +379,67 @@ $$
 
 $$
 \boldsymbol\phi(\boldsymbol X)=\boldsymbol F_i\boldsymbol X+\boldsymbol b_i,\quad\boldsymbol X\in\mathcal T_i,\quad\quad i=1,\cdots,M。
-$$
+$$ (animation-elastomers-discrete_deformation_map2)
 
 ### 形变梯度的计算
 
+接下来的目标就是将式 {eq}`animation-elastomers-discrete_deformation_map2` 中的 $\boldsymbol F_1,\cdots,\boldsymbol F_M$ 计算出来。对于一个四面体 $i$，我们可以通过它四个顶点形变前和形变后的位置列出如下的方程：
+
+$$
+\begin{cases}
+\boldsymbol x_i^1=\boldsymbol F_i\boldsymbol X_i^1+\boldsymbol b_i\\
+\boldsymbol x_i^2=\boldsymbol F_i\boldsymbol X_i^2+\boldsymbol b_i\\
+\boldsymbol x_i^3=\boldsymbol F_i\boldsymbol X_i^3+\boldsymbol b_i\\
+\boldsymbol x_i^4=\boldsymbol F_i\boldsymbol X_i^4+\boldsymbol b_i
+\end{cases}，
+$$
+
+其中 $\boldsymbol X_i^{1,2,3,4}$ 代表四面体 $i$ 的四个顶点在参考构型下的位置，$\boldsymbol x_i^{1,2,3,4}$ 代表四个顶点形变后的位置。通过等式的作差我们可以将此方程组中不关心的未知量 $\boldsymbol b_i$ 去掉：
+
+$$
+\begin{cases}
+\boldsymbol x_i^1-\boldsymbol x_i^4=\boldsymbol F_i(\boldsymbol X_i^1-\boldsymbol X_i^4)\\
+\boldsymbol x_i^2-\boldsymbol x_i^4=\boldsymbol F_i(\boldsymbol X_i^2-\boldsymbol X_i^4)\\
+\boldsymbol x_i^3-\boldsymbol x_i^4=\boldsymbol F_i(\boldsymbol X_i^3-\boldsymbol X_i^4)
+\end{cases}。
+$$
+
+这三个等式又可以写成矩阵形式
+
+$$
+\boldsymbol D_\mathrm s=\boldsymbol F_i\boldsymbol D_\mathrm m，
+$$ (animation-elastomers-deform_mat_equation)
+
+其中 $\boldsymbol D_\mathrm s=\begin{bmatrix}x_i^1-x_i^4&x_i^2-x_i^4&x_i^3-x_i^4\\ y_i^1-y_i^4&y_i^2-y_i^4&y_i^3-y_i^4\\ z_i^1-z_i^4&z_i^2-z_i^4&z_i^3-z_i^4\end{bmatrix}$ 为变形形状矩阵（deformed shape matrix），$\boldsymbol D_\mathrm m=\begin{bmatrix}X_i^1-X_i^4&X_i^2-X_i^4&X_i^3-X_i^4\\ Y_i^1-Y_i^4&Y_i^2-Y_i^4&Y_i^3-Y_i^4\\ Z_i^1-Z_i^4&Z_i^2-Z_i^4&Z_i^3-Z_i^4\end{bmatrix}$ 为参考形状矩阵（reference shape matrix）或材料空间形状矩阵（material-space shape matrix），因为我们称形变后的空间为材料空间。值得注意的是，这里的 $\boldsymbol D_\mathrm s$ 和 $\boldsymbol D_\mathrm m$ 都是和四面体有关的，为了符号简便我们省略了 $i$ 这个角标。
+
+由式 {eq}`animation-elastomers-deform_mat_equation` 我们可以立刻计算出形变梯度矩阵：
+
+$$
+\boldsymbol F_i=\boldsymbol D_\mathrm s\boldsymbol D_\mathrm m^{-1}。
+$$
+
+虽然这里需要求矩阵的逆，但是由于 $\boldsymbol D_\mathrm m$ 只与弹性体的参考构型有关，我们可以将它们的逆提前计算好并存储下来，从而不需要在模拟过程中额外计算。
+
 ### 能量与力的计算
+
+其实，在我们选择好变形函数之后，就能够通过式 {eq}`animation-elastomers-energy` 得到离散化后的能量了：
+
+$$
+E=\int_\Omega\Psi(\boldsymbol F(\boldsymbol X))\mathrm d\boldsymbol X=\sum_{i=1}^M\int_{\mathcal T_i}\Psi(\boldsymbol F_i)\mathrm d\boldsymbol X=\sum_{i=1}^MW_i\Psi(\boldsymbol F_i)，
+$$ (animation-elastomers-discrete_energy)
+
+其中 $W_i=\frac 16\vert\det\boldsymbol D_\mathrm m\vert$ 为标准构型下四面体 $\mathcal T_i$ 的体积，与 $\boldsymbol D_\mathrm m$ 一样，它也是一个可以提前计算好的量。
+
+```{hint}
+我们知道，四面体的体积等于底面积乘以高的三分之一。因此对于四面体 $\mathcal T_i$，如果我们将它的 $2,3,4$ 号顶点组成的三角形视为底面的话，它的面积可以写成 $\frac 13\left(\left\vert\frac 12(\boldsymbol X_i^3-\boldsymbol X_i^4)\times(\boldsymbol X_i^2-\boldsymbol X_i^4)\right\vert\cdot(\boldsymbol X_i^1-\boldsymbol X_i^4)\right)$，由此读者不难推出文中 $W_i$ 的形式。
+```
+
+式 {eq}`animation-elastomers-discrete_energy` 中的能量可以看成一个关于所有自由度 $\boldsymbol x_1,\cdots,\boldsymbol x_N$ 的函数，简记为 $E(\boldsymbol x)$。在离散意义下，我们可以假设每个四面体的质量都平均分配给了它的四个顶点，那么由这些顶点的机械能守恒，我们可以知道每个顶点 $j$ 的受力就是势能 $E(\boldsymbol x)$ 关于其位置 $\boldsymbol x_j$ 的负梯度，即 $\boldsymbol f_j=-\frac{\partial E(\boldsymbol x)}{\partial\boldsymbol x_j}$。代入式 {eq}`animation-elastomers-discrete_energy` 的能量形式，我们可以求导得到
+
+$$
+\boldsymbol f_j=-\sum_iW_i\boldsymbol P(\boldsymbol F_i)\boldsymbol D_\mathrm m^{-\top}，
+$$ (animation-elastomers-discrete_force)
+
+其中的 $i$ 取遍所有包含顶点 $j$ 的四面体。
 
 ## 数值求解算法
