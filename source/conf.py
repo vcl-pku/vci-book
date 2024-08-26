@@ -54,6 +54,7 @@ html_title = '可视计算与交互概论'
 ## -- Extensions configuration ------------------------------------------------
 
 bibtex_bibfiles = [
+  'getting-started/drawing-2d/ref.bib',
 	'rendering/global-illum/ref.bib',
 	'animation/elastomers/ref.bib',
 	'interaction/spatial/ref.bib'
