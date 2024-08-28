@@ -1,5 +1,5 @@
 (chap-getting-started-drawing-2d)=
-# 二维绘图
+# 绘图
 
 ```{figure} fig/mondrian.jpg
 :name: fig-started-drawing-mondrian
