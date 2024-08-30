@@ -71,7 +71,8 @@ $$ (animation-elastomers-deformation_gradient)
 其中 $\boldsymbol\phi(\boldsymbol X)=\begin{pmatrix}\phi_x&\phi_y&\phi_z\end{pmatrix}^\top$，$\boldsymbol X=\begin{pmatrix}X&Y&Z\end{pmatrix}^\top$。我们知道导数可以很好地反映原函数的局部特征，所以在连续介质力学中形变梯度是最常用也最直观的刻画弹性体形变的量之一，变形函数反而没有那么重要。
 
 ```{attention}
-由式 {eq}`animation-elastomers-deformation_gradient` 可见，形变梯度 $\boldsymbol F$ 是一个关于形变前坐标 $\boldsymbol X$ 的矩阵函数。
+1. 由式 {eq}`animation-elastomers-deformation_gradient` 可见，形变梯度 $\boldsymbol F$ 是一个关于形变前坐标 $\boldsymbol X$ 的矩阵函数。
+2. 在本章的后续内容中，我们将继续使用不加粗的 $x,y,z$ 和 $X,Y,Z$ 分别表示形变后和参考构型下的坐标分量。
 ```
 
 (sec-animation-elastomers-fem-energy)=
@@ -83,7 +84,7 @@ $$ (animation-elastomers-deformation_gradient)
 
 $$
 E[\boldsymbol\phi]=\int_\Omega\Psi[\boldsymbol\phi;\boldsymbol X]\mathrm d\boldsymbol X。
-$$
+$$ (animation-elastomers-energy)
 
 ```{attention}
 我们现在没有给出能量密度 $\Psi$ 的具体形式，只描述了能量由什么决定。事实上，$\Psi$ 的形式有多种，对应于不同性质的弹性材料，{numref}`sec-animation-elastomers-fem-models` 将会给出一些常见的形式。
@@ -348,6 +349,7 @@ $$ (animation-elastomers-fem-neohookean_stress)
 |新胡克模型|$\frac\mu 2[I_1-\log(I_3)-3]+\frac\lambda 8\log^2(I_3)$|$\mu\boldsymbol F-\mu\boldsymbol F^{-\top}+\frac{\lambda\log(I_3)}2\boldsymbol F^{-\top}$|低|有|有|是|
 ```
 
+(sec-animation-elastomers-fem-discretization)=
 ## 空间离散化
 
 我们在前文讲到的所有物理模型都是建立在连续体上的，与弹簧质点系统一样，要使用计算机将这些物理模型模拟出来也需要进行空间离散化。在有限元方法中，一个连续的超弹性材料被表示成一个四面体网格（tetrahedral mesh），即一些紧密相连的四面体组成的图（如{numref}`fig-animation-elastomers-hand` 所示）。
@@ -378,10 +380,187 @@ $$
 
 $$
 \boldsymbol\phi(\boldsymbol X)=\boldsymbol F_i\boldsymbol X+\boldsymbol b_i,\quad\boldsymbol X\in\mathcal T_i,\quad\quad i=1,\cdots,M。
-$$
+$$ (animation-elastomers-discrete_deformation_map2)
 
 ### 形变梯度的计算
 
+接下来的目标就是将式 {eq}`animation-elastomers-discrete_deformation_map2` 中的 $\boldsymbol F_1,\cdots,\boldsymbol F_M$ 计算出来。对于一个四面体 $i$，我们可以通过它四个顶点形变前和形变后的位置列出如下的方程：
+
+$$
+\begin{cases}
+\boldsymbol x_i^1=\boldsymbol F_i\boldsymbol X_i^1+\boldsymbol b_i\\
+\boldsymbol x_i^2=\boldsymbol F_i\boldsymbol X_i^2+\boldsymbol b_i\\
+\boldsymbol x_i^3=\boldsymbol F_i\boldsymbol X_i^3+\boldsymbol b_i\\
+\boldsymbol x_i^4=\boldsymbol F_i\boldsymbol X_i^4+\boldsymbol b_i
+\end{cases}，
+$$
+
+其中 $\boldsymbol X_i^{1,2,3,4}$ 代表四面体 $i$ 的四个顶点在参考构型下的位置，$\boldsymbol x_i^{1,2,3,4}$ 代表四个顶点形变后的位置。通过等式的作差我们可以将此方程组中不关心的未知量 $\boldsymbol b_i$ 去掉：
+
+$$
+\begin{cases}
+\boldsymbol x_i^1-\boldsymbol x_i^4=\boldsymbol F_i(\boldsymbol X_i^1-\boldsymbol X_i^4)\\
+\boldsymbol x_i^2-\boldsymbol x_i^4=\boldsymbol F_i(\boldsymbol X_i^2-\boldsymbol X_i^4)\\
+\boldsymbol x_i^3-\boldsymbol x_i^4=\boldsymbol F_i(\boldsymbol X_i^3-\boldsymbol X_i^4)
+\end{cases}。
+$$
+
+这三个等式又可以写成矩阵形式
+
+$$
+\boldsymbol D_\mathrm s=\boldsymbol F_i\boldsymbol D_\mathrm m，
+$$ (animation-elastomers-deform_mat_equation)
+
+其中 $\boldsymbol D_\mathrm s=\begin{bmatrix}x_i^1-x_i^4&x_i^2-x_i^4&x_i^3-x_i^4\\ y_i^1-y_i^4&y_i^2-y_i^4&y_i^3-y_i^4\\ z_i^1-z_i^4&z_i^2-z_i^4&z_i^3-z_i^4\end{bmatrix}$ 为变形形状矩阵（deformed shape matrix），$\boldsymbol D_\mathrm m=\begin{bmatrix}X_i^1-X_i^4&X_i^2-X_i^4&X_i^3-X_i^4\\ Y_i^1-Y_i^4&Y_i^2-Y_i^4&Y_i^3-Y_i^4\\ Z_i^1-Z_i^4&Z_i^2-Z_i^4&Z_i^3-Z_i^4\end{bmatrix}$ 为参考形状矩阵（reference shape matrix）或材料空间形状矩阵（material-space shape matrix），因为我们称形变后的空间为材料空间。值得注意的是，这里的 $\boldsymbol D_\mathrm s$ 和 $\boldsymbol D_\mathrm m$ 都是和四面体有关的，为了符号简便我们省略了 $i$ 这个角标。
+
+由式 {eq}`animation-elastomers-deform_mat_equation` 我们可以立刻计算出形变梯度矩阵：
+
+$$
+\boldsymbol F_i=\boldsymbol D_\mathrm s\boldsymbol D_\mathrm m^{-1}。
+$$ (animation-elastomers-calc_deform_grad)
+
+虽然这里需要求矩阵的逆，但是由于 $\boldsymbol D_\mathrm m$ 只与弹性体的参考构型有关，我们可以将它们的逆提前计算好并存储下来，从而不需要在模拟过程中额外计算。
+
 ### 能量与力的计算
 
+其实，在我们选择好变形函数之后，就能够通过式 {eq}`animation-elastomers-energy` 得到离散化后的能量了：
+
+$$
+E=\int_\Omega\Psi(\boldsymbol F(\boldsymbol X))\mathrm d\boldsymbol X=\sum_{i=1}^M\int_{\mathcal T_i}\Psi(\boldsymbol F_i)\mathrm d\boldsymbol X=\sum_{i=1}^MW_i\Psi(\boldsymbol F_i)，
+$$ (animation-elastomers-discrete_energy)
+
+其中 $W_i=\frac 16\vert\det\boldsymbol D_\mathrm m\vert$ 为标准构型下四面体 $\mathcal T_i$ 的体积，与 $\boldsymbol D_\mathrm m$ 一样，它也是一个可以提前计算好的量。
+
+```{hint}
+我们知道，四面体的体积等于底面积乘以高的三分之一。因此对于四面体 $\mathcal T_i$，如果我们将它的 $2,3,4$ 号顶点组成的三角形视为底面的话，它的面积可以写成 $\frac 13\left(\left\vert\frac 12(\boldsymbol X_i^3-\boldsymbol X_i^4)\times(\boldsymbol X_i^2-\boldsymbol X_i^4)\right\vert\cdot(\boldsymbol X_i^1-\boldsymbol X_i^4)\right)$，由此读者不难推出文中 $W_i$ 的形式。
+```
+
+式 {eq}`animation-elastomers-discrete_energy` 中的能量可以看成一个关于所有自由度 $\boldsymbol x_1,\cdots,\boldsymbol x_N$ 的函数，简记为 $E(\boldsymbol x)$。在离散意义下，我们可以假设每个四面体的质量都平均分配给了它的四个顶点，那么由这些顶点的机械能守恒，我们可以知道每个顶点 $j$ 的受力就是势能 $E(\boldsymbol x)$ 关于其位置 $\boldsymbol x_j$ 的负梯度，即 $\boldsymbol f_j=-\frac{\partial E(\boldsymbol x)}{\partial\boldsymbol x_j}$。
+
+为方便推导出每个顶点受力的具体形式，我们考察每个四面体为它四个顶点贡献的力。记四面体 $i$ 的能量为 $E_i=W_i\Psi(\boldsymbol F_i)$，四面体对它的第 $j$ 个顶点贡献的力为 $\boldsymbol f_i^j=-\frac{\partial E_i}{\partial\boldsymbol x_i^j}$。通过对 $E_i$ 关于 $\boldsymbol x_i^{1,2,3,4}$ 分别求导我们可以得到这些力的值：
+
+$$
+&\boldsymbol H_i\mathrel{\mathop:}=\begin{bmatrix}\boldsymbol f_i^1&\boldsymbol f_i^2&\boldsymbol f_i^3\end{bmatrix}=-W_i\boldsymbol P(\boldsymbol F_i)\boldsymbol D_\mathrm m^{-\top}，\\
+&\boldsymbol f_i^4=-\boldsymbol f_i^1-\boldsymbol f_i^2-\boldsymbol f_i^3。
+$$ (animation-elastomers-discrete_force)
+
+因此，我们只需要对于每个四面体计算好它对四个顶点的力的贡献，并将其累加到四个顶点的受力上，即可得到完整的弹性力。
+
 ## 数值求解算法
+
+(sec-animation-elastomers-fem-explicit_euler)=
+### 显式时间积分
+
+我们可以按照 {numref}`sec-animation-elastomers-fem-discretization` 计算弹性体在一个状态下的弹性力，然后在加上外力，即可进行显式时间积分的模拟。我们在这里通过模拟的过程对上述弹性体各个量的计算进行一个小结：
+
+1. 对参考构型下的每一个四面体，计算参考形状矩阵 $\boldsymbol D_\mathcal m$、它的逆 $\boldsymbol D_\mathcal m^{-1}$ 以及四面体的体积 $W_i$。
+2. 计算每个顶点分配到的质量 $m_i$。
+3. 对每一个顶点施加外力：$\boldsymbol v_i\gets\boldsymbol v_i+\frac h{m_i}\boldsymbol f_i^{\mathrm{ext}}$。
+4. 准备弹性力向量 $\boldsymbol f\gets\mathbf 0\in\mathbb R^{3N}$，它表示所有顶点的弹性力堆叠而成的向量。
+5. 循环遍历每一个四面体，设四面体 $i\in\{1,\cdots,M\}$ 的四个顶点编号分别为 $a,b,c,d$（请注意，这四个顶点的顺序很重要）：
+   - 计算变形形状矩阵 $\boldsymbol D_\mathrm s$、形变梯度 $\boldsymbol F_i$ 以及 $\boldsymbol P(\boldsymbol F_i)$。
+   - 计算四面体对每个顶点的弹性力贡献 $\boldsymbol H_i\gets-W_i\boldsymbol P(\boldsymbol F_i)\boldsymbol D_\mathrm m^{-\top}$，设 $\begin{bmatrix}\boldsymbol h_1&\boldsymbol h_2&\boldsymbol h_3\end{bmatrix}=\boldsymbol H_i$。
+   - 更新弹性力向量：$\boldsymbol f_a\gets\boldsymbol f_a+\boldsymbol h_1$，$\boldsymbol f_b\gets\boldsymbol f_b+\boldsymbol h_2$，$\boldsymbol f_c\gets\boldsymbol f_c+\boldsymbol h_3$，$\boldsymbol f_d\gets\boldsymbol f_d-\boldsymbol h_1-\boldsymbol h_2-\boldsymbol h_3$。
+6. 对每一个顶点施加弹性力：$\boldsymbol v_i\gets\boldsymbol v_i+\frac h{m_i}\boldsymbol f_i$。
+7. 对于每一个顶点，使用速度更新位置：$\boldsymbol x_i\gets\boldsymbol x_i+h\boldsymbol v_i$。
+8. 进入下一个时间步，回到第 3 步。
+
+以上的 $h$ 表示时间步长，$m_i$ 表示顶点 $i$ 分配到的总质量，请注意每个顶点的质量并不相同，取决于它和那些四面体相关。第 1 和 2 步是模拟的预计算过程，第 2 到 7 步是一个时间步的时间积分，不断循环以模拟出每个时间步之后弹性体的状态。和弹簧质点系统一样，显式时间积分是非常不稳定的，很容易产生数值爆炸，除非你用很小的时间步长模拟，代价就是要花费大量的时间模拟同样长的一段动态。为了让弹性体的模拟更加稳定，我们需要使用隐式时间积分，并在系统中引入阻尼，这些都会在接下来进行介绍。
+
+### 隐式时间积分
+
+与弹簧质点系统类似，弹簧有劲度系数，弹性体也有相应的劲度矩阵（stiffness matrix）。为了了解这个概念，我们先回顾一下一根弹簧对质点的弹力是什么样的。为了简便，我们假设整个系统在一维空间下，弹簧的一端固定在原点，另一端连接着一个位置为 $x(x>0)$ 的质点，弹簧的原长为 $l$、劲度系数为 $k$，那么质点受到的弹力为 $f=-k(x-l)$。我们知道劲度系数反应了弹簧的“坚硬程度”，但是这个坚硬程度的具体含义是什么呢？从弹力的形式我们不难看出，$k=-\frac{\partial f}{\partial x}$ 反映了力随位置的变化速率，这个变化速率越快，拉长或压缩一单位距离的弹簧，所受到的弹性阻碍的增量也越多，弹簧就越“硬”。将弹簧的劲度系数拓展到有限元四面体网格的情形，我们就能够得到劲度矩阵的定义——劲度矩阵即为所有顶点的弹性力关于顶点位置的负雅可比矩阵：
+
+$$
+\boldsymbol K(\boldsymbol x)=-\frac{\partial\boldsymbol f(\boldsymbol x)}{\partial\boldsymbol x}，
+$$ (animation-elastomers-stiffness_matrix)
+
+这里的 $\boldsymbol f$ 继承了 {numref}`sec-animation-elastomers-fem-explicit_euler` 中的含义，表示所有顶点受到的弹性力堆叠而成的向量。
+
+通过劲度矩阵，我们可以立即给出阻尼力（damping force）的定义：
+
+$$
+\boldsymbol f_\mathrm d(\boldsymbol x,\boldsymbol v)=-\gamma\boldsymbol K(\boldsymbol x)\boldsymbol v，
+$$ (animation-elastomers-damping)
+
+其中 $\boldsymbol v$ 表示顶点的速度，$\boldsymbol f_\mathrm d,\boldsymbol v$ 都是类似 $\boldsymbol x$ 的堆叠向量。在本节，如无特殊说明，所有向量均为这样的堆叠向量。
+
+我们回顾一下弹簧质点系统中介绍过的隐式时间积分的概念，就是使用时间步末端时刻的状态来近似整个时间步内的量，例如从时间步 $k$ 到 $k+1$ 的隐式时间积分可以写为如下方程组：
+
+$$
+\boldsymbol x^{k+1}=\boldsymbol x^k+h\boldsymbol v^{k+1}，
+$$ (animation-elastomers-implicit_euler_x)
+
+$$
+\boldsymbol v^{k+1}=\boldsymbol v^k+h\boldsymbol M^{-1}\left(\boldsymbol f(\boldsymbol x^{k+1})+\boldsymbol f_\mathrm d(\boldsymbol x^{k+1},\boldsymbol v^{k+1})\right)，
+$$ (animation-elastomers-implicit_euler_v)
+
+其中 $\boldsymbol M=\mathrm{diag}\{m_1,m_1,m_1,m_2,m_2,m_2,\cdots,m_N,m_N,m_N\}$ 为质量矩阵。这里为了简便，我们忽略了外力，事实上我们可以认为外力项包含在了 $\boldsymbol v^k$ 内。
+
+为求解这个方程组，我们同样使用迭代法来求解 $\boldsymbol x^{k+1}$ 和 $\boldsymbol v^{k+1}$，也就是说我们的求解器会产生两个序列 $\{\boldsymbol x_{(i)}\}_{i=1}^\infty$ 和 $\{\boldsymbol v_{(i)}\}_{i=1}^\infty$，使得 $\lim_{i\to\infty}\boldsymbol x_{(i)}=\boldsymbol x^{k+1}$，$\lim_{i\to\infty}\boldsymbol v_{(i)}=\boldsymbol v^{k+1}$。我们将时间步开始时刻的状态作为求解算法的初始值，即 $\boldsymbol x_{(0)}=\boldsymbol x^k$，$\boldsymbol v_{(0)}=\boldsymbol v^k$，然后每一个迭代由 $\boldsymbol x_{(i)},\boldsymbol v_{(i)}$ 推出 $\boldsymbol x_{(i+1)},\boldsymbol v_{(i+1)}$，对式 {eq}`animation-elastomers-implicit_euler_v` 中的弹性力在 $(\boldsymbol x_{(i)},\boldsymbol v_{(i)})$ 处进行泰勒展开可以得到：
+
+$$
+\boldsymbol v^{k+1}=\boldsymbol v^k+h\boldsymbol M^{-1}\left(\boldsymbol f(\boldsymbol x_{(i)})+\frac{\partial\boldsymbol f(\boldsymbol x_{(i)})}{\partial\boldsymbol x}(\boldsymbol x^{k+1}-\boldsymbol x_{(i)})-\gamma\boldsymbol K(\boldsymbol x_{(i)})\boldsymbol v^{k+1}\right)，
+$$
+
+这里我们对阻尼力的处理是代入 $\boldsymbol f_\mathrm d(\boldsymbol x_{(i)},\boldsymbol v^{k+1})$，这是为了避免对劲度矩阵 $\boldsymbol K$ 进行泰勒展开，因为它的导数将会是一个三阶张量，为求解器带来极大的计算量。在当前迭代中，我们的目标就是求出这个泰勒展开后的方程关于 $\boldsymbol x^{k+1}$ 和 $\boldsymbol v^{k+1}$ 的解，所以我们可以将 $\boldsymbol x_{(i+1)}=\boldsymbol x^{k+1}$ 和 $\boldsymbol v_{(i+1)}=\boldsymbol v^{k+1}$ 代入泰勒展开后的方程，再令 $\Delta\boldsymbol x_{(i)}=\boldsymbol x_{(i+1)}-\boldsymbol x_{(i)}$，$\Delta\boldsymbol v_{(i)}=\boldsymbol v_{(i+1)}-\boldsymbol v_{(i)}$，得到
+
+$$
+\boldsymbol v_{(i)}+\Delta\boldsymbol v=\boldsymbol v^k+h\boldsymbol M^{-1}\left(\boldsymbol f(\boldsymbol x_{(i)})+\boldsymbol K(\boldsymbol x_{(i)})\Delta\boldsymbol x-\gamma\boldsymbol K(\boldsymbol x_{(i)})(\boldsymbol v_{(i)}+\Delta\boldsymbol v)\right)。
+$$
+
+再利用式 {eq}`animation-elastomers-implicit_euler_x` 将方程表示成仅关于 $\Delta\boldsymbol x$ 的：
+
+$$
+\frac 1{h^2}\boldsymbol M\Delta\boldsymbol x=\frac 1h\boldsymbol M(\boldsymbol v^k-\boldsymbol v_{(i)})+\left(\boldsymbol f(\boldsymbol x_{(i)})-\boldsymbol K(\boldsymbol x_{(i)})\Delta\boldsymbol x-\gamma\boldsymbol K(\boldsymbol x_{(i)})\left(\boldsymbol v_{(i)}+\frac 1h\Delta\boldsymbol x\right)\right)，
+$$
+
+于是得到这样一个线性系统：
+
+$$
+\left[\left(1+\frac\gamma h\right)\boldsymbol K(\boldsymbol x_{(i)})+\frac 1{h^2}\boldsymbol M\right]\Delta\boldsymbol x=\frac 1h\boldsymbol M(\boldsymbol v^k-\boldsymbol v_{(i)})+\left(\boldsymbol f(\boldsymbol x_{(i)})-\gamma\boldsymbol K(\boldsymbol x_{(i)})\boldsymbol v_{(i)}\right)。
+$$ (animation-elastomers-linear_system)
+
+如果能解出 $\Delta\boldsymbol x$，我们就可以进行本轮迭代的更新：$\boldsymbol x_{(i+1)}=\boldsymbol x_{(i)}+\Delta\boldsymbol x$，$\boldsymbol v_{(i+1)}=\boldsymbol v_{(i)}+\frac 1h\Delta\boldsymbol x$。一般来讲，重复 2 到 3 步这样的迭代就足以模拟出很真实的弹性效果了。
+
+求解式 {eq}`animation-elastomers-linear_system` 的线性系统需要格外关注一个事实：劲度矩阵 $\boldsymbol K(\boldsymbol x_{(i)})$ 的表达式十分复杂，我们希望能够通过无矩阵（matrix-free）的方式求解这个系统。幸运的是，许多线性求解器是支持无矩阵求解的，例如无矩阵的共轭梯度法（matrix-free conjugate gradient method），这类方法一般只需要你提供一个接口，对于任何输入的向量 $\boldsymbol x$，能够输出 $\boldsymbol{Ax}$，这里的 $\boldsymbol A$ 是线性系统的矩阵。那么根据式 {eq}`animation-elastomers-linear_system`，我们想提供接口只需要能够计算 $\boldsymbol K(\boldsymbol x_{(i)})\boldsymbol x$ 即可。
+
+考虑在 $\boldsymbol x_{(i)}$ 基础上的任意一段微小的位移 $\delta\boldsymbol x$，它所导致的弹性力的变化为 $\delta\boldsymbol f=\frac{\partial\boldsymbol f(\boldsymbol x_{(i)})}{\partial\boldsymbol x}\delta\boldsymbol x=-\boldsymbol H(\boldsymbol x_{(i)})\delta\boldsymbol x$，所以只要我们能够计算出 $\delta\boldsymbol f$ 就能够提供这样的接口。
+
+为求 $\delta\boldsymbol f$，我们还是回到单个四面体 $i$ 对力的贡献，即求 $\delta\boldsymbol H_i=\begin{bmatrix}\delta\boldsymbol f_i^1&\delta\boldsymbol f_i^2&\delta\boldsymbol f_i^3\end{bmatrix}$，那么 $\delta\boldsymbol f_i^4=-\delta\boldsymbol f_i^1-\delta\boldsymbol f_i^2-\delta\boldsymbol f_i^3$，随后我们将 $\delta\boldsymbol f_i^{1,2,3,4}$ 分别加到 $\delta\boldsymbol f$ 的对应位置上即可（类似 {numref}`sec-animation-elastomers-fem-explicit_euler` 中计算弹性力的过程）。通过对式 {eq}`animation-elastomers-discrete_force` 两边求微分可得
+
+$$
+\delta\boldsymbol H_i=-W_i\delta\boldsymbol P(\boldsymbol F_i;\delta\boldsymbol F_i)\boldsymbol D_\mathrm m^{-\top}，
+$$
+
+这是因为 $W_i$ 和 $\boldsymbol D_\mathrm m^{-\top}$ 都与形变后的四面体顶点位置无关。这里将应力张量的微分写成这个形式是为了突出其表达式中会显含 $\boldsymbol F_i$ 和 $\delta\boldsymbol F_i$，但严格来讲 $\delta\boldsymbol F_i$ 也是一个关于 $\boldsymbol F_i$ 的函数，$\delta\boldsymbol P(\boldsymbol F;\delta\boldsymbol F)$ 的具体形式取决于你选择的本构模型，我们会在本节的最后给出常用的两种。那么剩下的就是求出 $\delta\boldsymbol F_i$ 了，由式 {eq}`animation-elastomers-calc_deform_grad` 可得
+
+$$
+\delta\boldsymbol F=(\delta\boldsymbol D_\mathrm s)\boldsymbol D_\mathrm m^{-1}，
+$$
+
+而 $\boldsymbol D_\mathrm s$ 就是由位置坐标组成的矩阵，所以它的微分十分简单：
+
+$$
+\delta\boldsymbol D_\mathrm s=\begin{bmatrix}\delta x_i^1-\delta x_i^4&\delta x_i^2-\delta x_i^4&\delta x_i^3-\delta x_i^4\\\delta y_i^1-\delta y_i^4&\delta y_i^2-\delta y_i^4&\delta y_i^3-\delta y_i^4\\\delta z_i^1-\delta z_i^4&\delta z_i^2-\delta z_i^4&\delta z_i^3-\delta z_i^4\end{bmatrix}。
+$$
+
+下面我们分别给出圣维南-基尔霍夫模型和新胡克模型下的第一类皮奥拉-基尔霍夫应力张量的微分。首先，格林应变张量的微分是
+
+$$
+\delta\boldsymbol E=\frac 12(\delta\boldsymbol F^\top\boldsymbol F+\boldsymbol F^\top\delta\boldsymbol F)，
+$$
+
+进而给出圣维南-基尔霍夫模型下应变张量的微分：
+
+$$
+\delta\boldsymbol P(\boldsymbol F;\delta\boldsymbol F)=\delta\boldsymbol F[2\mu\boldsymbol E+\lambda\mathrm{tr}(\boldsymbol E)\mathbf I]+\boldsymbol F[2\mu\delta\boldsymbol E+\lambda\mathrm{tr}(\delta\boldsymbol E)\mathbf I]。
+$$
+
+接下来我们不加证明地给出一些矩阵变换下的微分的形式，矩阵的逆的微分为 $\delta[\boldsymbol F^{-1}]=-\boldsymbol F^{-1}\delta\boldsymbol F\boldsymbol F^{-1}$，矩阵的逆的转至的微分为 $\delta[\boldsymbol F^{-\top}]=-\boldsymbol F^{-\top}\delta\boldsymbol F^\top\boldsymbol F^{-\top}$，矩阵行列式的微分为 $\delta[\det\boldsymbol F]=\det\boldsymbol F\cdot\mathrm{tr}(\boldsymbol F^{-1}\delta\boldsymbol F)$。借助这些我们可以得出新胡克模型下应变张量的微分：
+
+$$
+\delta\boldsymbol P(\boldsymbol F;\delta\boldsymbol F)=\mu\delta\boldsymbol F+[\mu-\lambda\log J]\boldsymbol F^{-\top}\delta\boldsymbol F^\top\boldsymbol F^{-\top}+\lambda\mathrm{tr}(\boldsymbol F^{-1}\delta\boldsymbol F)\boldsymbol F^{-\top}，
+$$
+
+其中 $J=\sqrt{I_3}=\det\boldsymbol F$。

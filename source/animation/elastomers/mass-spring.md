@@ -203,65 +203,65 @@ $$
 
 ## 数值求解
 
-接下来我们尝试对隐式欧拉积分中的方程组进行求解，设需要最小化的目标能量函数为 $g(\boldsymbol x)=\frac{1}{2h^2}\|\boldsymbol x-\boldsymbol y^k\|^2_{\boldsymbol M}+E(\boldsymbol x)$。一个经典方法是牛顿法，它是一个基于迭代的优化算法，其思想是每轮迭代都用二次函数逼近目标函数，并在该轮迭代中找到二次函数的最小值作为新的尝试解。迭代算法会依次求解出一个尝试序列 $\{\boldsymbol x_i\}_{i=0}^{m-1}$，其中 $\boldsymbol x_i$ 表示第 $i$ 轮迭代的尝试解，每一轮迭代算法会从 $\boldsymbol x_i$ 计算下一轮 $\boldsymbol x_{i+1}$，一般来讲序列 $\{\boldsymbol x_i\}$ 会收敛到一个稳定解，最后我们把这个稳定解作为全局最小值点的近似（当然对于很复杂的优化问题，我们可能只能找到一个局部极小值点，甚至无法让算法收敛）。如何选取一个最好的二次函数呢？我们可以对目标函数在当前尝试解 $\boldsymbol x_i$ 处进行二阶泰勒展开：
+接下来我们尝试对隐式欧拉积分中的方程组进行求解，设需要最小化的目标能量函数为 $g(\boldsymbol x)=\frac{1}{2h^2}\|\boldsymbol x-\boldsymbol y^k\|^2_{\boldsymbol M}+E(\boldsymbol x)$。一个经典方法是牛顿法，它是一个基于迭代的优化算法，其思想是每轮迭代都用二次函数逼近目标函数，并在该轮迭代中找到二次函数的最小值作为新的尝试解。迭代算法会依次求解出一个尝试序列 $\{\boldsymbol x_{(i)}\}_{i=0}^{m-1}$，其中 $\boldsymbol x_{(i)}$ 表示第 $i$ 轮迭代的尝试解（请注意，粒子 $i$ 的位置表示为 $\boldsymbol x_i$，为了进行区分，我们把表示第 $i$ 论迭代量的下标加了括号），每一轮迭代算法会从 $\boldsymbol x_{(i)}$ 计算下一轮 $\boldsymbol x_{(i+1)}$，一般来讲序列 $\{\boldsymbol x_{(i)}\}$ 会收敛到一个稳定解，最后我们把这个稳定解作为全局最小值点的近似（当然对于很复杂的优化问题，我们可能只能找到一个局部极小值点，甚至无法让算法收敛）。如何选取一个最好的二次函数呢？我们可以对目标函数在当前尝试解 $\boldsymbol x_{(i)}$ 处进行二阶泰勒展开：
 
 $$
-g(\boldsymbol x)=g(\boldsymbol x_i)+\nabla g(\boldsymbol x_i)\cdot(\boldsymbol x-\boldsymbol x_i)+\frac 12(\boldsymbol x-\boldsymbol x_i)^\top\boldsymbol H_g(\boldsymbol x_i)(\boldsymbol x-\boldsymbol x_i)+O(\|\boldsymbol x-\boldsymbol x_i\|^3)。
+g(\boldsymbol x)=g(\boldsymbol x_{(i)})+\nabla g(\boldsymbol x_{(i)})\cdot(\boldsymbol x-\boldsymbol x_{(i)})+\frac 12(\boldsymbol x-\boldsymbol x_{(i)})^\top\boldsymbol H_g(\boldsymbol x_{(i)})(\boldsymbol x-\boldsymbol x_{(i)})+O(\|\boldsymbol x-\boldsymbol x_{(i)}\|^3)。
 $$ (animation-elastomers-newton_2nd_taylor)
 
-这里我们把梯度写成列向量 $\nabla g(\boldsymbol x_i)=\begin{bmatrix}\frac{\partial g(\boldsymbol x_i)}{\partial x}\\\frac{\partial g(\boldsymbol x_i)}{\partial y}\\\frac{\partial g(\boldsymbol x_i)}{\partial z}\end{bmatrix}$，$\boldsymbol H_g(\boldsymbol x_i)=\begin{bmatrix}\frac{\partial^2 g(\boldsymbol x_i)}{\partial x^2}&\frac{\partial^2 g(\boldsymbol x_i)}{\partial x\partial y}&\frac{\partial^2 g(\boldsymbol x_i)}{\partial x\partial z}\\\frac{\partial^2 g(\boldsymbol x_i)}{\partial x\partial y}&\frac{\partial^2 g(\boldsymbol x_i)}{\partial y^2}&\frac{\partial^2 g(\boldsymbol x_i)}{\partial y\partial z}\\\frac{\partial^2 g(\boldsymbol x_i)}{\partial x\partial z}&\frac{\partial^2 g(\boldsymbol x_i)}{\partial y\partial z}&\frac{\partial^2 g(\boldsymbol x_i)}{\partial z^2}\end{bmatrix}$ 是 $g$ 的海瑟矩阵（Hessian matrix）。我们忽略三阶小量 $O(\|\boldsymbol x-\boldsymbol x_i\|^3)$，就得到了一个用于近似 $g(\boldsymbol x)$ 的二次函数（请注意，这个近似仅仅是对 $g(\boldsymbol x)$ 在 $\boldsymbol x_i$ 附近的近似，当 $\boldsymbol x$ 太远的时候三阶“小”量将不能忽略！），下一轮迭代的尝试解 $\boldsymbol x_{i+1}$ 取这个二次函数的极小值，通过对式 {eq}`animation-elastomers-newton_2nd_taylor` 两边求梯度，再代入 $\boldsymbol x_{i+1}$ 可得
+这里我们把梯度写成列向量 $\nabla g(\boldsymbol x_{(i)})=\begin{bmatrix}\frac{\partial g(\boldsymbol x_{(i)})}{\partial x}\\\frac{\partial g(\boldsymbol x_{(i)})}{\partial y}\\\frac{\partial g(\boldsymbol x_{(i)})}{\partial z}\end{bmatrix}$，$\boldsymbol H_g(\boldsymbol x_{(i)})=\begin{bmatrix}\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial x^2}&\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial x\partial y}&\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial x\partial z}\\\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial x\partial y}&\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial y^2}&\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial y\partial z}\\\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial x\partial z}&\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial y\partial z}&\frac{\partial^2 g(\boldsymbol x_{(i)})}{\partial z^2}\end{bmatrix}$ 是 $g$ 的海瑟矩阵（Hessian matrix）。我们忽略三阶小量 $O(\|\boldsymbol x-\boldsymbol x_{(i)}\|^3)$，就得到了一个用于近似 $g(\boldsymbol x)$ 的二次函数（请注意，这个近似仅仅是对 $g(\boldsymbol x)$ 在 $\boldsymbol x_{(i)}$ 附近的近似，当 $\boldsymbol x$ 太远的时候三阶“小”量将不能忽略！），下一轮迭代的尝试解 $\boldsymbol x_{(i+1)}$ 取这个二次函数的极小值，通过对式 {eq}`animation-elastomers-newton_2nd_taylor` 两边求梯度，再代入 $\boldsymbol x_{(i+1)}$ 可得
 
 $$
-\nabla g(\boldsymbol x_{i+1})\approx\nabla g(\boldsymbol x_i)+\boldsymbol H_g(\boldsymbol x_i)(\boldsymbol x_{i+1}-\boldsymbol x_i)=\boldsymbol 0。
+\nabla g(\boldsymbol x_{(i+1)})\approx\nabla g(\boldsymbol x_{(i)})+\boldsymbol H_g(\boldsymbol x_{(i)})(\boldsymbol x_{(i+1)}-\boldsymbol x_{(i)})=\boldsymbol 0。
 $$
 
 依此求得下一轮的尝试解：
 
 $$
-\boldsymbol x_{i+1} = \boldsymbol x_i - \boldsymbol{H}_g^{-1}(\boldsymbol x_i)\nabla g(\boldsymbol x_i)。
+\boldsymbol x_{(i+1)} = \boldsymbol x_{(i)} - \boldsymbol{H}_g^{-1}(\boldsymbol x_{(i)})\nabla g(\boldsymbol x_{(i)})。
 $$ (animation-elastomers-newton_iteration)
 
 牛顿法相比于普通的梯度下降法（gradient descent）能做到更快的收敛。而它的缺点在于，每步迭代中需要求解 $\boldsymbol{H}_g$ 矩阵的逆，计算代价较大，且一般要求 $\boldsymbol{H}_g$ 为正定矩阵，否则方程可能无解（牛顿法一般用于解凸优化问题）或解不出正确下降方向。
 
 在此基础上还有拟牛顿法（quasi-Newton method）、柏萝登-弗莱彻-戈德福布-生纳法（Broyden-Fletcher-Goldfarb-Shanno method，BFGS method）等。为了避免海瑟矩阵的计算和存储，共轭梯度法（conjugated gradient）也是常用的优化方法之一。更多的优化算法这里不再赘述。
 
-对于本节中的弹簧质点系统，$g(\boldsymbol x)$ 性质足够好，我们认为只需要进行一步牛顿迭代即可求得最小值点（这里是一个简化的假设，事实上 $g(\boldsymbol x)$ 不是凸函数）。我们只需要将式 {eq}`animation-elastomers-newton_iteration` 中的 $\boldsymbol x_i$ 和 $\boldsymbol x_{i+1}$ 分别替换成 $\boldsymbol x^k$ 和 $\boldsymbol x^{k+1}$ 即可。所以我们需要解如下关于 $\boldsymbol x^{k+1}-\boldsymbol x^k$ 的方程组，随后即可计算出 $\boldsymbol x^{k+1}$ 和 $\boldsymbol v^{k+1}$：
+对于本节中的弹簧质点系统，$g(\boldsymbol x)$ 性质足够好，我们认为只需要进行一步牛顿迭代即可求得最小值点（这里是一个简化的假设，事实上 $g(\boldsymbol x)$ 不是凸函数）。我们只需要将式 {eq}`animation-elastomers-newton_iteration` 中的 $\boldsymbol x_{(i)}$ 和 $\boldsymbol x_{(i+1)}$ 分别替换成 $\boldsymbol x^k$ 和 $\boldsymbol x^{k+1}$ 即可。所以我们需要解如下关于 $\boldsymbol x^{k+1}-\boldsymbol x^k$ 的方程组，随后即可计算出 $\boldsymbol x^{k+1}$ 和 $\boldsymbol v^{k+1}$：
 
 $$
 \boldsymbol H_g(\boldsymbol x^k)(\boldsymbol x^{k+1}-\boldsymbol x^k)=-\nabla g(\boldsymbol x^k)。
 $$ (animation-elastomers-newton_iteration_equation)
 
-现在我们来计算 $\nabla g(\boldsymbol x^k)$ 和 $\boldsymbol H_g(\boldsymbol x^k)$，由 $g(\boldsymbol x)$ 的定义得
+现在我们来计算 $\nabla g(\boldsymbol x)$ 和 $\boldsymbol H_g(\boldsymbol x)$，由 $g(\boldsymbol x)$ 的定义得
 
 $$
-\nabla g(\boldsymbol x^k)&=\frac 1{h^2}\boldsymbol M(\boldsymbol x^k-\boldsymbol y^k)+\nabla E(\boldsymbol x^k)，\\
-\boldsymbol H_g(\boldsymbol x^k)&=\frac 1{h^2}\boldsymbol M+\boldsymbol H(\boldsymbol x^k)，
+\nabla g(\boldsymbol x)&=\frac 1{h^2}\boldsymbol M(\boldsymbol x-\boldsymbol y^k)+\nabla E(\boldsymbol x)，\\
+\boldsymbol H_g(\boldsymbol x)&=\frac 1{h^2}\boldsymbol M+\boldsymbol H(\boldsymbol x)，
 $$ (animation-elastomers-calculate_gradient_and_hessian)
 
-其中 $\boldsymbol H(\boldsymbol x^k)$ 是弹性势能 $E(\boldsymbol x)$ 的海瑟矩阵。我们在式 {eq}`animation-elastomers-spring_force` 中已经写出了对于一根弹簧的能量 $E_{ij}$ 关于一个质点 $i$ 的梯度 $\nabla_iE_{ij}(\boldsymbol x^k)$ 的表达式，那么总能量对质点 $i$ 的梯度即为
+其中 $\boldsymbol H(\boldsymbol x)$ 是弹性势能 $E(\boldsymbol x)$ 的海瑟矩阵。我们在式 {eq}`animation-elastomers-spring_force` 中已经写出了对于一根弹簧的能量 $E_{ij}$ 关于一个质点 $i$ 的梯度 $\nabla_iE_{ij}(\boldsymbol x)$ 的表达式，那么总能量对质点 $i$ 的梯度即为
 
 $$
-\nabla_iE(\boldsymbol x^k)=\sum_j\nabla_iE_{ij}(\boldsymbol x^k)。
+\nabla_iE(\boldsymbol x)=\sum_j\nabla_iE_{ij}(\boldsymbol x)。
 $$
 
 总能量关于所有质点位置的梯度就是将关于每个质点的梯度拼接起来（假设总共有$n$个质点）：
 
 $$
-\nabla E(\boldsymbol x^k)=\begin{bmatrix}\nabla_1E(\boldsymbol x^k)\\\vdots\\\nabla_nE(\boldsymbol x^k)\end{bmatrix}。
+\nabla E(\boldsymbol x)=\begin{bmatrix}\nabla_1E(\boldsymbol x)\\\vdots\\\nabla_nE(\boldsymbol x)\end{bmatrix}。
 $$ (animation-elastomers-energy_gradient)
 
 同样地，我们考虑一个弹簧 $(i,j)$ 关于质点 $i$ 的海瑟矩阵，即对式 {eq}`animation-elastomers-spring_force` 两边求梯度，得到
 
 $$
-\boldsymbol H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\boldsymbol x^k)}{\partial\boldsymbol x_i^2}&=k_{ij}\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\boldsymbol x_i-\boldsymbol x_j\|}\right)\left(\mathbf I-\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}\right)，\\
-\frac{\partial^2E_{ij}(\boldsymbol x^k)}{\partial\boldsymbol x_i\partial\boldsymbol x_j}&=-\boldsymbol H_e，\\
-\frac{\partial^2E_{ij}(\boldsymbol x^k)}{\partial\boldsymbol x_j^2}&=\boldsymbol H_e。
+\boldsymbol H_e\mathrel{\mathop:}=\frac{\partial^2E_{ij}(\boldsymbol x)}{\partial\boldsymbol x_i^2}&=k_{ij}\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}+k_{ij}\left(1-\frac{l_{ij}}{\|\boldsymbol x_i-\boldsymbol x_j\|}\right)\left(\mathbf I-\frac{(\boldsymbol x_i-\boldsymbol x_j)(\boldsymbol x_i-\boldsymbol x_j)^\top}{\|\boldsymbol x_i-\boldsymbol x_j\|^2}\right)，\\
+\frac{\partial^2E_{ij}(\boldsymbol x)}{\partial\boldsymbol x_i\partial\boldsymbol x_j}&=-\boldsymbol H_e，\\
+\frac{\partial^2E_{ij}(\boldsymbol x)}{\partial\boldsymbol x_j^2}&=\boldsymbol H_e。
 $$
 
 那么这个弹簧关于所有质点坐标的海瑟矩阵可以写成如下形式：
 
 $$
-\boldsymbol H_{ij}(\boldsymbol x^k)=
+\boldsymbol H_{ij}(\boldsymbol x)=
 \begin{bmatrix}
 	&\vdots&&\vdots&\\
 	\cdots&\boldsymbol H_e&\cdots&-\boldsymbol H_e&\cdots\\
@@ -271,10 +271,10 @@ $$
 \end{bmatrix}，
 $$
 
-将 $\boldsymbol H_{ij}(\boldsymbol x^k)$ 划分成 $n\times n$ 个 $3\times 3$ 的块，则第 $i$ 行第 $i$ 列与第 $j$ 行第 $j$ 列的块为 $\boldsymbol H_e$，而第 $i$ 行第 $j$ 列与第 $j$ 行第 $i$ 列的块为 $-\boldsymbol H_e$，其余块均为零矩阵。总能量的海瑟矩阵即为所有弹簧海瑟矩阵之和：
+将 $\boldsymbol H_{ij}(\boldsymbol x)$ 划分成 $n\times n$ 个 $3\times 3$ 的块，则第 $i$ 行第 $i$ 列与第 $j$ 行第 $j$ 列的块为 $\boldsymbol H_e$，而第 $i$ 行第 $j$ 列与第 $j$ 行第 $i$ 列的块为 $-\boldsymbol H_e$，其余块均为零矩阵。总能量的海瑟矩阵即为所有弹簧海瑟矩阵之和：
 
 $$
-\boldsymbol H(\boldsymbol x^k)=\sum_{(i,j)}\boldsymbol H_{ij}(\boldsymbol x^k)。
+\boldsymbol H(\boldsymbol x)=\sum_{(i,j)}\boldsymbol H_{ij}(\boldsymbol x)。
 $$ (animation-elastomers-energy_hessian)
 
 最后，我们将式 {eq}`animation-elastomers-energy_gradient`、{eq}`animation-elastomers-energy_hessian` 代入到式 {eq}`animation-elastomers-calculate_gradient_and_hessian` 中计算 $\nabla g(\boldsymbol x^k)$ 和 $\boldsymbol H_g(\boldsymbol x^k)$，然后即可求解方程 {eq}`animation-elastomers-newton_iteration_equation`。
