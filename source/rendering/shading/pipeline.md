@@ -1,3 +1,4 @@
+(sec-rendering-shading-pipeline)=
 # 实时渲染管线
 
 ## 图形编程接口
