@@ -58,6 +58,7 @@ bibtex_bibfiles = [
     'getting-started/drawing-2d/ref.bib',
 	'rendering/global-illum/ref.bib',
 	'animation/elastomers/ref.bib',
+	'animation/rigid-bodies/ref.bib',
 	'interaction/spatial/ref.bib'
 ]
 
