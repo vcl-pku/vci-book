@@ -31,6 +31,5 @@ Dürer, Albrecht. "Melencolia I". 1514, Minneapolis Institute of Art[^Melencolia
 
 signal-theory
 aa-principle
-aa-method
 summary
 ````
