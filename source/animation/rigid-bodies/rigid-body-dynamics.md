@@ -179,7 +179,7 @@ $$
 &=\sum_{i=1}^N\boldsymbol r_i\times\left(\boldsymbol f_i+\sum_{j\ne i}\boldsymbol f^\mathrm{inner}_{ij}\right)\\
 &=\sum_{i=1}^N\boldsymbol\tau_i+\sum_{i=1}^N\sum_{j=i+1}^N(\boldsymbol r_i\times\boldsymbol f^\mathrm{inner}_{ij}+\boldsymbol r_j\times\boldsymbol f^\mathrm{inner}_{ji})\\
 &=\sum_{i=1}^N\boldsymbol\tau_i+\sum_{i=1}^N\sum_{j=i+1}^N(\boldsymbol r_i-\boldsymbol r_j)\times\boldsymbol f^\mathrm{inner}_{ij}\\
-&=boldsymbol\tau，
+&=\boldsymbol\tau，
 $$
 
 其中最后一步是因为两个质点之间的内力必然沿两点连线的方向。
