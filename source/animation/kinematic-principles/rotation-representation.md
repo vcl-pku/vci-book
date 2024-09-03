@@ -1,3 +1,4 @@
+(sec-animation-kinematic_principles-rotation_representation)=
 # 旋转的表示
 
 ## 旋转矩阵

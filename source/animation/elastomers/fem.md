@@ -453,7 +453,7 @@ $$ (animation-elastomers-discrete_force)
 
 我们可以按照 {numref}`sec-animation-elastomers-fem-discretization` 计算弹性体在一个状态下的弹性力，然后在加上外力，即可进行显式时间积分的模拟。我们在这里通过模拟的过程对上述弹性体各个量的计算进行一个小结：
 
-1. 对参考构型下的每一个四面体，计算参考形状矩阵 $\boldsymbol D_\mathcal m$、它的逆 $\boldsymbol D_\mathcal m^{-1}$ 以及四面体的体积 $W_i$。
+1. 对参考构型下的每一个四面体，计算参考形状矩阵 $\boldsymbol D_\mathrm m$、它的逆 $\boldsymbol D_\mathrm m^{-1}$ 以及四面体的体积 $W_i$。
 2. 计算每个顶点分配到的质量 $m_i$。
 3. 对每一个顶点施加外力：$\boldsymbol v_i\gets\boldsymbol v_i+\frac h{m_i}\boldsymbol f_i^{\mathrm{ext}}$。
 4. 准备弹性力向量 $\boldsymbol f\gets\mathbf 0\in\mathbb R^{3N}$，它表示所有顶点的弹性力堆叠而成的向量。
