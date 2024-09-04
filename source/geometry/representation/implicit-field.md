@@ -2,6 +2,7 @@
 
 ## 无符号距离场
 
+(sec-geometry-representation-implicit_field-sdf)=
 ## 有符号距离场
 
 ### 基于网格的表示
