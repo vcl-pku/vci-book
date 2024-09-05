@@ -3,6 +3,7 @@
 
 我们对刚体场景中最感兴趣的动态当属它们之间的碰撞了，只有多个物体相互接触并产生影响，才能够产生出复杂的动态。然而，物理仿真中的碰撞与摩擦是十分复杂的现象，学术和工业界也有许多十分精巧的处理方式，本节我们只介绍一种最简单但也有效的方法。无论方法如何，在处理碰撞与摩擦时，总是需要先检测碰撞是否发生，若发生再对其进行处理。
 
+(sec-animation-rigid_bodies-contact_and_friction-detect)=
 ## 碰撞检测
 
 碰撞检测的目的是判断当前时刻的状态下是否有碰撞发生，如果有，还需计算出碰撞发生的位置以便后续进行碰撞处理。为了简化问题，我们假设只检测一个质点是否与场景中的其他物体发生碰撞，且场景内其他物体互不相交。
@@ -29,10 +30,7 @@
 含有多个复杂形状可动刚体的碰撞检测
 ```
 
-通过采样的方式对连续介质进行碰撞检测是一种最简单的办法，它的缺点也很明显——采样点过多会导致碰撞检测次数变多，从而降低计算效率；采样点过少则会导致算法遗漏更多的碰撞事件，从而引起较为严重的穿模现象。事实上，对于四面体或三角网格表示的刚体形状，还可以基于判断三角面片是否相交的算法实现更加精确的碰撞检测，有些研究工作甚至针对高阶曲面的几何表达方式设计了碰撞检测算法；更高级的碰撞检测方法还会把这个问题看成与时间和速度相关的问题，这类方法并不在物体已经发生微量穿模的时候检测碰撞，而是在碰撞前通过物体的速度预测一个未来最早发生碰撞的时间……物理模拟中的碰撞检测是一个很困难的开放性问题，学术界对此有大量的研究工作，若读者不满足于仅仅模拟出一个简单的刚体场景，可以查阅相关的文献以深入学习。
-
-> jr: 这里需要 reference。
-
+(sec-animation-rigid_bodies-contact_and_friction-response)=
 ## 碰撞处理
 
 碰撞处理的目的是针对已经检测到的碰撞事件给出响应，更新相关物体的状态，以阻止穿模的发生。我们还是先将问题简化成场景中只有一个能动的质点，其余均为静态边界。本节我们给出一个最朴素的碰撞处理方式——惩罚方法（penalty method），通过施加力的方式模拟碰撞产生的效果，这个力分为两部分——惩罚力 $\boldsymbol f_\mathrm{penalty}$ 和摩擦力 $\boldsymbol f_\mathrm{friction}$。
@@ -56,7 +54,7 @@ $$ (animation-rigid_bodies-penalty_force)
 
 $$
 \boldsymbol v_\boldsymbol T=\boldsymbol v-(\boldsymbol v\cdot\boldsymbol N)\boldsymbol N。
-$$
+$$ (animation-rigid_bodies-tangent_velocity)
 
 那么摩擦力可以表示为与速度相反的一个向量：
 
@@ -84,8 +82,25 @@ $$ (animation-rigid_bodies-coulomb_condition)
 
 因此，碰撞处理最终的结果就是为质点添加了外力 $\boldsymbol f_\mathrm{penalty}+\boldsymbol f_\mathrm{friction}$，如{numref}`fig-animation-rigid_bodies-collision_response` 所示。
 
-> jr: TODO 添加 buffer 方法以及 IPC 的 reference。
+到这里读者不难发现，这个方法有个很大的缺陷，即只有在粒子一定程度地陷入障碍物之后，碰撞响应才能够生效，这就导致我们无法避免穿模现象的发生。一个简单的处理方式是将所有物体的边界向外扩张 $\varepsilon$，方法是将碰撞检测和碰撞处理中涉及到的有符号距离场 $\phi_i(\boldsymbol x)$ 替换为扩张后的有符号距离场 $\hat\phi_i(\boldsymbol x)=\phi_i(\boldsymbol x)-\varepsilon$，如图所示。这会导致在粒子距离某个边界小于 $\varepsilon$ 时，碰撞响应就会生效，从而减少粒子穿模的情况。
 
-这个方法最大的缺陷就在于只有在粒子一定程度地陷入障碍物之后，碰撞响应才能够生效。
+```{figure} fig/animation-rigid_bodies-collision_buffer.png
+:width: 80 %
+:name: fig-animation-rigid_bodies-collision_buffer
+
+为碰撞检测和处理增加缓冲区域。图中实线为原边界，虚线为原边界向外扩张 $\varepsilon$ 后的边界。
+```
+
+惩罚方法最大的好处之一是可以直接拓展到一般形状刚体的情形，我们对每个发生碰撞的采样点求出碰撞响应后施加的力，将这些力当作外力直接作用到响应的采样点上即可。因此我们只需要用碰撞响应后的结果更新 {numref}`sec-animation-rigid_bodies-dynamics-time_integration` 第 1 步中的外力 $\boldsymbol F$ 和外力矩 $\boldsymbol\tau$ 即可。需要额外注意的一点是，在计算两个可运动刚体之间的碰撞产生的摩擦力时，式 {eq}`animation-rigid_bodies-tangent_velocity` 中的 $\boldsymbol v$ 要替换成当前采样点相对于另一个刚体表面的碰撞点的速度。
 
 ## 其他碰撞检测和处理的方法
+
+我们在 {numref}`sec-animation-rigid_bodies-contact_and_friction-detect` 中介绍了通过采样的方式对连续介质进行碰撞检测，这是一种最简单的办法，它的缺点也很明显——采样点过多会导致碰撞检测次数变多，从而降低计算效率；采样点过少则会导致算法遗漏更多的碰撞事件，从而引起较为严重的穿模现象。事实上，对于四面体或三角网格表示的刚体形状，还可以基于判断三角面片是否相交的算法实现更加精确的碰撞检测，有些研究工作甚至针对高阶曲面的几何表达方式设计了碰撞检测算法；更高级的碰撞检测方法还会把这个问题看成与时间和速度相关的问题，这类方法并不在物体已经发生微量穿模的时候检测碰撞，而是在碰撞前通过物体的速度预测一个未来最早发生碰撞的时间……物理模拟中的碰撞检测是一个很困难的开放性问题，学术界对此有大量的研究工作，若读者不满足于仅仅模拟出一个简单的刚体场景，可以查阅相关的文献以深入学习。
+
+> jr: 这里需要 reference。
+
+在 {numref}`sec-animation-rigid_bodies-contact_and_friction-response` 中介绍的惩罚方法看上去很完美——它能够解决各种复杂的情况，同时还能完美地结合到刚体仿真的时间积分算法中。但是如果实现一边就会发现其中会有很多难以把握的细节，例如为了防止模拟过程中出现相距一定距离的物体之间仍然表现出斥力的现象，我们会希望 $\varepsilon$ 尽可能小，与此同时增加 $k$ 以让惩罚力足够大来防止穿模；但由于我们采用的是显式时间积分，这样会导致模拟变得十分不稳定，具体原因可以参考 {numref}`sec-animation-elastomers-mass_spring-explicit_euler`。
+
+可以看出，碰撞处理也是一个十分困难的问题，它也是学术界一个热门的方向之一。但这不意味着惩罚方法的效果很差，目前碰撞效果最逼真的方法就是用惩罚方法做的 {cite}`Li2020IPC`，它把式 {eq}`animation-rigid_bodies-penalty_force` 中惩罚力的形式换成了 $\boldsymbol f_\mathrm{penalty}=\rho\frac 1{\phi_i(\boldsymbol x)}\boldsymbol N$，因此在系统中引入了一项 $\ln$ 形式的增量势能（incremental potential, IP），因此这个方法也被称为增量势能碰撞（incremental potential, IPC）；注意到这个修改后的惩罚力是在障碍物外是一个将物体向外推的斥力，一旦越过障碍物的边界，就会变成将物体向内吸，因此在这个方法中需要采取更加高级的碰撞检测算法，通过修改时间步长来避免穿模的发生，在穿模发生前就将碰撞处理好，并且还采用了隐式时间积分。
+
+还有另外一类碰撞处理的方法叫做冲量法（impulse method），这类方法不再通过加力的方式处理碰撞，而是直接修改速度，也即在当前时间步内给物体施加一个冲量 {cite}`baraff2001physically`。这个方法会比惩罚方法复杂，尤其是涉及到多个刚体同时发生碰撞时，冲量法需要求解一个较大的线性系统以获得速度更新。

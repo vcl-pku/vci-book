@@ -120,6 +120,7 @@ $$ (animation-elastomers-newton_disc)
 
 因此，给定系统的初始位置 $\boldsymbol{x}_0$ 和初始速度 $\boldsymbol{v}_0$，通过上式循环迭代，理论上就可以依次求出后续每个采样时刻的系统状态，从而得到一段物理动画。故剩下的任务是计算式 {eq}`animation-elastomers-newton_disc` 中的时间积分，接下来介绍两种典型的计算方法：**显式欧拉积分（explicit/forward Euler）​**和**隐式欧拉积分（implicit/backward Euler）**。
 
+(sec-animation-elastomers-mass_spring-explicit_euler)=
 ### 显式欧拉积分
 
 在较为复杂的场景中，式 {eq}`animation-elastomers-newton_disc` 中的积分项可能不存在解析表达，好在积分区间 $[t_k,t_{k+1}]$ 比较小，所以我们可以用简单的形式近似这个积分的值。最简单的方式就是用每个时间步刚开始的值去近似这个时间步内任意时刻的值，于是式 {eq}`animation-elastomers-newton_disc` 转化成
