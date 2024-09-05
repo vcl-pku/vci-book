@@ -70,3 +70,54 @@ $$ (eq-started-curves-rank)
 ## 插值与曲线
 
 在很多地方，我们可能看到**插值（interpolation）** 和曲线的概念一同出现，造成理解上的混乱。在数学上，插值指的是从一堆已有的数据点推测新的同类数据点的过程，因此插值的结果必须要包含已有数据点。对应到二维曲线中，如果我们有一堆散点，如果我们画出一条曲线经过了这些点，那么这个曲线就构成了原数据点插值，我们称这样的曲线为**插值曲线（interpolation curve）**。然而，图形学中的曲线有**控制点（control point）** 的概念，这些点可以控制曲线的形状，但是曲线不一定必须要经过这些点。所以曲线是不是插值曲线的关键，就在于曲线是否经过了所有控制点。插值性是非常好的性质，意味着我们可以直接控制曲线经过哪些地方，比如在画图中就很有用，但这不是构成曲线的必须要求。
+
+## 基函数
+
+我们使用最简单的线性插值的例子介绍**基函数（basis function）** 的概念。
+
+```{figure} fig/basis.png
+:name: fig-started-curves-basis
+:width: 60%
+
+线性插值的基函数
+```
+
+如{numref}`fig-started-curves-basis` 所示，$[x_i, x_{i+1}]$ 之间的线性插值结果可以表示为：
+
+$$
+y = \frac{x_{i+1} - x}{x_{i+1} - x_i} y_i + \frac{x - x_i}{x_{i+1} - x_i} y_{i+1}
+$$ (eq-started-curves-linear1)
+
+这是一条 $y$ 关于 $x$ 的直线并且经过两个端点。将所有分段的函数拼接起来就得到了最终插值结果 $y(x)$，这是一个分段线性函数。在这个例子中，我们可以定义每个基函数上的基函数 $B_i(x)$ 为：
+
+$$
+B_i(x) = 
+\begin{cases}
+\frac{x - x_{i-1}}{x_i - x_{i-1}}, & x \in [x_{i-1}, x_i] \\
+\frac{x_{i+1} - x}{x_{i+1} - x_i}, & x \in [x_i, x_{i+1}] \\
+0, & \text{else}
+\end{cases}
+$$ (eq-started-curves-linear2)
+
+$B_i(x)$ 的形状就是{numref}`fig-started-curves-basis` 中的蓝色三角形：在第 $i$ 个节点处取 1，在其他节点取 0，中间线性变化。使用基函数我们可以将公式 {eq}`eq-started-curves-linear1` 重写为：
+
+$$
+y = B_i(x) y_i + B_{i+1} y_{i+1}
+$$ (eq-started-curves-linear3)
+
+事实上，由于基函数在所有区间上都有定义，只不过大部分都是 0，我们可以将整个分段直线的插值结果写为：
+
+$$
+y = \sum_{i} B_i(x) y_i
+$$ (eq-started-curves-linear4)
+
+从公式 {eq}`eq-started-curves-linear4` 可以发现，使用基函数可以将插值写为非常简洁的形式，并且我们也能使用这个形式理解插值的本质。不同的插值方法可以对应到不同的基函数的选择，但是为了使得插值的结果经过所有数据点，基函数需要满足
+
+$$
+B_i(x_j) = \delta_{ij} = \begin{cases}
+  1, & i = j\\
+  0, & i\neq j
+\end{cases}
+$$ (eq-started-curves-linear5)
+
+将公式 {eq}`eq-started-curves-linear5` 代入公式 {eq}`eq-started-curves-linear4` 中，我们就可以发现在 $x_i$ 上 $y$ 的值一定是 $y_i$。换句话说，只要能够写为公式 {eq}`eq-started-curves-linear4` 的形式，并且基函数满足公式 {eq}`eq-started-curves-linear5` ，我们就能得到一个合理的插值方法。并且插值的很多性质，比如光滑性、局部性都能对应到基函数的性质上来。
