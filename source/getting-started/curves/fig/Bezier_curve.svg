@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="500">
+	<style>
+		text {
+			font-family: sans-serif;
+			font-size: 40px;
+		}
+		
+		.sub {
+			baseline-shift: sub;
+			font-size: 20px;
+		}
+	</style>
+
+	<defs>
+		<path id="x" d="M-10,-10 10 10 M-10,10 10,-10" stroke="#000" fill="none"/>
+	</defs>
+
+	<g stroke="#000" fill="none">
+		<path stroke-width="2.5" d="M70,420 C150,70 700,145 650,420"/>
+		<path stroke-width="1.5" stroke-dasharray="15,15" d="M70,420 150,70 700,145 650,420"/>
+	</g>
+
+	<use x="70" y="420" xlink:href="#x"/>
+	<use x="150" y="70" xlink:href="#x"/>
+	<use x="700" y="145" xlink:href="#x"/>
+	<use x="650" y="420" xlink:href="#x"/>
+
+	<g>
+		<text x="20" y="460">P<tspan class="sub">0</tspan></text>
+		<text x="100" y="60">P<tspan class="sub">1</tspan></text>
+		<text x="720" y="125">P<tspan class="sub">2</tspan></text>
+		<text x="670" y="470">P<tspan class="sub">3</tspan></text>
+	</g>
+</svg>

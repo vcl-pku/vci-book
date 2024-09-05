@@ -55,7 +55,8 @@ html_title = '可视计算与交互概论'
 
 bibtex_bibfiles = [
 	'rendering/shading/ref.bib',
-    'getting-started/drawing-2d/ref.bib',
+  'getting-started/drawing-2d/ref.bib',
+  'getting-started/curves/ref.bib',
 	'rendering/global-illum/ref.bib',
 	'animation/elastomers/ref.bib',
 	'animation/rigid-bodies/ref.bib',
