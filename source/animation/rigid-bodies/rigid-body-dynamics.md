@@ -206,6 +206,7 @@ $$
 其中 $[\boldsymbol\omega]=\begin{bmatrix}0&-\omega_z&\omega_y\\\omega_z&0&-\omega_x\\-\omega_y&\omega_x&0\end{bmatrix}$ 为 $\boldsymbol\omega$ 的叉乘矩阵，对于任一三维向量 $\boldsymbol y$ 有 $[\boldsymbol\omega]\boldsymbol y=\boldsymbol\omega\times\boldsymbol y$；第三个等号我们用了旋转矩阵的导数 $\dot{\boldsymbol R}=[\boldsymbol\omega]\boldsymbol R$，这可以借助式 {eq}`animation-rigid_bodies-angular_linear_velocity` 通过 $\boldsymbol X$ 的任意性推导出来。由此可立即得出式 {eq}`animation-rigid_bodies-torque_angular`。
 ```
 
+(sec-animation-rigid_bodies-dynamics-time_integration)=
 ## 刚体模拟的时间积分算法
 
 我们在本节中通过列出刚体模拟的时间积分算法对上述介绍的结论进行总结。在模拟过程中需要维护的量包括刚体质心的位置 $\boldsymbol c$、平动速度 $\boldsymbol v$、旋转矩阵 $\boldsymbol R$ 以及角速度 $\boldsymbol\omega$，此外我们需要知道或者与计算得到的量包括时间步长 $h$、刚体的质量 $m$ 以及参考构型下的惯性张量 $\boldsymbol I_\mathrm{ref}$。那么在每个时间步需要依次执行以下步骤：
