@@ -18,6 +18,6 @@ filtering
 poisson
 segmentation
 dithering
-stylization
+seam
 summary
 ```

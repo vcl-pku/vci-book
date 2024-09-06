@@ -57,6 +57,7 @@ bibtex_bibfiles = [
 	'rendering/shading/ref.bib',
   'getting-started/drawing-2d/ref.bib',
   'getting-started/curves/ref.bib',
+  'getting-started/images/ref.bib',
 	'rendering/global-illum/ref.bib',
 	'animation/elastomers/ref.bib',
 	'animation/rigid-bodies/ref.bib',
