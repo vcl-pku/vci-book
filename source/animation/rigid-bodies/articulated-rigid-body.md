@@ -75,13 +75,19 @@ $$ (animation-rigid_bodies-articulated-universal_constraint)
 
 $$
 \boldsymbol J_\mathrm{universal}=\begin{pmatrix}\mathbf I&-[\boldsymbol R_1\boldsymbol X_1]&-\mathbf I&[\boldsymbol R_2\boldsymbol X_2]\\\mathbf 0&\boldsymbol a^\top&\mathbf 0&-\boldsymbol a^\top\end{pmatrix}。
-$$
+$$ (animation-rigid_bodies-articulated-universal_matrix)
 
 合页与万向节很相似，在球关节约束的基础上增加两个轴 $\boldsymbol a_1$ 和 $\boldsymbol a_2$ 上不能产生相对旋转即可，因此我们可以直接写出合页约束的雅可比矩阵：
 
 $$
 \boldsymbol J_\mathrm{hinge}=\begin{pmatrix}\mathbf I&-[\boldsymbol R_1\boldsymbol X_1]&-\mathbf I&[\boldsymbol R_2\boldsymbol X_2]\\\mathbf 0&\boldsymbol a_1^\top&\mathbf 0&-\boldsymbol a_1^\top\\\mathbf 0&\boldsymbol a_2^\top&\mathbf 0&-\boldsymbol a_2^\top\end{pmatrix}。
+$$ (animation-rigid_bodies-articulated-hinge_matrix)
+
+滑动关节要求两个刚体的旋转完全同步，并且只能在一个轴的方向上产生相对位移。前者可以表示成 $\boldsymbol\omega_1-\boldsymbol\omega_2=\mathbf 0$，后者可以在垂直于该轴的平面上取两个互相垂直的向量 $\boldsymbol a_1$ 和 $\boldsymbol a_2$，则相对速度在这两个向量上的投影均为 $0$。由此可得滑动关节约束的雅可比矩阵为：
+
 $$
+\boldsymbol J_\mathrm{slider}=\begin{pmatrix}\mathbf 0&\mathbf I&0&-\mathbf I\\\boldsymbol a_1^\top&\mathbf 0&-\boldsymbol a_1^\top&\mathbf 0\\\boldsymbol a_2^\top&\mathbf 0&-\boldsymbol a_2^\top&\mathbf 0\end{pmatrix}。
+$$ (animation-rigid_bodies-articulated-slider_matrix)
 
 ### 重新表达刚体时间积分
 
@@ -112,7 +118,7 @@ $$ (animation-rigid_bodies-mat_time_int)
 
 ### 带约束的时间积分
 
-现在我们要为式 {eq}`animation-rigid_bodies-mat_time_int` 的时间积分加上由关节带来的速度约束，即 $\boldsymbol J\boldsymbol u^\mathrm{new}=\mathbf 0$，其中 $\boldsymbol J$ 根据关节的种类取 $\boldsymbol J_\mathrm{ball}$、$\boldsymbol J_\mathrm{universal}$ 或 $\boldsymbol J_\mathrm{hinge}$ 中的一种。关节之所以能让速度满足这样的约束，是因为提供了一个额外的约束力，也即在考虑到关节的作用时，式 {eq}`animation-rigid_bodies-mat_time_int` 等号右边要再加一项。现在我们假设关节是光滑的（不会导致能量的损耗），则它的约束就是理想约束；根据理论力学中的定义，约束力的虚功为 $0$，也即约束力方向应与任意满足 $\boldsymbol{Jw}=\mathbf 0$ 的速度 $\boldsymbol w$ 正交，也就是与 $\ker\boldsymbol J$ 正交，这说明约束力属于 $\boldsymbol J$ 的行空间，我们用 $\boldsymbol J^\top\boldsymbol\lambda$ 表示约束力。
+现在我们要为式 {eq}`animation-rigid_bodies-mat_time_int` 的时间积分加上由关节带来的速度约束，即 $\boldsymbol J\boldsymbol u^\mathrm{new}=\mathbf 0$，其中 $\boldsymbol J$ 根据关节的种类取 $\boldsymbol J_\mathrm{ball}$、$\boldsymbol J_\mathrm{universal}$、$\boldsymbol J_\mathrm{hinge}$ 或 $\boldsymbol J_\mathrm{slider}$ 中的一种。关节之所以能让速度满足这样的约束，是因为提供了一个额外的约束力，也即在考虑到关节的作用时，式 {eq}`animation-rigid_bodies-mat_time_int` 等号右边要再加一项。现在我们假设关节是光滑的（不会导致能量的损耗），则它的约束就是理想约束；根据理论力学中的定义，约束力的虚功为 $0$，也即约束力方向应与任意满足 $\boldsymbol{Jw}=\mathbf 0$ 的速度 $\boldsymbol w$ 正交，也就是与 $\ker\boldsymbol J$ 正交，这说明约束力属于 $\boldsymbol J$ 的行空间，我们用 $\boldsymbol J^\top\boldsymbol\lambda$ 表示约束力。
 
 至此，我们的时间积分从式 {eq}`animation-rigid_bodies-mat_time_int` 变成了如下关于 $\boldsymbol\xi$ 和 $\boldsymbol u^\mathrm{new}$ 的线性方程组：
 
