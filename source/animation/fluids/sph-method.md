@@ -1,3 +1,4 @@
+(sec-animation-fluids-sph)=
 # 光滑粒子流体
 
 ## 空间离散化
