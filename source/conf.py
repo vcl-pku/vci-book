@@ -61,6 +61,7 @@ bibtex_bibfiles = [
 	'rendering/global-illum/ref.bib',
 	'animation/elastomers/ref.bib',
 	'animation/rigid-bodies/ref.bib',
+	'animation/fluids/ref.bib',
 	'interaction/spatial/ref.bib'
 ]
 
