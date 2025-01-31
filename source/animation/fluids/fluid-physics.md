@@ -5,7 +5,7 @@
 
 ## 纳维-斯托克斯方程
 
-与前面学过的物理现象一样，流体所遵循的最基本的运动学方程仍然是牛顿第二定律 $\boldsymbol f=m\mathrm dot{\boldsymbol x}$，只是流体内部的力要更为复杂一些，所以方程会变得稍微复杂一点：
+与前面学过的物理现象一样，流体所遵循的最基本的运动学方程仍然是牛顿第二定律 $\boldsymbol f=m\ddot{\boldsymbol x}$，只是流体内部的力要更为复杂一些，所以方程会变得稍微复杂一点：
 
 $$
 \rho\frac{\mathrm D\boldsymbol v}{\mathrm Dt}=-\nabla p+\rho\boldsymbol g+\mu\nabla^2\boldsymbol v。
