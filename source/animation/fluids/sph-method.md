@@ -91,3 +91,5 @@ $$ (animation-fluids-sph_pressure_gradient_symmetry)
 3. 用式 {eq}`animation-fluids-equation_of_state` 计算每个粒子处的压强。
 4. 用式 {eq}`animation-fluids-sph_pressure_gradient` 或式 {eq}`animation-fluids-sph_pressure_gradient_symmetry` 计算压强梯度 $\nabla p(\boldsymbol x_i)$，从而得到每个粒子受到的压力 $\boldsymbol f_i=\frac{m_i}{\rho_i}\nabla p(\boldsymbol x_i)$。
 5. 用压力更新粒子速度和位置 $\boldsymbol v_i\gets\boldsymbol v_i+\Delta t\boldsymbol f_i$，$\boldsymbol x_i\gets\boldsymbol x_i+(\Delta t)^2\boldsymbol f_i$。
+
+对于固体边界条件，我们可以使用 {numref}`sec-animation-rigid_bodies-contact_and_friction` 中的方法对每个粒子进行质点与边界的碰撞检测和处理，并将碰撞响应作为外力项加到上述步骤中即可。
