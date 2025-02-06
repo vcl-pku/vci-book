@@ -38,7 +38,7 @@ $$ (animation-fluids-divergence_free_velocity)
 $$
 \frac{\mathrm D\boldsymbol v}{\mathrm Dt}&=0，\\
 \frac{\partial\boldsymbol v}{\partial t}&=\boldsymbol g，\\
-\rho\frac{\partial\boldsymbol v}{\partial t}&=-\nabla p\quad\text{s.t.}\,\nabla\cdot\boldsymbol u=0。
+\rho\frac{\partial\boldsymbol v}{\partial t}&=-\nabla p\quad\text{s.t.}\,\nabla\cdot\boldsymbol v=0。
 $$
 
 ## 描述流体的两种视角
