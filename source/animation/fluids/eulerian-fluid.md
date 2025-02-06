@@ -166,10 +166,110 @@ $$
 
 速度场 $\boldsymbol u^n$ 的对流与得到 $\phi^*$ 的过程十分类似，只是需要反向追踪的点与之前不同，以及使用的插值方法不同。现在我们需要从每个面的中心点出发，反向查询它在上个时间步的位置；此外，需要逐分量依次进行线性插值得到相应点的速度值。我们把对流速度场的过程记为 $\boldsymbol u^*\gets\mathrm{Advect}(\boldsymbol u^n,t_{n+1}-t_n,\boldsymbol u^n)$。
 
-至此，对流已经几乎完成，但是现有的步骤还存在问题。考虑图所示的一个流体场景：在不存在重力的情况下，一个
+````{subfigure} AB
+:layout-sm: A|B
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-fluids-noextrapolation
+:width: 100 %
+
+```{image} fig/animation-fluids-noextrapolation_0.png
+:alt: 初始状态
+```
+
+```{image} fig/animation-fluids-noextrapolation_1.png
+:alt: 对流一个时间步后的状态
+```
+
+无重力环境下一个方形水体沿 $x$ 轴正方向运动的对流结果。网格中蓝色的区域为水体，箭头为速度场，格点上所标数字为有符号距离场；右图仅展示了刚刚对流后的 $\phi^*$，红色字体代表计算有误的值，灰色字体代表后续重新计算步骤会更改的值。
+````
+
+至此，对流已经几乎完成，但是现有的步骤还存在问题。考虑{numref}`fig-animation-fluids-noextrapolation` 所示的一个流体场景：在无重力环境下，一个方形的水体沿 $x$ 轴正方向匀速直线运动，速度为 $\frac{\Delta x}{t_{n+1}-t_n}$，即一个时间步恰好能够前进一格。首先考虑速度场的对流，由于水体外部速度均为 $\boldsymbol 0$，水体最右侧一列的速度不会被反向追踪到，导致这一列的速度无法向右传播，从结果上看就是速度不为 $\boldsymbol 0$ 的格子少了一列；有符号距离场的对流则更加复杂一些，读者可以对照{numref}`fig-animation-fluids-noextrapolation` 自行分析对流过程，对流结果会导致水的体积变小（左侧对流速度正常而右侧偏慢），并且在靠近边界的部分出现梯度模长不为 $1$ 的错误情形。
+
+细心的读者不难发现，造成上述问题的原因在于水体之外速度为 $\boldsymbol 0$，在迎风面（即速度前进方向的一侧）外部的反向追踪无法定位到流体内部有用的信息，导致我们的对流算法不能实现边界的“扩张”。针对这个问题，我们需要使用外插（extrapolation）方法，对流体速度场进行一定范围的延拓，让迎风面外部的反向追踪能够和正向对流完全对应上。外插可以通过宽度优先搜索（Breath First Search，BFS）实现，假设我们需要外插一个保存在标记网格上的量 $q_{a,b}$，步骤如下：
+1. 创建一个与 $q_{a,b}$ 形状相同、值为 $+\infty$ 的数组 $d_{a,b}$ 表示宽度搜索的步数，以及一个先进先出的队列 $Q$。
+2. 对于所有已知 $q_{a,b}$ 值的位置 $(a,b)$，令 $d_{a,b}\gets 0$。
+3. 遍历所有的位置 $(a,b)$，若有 $d_{a,b}=+\infty$ 且存在一个 $d=0$ 的邻居，则 $d_{a,b}\gets 1$ 并将 $(a,b)$ 加入 $Q$。
+4. 若 $Q$ 非空，循环执行以下步骤：
+   - 从 $Q$ 中取出元素 $(a,b)$；
+   - 设集合 $\mathcal N=\{(a',b'):d_{a',b'}<d_{a,b},(a',b')\text{与}(a,b)\text{相邻}\}$，$q_{a,b}\gets\frac 1{\vert\mathcal N\vert}\sum_{(a',b')\in\mathcal N}q_{a',b'}$；
+   - 对于 $(a,b)$ 的邻居 $(a',b')$，若 $d_{a',b'}=+\infty$，则 $d_{a',b'}=d_{a,b}+1$ 并将 $(a',b')$ 加入 $Q$。
+
+我们分别外插速度场 $\boldsymbol u^n$ 的两个分量得到新的速度场 $\hat{\boldsymbol u}^n$，然后在反向追踪的时候换用 $\hat{\boldsymbol u}^n$ 即可；$\phi^n$ 与 $\boldsymbol u^n$ 的对流步骤分别修改成 $\phi^*\gets\mathrm{Advect}(\hat{\boldsymbol u}^n,t_{n+1}-t_n,\phi^n)$ 和 $\boldsymbol u^*\gets\mathrm{Advect}(\hat{\boldsymbol u}^n,t_{n+1}-t_n,\boldsymbol u^n)$。读者不妨尝试一下外插后的速度场是否能够正确对流{numref}`fig-animation-fluids-noextrapolation` 所示的场景。
 
 ### 施加外力
 
+在施加外力的步骤中，我们求解纳维-斯托克斯方程的第二个部分：
+
+$$
+\frac{\partial\boldsymbol u}{\partial t}=\boldsymbol g。
+$$
+
+我们考虑的场景中外力只有重力，而固体边界受力平衡，空气的质量忽略不计，因此我们只需要考虑水受重力的影响。我们首先利用上一小节得到的 $\phi^{n+1}$ 对场景进行体素化，并更新标记为水的格子上的速度场即可。由于重力方向竖直向下，大小为重力加速度 $g\approx 9.8$，我们应将标记为水的格子上保存的速度的 $y$ 分量（即 $v^*_{i,j\pm\frac 12}$）增加 $-g\Delta t$。
+
 ### 投影
 
+投影的目的是求解纳维-斯托克斯方程的第三个部分，即压强带来的影响：
+
+$$
+\frac{\partial\boldsymbol u}{\partial t}=-\frac 1\rho\nabla p\quad\text{s.t.}\,\nabla\cdot\boldsymbol u=0。
+$$
+
+在本节我们记时间步长为 $\Delta t$，将这个偏微分方程离散化后可以得到：
+
+$$
+\frac{\boldsymbol u^{n+1}-\boldsymbol u^*}{\Delta t}=-\frac 1\rho\nabla p\quad\text{s.t.}\,\nabla\cdot\boldsymbol u^{n+1}=0。
+$$
+
+由于我们模拟的是不可压流体，这里的密度就是一个常数，令 $p^*=\frac{\Delta t}\rho p$，将上式整理后可以得到一个关于 $p^*$ 的泊松方程：
+
+$$
+\nabla^2p^*=\nabla\cdot\boldsymbol u^*，
+$$ (animation-fluids-poisson)
+
+其中 $\nabla^2=\left(\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}\right)$ 称为拉普拉斯算子。此外，在本节处理的场景中，还存在两类边界条件：
+- 在自由表面上要求 $p^*=0$，即气体压强恒定，这种直接约束待求解函数值的边界条件称为迪利克雷边界条件（Dirichlet boundary condition）。
+- 在固液边界上要求 $\boldsymbol u^{n+1}\cdot\boldsymbol n=0$（$\boldsymbol n$ 为固体表面法向），整理后得 $\nabla p^*\cdot\boldsymbol n=\boldsymbol u^*\cdot\boldsymbol n$，即限制流体不能穿过固体，这种约束待求解函数一阶导数的边界条件称为纽曼边界条件（Neumann boundary condition）。
+
+接下来，我们需要在遵守边界条件的情况下求解方程 {eq}`animation-fluids-poisson`。还记得我们把压强场保存在标记网格的格子中心吗？现在我们就是要把格子中心的 $p^*_{i,j}$ 作为未知量，根据式 {eq}`animation-fluids-poisson` 列出一个代数方程组。方程的右端项读者已经不陌生，根据式 {eq}`animation-fluids-velocity_divergence` 即可求出；而方程的左端项可以写成 $\nabla\cdot(\nabla p^*)$，即 $p^*$ 梯度的散度，根据式 {eq}`animation-fluids-pressure_gradient` 我们可以算出定义在标记网格面上的 $\nabla p^*$，接下来和求速度的散度一样，套用式 {eq}`animation-fluids-velocity_divergence` 就可以算出定义在标记网格中心的 $\nabla^2p^*$ 了。不难发现，若暂时不考虑边界条件，我们可以为除最外圈的每一个格子列出一个方程，即对于格子 $(i,j)$ 有
+
+$$
+p^*_{i+1,j}+p^*_{i-1,j}+p^*_{i,j+1}+p^*_{i,j-1}-4p^*_{i,j}=\Delta x\left(u^*_{i+\frac 12,j}-u^*_{i-\frac 12,j}+v^*_{i,j+\frac 12}-v^*_{i,j-\frac 12}\right)。
+$$ (animation-fluids-poisson_discrete)
+
+在此基础上我们可以很轻松地加上迪利克雷边界条件。对于标记为空气的格子 $(i,j)$，有 $p^*_{i,j}=0$，既然变成已知量，我们应当删除这个格子对应的上述方程，并将其余方程中的 $p^*_{i,j}$ 一项替换成 $0$，因此与该格子相邻的所有格子对应的方程都需要修改。
+
+随后我们需要添加纽曼边界条件。假设标记为水的格子 $(i,j)$ 的下方是一个固体格子 $(i,j-1)$，其余邻居均为水格子，那么根据纽曼边界条件的表达式 $\nabla p^*\cdot\boldsymbol n=\boldsymbol u^*\cdot\boldsymbol n$ 有如下关系：
+
+$$
+\frac 1{\Delta x}\left(p^*_{i,j}-p^*_{i,j-1}\right)=v^*_{i,j-\frac 12}，
+$$
+
+整理得
+
+$$
+p^*_{i,j-1}=p^*_{i,j}-\Delta xv^*_{i,j-\frac 12}，
+$$
+
+再代入 {eq}`animation-fluids-poisson_discrete` 可得格子 $(i,j)$ 对应的修改后的方程
+
+$$
+p^*_{i+1,j}+p^*_{i-1,j}+p^*_{i,j+1}-3p^*_{i,j}=\Delta x\left(u^*_{i+\frac 12,j}-u^*_{i-\frac 12,j}+v^*_{i,j+\frac 12}\right)。
+$$
+
+因此纽曼边界条件也可以消除一个未知量，格子 $(i,j-1)$ 对应的方程也应当删除。
+
+总结一下，我们只需要为每个标记为水的格子列一个形如 {eq}`animation-fluids-poisson_discrete` 的方程；然后依次检查它的每一个邻居，如果有一个空气格子，则将左端项对应的 $p^*$ 项删除；如果有一个固体格子，则将左端项对应的 $p^*$ 项删除，并将自身的 $p^*$ 项系数加一，同时右端项抹掉对应的 $\boldsymbol u^*$ 的分量。无论方程如何修改，整个方程组都是关于所有水格子上的 $p^*_{i,j}$ 的线性方程组，并且系数矩阵是对称的，使用线性求解器进行求解即可。最后，从 $\boldsymbol u^*$ 减去 $\nabla p^*$，即可得到无散的速度场 $\boldsymbol u^{n+1}$。
+
 ### 算法流程
+
+作为总结，我们给出欧拉网格流体从时刻 $n$ 到 $n+1$ 的完整算法。设时间步长为 $\Delta t$；算法开始时，我们拥有时刻 $n$ 的速度场 $\boldsymbol u^n$ 和有符号距离场 $\phi^n$，然后执行如下步骤：
+1. 外插速度场 $\boldsymbol u^n$ 得到 $\hat{\boldsymbol u}^n$。
+2. 对流有符号距离场：$\phi^*\gets\mathrm{Advect}(\hat{\boldsymbol u}^n,\Delta t,\phi^n)$。
+3. 根据 $\phi^*$ 重新计算有符号距离场得到 $\phi^{n+1}$。
+4. 对流速度场：$\boldsymbol u^*\gets\mathrm{Advect}(\hat{\boldsymbol u}^n,\Delta t,\boldsymbol u^n)$。
+5. 对 $\boldsymbol u^*$ 施加外力。
+6. 求解方程 {eq}`animation-fluids-poisson`，遵循迪利克雷和纽曼边界条件，得到 $p^*$。
+7. 更新速度场：$\boldsymbol u^{n+1}\gets\boldsymbol u^*-\nabla p^*$。
+
+最后得到的 $\boldsymbol u^{n+1}$ 和 $\phi^{n+1}$ 即为下一个时间步的状态。
