@@ -1,5 +1,5 @@
 (chap-animation-character)=
-# 具身动态
+# 角色动画
 
 ```{toctree}
 :maxdepth: 2

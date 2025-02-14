@@ -1,3 +1,4 @@
+(sec-animation-kinematic_principles-kinematics)=
 # 运动学
 
 (sec-animation-kinematic_principles-kinematics-forward)=
