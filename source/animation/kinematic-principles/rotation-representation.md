@@ -393,8 +393,6 @@ $$
 \mathrm{Slerp}(p,q,t)=\frac{p\sin[(1-t)\theta]+q\sin t\theta}{\sin\theta}。
 $$ (animation-kinematic_principles-quaternion_slerp)
 
-## 欧拉角
+## 其他旋转表示
 
-## 轴角表示法
-
-> jr: 这一小节可能不再需要或者得移到前面，在本文件开头提一下前面讲轴角表示的部分即可。
+三维旋转还可以由 {numref}`sec-geometry-transformation-3d` 中介绍的欧拉角以及轴角法来表示，前者将三自由度的旋转表示成三个绕坐标轴旋转的复合，后者使用一个向量来表示，向量的方向为旋转轴，模长为绕旋转轴按右手螺旋定则旋转的弧度。在主观动态的处理当中，这两种旋转表示并不常见，即便遇到也是将其转换成矩阵或者四元数再处理。
