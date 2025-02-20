@@ -7,5 +7,6 @@
 overview
 data
 interaction
+sph-method
 summary
 ```
