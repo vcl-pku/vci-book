@@ -1,5 +1,6 @@
+(sec-visualization-basics-overview)=
 # 可视化概述
-<!-- :label:`visualization-case` -->
+
 
 ## 什么是可视化
 
