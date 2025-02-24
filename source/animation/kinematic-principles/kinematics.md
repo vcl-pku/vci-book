@@ -219,4 +219,6 @@ $$
 \nabla F=\frac{\partial F}{\partial\boldsymbol\theta}=\boldsymbol J^\top(\boldsymbol f(\boldsymbol\theta)-\boldsymbol t)，
 $$
 
-其中 $\boldsymbol J=\frac{\partial\boldsymbol f}{\partial\boldsymbol\theta}$ 为前向运动学的雅可比矩阵（Jacobian matrix）。因此，只要能够求出 $\boldsymbol J$，我们就可以使用梯度下降法优化目标函数，在每轮迭代中选取合适的正步长，为 $\boldsymbol\theta$ 加上 $-\alpha\nabla F$，直至目标函数降至足够低（在此后还需要对 $\boldsymbol\theta$ 中的每个局部旋转进行一次归一化以确保其是一个合法的旋转表示）。
+其中 $\boldsymbol J=\frac{\partial\boldsymbol f}{\partial\boldsymbol\theta}$ 为前向运动学的雅可比矩阵（Jacobian matrix）。因此，只要能够求出 $\boldsymbol J$，我们就可以使用梯度下降法优化目标函数，在每轮迭代中选取合适的正步长，为 $\boldsymbol\theta$ 加上 $-\alpha\nabla F$（在此后还需要对 $\boldsymbol\theta$ 中的每个局部旋转进行一次归一化以确保其是一个合法的旋转表示），直至目标函数降至足够低。
+
+求 $\boldsymbol J$ 的方法有几种。首先 $\boldsymbol f(\boldsymbol\theta)$ 的表达式是可以写出来的（尽管十分复杂），因此我们可以直接对其关于每个关节的局部旋转的每个参数求导以算出 $\boldsymbol J$ 的表达式。但是这种办法十分费力、容易出错，况且对于不同的铰链刚体都需要重新计算；幸运的是，我们可以借助深度学习库（如 PyTorch、TensorFlow 等）中的自动微分功能完成这件事情，这些库中往往还有许多用于训练网络的优化算法，也可以直接用来求解逆向运动学问题。此外，对于特殊的旋转表达（如欧拉角或二维情形），我们还可以使用有限差分法计算 $\boldsymbol J$ 的近似值。例如，假设我们要计算 $\boldsymbol J$ 的第 $i$ 行 $\frac{\partial\boldsymbol f}{\partial\theta_i}$，可以取一个很小的 $\Delta\theta_i$，将 $\frac{\boldsymbol f(\theta_0,\cdots,\theta_{i-1},\theta_i+\Delta\theta_i,\theta_{i+1},\cdots,\theta_n)-\boldsymbol f(\boldsymbol\theta)}{\Delta\theta_i}$ 作为近似结果。这个方法的好处是只需要进行前向运动学即可，但 $\Delta\theta_i$ 大小的选取则需要视情况而定。
