@@ -134,7 +134,7 @@ $$
 \mathbf G_x=\begin{bmatrix}-1&0&1\\-2&0&2\\-1&0&1\end{bmatrix},\ \mathbf G_y=\begin{bmatrix}1&2&1\\0&0&0\\-1&-2&-1\end{bmatrix}
 $$ (eq-started-image-gxy)
 
-可以从公式中发现 $\mathbf{G}_x$ 可以提取水平方向的梯度，而在竖直方向做了模糊；$\mathbf{G}_y$ 则正好相反。应用这两个滤波器的结果如{numref}`fig-started-image-edge` 所示。
+可以从公式中发现 $\mathbf{G}_x$ 可以提取水平方向的梯度，而在竖直方向做了模糊；$\mathbf{G}_y$ 则正好相反。应用这两个滤波器的结果如 {numref}`fig-started-image-edge` 所示。
 
 ````{subfigure} ABC
 :name: fig-started-image-edge
