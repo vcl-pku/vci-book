@@ -1,3 +1,4 @@
+(sec-animation-character-motion_synthesis)=
 # 动作合成
 
 ## 动作数据
