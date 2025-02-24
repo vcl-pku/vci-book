@@ -14,7 +14,7 @@
 
 ## 颜色的感知
 
-光在进入人眼之后，会被视网膜上的两种细胞捕获：视锥细胞（cone cells）和视杆细胞（rod cells），如{numref}`fig-started-color-photoreceptors` 所示。视锥细胞分布在视网膜的中央，每个视网膜大概有 700 万个，它对光的波长敏感。视杆细胞分散分布在视网膜上，每个视网膜上约有 1 亿个，不区分光线波长，对光线的强度更为敏感。也就是说，视锥细胞负责感知颜色，视杆细胞负责感知强度。
+光在进入人眼之后，会被视网膜上的两种细胞捕获：**视锥细胞（cone cells）** 和 **视杆细胞（rod cells）**，如{numref}`fig-started-color-photoreceptors` 所示。视锥细胞分布在视网膜的中央，每个视网膜大概有 700 万个，它对光的波长敏感。视杆细胞分散分布在视网膜上，每个视网膜上约有 1 亿个，不区分光线波长，对光线的强度更为敏感。也就是说，视锥细胞负责感知颜色，视杆细胞负责感知强度。
 
 ```{figure} fig/photoreceptors.webp
 :name: fig-started-color-photoreceptors
