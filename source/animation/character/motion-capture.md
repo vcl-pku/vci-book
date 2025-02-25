@@ -61,16 +61,129 @@
 
 ## 光学动捕
 
+````{subfigure} AB
+:layout-sm: A|B
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-character-optical_mocap
+:width: 100 %
+
+```{image} fig/animation-character-optical_markers.png
+:alt: (a) 标记点
+```
+
+```{image} fig/animation-character-optical_camera.png
+:alt: (b) 相机组
+```
+
+光学动捕
+````
+
+光学动捕（optical mocap）是目前最为流形的一种动捕技术，其主要原理是通过相机来进行三维定位。动捕演员需要穿戴一些反光或发光的标记点（如{numref}`fig-animation-character-optical_mocap`(a)），此外场景中会放置多个（一般是 $6$ 到 $8$ 个，如{numref}`fig-animation-character-optical_mocap`(b)）摄像机，每个相机都能够拍摄到这些标记点，通过多个视角的标记点位置来重建每个标记点的三维坐标。于是，我们只需要在动捕演员身体上的每个关节处都放置若干个标记点，通过这些点的三维坐标就可以反推出每个关节的位置和朝向。
+
 ### 多视角重建
+
+这里介绍一种利用两个相机重建标记点三维位置的方法。如{numref}`fig-animation-character-optical_markers_reconstruction` 所示，我们已知两个相机的焦距、位置、朝向信息，就可以在为每个相机作一个平面表示相机拍摄到的图片所在的屏幕，一个标记点会在两个屏幕上分别投射出一个点，我们从两个相机的焦点出发向各自屏幕上对应点引出一条射线，那么两条射线应当能够相交，这个交点就是还原出的三维位置。
+
+```{figure} fig/animation-character-optical_markers_reconstruction.png
+:width: 50 %
+:name: fig-animation-character-optical_markers_reconstruction
+
+双视角还原标记点位置
+```
+
+这个方法虽然简单，但并不常用，因为实际情况中两个相机会带来较大的测量误差。一般来说我们至少需要 $3$ 个相机来定位一个点，且相机越多误差越低，尤其是当场景中出现遮挡关系时更加需要多个相机来准确地重建。
 
 ### 标记点的丢失
 
+光学动捕的一个常见问题在于标记点在动作过程中很可能会丢失，比如当动捕演员趴在地上时，没有任何摄像机能够看到胸口的标记点；此外，在进行复杂动作的过程中可能会使标记点错位。这些问题对光学动捕是十分不利的，所以人们往往需要耗费大量精力为采集到的数据进行补点操作，补齐丢失的标记点或是纠正对应错误的标记点（例如有些手上的标记点可能会被算法误认为是腿上的标记点）。这种后处理工作繁琐且昂贵，在业界这种工作往往是按照动捕序列的时长以秒为单位计费的。近期也有一些研究借助机器学习来简化这个补点的过程，感兴趣的读者可以深入调研。
+
 ### 无标记点的光学动捕
+
+由于标记点占据一定的体积，动捕演员携带标记点做动作往往会受到影响，尤其是在采集动物的动作数据时。针对这个问题，目前最常见的解决方案是采用基于多视角相机的无标记点的动捕技术 (如{numref}`fig-animation-character-optical_markerless`)。其原理与普通的光学动捕技术类似，已知多个相机的内参和位姿，通过识别每个相机拍摄出图像中的关节等特征来重建人体姿态。但这类方法的准确性会受光线等因素影响。
+
+```{figure} fig/animation-character-optical_markerless.png
+:width: 100 %
+:name: fig-animation-character-optical_markerless
+
+无标记点的光学动捕
+```
 
 #### 基于深度相机的无标记点光学动捕
 
+深度摄像机拍摄出来的图片中每个像素点除了颜色信息外还会携带深度信息，通过额外的深度信息我们可以重建出人物的表面网格，进而重建出人物的姿态。{numref}`fig-animation-character-stereocamera` 展示了一个深度相机，{numref}`fig-animation-character-depth_mocap1` 和{numref}`fig-animation-character-depth_mocap2` 分别展示了两种使用深度相机重建出的人物动画。当然，在不同身体部位之间出现遮挡时，深度相机动捕就会遇到问题；另外，单视角深度相机也难以区分拍摄到的是身体的（前、后、左、右）哪一侧。
+
+总体来说，无标记点的光学动捕精确度不如传统的光学动捕技术高，当然这也说明这方面技术还有很大的进步空间，它们也是近期研究的热点。
+
+```{figure} fig/animation-character-stereocamera.jpg
+:width: 30 %
+:name: fig-animation-character-stereocamera
+
+一个深度相机
+```
+
+```{figure} fig/animation-character-depth_mocap1.png
+:width: 30 %
+:name: fig-animation-character-depth_mocap1
+
+使用深度相机重建的骨架
+```
+
+```{figure} fig/animation-character-depth_mocap2.png
+:width: 50 %
+:name: fig-animation-character-depth_mocap2
+
+使用深度相机重建的人物动作
+```
+
 ## 其他运动估计方法
+
+另外还有一些运动估计（motion estimation）的方法，它们可以借助低成本的设备还原出一个较为合理的动作，但由于这些方法的输入往往是不够的，不能准确地还原出人体动作，所以被称为运动估计而非动作捕捉。
 
 ### 基于单视角视频的运动估计
 
+````{subfigure} AB
+:layout-sm: A|B
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-character-monocular_video
+:width: 100 %
+
+```{image} fig/animation-character-motion_estimation_monocular_video1.png
+:alt: 二维姿态估计
+```
+
+```{image} fig/animation-character-motion_estimation_monocular_video2.png
+:alt: 基于视频的三维姿态估计
+```
+
+基于单视角视频的运动估计[^fig-animation-character-motion_estimation_monocular_video1-ref][^fig-animation-character-motion_estimation_monocular_video2-ref]
+````
+
+[^fig-animation-character-motion_estimation_monocular_video1-ref]: 左图来源：\[OpenPose, 2D Pose estimation\]
+[^fig-animation-character-motion_estimation_monocular_video2-ref]: 右图来源：\[3D Video-based Pose estimation, source: DeepMotion Inc.\]
+
+图{numref}`fig-animation-character-monocular_video` 展示了两个基于单视角视频运动估计的研究工作。由于单视角相机看到的是三维动作到二维的投影，输入具有一定的歧义，我们只能结合大量的训练数据来估计一个最大可能性的动作。
+
 ### 使用少量传感器进行运动估计
+
+
+````{subfigure} AB
+:layout-sm: A|B
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-character-motion_estimation_sparse_sensor
+:width: 100 %
+
+```{image} fig/animation-character-motion_estimation_sparse_sensor_imu.png
+:alt: (a) 借助稀疏的惯性测量单元进行运动估计
+```
+
+```{image} fig/animation-character-motion_estimation_sparse_sensor_vr.png
+:alt: (b) 虚拟现实中的运动估计
+```
+
+使用少量传感器进行的运动估计
+````
+
+这类方法往往只需要借助很少量的（$5$ 到 $6$ 个）标记点或传感器进行运动估计（如{numref}`fig-animation-character-motion_estimation_sparse_sensor`(a)），这类方法可以借助逆向运动学技术还原出人物动作。在虚拟现实场景中，我们甚至只有 $3$ 个已知的标记点（虚拟现实头盔、两个手柄，如{numref}`fig-animation-character-motion_estimation_sparse_sensor`(b)，有时甚至只有头盔这一个标记点的信息）。对于这种信息极度缺失的病态问题，目前的技术能够达到的效果也很有限，但这同样意味着我们还有很大的研究空间。
