@@ -14,15 +14,14 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v2
-      - uses: s-weigand/setup-conda@v1
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v3
+      - uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: '3.9'
+          auto-update-conda: true
+          python-version: 3.9
       - name: Config
         run: |
           pip install -r requirements.txt

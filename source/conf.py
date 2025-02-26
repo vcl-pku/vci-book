@@ -63,6 +63,8 @@ bibtex_bibfiles = [
 	'animation/rigid-bodies/ref.bib',
 	'animation/fluids/ref.bib',
 	'visualization/informational/ref.bib',
+	'visualization/basics/ref.bib',
+	'visualization/scientific/ref.bib',
 	'interaction/spatial/ref.bib'
 ]
 

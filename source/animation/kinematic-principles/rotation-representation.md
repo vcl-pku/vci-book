@@ -216,7 +216,7 @@ $$
 \mathrm{ij}=\mathrm k，&\mathrm{jk}=\mathrm i，&\mathrm{ki}=\mathrm j，\\
 \mathrm{ji}=-\mathrm k，&\mathrm{kj}=-\mathrm i，&\mathrm{ik}=-\mathrm j。
 \end{array}
-$$ (animation-kinematic_principles-quaternion_product)
+$$ (animation-kinematic_principles-quat_imaginary_product)
 
 ```{figure} fig/animation-kinematic_principles-quaternion_and_axis.png
 :width: 50 %
@@ -225,12 +225,175 @@ $$ (animation-kinematic_principles-quaternion_product)
 四元数虚部和右手系坐标轴 $x$、$y$、$z$ 的对应
 ```
 
+我们还可以将四元数表示成实部 $w=a$ 和虚部向量 $\boldsymbol v=(b,c,d)^\top$ 拼接而成的形式，记作 $[w,\boldsymbol v]$。
+
+四元数的加减法、模长、点乘运算与传统的四维向量运算规则相同。令 $q_1=a_1+b_1\mathrm i+c_1\mathrm j+d_1\mathrm k=[w_1,\boldsymbol v_1]$、$q_2=a_2+b_2\mathrm i+c_2\mathrm j+d_2\mathrm k=[w_2,\boldsymbol v_2]$，有
+
+$$
+\begin{aligned}
+q_1\pm q_2&=(a_1\pm a_2)+(b_1\pm b_2)\mathrm i+(c_1\pm c_2)\mathrm j+(d_1\pm d_2)\mathrm k，\\
+tq_1&=ta_1+tb_1\mathrm i+tc_1\mathrm j+td_1\mathrm k，\\
+q_1\cdot q_2&=a_1a_2+b_1b_2+c_1c_2+d_1d_2，\\
+\Vert q_1\Vert_2&=\sqrt{q_1\cdot q_1}。
+\end{aligned}
+$$
+
+四元数的乘法运算会稍微复杂一些，我们可以根据式 {eq}`animation-kinematic_principles-quat_imaginary_product` 给出的虚部乘法规则计算出 $q_1$ 与 $q_2$ 的乘积：
+
+$$
+\begin{array}{llll}
+q_1q_2 & = & &(a_1 + b_1\mathrm i +c_1\mathrm j + d_1\mathrm k)(a_2 + b_2\mathrm i +c_2\mathrm j + d_2\mathrm k)\\
+& = & &  (a_1a_2 - b_1b_2 - c_1c_2 - d_1d_2) \\
+& & + &  (a_1b_2 + b_1a_2 + c_1d_2 - d_1c_2)\mathrm i \\ 
+& & + &  (a_1c_2 - b_1d_2 + c_1a_2 + d_1b_2)\mathrm j \\ 
+& & + &  (a_1d_2 + b_1c_2 - c_1b_2 + d_1a_2)\mathrm k。 \\ 
+\end{array}
+$$
+
+用实部与虚部向量的方式来表示则会简便很多：
+
+$$
+q_1q_2=[w_1w_2-\boldsymbol v_1\cdot\boldsymbol v_2,w_1\boldsymbol v_2+w_2\boldsymbol v_1+\boldsymbol v_1\times\boldsymbol v_2]。
+$$ (animation-kinematic_principles-quaternion_product)
+
+四元数的共轭定义与复数共轭定义类似，均为将虚部取反的结果。四元数 $q = [w,\boldsymbol v]$ 的共轭为 $q^\star = [w,-\boldsymbol v]$。
+
+利用四元数乘法与共轭的定义，我们不难得出 $qq^\star = [w^2 + \boldsymbol v\cdot \boldsymbol v,\boldsymbol 0]=\Vert q\Vert^2$。四元数的单位元为 $[1,\boldsymbol 0]$，因此我们可以构造任意非零四元数 $q$ 的逆元为 $q^{-1} = \frac{q^\star}{\Vert q\Vert^2}$。
+
+单位四元数为所有模长为 $1$ 的四元数，若将四元数看成四维向量，则所有单位四元数构成了四维超球面。根据定义不难得出单位四元数 $q$ 满足 $q^{-1}=q^\star$，即其共轭就是其逆元。类似于单位复数的分解 $z=\cos\theta+\mathrm i\sin\theta$，单位四元数也可以写成类似的形式 $q=[\cos\theta,(\sin\theta)\boldsymbol u]$，其中 $\boldsymbol u$ 是单位向量。
+
 ### 四元数表示旋转
 
+单位四元数也可以用来表示旋转，其与三维旋转的对应关系可通过如下定理看出：
+
+```{prf:theorem}
+:label: thm-animation-kinematic_principles-quaternion_rotation
+
+设 $q=[\cos\theta,(\sin\theta)\boldsymbol u]$ 是一个单位四元数，$v=[0,\boldsymbol v]$ 是一个实部为 $0$ 的四元数，则有：
+- $qvq^\star$ 实部为 $0$。
+- $qvq^\star$ 的虚部是向量 $\boldsymbol v$ 绕旋转轴 $\boldsymbol u$ 旋转 $2\theta$ 弧度后的结果。
+```
+
+`````{prf:proof}
+我们可以将向量 $\boldsymbol v$ 分解成平行于旋转轴 $\boldsymbol u$ 以及垂直于旋转轴的两个分量 $\boldsymbol v_\parallel$ 和 $\boldsymbol v_\perp$，对应的四元数分别为 $v_\parallel=[0,\boldsymbol v_\parallel]$ 和 $v_\perp=[0,\boldsymbol v_\perp]$。那么我们只需要说明，平行分量在进行上述变换后保持不变，垂直分量在垂直于 $\boldsymbol u$ 的平面内逆时针旋转了 $2\theta$ 即可。
+
+
+````{subfigure} ABC
+:layout-sm: A|B|C
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-kinematic_principles-quaternion_rotation_proof
+:width: 100 %
+
+```{image} fig/animation-kinematic_principles-rotation_decomposite.png
+:alt: 待旋转向量的分解
+```
+
+```{image} fig/animation-kinematic_principles-rotation_top_view.png
+:alt: 旋转的顶视图
+```
+
+```{image} fig/animation-kinematic_principles-rotation_front_view.png
+:alt: 旋转的前视图
+```
+
+定理 {prf:ref}`thm-animation-kinematic_principles-quaternion_rotation` 的证明思路
+````
+
+首先我们证明平行分量在进行上述变换后保持不变，且实部为 $0$。由于 $\boldsymbol u$ 是单位向量，且 $\boldsymbol u\times\boldsymbol v_\parallel=\boldsymbol 0$，那么根据四元数乘法规则有
+
+$$
+\begin{aligned}
+qv_\parallel q^\star&=[\cos\theta,(\sin\theta)\boldsymbol u][0,\boldsymbol v_\parallel][\cos\theta,-(\sin\theta)\boldsymbol u]\\
+&=[-(\boldsymbol u\cdot\boldsymbol v_\parallel)\sin\theta,(\cos\theta)\boldsymbol v_\parallel][\cos\theta,-(\sin\theta)\boldsymbol u]\\
+&=[-(\boldsymbol u\cdot\boldsymbol v_\parallel)\sin\theta\cos\theta+(\cos\theta)\boldsymbol v_\parallel\cdot(\sin\theta)\boldsymbol u,((-\sin\theta)^2+(\cos\theta)^2)\boldsymbol v_\parallel]\\
+&=[0,\boldsymbol v_\parallel]。
+\end{aligned}
+$$
+
+接下来我们证明垂直分量在进行上述变换后等价于在垂直于 $\boldsymbol u$ 的平面内逆时针旋转了 $2\theta$，且得到的四元数实部为 $0$。由于 $\boldsymbol v_\perp\cdot\boldsymbol u=0$，取 $\boldsymbol w=\boldsymbol u\times\boldsymbol v_\perp$，则 $\boldsymbol u$、$\boldsymbol v_\perp$、$\boldsymbol w$ 两两垂直。据此有
+
+$$
+\begin{aligned}
+qv_\perp q^\star&=[\cos\theta,(\sin\theta)\boldsymbol u][0,\boldsymbol v_\perp][\cos\theta,-(\sin\theta)\boldsymbol u]\\
+&=[0,(\cos\theta)\boldsymbol v_\perp+(\sin\theta)\boldsymbol w][\cos\theta,-(\sin\theta)\boldsymbol u]\\
+&=[0,(\cos^2\theta)\boldsymbol v_\perp+(\sin\theta\cos\theta)\boldsymbol w-(\cos\theta)\boldsymbol v_\perp\times(\sin\theta)\boldsymbol u-(\sin\theta)\boldsymbol w\times(\sin\theta)\boldsymbol u]\\
+&=[0,(\cos^2\theta-\sin^2\theta)\boldsymbol v_\perp+2(\sin\theta\cos\theta)\boldsymbol w]\\
+&=[0,(\cos 2\theta)\boldsymbol v_\perp+(\sin 2\theta)\boldsymbol w]。
+\end{aligned}
+$$
+
+我们知道 $qvq^\star=q(v_\parallel+v_\perp)q^\star=qv_\parallel q^\star+qv_\perp q^\star$，因此定理得证。
+
+`````
+
+因此，如果我们希望将一个三维向量 $\boldsymbol v$ 绕单位长度的旋转轴 $\boldsymbol u$ 旋转 $\theta$ 弧度，进行如下步骤即可：
+1. 构造四元数 $q=\left[\cos\frac\theta 2,\left(\sin\frac\theta 2\right)\boldsymbol u\right]$ 和 $v=[0,\boldsymbol v]$。
+2. 取 $qvq^\star$ 的虚部得到旋转后的向量。
+
+值得注意的是，对于任意四元数 $q$、$v$，都有 $qvq^\star=(-q)v(-q)^\star$，因此单位四元数 $q$ 与其相反数 $-q$ 表示的是一样的旋转。
+
+四元数也可以很方便地进行旋转的复合运算。假设我们对三维向量 $\boldsymbol v$ 依次进行了单位四元数 $q_1$ 和 $q_2$ 所表示的旋转，则旋转后向量即为 $q_2(q_1vq_1^\star)q_2^\star$ 的虚部；根据乘法和共轭的定义不难得出 $q_1^\star q_2^\star=(q_2q_1)^\star$，因此旋转后的向量就是 $(q_2q_1)v(q_2q_1)^\star$ 的虚部。这说明先进行 $q_1$ 所表示的旋转，再进行 $q_2$ 的，等价于进行 $q_2q_1$ 所表示的旋转。
+
+(sec-animation-kinematic_principles-rotation_representation-quaternion_interpolation)=
 ### 四元数插值
 
-## 欧拉角
+运动学中一个很常见的问题就是四元数插值，即计算出两个旋转之间的某个中间值；例如在将一个单点固定的物体从一个姿态随时间匀速旋转到另一个姿态时，就会用到四元数的插值。现在我们用更严谨的语言描述这个问题：给定两个单位四元数 $p, q$，和一个参数 $t \in [0, 1]$, 我们希望能够找到这么一个中间四元数 $r(p, q, t)$ 作为插值结果，使得当 $t$ 取值从 $0$ 变为 $1$ 的时候，$r(p, q, t)$ 取值能够平滑的从 $p$ 过渡到 $q$。对于二元插值问题，常用的解法是取 $r(t,p,q)=a(t)p+b(t)q$，即用 $p$ 和 $q$ 的加权和作为结果。
 
-## 轴角表示法
 
-> jr: 这一小节可能不再需要或者得移到前面，在本文件开头提一下前面讲轴角表示的部分即可。
+````{subfigure} AB
+:layout-sm: A|B
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-kinematic_principles-quaternion_interpolation
+:width: 100 %
+
+```{image} fig/animation-kinematic_principles-quaternion_lerp.png
+:alt: 四元数的线性插值
+```
+
+```{image} fig/animation-kinematic_principles-quaternion_slerp.png
+:alt: 四元数的球面线性插值
+```
+
+四元数的插值方式
+````
+
+最简单的方法是进行线性插值（linear interpolation，Lerp），即取 $a(t)=1-t$、$b(t)=t$。但是线性插值效果并不理想：首先，线性插值的结果都落在四维超球面的二维弦上，因此插值结果不一定是单位四元数。即使通过归一化将结果变为单一四元数，但是其在球面上的运动速度并不均匀。不难得出当 $t$ 在 $[0,1]$ 内匀速运动时，归一化之前四元数模长越小，归一化后其在球面上的运动速度越快。
+
+另外一种想法是在四维超球面上进行线性插值。假定 $p$、$q$ 之间的夹角为 $\theta$，也即 $\cos \theta = p \cdot q$，我们找出球面上位于 $p$、$q$ 连线上的点 $r$，使得 $p \cdot r = \cos t\theta$ 且 $q \cdot r = \cos [(1-t)\theta]$，此时球面上的线性插值就可以克服普通线性插值的所有问题。仍然假设 $r = a(t)p + b(t)q$，我们考虑如何求解 $a(t)$ 和 $b(t)$ 的取值。对插值公式两侧点乘 $q$ 可得
+
+$$
+\begin{aligned}
+r\cdot p&=a(t)p\cdot p+b(t)q\cdot p，\\
+\cos t\theta&=a(t)+b(t)\cos\theta，
+\end{aligned}
+$$
+
+再对插值公式两侧点乘 $q$ 可得
+
+$$
+\begin{aligned}
+r\cdot q&=a(t)p\cdot q+b(t)q\cdot q，\\
+\cos[(1-t)\theta]&=a(t)\cos\theta+b(t)。
+\end{aligned}
+$$
+
+联立上述方程可解得
+
+$$
+\begin{aligned}
+a(t)&=\frac{\cos t\theta-\cos[(1-t)\theta]\cos\theta}{1-\cos^2\theta}=\frac{\sin[(1-t)\theta]}{\sin\theta}，\\
+b(t)&=\frac{\cos[(1-t)\theta]-\cos t\theta\cos\theta}{1-\cos^2\theta}=\frac{\sin t\theta}{\sin\theta}。
+\end{aligned}
+$$
+
+这个插值方式称为球面线性插值（spherical linear interpolation，Slerp），其公式为
+
+$$
+\mathrm{Slerp}(p,q,t)=\frac{p\sin[(1-t)\theta]+q\sin t\theta}{\sin\theta}。
+$$ (animation-kinematic_principles-quaternion_slerp)
+
+## 其他旋转表示
+
+三维旋转还可以由 {numref}`sec-geometry-transformation-3d` 中介绍的欧拉角以及轴角法来表示，前者将三自由度的旋转表示成三个绕坐标轴旋转的复合，后者使用一个向量来表示，向量的方向为旋转轴，模长为绕旋转轴按右手螺旋定则旋转的弧度。在主观动态的处理当中，这两种旋转表示并不常见，即便遇到也是将其转换成矩阵或者四元数再处理。

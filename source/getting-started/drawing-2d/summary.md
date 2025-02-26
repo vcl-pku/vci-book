@@ -6,7 +6,7 @@
 
 ### 证明重心坐标是线性的
 
-对于{numref}`fig-started-drawing-barycentric` 中定义的重心坐标，请证明它是线性的：权重关于位置的导数是一个常数。
+对于{numref}`fig-started-drawing-barycentric` 中定义的重心坐标，请证明它是线性的：权重关于位置的导数是一个常数。（提示：当三角形的底边是固定时，其面积关于高总是线性的。）
 
 ### 半透明颜色的伽马校正
 
