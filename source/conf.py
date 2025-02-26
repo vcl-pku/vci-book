@@ -62,6 +62,7 @@ bibtex_bibfiles = [
 	'animation/elastomers/ref.bib',
 	'animation/rigid-bodies/ref.bib',
 	'animation/fluids/ref.bib',
+	'visualization/informational/ref.bib',
 	'interaction/spatial/ref.bib'
 ]
 
