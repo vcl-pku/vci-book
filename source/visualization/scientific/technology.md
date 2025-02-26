@@ -1,5 +1,6 @@
+(chap-visualization-scientific-technology)=
 # 科学可视化技术
-<!-- :label:`scientific-technology` -->
+
 
 高级可视化，是指利用某一个领域较多的专业知识来去生成符合先验知识的可视化呈现效果的技术。我们分别以体渲染和流场可视化为例介绍高级可视化算法的分析流程。
 
