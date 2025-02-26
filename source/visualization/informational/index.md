@@ -4,7 +4,7 @@
 ```{toctree}
 :maxdepth: 2
 
+intro
 types
-visualization
 summary
 ```

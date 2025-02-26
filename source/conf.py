@@ -62,9 +62,10 @@ bibtex_bibfiles = [
 	'animation/elastomers/ref.bib',
 	'animation/rigid-bodies/ref.bib',
 	'animation/fluids/ref.bib',
-	'interaction/spatial/ref.bib',
+	'visualization/informational/ref.bib',
 	'visualization/basics/ref.bib',
-	'visualization/scientific/ref.bib'
+	'visualization/scientific/ref.bib',
+	'interaction/spatial/ref.bib'
 ]
 
 myst_enable_extensions = [
