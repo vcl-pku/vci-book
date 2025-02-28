@@ -1,3 +1,4 @@
+(sec-getting-started-curves-rasterization)=
 # 曲线光栅化
 
 曲线光栅化的基本思想和我们之前介绍的直线、多边形的光栅化基本一致，下面我们介绍几个常用的方法。

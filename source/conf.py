@@ -54,6 +54,9 @@ html_title = '可视计算与交互概论'
 ## -- Extensions configuration ------------------------------------------------
 
 bibtex_bibfiles = [
+	'geometry/reconstruction/ref.bib',
+	'geometry/transformation/ref.bib',
+	'geometry/processing/ref.bib',
 	'rendering/shading/ref.bib',
   'getting-started/drawing-2d/ref.bib',
   'getting-started/curves/ref.bib',

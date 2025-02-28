@@ -33,12 +33,12 @@
 
 ### 流体场景的表示
 
-借助标记网格，我们可以使用水平集方法（level set method）表示水的自由表面，尽管这里用了一个新词，其实我们在 {numref}`sec-geometry-representation-implicit_field-sdf` 学习有符号距离场的时候就已经熟悉了这个概念。水平集方法使用一个标量场 $\phi(\boldsymbol x)$ 来隐式地定义一个几何体，对于空间中任意一点 $\boldsymbol x$：
+借助标记网格，我们可以使用水平集方法（level set method）表示水的自由表面，尽管这里用了一个新词，其实我们在 {numref}`sec-geometry-representation-implicit_field-df` 学习有符号距离场的时候就已经熟悉了这个概念。水平集方法使用一个标量场 $\phi(\boldsymbol x)$ 来隐式地定义一个几何体，对于空间中任意一点 $\boldsymbol x$：
 - 若 $\phi(\boldsymbol x)>0$，则 $\boldsymbol x$ 在几何体的外部；
 - 若 $\phi(\boldsymbol x)=0$，则 $\boldsymbol x$ 在几何体的表面上；
 - 若 $\phi(\boldsymbol x)<0$，则 $\boldsymbol x$ 在几何体的内部。
 
-换言之，几何体的表面就是 $\phi$ 的 $0$ 等值面，又称为 $\phi$ 的 $0$ 水平集，故此方法名为水平集方法。不难发现，我们可以直接把这里的 $\phi$ 取成我们要表示的几何体的有符号距离场，这样就可以使用 {numref}`sec-geometry-representation-implicit_field-sdf-grid` 中介绍的方法得到一个网格化表示的标量场，存储在标记网格的顶点上。因此，在初始化流体场景时，我们就可以将水在初始时的形状转换成水平集表示保存在标记网格当中了，在后续的模拟时间步中，我们会进一步演化这个水平集表示，以实现水的几何动态。
+换言之，几何体的表面就是 $\phi$ 的 $0$ 等值面，又称为 $\phi$ 的 $0$ 水平集，故此方法名为水平集方法。不难发现，我们可以直接把这里的 $\phi$ 取成我们要表示的几何体的有符号距离场，这样就可以使用 {numref}`sec-geometry-representation-implicit_field-construction` 中介绍的方法得到一个网格化表示的标量场，存储在标记网格的顶点上。因此，在初始化流体场景时，我们就可以将水在初始时的形状转换成水平集表示保存在标记网格当中了，在后续的模拟时间步中，我们会进一步演化这个水平集表示，以实现水的几何动态。
 
 接下来，为了方便后续的数值求解，我们还需要将整个场景进行体素化表示（voxelize），即确定标记网格中每一个格子是属于固体、水还是空气。场景中的固体边界已知，我们可以求出它的有符号距离场，随后依次判断每个格子的中心处有符号距离场的正负性，并将负的网格标记为固体。对于剩下的格子我们要分出包含水与不包含水两类，因此只需要检查所有顶点上的 $\phi$ 值，如果有存在小于 $0$ 的即标记为水，否则标记为空气。{numref}`fig-animation-fluids-voxelize` 展示了将{numref}`fig-animation-fluids-sph_fluid_setting` 中所示场景体素化后的大致结果。
 
@@ -137,7 +137,7 @@ $$
 
 其中 $u_\mathrm{max}$ 是流速大小的上界。我们知道现实情况下流速场都是有界可导的，因此只要时间步 $t_{n+1}-t_n\ge\Delta t$ 取得足够小，可以认为轨迹上任意一点的速度都近似等于 $\boldsymbol u^n_{i+\frac 12,j+\frac 12}$。根据这个近似，我们就可以估计出虚拟粒子在时刻 $n$ 的大致位置 $\boldsymbol y(t_n)=\boldsymbol x_{i+\frac 12,j+\frac 12}-(t_{n+1}-t_n)\boldsymbol u^n_{i+\frac 12,j+\frac 12}$，即以 $n$ 时刻顶点 $\left(i+\frac 12,j+\frac 12\right)$ 上的速度反向运动一个时间步的位置。找到位置之后，利用 $\phi^n$ 进行双线性插值（三维情形下做三线性插值）求出 $\boldsymbol y(t_n)$ 处的值作为对流后的 $\phi^*_{i+\frac 12,j+\frac 12}$。我们将这个对流过程简单记为 $\phi^*\gets\mathrm{Advect}(\boldsymbol u^n,t_{n+1}-t_n,\phi^n)$，表示将场 $\phi^n$ 按照速度场 $\boldsymbol u^n$ 对流 $t_{n+1}-t_n$ 的时间并保存到 $\phi^*$ 中。
 
-值得注意的一点是，$\phi^*$ 不再是一个有符号距离场了：一个距离表面较远的点，在对流之后和表面的距离是有可能变化的，而我们的对流操作则假设这个距离没有变化。事实上，这个假设在距离表面较近时是合理的，我们可以保留距离表面一个格子范围内的 $\phi^*$ 值，然后基于这些值重新计算其余格点上的有符号距离场。这个过程非常类似我们在初始时从一个已知几何体构建有符号距离场的过程，回想 {numref}`sec-geometry-representation-implicit_field-sdf-grid` 中的做法，我们同样按照快速步进法或者快速扫描法的遍历顺序依次推导出其余格点的值。不同的是，遍历过程中我们不再知道每个格点在表面上的最近点位置，因此我们需要使用有符号距离场的梯度性质来求解，即 $\Vert\nabla\phi\Vert=1$；例如，在遍历到格点 $\left(i+\frac 12,j+\frac 12\right)$ 时，假设其左、上格点的距离场已知，则可以列出如下方程：
+值得注意的一点是，$\phi^*$ 不再是一个有符号距离场了：一个距离表面较远的点，在对流之后和表面的距离是有可能变化的，而我们的对流操作则假设这个距离没有变化。事实上，这个假设在距离表面较近时是合理的，我们可以保留距离表面一个格子范围内的 $\phi^*$ 值，然后基于这些值重新计算其余格点上的有符号距离场。这个过程非常类似我们在初始时从一个已知几何体构建有符号距离场的过程，回想 {numref}`sec-geometry-representation-implicit_field-construction` 中的做法，我们同样按照快速步进法或者快速扫描法的遍历顺序依次推导出其余格点的值。不同的是，遍历过程中我们不再知道每个格点在表面上的最近点位置，因此我们需要使用有符号距离场的梯度性质来求解，即 $\Vert\nabla\phi\Vert=1$；例如，在遍历到格点 $\left(i+\frac 12,j+\frac 12\right)$ 时，假设其左、上格点的距离场已知，则可以列出如下方程：
 
 $$
 \left(\frac{\phi_{i+\frac 12,j+\frac 12}-\phi_{i-\frac 12,j+\frac 12}}{\Delta x}\right)^2+\left(\frac{\phi_{i+\frac 12,j+\frac 32}-\phi_{i+\frac 12,j+\frac 12}}{\Delta x}\right)^2=1，

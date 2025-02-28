@@ -8,7 +8,7 @@
 
 碰撞检测的目的是判断当前时刻的状态下是否有碰撞发生，如果有，还需计算出碰撞发生的位置以便后续进行碰撞处理。为了简化问题，我们假设只检测一个质点是否与场景中的其他物体发生碰撞，且场景内其他物体互不相交。
 
-对于“是否发生碰撞”这个问题，我们只需要检查质点是否在某一个物体“内部”即可；既然涉及到内部与外部的区分，读者不难联想到所有几何表达方式中 {numref}`sec-geometry-representation-implicit_field-sdf` 提到的有符号距离场。我们将其他每个物体的边界都转换成有符号距离场，分别记为 $\phi_1,\cdots,\phi_M$，设质点的位置坐标为 $\boldsymbol x$，那么质点发生了碰撞当且仅当 $\exists i,\phi_i(\boldsymbol x)\le 0$。
+对于“是否发生碰撞”这个问题，我们只需要检查质点是否在某一个物体“内部”即可；既然涉及到内部与外部的区分，读者不难联想到所有几何表达方式中 {numref}`sec-geometry-representation-implicit_field-df` 提到的有符号距离场。我们将其他每个物体的边界都转换成有符号距离场，分别记为 $\phi_1,\cdots,\phi_M$，设质点的位置坐标为 $\boldsymbol x$，那么质点发生了碰撞当且仅当 $\exists i,\phi_i(\boldsymbol x)\le 0$。
 
 对于“发生碰撞的位置在哪”这个问题，由于场景内其他物体没有相交，所以碰撞发生时必然只存在一个 $i$ 满足 $\phi_i(\boldsymbol x)\le 0$。借助有符号距离场的性质，我们可以知道距离 $\boldsymbol x$ 最近的表面位置是 $\boldsymbol x^*=\boldsymbol x-\phi_i(\boldsymbol x)\nabla\phi_i(\boldsymbol x)$，这就是发生碰撞的位置。当然，想要算准 $\boldsymbol x^*$，我们需要假设质点的位置离表面足够近，这在碰撞检测问题中是一个合理的假设，因为只要你正确处理了碰撞，一般情况下不会出现严重的穿模现象。另外，我们还可以计算出 $\boldsymbol x^*$ 处的表面法向 $\boldsymbol N=\nabla\phi_i(\boldsymbol x^*)$。
 

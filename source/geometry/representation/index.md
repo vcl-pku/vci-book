@@ -5,8 +5,7 @@
 :maxdepth: 2
 
 mesh
-point-cloud
-voxel
+voxel-and-point-cloud
 implicit-field
 summary
 ```

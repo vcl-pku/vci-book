@@ -1,3 +1,4 @@
+(chap-getting-started-images-completion)=
 # 图像补全与融合
 
 在**图像补全（image completion）** 任务中，我们需要对图像缺失的部分进行填充，并确保填充后的结果尽可能合理，如{numref}`fig-started-image-lake` 和{numref}`fig-started-image-oldman` 所示。“合理”是指尽可能平滑，具体可描述为以下两点：
