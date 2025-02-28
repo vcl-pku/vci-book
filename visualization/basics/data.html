@@ -1,0 +1,930 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>24.2. 数据 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'visualization/basics/data';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="24.3. 可视化与交互" href="interaction.html" />
+    <link rel="prev" title="24.1. 可视化概述" href="overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/drawing-2d/index.html">4. 绘图</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/polygon.html">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/representation/index.html">9. 几何表达</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/mesh.html">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/character/index.html">20. 角色动画</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-capture.html">20.1. 动作捕捉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-synthesis.html">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/rigid-bodies/index.html">22. 刚体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/rigid-body-dynamics.html">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">24. 可视化基础</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">24.2. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interaction.html">24.3. 可视化与交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">24.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scientific/overview.html">25.1. 科学可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scientific/types.html">25.2. 科学可视化的类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scientific/technology.html">25.3. 科学可视化技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scientific/summary.html">25.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../informational/index.html">26. 信息数据可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../informational/intro.html">26.1. 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../informational/types.html">26.2. 信息数据可视化类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytics/framework.html">27.2. 可视分析框架与过程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytics/content.html">27.3. 可视分析的研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytics/design.html">27.4. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytics/evaluation.html">27.5. 可视化评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytics/summary.html">27.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/spatial/index.html">29. 空间交互技术</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/input.html">29.1. 三维交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/xr-techniques.html">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/visualization/basics/data.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>数据</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">24.2.1. 什么是数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">24.2.1.1. 数据的定义与特征</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">24.2.1.2. 数据分类</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">24.2.2. 数据获取与处理</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">24.2.2.1. 数据获取途径与方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">24.2.2.2. 数据处理</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">24.2.3. 数据科学的挑战</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">24.2.3.1. 数据科学的核心挑战</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">24.2.3.2. 应对挑战的技术演进</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-visualization-basics-data">
+<span id="id1"></span><h1><span class="section-number">24.2. </span>数据<a class="headerlink" href="#sec-visualization-basics-data" title="Link to this heading">#</a></h1>
+<!-- :label:`visualization-data` -->
+<p>可视化的处理对象是各种类型的数据。
+数据是可视化的原材料，深入理解数据的特点与结构是实现有效可视化的基础。
+本节将从数据的定义与分类、数据的获取与预处理、数据可视化的挑战三个方面，系统地阐述可视化中的数据基础知识。</p>
+<section id="id2">
+<h2><span class="section-number">24.2.1. </span>什么是数据<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3><span class="section-number">24.2.1.1. </span>数据的定义与特征<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>数据是客观世界的抽象记录，是信息表达的载体，也是可视化的核心原料。其本质是通过符号、数字、文字、图像等形式对现实世界的观察、测量或计算结果进行编码。
+数据的特征可归纳为以下几点：</p>
+<ul class="simple">
+<li><p>客观性：数据反映客观事实，但需通过主观解释赋予意义。例如，温度传感器记录的“25℃”是数据，结合时间、地点后成为“北京夏季平均气温”的信息。</p></li>
+<li><p>多维度性：数据可包含多个属性维度。例如，一次电商交易可能涉及用户ID、商品类别、价格、时间、地理位置等多个字段。</p></li>
+<li><p>动态性：数据随时间和环境变化。实时数据流（如股票行情、社交媒体话题）需要动态可视化以捕捉瞬时状态</p></li>
+</ul>
+<p>广义上，数据可以使用 “6W” 模型来描述，即 What(数据是什么)、When(数据的时间属性)、Where(数据的空间属性)、Who(数据的对象)、Why(数据产生的原因)、How(数据产生的方式)。
+这些属性构成了对数据多方面特性的描述。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">24.2.1.2. </span>数据分类<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>数据分类是理解其特性和选择可视化方法的基础，常见的分类维度包括：</p>
+<p><strong>1. 按数据结构：</strong></p>
+<ul class="simple">
+<li><p>结构化数据（Structured Data）：
+结构化数据具有固定的格式和预定义的数据模型，通常以表格的形式存储在关系型数据库中。每个数据项都有明确的字段和数据类型，不同数据项之间的关系也有明确定义。结构化数据的特点是高度组织化，易于查询、分析和处理。
+常见的结构化数据包括：</p>
+<ul>
+<li><p>关系型数据库中的数据表，如 MySQL、Oracle、SQL Server 等。</p></li>
+<li><p>电子表格中的数据，如 Excel、CSV 文件等。</p></li>
+<li><p>具有固定格式的日志文件，如 Web 服务器日志、应用程序日志等。</p></li>
+</ul>
+</li>
+<li><p>半结构化数据（Semi-structured Data）
+半结构化数据介于完全结构化和非结构化之间，具有一定的结构和组织，但不如结构化数据严格。半结构化数据通常以树形结构或图形结构来表示，数据项之间的关系相对松散。常见的半结构化数据格式包括 XML、JSON 等。
+常见的半结构化数据包括：</p>
+<ul>
+<li><p>XML 文档，如 Web 服务的响应、配置文件等。</p></li>
+<li><p>JSON 数据，如 Web API 的响应、NoSQL 数据库（如 MongoDB）中的文档等。</p></li>
+<li><p>电子邮件，包含结构化的头部信息和非结构化的正文内容。</p></li>
+<li><p>HTML 文档，包含结构化的标签和非结构化的文本内容。</p></li>
+</ul>
+</li>
+<li><p>非结构化数据（Unstructured Data）：
+非结构化数据没有预定义的数据模型或组织结构，通常以自由格式存储。非结构化数据的特点是多样性和不可预测性，难以用传统的数据库技术直接处理和分析。非结构化数据占据了当今数据的绝大部分。
+常见的非结构化数据包括：</p>
+<ul>
+<li><p>文本文档，如 Word 文档、PDF 文件、电子邮件正文等。</p></li>
+<li><p>图像和图形文件，如 JPEG、PNG、BMP 等。</p></li>
+<li><p>音频和视频文件，如 MP3、WAV、MP4、AVI 等。</p></li>
+<li><p>社交媒体数据，如推文、帖子、评论等。</p></li>
+<li><p>传感器数据，如物联网设备采集的原始数据。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>2. 按数据测量尺度：</strong></p>
+<ul class="simple">
+<li><p>定量数据（Quantitative Data）：
+定量数据以数值形式表示，具有明确的数学意义，支持算术运算（如加减乘除）。其测量尺度为定距尺度（Interval）或定比尺度（Ratio），能够反映事物的数量、强度或程度差异。
+定量数据一般包括：</p>
+<ul>
+<li><p>连续型定量数据：取值在区间内无限细分（如温度、身高）。</p></li>
+<li><p>离散型定量数据：取值为有限或可数无限个整数（如人口数量、订单数）。</p></li>
+</ul>
+</li>
+<li><p>定序数据（Ordinal Data）：
+定序数据表示类别之间的顺序或等级关系，但无法量化差异程度。其测量尺度为顺序尺度（Ordinal），仅支持排序（如A &gt; B &gt; C），不满足加减运算。
+定序数据一般包括：</p>
+<ul>
+<li><p>主观评价数据：如用户满意度评分，疼痛等级等。</p></li>
+<li><p>等级分类数据：如教育程度，产品评级等。</p></li>
+<li><p>阶段划分数据：如癌症分期， 项目进度等。</p></li>
+</ul>
+</li>
+<li><p>定类数据（Nominal Data）：
+定类数据表示无顺序或等级差异的纯分类，仅用于标识事物类别。其测量尺度为名义尺度（Nominal），仅支持频次统计，无法进行排序或数学运算。
+定类数据一般包括：</p>
+<ul>
+<li><p>自然类别数据：人口属性如性别、血型，地理分类如国家、省份等。</p></li>
+<li><p>人工编码数据：产品类型如手机、笔记本电脑、平板电脑等，行业分类如金融、教育、医疗、制造业等。</p></li>
+<li><p>二元数据：是否类数据如用户是否订阅服务（是/否）。</p></li>
+<li></li>
+</ul>
+</li>
+</ul>
+<p><strong>3. 按数据属性：</strong></p>
+<ul class="simple">
+<li><p>数值型数据（Quantitative Data）：
+数值型数据以数字形式表示，支持加减、平均、方差等数学运算和统计分析，并适合通过位置、长度、面积等视觉通道表达数值差异。
+常见的数值型数据包括：</p>
+<ul>
+<li><p>连续型数据：取值在某一区间内无限细分的数据，如气象站记录的每小时温度、患者血压值，股价等。</p></li>
+<li><p>离散型数据：取值为有限或可数无限个整数的数据，如网站点击次数、电商每日订单数、城市人口数量等。</p></li>
+</ul>
+</li>
+<li><p>类别型数据（Categorical Data）：
+类别型数据表示事物的分类或标签，无法直接进行数学运算，类别数量通常固定（如性别、产品类型）。
+常见的类别型数据分为：</p>
+<ul>
+<li><p>有序型数据：类别间存在逻辑顺序或等级关系，如教育程度（小学&lt;中学&lt;大学）、用户满意度评分（1~5星）等。</p></li>
+<li><p>无序型数据：类别间无明确顺序，仅表示分类差异，如用户性别（男/女/其他）、产品颜色（红/蓝/绿）等。</p></li>
+</ul>
+</li>
+<li><p>时空型数据（Spatiotemporal Data）：
+时空型数据包含时间或空间维度信息，反映现象在时空坐标系中的演化规律、分布特征及相互作用关系。具有时空动态性，数据值随时间推移呈现趋势性、周期性或突变性变化，数据分布则随地理位置呈现聚集、扩散或梯度差异。
+常见的时空性数据包括：</p>
+<ul>
+<li><p>时间序列数据：按时间戳记录的连续观测值数据，如股票每日收盘价、气象站每小时降雨量等。</p></li>
+<li><p>地理空间数据：包含地理位置信息（经纬度、行政区划）的数据，如城市GDP（按省份分布）、共享单车骑行轨迹（GPS坐标）。</p></li>
+</ul>
+</li>
+</ul>
+<p>数据的分类是构建有效分析框架的基石，不同的分类方式服务于不同的分析目标。
+数据分类不仅可以界定技术工具的选择边界（如关系型数据库适配结构化数据，自然语言处理应对非结构化文本），也可以规避方法论误用的风险（如对定类数据计算均值）。
+理解分类的本质，是从数据混沌中提取信息、从信息中凝练知识的关键跃迁，才能在可视化时 根据数据的不同特点来采取不同的处理与映射方式。</p>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">24.2.2. </span>数据获取与处理<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>数据获取与处理是可视化流程的基石，直接影响最终结果的可信度与表达力。本节将系统阐述传统可视化中数据获取的途径、方法及处理流程。</p>
+<section id="id6">
+<h3><span class="section-number">24.2.2.1. </span>数据获取途径与方法<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>可视化研究的数据获取主要依赖以下途径：</p>
+<p><strong>1. 实验观测数据</strong></p>
+<p>实验观测数据通过受控环境下的物理设备或人工记录获取，强调数据的精确性与可重复性。
+例如，气象站通过温度、湿度传感器记录实时气候数据，实验室通过显微镜拍摄细胞分裂过程生成时序图像序列。
+此类数据通常用于科学研究（如天体光谱分析、材料力学性能测试），其质量高度依赖仪器精度与实验设计，但可能存在采样频率受限、设备误差累积等问题。</p>
+<p><strong>2. 公开数据集</strong></p>
+<p>公开数据集由学术机构、政府或企业主动开放，为跨领域研究提供标准化数据源。
+典型代表包括UCI Machine Learning Repository中的经典机器学习数据集（如鸢尾花分类数据）、政府开放平台（如美国国家海洋和大气管理局发布的全球气温记录）以及行业数据门户（如谷歌公共数据探索器的经济指标）。
+此类数据通常经过初步清洗与标注，适合快速验证可视化算法或进行教育演示，但可能因数据更新滞后或字段解释不完整影响深度分析。</p>
+<p><strong>3. 模拟生成数据</strong></p>
+<p>模拟生成数据基于数学模型或计算机仿真构建，用于填补真实数据缺失或探索假设性场景。
+例如，计算流体力学（CFD）软件模拟飞机翼型的气流分布，生成压力场与速度场数据；分形算法生成虚拟地形高程模型以测试三维可视化性能。此类数据可控性强，能够生成极端条件（如超高温、超高压）下的理想化数据，但需要警惕模型假设与真实世界的偏差导致结论失真。</p>
+<p><strong>4. 日志与业务系统数据</strong></p>
+<p>日志与业务系统数据从软件操作、用户行为或生产流程中自动记录，反映实际业务状态与用户交互模式。
+典型场景包括Web服务器日志（记录页面访问量与用户IP）、电商平台的交易流水（包含商品ID、价格、购买时间）以及工业传感器网络采集的设备运行参数（如转速、温度）。
+此类数据具有高时效性与真实性，但常伴随噪声（如爬虫流量）、数据碎片化（多系统孤岛）及隐私合规风险，需通过清洗、关联与脱敏处理方可使用。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">24.2.2.2. </span>数据处理<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p><strong>1. 数据清洗</strong></p>
+<p>数据清洗旨在消除噪声、填补缺失、纠正错误，确保数据质量以适配后续分析与可视化需求。
+数据清洗往往使用以下技术：</p>
+<ul class="simple">
+<li><p>缺失值处理：</p>
+<ul>
+<li><p>删除：直接移除包含缺失值的记录或字段，适用于缺失比例较低（如&lt;5%）且缺失机制完全随机（MCAR）的场景。优点是操作简单且避免引入偏差，缺点是可能损失有用信息。</p></li>
+<li><p>填充：通过均值、中位数、众数（类别数据）或插值法（如线性插值、KNN插补）填补缺失值。适用于缺失比例较高或非随机缺失（MNAR）的情况，需警惕填充方法对统计分布的扭曲。</p></li>
+</ul>
+</li>
+<li><p>异常值检测：</p>
+<ul>
+<li><p>统计方法：Z-score（绝对值&gt;3视为异常）、IQR（四分位距法，超出1.5倍IQR范围）。</p></li>
+<li><p>聚类方法：基于密度聚类（如DBSCAN）隔离离群点。</p></li>
+</ul>
+</li>
+<li><p>去噪：</p>
+<ul>
+<li><p>滤波算法：移动平均（平滑时序数据）、中值滤波（处理图像椒盐噪声）。</p></li>
+<li><p>平滑处理：Savitzky-Golay滤波器保留信号趋势特征。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>2. 数据转换</strong></p>
+<p>数据转换通过数学运算与结构重组，将原始数据转化为适合分析与可视化的形式。
+数据转换常用技术包括：</p>
+<ul class="simple">
+<li><p>归一化与标准化：</p>
+<ul>
+<li><p>归一化：将数据缩放到[0,1]区间（公式：<span class="math notranslate nohighlight">\( x' = \frac{x - \min(X)}{\max(X) - \min(X)} \)</span>），直接移除包含缺失值的记录或字段，适用于量纲差异大的特征（如身高与体重）。</p></li>
+<li><p>标准化：转化为均值为0、标准差为1的分布（公式：<span class="math notranslate nohighlight">\( x' = \frac{x - \mu}{\sigma} \)</span>），适用于服从正态分布的数据。</p></li>
+</ul>
+</li>
+<li><p>离散化：</p>
+<ul>
+<li><p>分箱：等宽分箱（固定区间宽度，易受异常值影响）、等频分箱（每箱样本数相同，保持分布均衡）。</p></li>
+<li><p>聚类分箱：通过K-means聚类划分数据区间，适应非线性分布。</p></li>
+</ul>
+</li>
+<li><p>特征工程：</p>
+<ul>
+<li><p>衍生变量：从时间戳提取“星期几”“季节”，从地址提取“城市”“邮编”。</p></li>
+<li><p>降维：主成分分析（PCA）保留最大方差方向，t-SNE优化高维数据可视化聚类。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>3. 数据融合</strong></p>
+<p>数据融合整合多源异构数据，构建统一视图以支持跨维度分析。
+数据融合关键技术包括：</p>
+<ul class="simple">
+<li><p>数据对齐：</p>
+<ul>
+<li><p>时间戳对齐：将不同采样频率的数据通过线性插值或重采样统一到相同时间轴。</p></li>
+<li><p>空间坐标匹配：地理数据投影转换（如WGS84经纬度转Web墨卡托）。</p></li>
+</ul>
+</li>
+<li><p>实体解析：</p>
+<ul>
+<li><p>记录链接：基于编辑距离（Levenshtein）或Jaccard相似度消除重复条目。</p></li>
+<li><p>主数据管理：建立全局唯一标识符（如用户ID）关联分散数据源。</p></li>
+</ul>
+</li>
+<li><p>关联分析：</p>
+<ul>
+<li><p>连接操作：SQL JOIN按键关联表，图数据库通过边关系查询节点属性。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>4. 数据聚合</strong></p>
+<p>数据聚合通过汇总降低数据复杂度，提升可视化性能与可解释性。
+数据聚合主要技术包括：</p>
+<ul class="simple">
+<li><p>时间窗口聚合：按小时、日、月统计指标（如销售额、用户活跃数）。</p></li>
+<li><p>空间区域聚合：按行政区划（省、市）或自定义地理网格汇总数据。</p></li>
+<li><p>分层聚合：OLAP中的上卷（Roll-up）操作，从细粒度（城市）逐步汇总至粗粒度（国家）。</p></li>
+</ul>
+<p>在数据处理流程中，通过数据清洗确保质量，数据转换优化形态，数据融合打通孤岛，数据聚合简化复杂度，这四步流程层层递进，帮助研究人员将原始数据转化为可视化可用的高质量输入。</p>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">24.2.3. </span>数据科学的挑战<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h3><span class="section-number">24.2.3.1. </span>数据科学的核心挑战<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>数据科学的核心挑战不仅源于数据本身，更与可视化目标（如信息传递效率、认知负载平衡）及技术实现约束（如实时渲染性能、交互响应速度）紧密关联。</p>
+<p><strong>1. 数据质量与预处理瓶颈</strong></p>
+<ul class="simple">
+<li><p>高维稀疏性：高维数据（如基因表达数据、社交媒体网络）导致可视化中的“维度灾难”，传统降维方法（如PCA）可能丢失关键模式。</p></li>
+<li><p>非结构化数据转化：将文本、图像等非结构化数据转化为可视化友好的结构化形式，需平衡信息损失与表达效率。例如，自然语言处理（NLP）提取关键词可能忽略上下文语义。</p></li>
+<li><p>缺失与噪声处理：数据缺失（如卫星遥感云层遮挡）与噪声（如传感器漂移）直接影响可视化结果的准确性，需设计鲁棒插补与滤波算法。</p></li>
+</ul>
+<p><strong>2. 实时性与交互性需求</strong></p>
+<ul class="simple">
+<li><p>流数据可视化：实时数据流（如股票行情、交通监控）要求可视化系统支持动态更新，传统静态图表（如折线图）难以实现毫秒级刷新。</p></li>
+<li><p>大规模数据渲染：亿级数据点的实时渲染受限于GPU内存与计算能力，需采用层次细节（LOD）或采样策略（如概率像素化）。</p></li>
+<li><p>交互延迟优化：复杂交互（如多视图联动、三维旋转）对计算资源的高消耗可能导致卡顿，需结合WebGL加速与异步计算。</p></li>
+</ul>
+<p><strong>3. 可扩展性与异构环境适配</strong></p>
+<ul class="simple">
+<li><p>跨平台兼容性：可视化工具需适配不同设备（桌面端、移动端、AR/VR头盔），但分辨率、算力差异导致设计复杂度陡增。</p></li>
+<li><p>云边协同架构：边缘设备（如手机、IoT传感器）的计算能力有限，需在本地预处理与云端深度分析间分配任务。例如，移动端实时生成热力图，云端执行聚类分析。</p></li>
+<li><p>多源数据融合：整合数据库、API、文件系统等异构数据源时，Schema映射与语义一致性维护困难，影响可视化结果的逻辑统一性。</p></li>
+</ul>
+<p><strong>4. 可解释性与用户认知匹配</strong></p>
+<ul class="simple">
+<li><p>视觉编码误导：不当的颜色映射（如非线性色阶）或图形选择（如3D饼图透视扭曲）可能引发误读，需遵循格式塔原则与感知心理学规律。</p></li>
+<li><p>认知负载控制：过度复杂的可视化（如多层级网络图）超出用户信息处理能力，需通过渐进式披露（Progressive Disclosure）简化信息层级。</p></li>
+<li><p>领域知识嵌入：通用可视化工具难以满足垂直领域（如地质勘探、医疗影像）的专业需求，需定制领域特定视觉隐喻（如等值线、体绘制）。</p></li>
+</ul>
+<p><strong>5. 伦理与隐私保护</strong></p>
+<ul class="simple">
+<li><p>敏感数据泄露：地理轨迹、医疗记录等敏感信息的可视化可能暴露个人隐私，需采用k-匿名化、差分隐私技术对输出结果脱敏。</p></li>
+<li><p>算法偏见可视化：可视化模型决策依据（如特征重要性图）时，可能放大数据中的固有偏见（如种族、性别偏差），需结合公平性指标校正。</p></li>
+<li><p>可视化武器化风险：恶意利用可视化误导公众（如扭曲坐标轴夸大差异），需建立可视化伦理规范与审计机制。</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3><span class="section-number">24.2.3.2. </span>应对挑战的技术演进<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>为应对上述挑战，研究人员在数据科学领域对方法论与工具链进行了持续创新：</p>
+<p><strong>1. 数据质量增强技术</strong></p>
+<ul class="simple">
+<li><p>自动化数据清洗：基于生成对抗网络（GAN）合成高质量训练数据，缓解数据稀缺问题。例如，利用CycleGAN将低分辨率医学影像增强为高分辨率。</p></li>
+<li><p>偏见检测与矫正：通过公平性指标（如统计均等性、机会均等性）量化数据偏见，采用重加权（Reweighting）或对抗训练减少模型偏差。</p></li>
+</ul>
+<p><strong>1. 高性能计算架构</strong></p>
+<ul class="simple">
+<li><p>分布式计算框架：Apache Spark、Dask支持内存计算与任务并行化，加速大规模数据处理。</p></li>
+<li><p>边缘-云协同：在边缘设备执行实时预处理，云端进行深度分析。例如，无人机在边缘端实时检测目标，云端聚合多机数据生成全局态势图。</p></li>
+</ul>
+<p><strong>3. 可解释AI与合规技术</strong></p>
+<ul class="simple">
+<li><p>模型可解释性工具：SHAP（Shapley Additive Explanations）、LIME（Local Interpretable Model-agnostic Explanations）可视化模型决策依据。</p></li>
+<li><p>隐私增强技术：同态加密（Homomorphic Encryption）实现数据在加密状态下计算，平衡隐私保护与数据价值挖掘。</p></li>
+</ul>
+<p>总的来说，可视化所面临的数据科学挑战，本质是数据复杂性、技术约束与人因需求的三重博弈。
+解决这些挑战需跨学科协作——数据工程优化预处理流程，计算机图形学突破渲染性能瓶颈，认知科学指导视觉设计，伦理学约束技术边界。
+未来研究应聚焦自动化预处理、自适应可视化与负责任设计，在效率、精度与伦理间寻求平衡。</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="overview.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">24.1. </span>可视化概述</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="interaction.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">24.3. </span>可视化与交互</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">24.2.1. 什么是数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">24.2.1.1. 数据的定义与特征</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">24.2.1.2. 数据分类</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">24.2.2. 数据获取与处理</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">24.2.2.1. 数据获取途径与方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">24.2.2.2. 数据处理</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">24.2.3. 数据科学的挑战</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">24.2.3.1. 数据科学的核心挑战</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">24.2.3.2. 应对挑战的技术演进</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
