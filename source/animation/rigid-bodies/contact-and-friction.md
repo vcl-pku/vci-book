@@ -99,6 +99,6 @@ $$ (animation-rigid_bodies-coulomb_condition)
 
 在 {numref}`sec-animation-rigid_bodies-contact_and_friction-response` 中介绍的惩罚方法看上去很完美——它能够解决各种复杂的情况，同时还能完美地结合到刚体仿真的时间积分算法中。但是如果实现一边就会发现其中会有很多难以把握的细节，例如为了防止模拟过程中出现相距一定距离的物体之间仍然表现出斥力的现象，我们会希望 $\varepsilon$ 尽可能小，与此同时增加 $k$ 以让惩罚力足够大来防止穿模；但由于我们采用的是显式时间积分，这样会导致模拟变得十分不稳定，具体原因可以参考 {numref}`sec-animation-elastomers-mass_spring-explicit_euler`。
 
-可以看出，碰撞处理也是一个十分困难的问题，它也是学术界一个热门的方向之一。但这不意味着惩罚方法的效果很差，目前碰撞效果最逼真的方法就是用惩罚方法做的 {cite}`Li2020IPC`，它把式 {eq}`animation-rigid_bodies-penalty_force` 中惩罚力的形式换成了 $\boldsymbol f_\mathrm{penalty}=\rho\frac 1{\phi_i(\boldsymbol x)}\boldsymbol N$，因此在系统中引入了一项 $\ln$ 形式的增量势能（incremental potential，IP），因此这个方法也被称为增量势能碰撞（incremental potential，IPC）；注意到这个修改后的惩罚力是在障碍物外是一个将物体向外推的斥力，一旦越过障碍物的边界，就会变成将物体向内吸，因此在这个方法中需要采取更加高级的碰撞检测算法，通过修改时间步长来避免穿模的发生，在穿模发生前就将碰撞处理好，并且还采用了隐式时间积分。
+可以看出，碰撞处理也是一个十分困难的问题，它也是学术界一个热门的方向之一。但这不意味着惩罚方法的效果很差，目前碰撞效果最逼真的方法就是用惩罚方法做的 {cite}`Li2020IPC`，它把式 {eq}`animation-rigid_bodies-penalty_force` 中惩罚力的形式换成了 $\boldsymbol f_\mathrm{penalty}=\rho\frac 1{\phi_i(\boldsymbol x)}\boldsymbol N$，因此在系统中引入了一项对数形式的增量势能（incremental potential，IP），因此这个方法也被称为增量势能碰撞（incremental potential，IPC）；注意到这个修改后的惩罚力是在障碍物外是一个将物体向外推的斥力，一旦越过障碍物的边界，就会变成将物体向内吸，因此在这个方法中需要采取更加高级的碰撞检测算法，通过修改时间步长来避免穿模的发生，在穿模发生前就将碰撞处理好，并且还采用了隐式时间积分。
 
 还有另外一类碰撞处理的方法叫做冲量法（impulse method），这类方法不再通过加力的方式处理碰撞，而是直接修改速度，也即在当前时间步内给物体施加一个冲量 {cite}`baraff2001physically`。这个方法会比惩罚方法复杂，尤其是涉及到多个刚体同时发生碰撞时，冲量法需要求解一个较大的线性系统以获得速度更新。
