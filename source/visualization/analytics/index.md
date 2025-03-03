@@ -7,8 +7,7 @@
 :maxdepth: 2
 
 overview
-framework
-content
+system
 design
 evaluation
 summary
