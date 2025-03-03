@@ -68,6 +68,7 @@ bibtex_bibfiles = [
 	'visualization/informational/ref.bib',
 	'visualization/basics/ref.bib',
 	'visualization/scientific/ref.bib',
+	'visualization/analytics/ref.bib',
 	'interaction/spatial/ref.bib'
 ]
 

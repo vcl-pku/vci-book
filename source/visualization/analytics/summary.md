@@ -20,3 +20,6 @@
 ## 习题
 
 ## 参考文献
+
+```{bibliography} ref.bib
+```
