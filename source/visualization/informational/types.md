@@ -379,7 +379,7 @@ Vizster{cite}`Vizster2005`是早期社交网络可视化的代表性工具，如
 Vizster。
 ```
 
-**聚类布局（Cluster Layout）**利用聚类算法将图中的节点按照相似性划分为多个子群体或社区，从而揭示数据的内在结构。以 Newman 的社区识别算法{cite}`Newman2003`为例，该算法通过以下步骤执行聚类：
+**聚类布局（Cluster Layout）** 利用聚类算法将图中的节点按照相似性划分为多个子群体或社区，从而揭示数据的内在结构。以 Newman 的社区识别算法{cite}`Newman2003`为例，该算法通过以下步骤执行聚类：
 - 初始状态：每个节点最初都被认为是一个独立的类，即图中的每个节点都代表一个单独的社区。
 - 合并步骤：在每一步中，算法计算每对社区之间的“能量”，“能量”越小意味着节点或社区之前的相关性或亲密度越高，选择合并能量最小的两个社区。
 - 结束条件：算法持续进行合并，直到所有节点合并成一个单一的社区（整个图作为一个类）。
@@ -395,7 +395,7 @@ Vizster。
 包含聚类布局的力导向图（左）与根据社区进行重新排列的邻接矩阵（右），
 ```
 
-**环状图（Circular graph）**用嵌套的圆形排布节点，适用于树状结构或层次结构的可视化，如师生关系网络、组织架构等。在环状图中，如{numref}`fig-visualization-informational-circular`所示，根节点通常位于中心，子节点按层次向外辐射，层次关系一目了然。嵌套圆周排列充分利用屏幕空间，对称美观，支持通过缩放、高亮等交互操作聚焦特定分支或节点，适合用于展示中等规模的层次数据。但环状图泛化性有限，只适用于最基础的具有树状结构的图，若节点具有非单一父节点或图中存在回路，则环状图会被一定程度上破坏且显得混乱。
+**环状图（Circular graph）** 用嵌套的圆形排布节点，适用于树状结构或层次结构的可视化，如师生关系网络、组织架构等。在环状图中，如{numref}`fig-visualization-informational-circular`所示，根节点通常位于中心，子节点按层次向外辐射，层次关系一目了然。嵌套圆周排列充分利用屏幕空间，对称美观，支持通过缩放、高亮等交互操作聚焦特定分支或节点，适合用于展示中等规模的层次数据。但环状图泛化性有限，只适用于最基础的具有树状结构的图，若节点具有非单一父节点或图中存在回路，则环状图会被一定程度上破坏且显得混乱。
 
 ```{figure} fig/visualization-informational-circular.png
 :name: fig-visualization-informational-circular
@@ -403,7 +403,7 @@ Vizster。
 环状图。
 ```
 
-**环形布局（Circular Layout）**将图中的所有节点排布在一个圆周上，边以弧线或直线的形式连接节点，被放置在圆周内部，如{numref}`fig-visualization-informational-circular_layout`所示。
+**环形布局（Circular Layout）** 将图中的所有节点排布在一个圆周上，边以弧线或直线的形式连接节点，被放置在圆周内部，如{numref}`fig-visualization-informational-circular_layout`所示。
 为了更清晰地组织节点间的连接关系、体现图中包含的组织结构，环形布局也适合与着色和聚类方法相结合，如{numref}`fig-visualization-informational-circular_cluster`所示，从而减少杂乱的连线交叉，优化曲线曲率和形状，提高环形布局图的可读性。
 
 ```{figure} fig/visualization-informational-circular_layout.png
