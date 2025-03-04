@@ -193,7 +193,7 @@ Jarke J. van Wijk, Image Based Flow Visualization ©http://www.win.tue.nl/~vanwi
 单纯的数据属性不同需要采用不同的可视化方法。在实际应用中，标量场也常与矢量场一起，被用来表述具有多类型数据的空间信息。
 一个常见的组合是天气预报时的温度场和风场，如{numref}`fig-visualization-scientific-scalar_and_vector`。
 
-<!-- A wind and temperature field depicted by (a) traditional wind barbs and (b) a combination of streamlines and wind barbs. From D. H. F. Pilar and C. Ware,  “Representing flow patterns by using streamlines with glyphs,” IEEE Trans. Vis. Comput. Graph., vol. 19, no. 8, pp. 1331–1341, Aug. 2013. -->
+
 ```{figure} fig/visualization-scientific-scalar_and_vector.png
 :name: fig-visualization-scientific-scalar_and_vector
 由（a）传统风旗和（b）流线与风旗组合描绘的风场和温度场{cite}`pilar2013representing`。
@@ -286,6 +286,7 @@ Jarke J. van Wijk, Image Based Flow Visualization ©http://www.win.tue.nl/~vanwi
 该方法技术核心有以下两点：
 - 传递函数
 传递函数是核心，用于将标量值 $\theta (x)$ 转换为颜色与不透明度，从而突出感兴趣的数值范围（如医学中突出骨骼、血管等）：
+
 $$
 (R,G,B,\alpha) = T(\theta (x)).
 $$ (visualization-scientific-dvr_function)
@@ -301,7 +302,7 @@ $$ (visualization-scientific-dvr_function)
 最经典的方法是Marching Cubes 算法，前文已有介绍，此处不再赘述。
 
 {numref}`fig-visualization-scientific-vis_comparison`展示了使用 3D 等值面来可视化标量场的结果以及对于生物组织的体渲染结果。
-表{numref}`tab-visualization-scientific-vis_comparison` 总结了表面可视化和体积可视化的差异。
+{numref}`tab-visualization-scientific-vis_comparison` 总结了表面可视化和体积可视化的差异。
 
 ```{table} 表面可视化和体积可视化的比较
 :widths: auto

@@ -35,15 +35,15 @@
 各州通常采用“赢者通吃”制度，即在该州赢得普选票数最多的候选人将获得该州所有的选举人票。
 为了赢得选举，候选人需要至少获得超过半数，即270张选举人票。
 因此一些关键的摇摆州如宾夕法尼亚州和密歇根州的结果对总体选举影响极大。
-图{numref}`fig-visualization-basics-America2020_raw` 和{numref}`fig-visualization-basics-America2020_count` 分别展示了两种不同的竞选结果可视化方法。
+{numref}`fig-visualization-basics-America2020_raw` 和{numref}`fig-visualization-basics-America2020_count` 分别展示了两种不同的竞选结果可视化方法。
 ```{figure} fig/visualization-basics-America2020_raw.png
 :name: fig-visualization-basics-America2020_raw
 原始地图直接映射，观感上与实际结果不一致。 ©https://www.politico.com/2020-election/results/president/
 ```
-图{numref}`fig-visualization-basics-America2020_raw` 展示了在原始地图上进行颜色编码的结果。
+{numref}`fig-visualization-basics-America2020_raw` 展示了在原始地图上进行颜色编码的结果。
 每个州票数占比和实际面积并不匹配，这会导致染色面积与得票情况不一致，从而带来困扰。
 
-<!-- ![根据选票数量调整各州面积，观感上与投票数一致。](/../../img/visualization/basis/Americs2020CountMap.PNG) -->
+
 ```{figure} fig/visualization-basics-America2020_count.png
 :name: fig-visualization-basics-America2020_count
 根据选票数量调整各州面积，观感上与投票数一致。
@@ -99,7 +99,7 @@
 南丁格尔玫瑰图；蓝色表示死于可预防疾病的士兵人数，红色表示死于枪伤只的人数，黑色表示死于其他意外的人数。
 ```
 
-图{numref}`fig-visualization-basics-army`展示了1854年4月到1855年3月这一年间士兵的死亡情况。
+{numref}`fig-visualization-basics-army`展示了1854年4月到1855年3月这一年间士兵的死亡情况。
 图中又分为两张小图左图表示1855年4月到1856年3月的死亡人数，右图表示1854年4月到1855年3月的死亡人数。
 对比两张图，可清楚地看到这两年军队死亡人数的变化。
 
@@ -124,7 +124,7 @@
 此后，以IEEE Visualization、EuroVis 等为代表的可视化会议相继出现，一大批可视化理论、工具、系统被研发出来，极大地推动了可视化的发展和应用。
 进入 21 世纪，可视化与其他学科的交叉融合进一步加深，可视分析、可视化数据挖掘等新的研究方向不断涌现，有力支撑了大数据时代数据密集型科学研究范式的转变。
 
-科学可视化、信息可视化和可视分析三个学科方向通常被看成可视化的三个主要分支 [Ward2010]。
+科学可视化、信息可视化和可视分析三个学科方向通常被看成可视化的三个主要分支{cite}`ward2010interactive`。
 - 科学数据可视化：主要关注于将科学计算和仿真产生的数据转化为图形和视觉表达，以便于研究者理解复杂的物理现象、化学过程或生物结构。常常应用于气候模型的可视化、医疗成像（如MRI或CT扫描）以及大规模天文数据的可视化。
 
 - 信息数据可视化：专注于将抽象数据和非几何空间数据（如文本数据、社交网络数据、商业和金融信息）转化为图形和视觉格式，帮助用户探索和理解大规模、复杂的抽象数据，发现数据中的关联、模式和趋势，支持数据驱动的决策和分析。
