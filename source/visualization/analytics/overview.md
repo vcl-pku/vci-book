@@ -40,7 +40,7 @@ Sacha 等人在2014年的工作{cite}`sacha2014knowledge`中提出了一种**知
 
 ```{figure} fig/visualization-analytics-pipeline.png
 :name: fig-visualization-analytics-pipeline
-知识生成模型：首先定义领域任务，由计算机进行数据准备与自动分析，然后进行人机交互，通过图形反馈不断循环迭代，最终产生数据洞察，辅助决策。{cite}`sacha2014knowledge`
+知识生成模型：首先定义领域任务，由计算机进行数据准备与自动分析，然后进行人机交互，通过图形反馈不断循环迭代，最终产生数据洞察，辅助决策{cite}`sacha2014knowledge`。
 ```
 
 **可视分析的通用流程：**
