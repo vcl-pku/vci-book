@@ -525,7 +525,7 @@ $$ (animation-elastomers-linear_system)
 
 求解式 {eq}`animation-elastomers-linear_system` 的线性系统需要格外关注一个事实：劲度矩阵 $\boldsymbol K(\boldsymbol x_{(i)})$ 的表达式十分复杂，我们希望能够通过无矩阵（matrix-free）的方式求解这个系统。幸运的是，许多线性求解器是支持无矩阵求解的，例如无矩阵的共轭梯度法（matrix-free conjugate gradient method），这类方法一般只需要你提供一个接口，对于任何输入的向量 $\boldsymbol x$，能够输出 $\boldsymbol{Ax}$，这里的 $\boldsymbol A$ 是线性系统的矩阵。那么根据式 {eq}`animation-elastomers-linear_system`，我们想提供接口只需要能够计算 $\boldsymbol K(\boldsymbol x_{(i)})\boldsymbol x$ 即可。
 
-考虑在 $\boldsymbol x_{(i)}$ 基础上的任意一段微小的位移 $\delta\boldsymbol x$，它所导致的弹性力的变化为 $\delta\boldsymbol f=\frac{\partial\boldsymbol f(\boldsymbol x_{(i)})}{\partial\boldsymbol x}\delta\boldsymbol x=-\boldsymbol H(\boldsymbol x_{(i)})\delta\boldsymbol x$，所以只要我们能够计算出 $\delta\boldsymbol f$ 就能够提供这样的接口。
+考虑在 $\boldsymbol x_{(i)}$ 基础上的任意一段微小的位移 $\delta\boldsymbol x$，它所导致的弹性力的变化为 $\delta\boldsymbol f=\frac{\partial\boldsymbol f(\boldsymbol x_{(i)})}{\partial\boldsymbol x}\delta\boldsymbol x=-\boldsymbol K(\boldsymbol x_{(i)})\delta\boldsymbol x$，所以只要我们能够计算出 $\delta\boldsymbol f$ 就能够提供这样的接口。
 
 为求 $\delta\boldsymbol f$，我们还是回到单个四面体 $i$ 对力的贡献，即求 $\delta\boldsymbol H_i=\begin{bmatrix}\delta\boldsymbol f_i^1&\delta\boldsymbol f_i^2&\delta\boldsymbol f_i^3\end{bmatrix}$，那么 $\delta\boldsymbol f_i^4=-\delta\boldsymbol f_i^1-\delta\boldsymbol f_i^2-\delta\boldsymbol f_i^3$，随后我们将 $\delta\boldsymbol f_i^{1,2,3,4}$ 分别加到 $\delta\boldsymbol f$ 的对应位置上即可（类似 {numref}`sec-animation-elastomers-fem-explicit_euler` 中计算弹性力的过程）。通过对式 {eq}`animation-elastomers-discrete_force` 两边求微分可得
 

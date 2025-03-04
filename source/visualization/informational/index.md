@@ -1,5 +1,5 @@
 (chap-visualization-informational)=
-# 信息数据可视化
+# 信息可视化
 
 ```{toctree}
 :maxdepth: 2
