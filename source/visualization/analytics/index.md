@@ -8,7 +8,5 @@
 
 overview
 system
-design
-evaluation
 summary
 ```
