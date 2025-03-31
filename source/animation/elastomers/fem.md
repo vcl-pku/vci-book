@@ -60,8 +60,6 @@ $$ (animation-elastomers-deformation_function)
 参考构型 $\Omega$、形变前位置 $\boldsymbol X$、形变后位置 $\boldsymbol x$ 与变形函数 $\boldsymbol\phi$ 的关系
 ```
 
-> jr: {numref}`fig-animation-elastomers-deform_map` 需要重画。
-
 变形函数 $\boldsymbol\phi$ 确实能够充分地表示出弹性体的形变，但作为一个**全局**的信息表示，它包含了过多的信息。我们马上就会看到，弹性体每一个点的能量与内力只由其**局部**的形变所决定。因此，在连续介质力学中会引入形变梯度（deformation gradient）的概念，形变梯度一般记为 $\boldsymbol F$，其定义为变形函数 $\boldsymbol\phi$ 关于形变前位置 $\boldsymbol X$ 的雅可比矩阵：
 
 $$
@@ -228,8 +226,6 @@ $$ (animation-elastomers-fem-stvk_stress)
 
 圣维南-基尔霍夫模型的一个典型问题在于无法抵抗过强的压缩。当一个该模型的材料从自然状态被压缩时，在刚开始它会产生抗拒压缩、恢复原体积的弹力；但随着压缩的力度逐渐增大、材料的体积逐渐减小，会出现弹力的最大值，此后弹力将逐渐减小；直至整个材料被压缩成一个质点，此时 $\boldsymbol F=\mathbf 0$，代入式 {eq}`animation-elastomers-fem-stvk_stress` 得到 $\boldsymbol P=\mathbf 0$，所以产生的力密度和牵引力均为 $\mathbf 0$；如果力的方向保持不变导致弹性体翻转，则产生出的弹力会试图恢复成翻转的参考构型，类似本章开头提到的弹簧质点系统产生的效果。这样的性质会导致模拟出的弹性体在强力的压缩作用下很容易产生打结、翻转等非物理的现象。
 
-> jr: 这里可以加几张图片展示 STVK 的 failure case。
-
 #### 共旋转线性模型
 
 线性模型只能处理微小形变，圣维南-基尔霍夫模型又引入了过多的非线性项从而导致非物理的零应力现象，共旋转线性模型（corotated linear elasticity）的提出就是为了结合二者的设计、避免二者的问题，此模型尽可能地使用形变梯度的线性项去刻画应力，同时采用最少的非线性项来保证刚性运动下的不变性。此模型的能量形式为
@@ -292,9 +288,35 @@ $$
 
 可以看到 {prf:ref}`def-animation-elastomers-fem-rotational_invariance` 和 {prf:ref}`def-animation-elastomers-fem-isotropy` 的区别仅仅在于旋转矩阵与形变梯度乘积的次序，但这个细微差别带来的含义是迥然不同的——前者指的是对材料进行旋转不影响能量，后者指的是对形变梯度的方向进行旋转不影响能量，如{numref}`fig-animation-elastomers-rotational_invariance_isotropy` 所示。
 
-在我们身边，各向同性与各向异性的材料随处可见，如图所示。金属、橡胶等材料对各个方向的抵抗能力均相同，是典型的各向同性材料。我们每个人身上都有一种很典型的各向异性材料——肌肉，肌肉由多束平行的肌纤维组成，它对平行于肌纤维的形变与垂直方向的形变有着显著不同的响应。其余各向异性的材料还包括木材、各向异性的材料一般都在微观结构上具有一定的方向性。
+在我们身边，各向同性与各向异性的材料随处可见，如{numref}`fig-animation-elastomers-isotropic_anisotropic_material` 所示。金属、橡胶等材料对各个方向的抵抗能力均相同，是典型的各向同性材料。我们每个人身上都有一种很典型的各向异性材料——肌肉，肌肉由多束平行的肌纤维组成，它对平行于肌纤维的形变与垂直方向的形变有着显著不同的响应。其余各向异性的材料还包括木材、碳纤维复合材料等，各向异性的材料一般都在微观结构上具有一定的方向性。
 
-> jr: 需要找一些各向同性、各向异性材料的图片。
+````{subfigure} AC|BD
+:layout-sm: A|B|C|D
+:gap: 8px
+:subcaptions: below
+:name: fig-animation-elastomers-isotropic_anisotropic_material
+:width: 80 %
+
+```{image} fig/animation-elastomers-isotropic_metal.jpg
+:alt: 金属——各向同性
+```
+
+```{image} fig/animation-elastomers-isotropic_rubber.jpg
+:alt: 橡胶——各向同性
+```
+
+```{image} fig/animation-elastomers-anisotropic_muscle.png
+:alt: 肌肉——各向异性
+```
+
+```{image} fig/animation-elastomers-anisotropic_wood.jpg
+:alt: 木材——各向异性
+```
+
+一些常见的各向同性与各向异性材料 [^fig-animation-elastomers-isotropic_anisotropic_material-ref]
+````
+
+[^fig-animation-elastomers-isotropic_anisotropic_material-ref]: 金属、橡胶、肌肉、木材四幅图片均来自维基百科，网址分别为 https://en.wikipedia.org/wiki/Nut_(hardware)、https://en.wikipedia.org/wiki/Tire、https://zh.wikipedia.org/wiki/%E8%82%B1%E4%BA%8C%E9%A0%AD%E8%82%8C 和 https://zh.wikipedia.org/zh-cn/%E6%9C%A8%E6%9D%90。
 
 对于同时满足旋转不变性且各向同性的材料而言，对于任意两个旋转矩阵 $\boldsymbol P,\boldsymbol Q$ 以及任意的形变梯度 $\boldsymbol F$，都有 $\Psi(\boldsymbol{PFQ})=\Psi(\boldsymbol F)$。那么如果我们对形变梯度进行奇异值分解 $\boldsymbol F=\boldsymbol{U\Sigma}\boldsymbol V^\top$，就可以立刻得到 $\Psi(\boldsymbol F)=\Psi(\boldsymbol\Sigma)$，也就是说能量密度的形式可以表示成形变梯度所有奇异值的函数。虽然任何一个旋转不变且各向同性的能量形式都能够直接用奇异值表示出来，但是在实践中	进行奇异值分解的计算量较大，所以我们会引入一些各向同性不变量（isotropic invariant），这些不变量只和奇异值相关，但无须奇异值分解就能计算出来；用这些不变量定义能量形式，就能够得到一个旋转不变且各向同性的本构模型，同时减少其模拟的计算量。这些不变量分别如下：
 
