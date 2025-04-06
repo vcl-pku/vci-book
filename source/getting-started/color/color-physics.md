@@ -7,8 +7,9 @@
 ```{figure} fig/Spectre_visible_light.svg.png
 :name: fig-started-color-visible_light
 
-可见光在整个电磁波频谱上的位置
+可见光在整个电磁波频谱上的位置[^vis_light]
 ```
+[^vis_light]: [Wikipedia Commons: Spectre visible light](https://commons.wikimedia.org/wiki/File:Spectre_visible_light.svg)
 
 单一波长的光在自然界中比较少见，可以由激光（laser）发射器产生。自然界中出现的光一般是不同频率的光的叠加，其中各个频率成分的强度比例不同就会混合出不同的颜色。在数学上可以用 $I(\lambda)$ 表示对应波长的强度。
 
