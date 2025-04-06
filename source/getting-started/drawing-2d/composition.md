@@ -17,16 +17,17 @@
 :name: fig-started-drawing-painter
 :width: 100%
 
-画家算法流程
+画家算法流程[^painter]
 ```
+[^painter]: [Wikipedia: 画家算法](http://zh.wikipedia.org/zh-cn/%E7%94%BB%E5%AE%B6%E7%AE%97%E6%B3%95)
 
 画家算法非常符合直觉，其主要的时间开销在于对所有形状深度进行排序，计算复杂度为 $O(n\log n)$。然而画家算法会在某些时候遇到问题，比如{numref}`fig-started-drawing-painter1` 中的情况。在图中 R，P，Q 三个三角形没有严格的深度前后关系，P 在 R 之下，但是又在 R 之上的 Q 之上。在这种时候，我们无法定义每个形状的深度到底是多少。观察{numref}`fig-started-drawing-house` ，你会发现图中的树、房子、小兔子也满足这样的深度关系。究其原因在于，这种情况只能发生在三维世界中，每个物体的深度确实就不是一个固定值。
 
-```{figure} fig/painter1.png
+```{figure} fig/Painters_problem.svg.png
 :name: fig-started-drawing-painter1
 :width: 40%
 
-画家算法遇到问题的情况
+画家算法遇到问题的情况[^painter]
 ```
 
 为了解决这个问题，我们可以为每个像素引入一个深度值。与之前在 {numref}`chap-getting-started-basics-hardware` 中介绍的储存颜色的帧缓存的概念对应，屏幕上所有像素点的深度值构成**深度缓存（depth buffer）**。每个图形的深度值也不一定是固定的，在内部可以是变化的，比如通过插值得到。深度缓存记录的是当前像素的最小深度，也就是离我们最近的位置是多深。在绘制时，我们也不再需要对所有图形进行排序，而是每个像素独立检测，如果发现等待绘制的图形上的深度小于当前像素的深度，则覆盖当前像素并更新最小深度；否则表示图形被遮挡，不更新屏幕像素。算法的伪代码如{numref}`code-started-drawing-depth` 所示。
