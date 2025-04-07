@@ -1,26 +1,19 @@
 (chap-getting-started-images-completion)=
 # 图像补全与融合
 
-在**图像补全（image completion）** 任务中，我们需要对图像缺失的部分进行填充，并确保填充后的结果尽可能合理，如{numref}`fig-started-image-lake` 和{numref}`fig-started-image-oldman` 所示。“合理”是指尽可能平滑，具体可描述为以下两点：
+在**图像补全（image completion）** 任务中，我们需要对图像缺失的部分进行填充，并确保填充后的结果尽可能合理，如{numref}`fig-started-image-lake` 所示。“合理”是指尽可能平滑，具体可描述为以下两点：
 
 * 空间局部性（spatial locality）：图像中同一个物体上相邻的部分应该相似。
 * 奥卡姆剃须刀原则（Occam's razor）：被填补的区域不应该存在任何多余的东西，即无法从非填充区域推理得出的东西。
 
-````{subfigure} AB
+```{figure} fig/weiming-inpainting.png
 :name: fig-started-image-lake
-:width: 100 %
-:gap: 15px
+:width: 100%
 
-```{image} fig/inpainting-lake-before.png
+使用泊松编辑进行图像补全的示例
 ```
 
-```{image} fig/inpainting-lake-after.png
-```
-
-左图中湖中心缺失了一块，使用算法补全之后效果如右图
-````
-
-````{subfigure} ABC
+<!-- ````{subfigure} ABC
 :name: fig-started-image-oldman
 :width: 100 %
 :gap: 15px
@@ -35,23 +28,23 @@
 ```
 
 图像补全一个更极端的例子，我们甚至可以从左图恢复出中间的图片，右边是原图像
-````
+```` -->
 
 **图像融合（image cloning）** 是另一个问题，指的是我们将一张图片的一个物体扣下来，粘贴到另一张图片上，还要保证粘贴的结果尽可能自然，仿佛另一张图片中真的有这么一个物体，如{numref}`fig-started-image-log` 和{numref}`fig-started-image-math` 所示。
 
 
-```{figure} fig/cloning-log.png
+```{figure} fig/plane.png
 :name: fig-started-image-log
-:width: 100%
+:width: 80%
 
-无缝图像融合的一个例子。使用泊松图像编辑完成这个任务只需要原图 (最左侧) 中大致圈出树干的区域即可。直接将截取的部分贴到目标图像中，并进行简单的颜色调整，得到的图片会有明显的作图痕迹 (倒数第二列)；使用泊松图像编辑可以让这截树干看上去就像真的摆放在相应的场景中 (最右一列)。
+使用泊松编辑进行图像融合的示例。左图：直接复制图片到对应位置；右图：使用泊松编辑进行自然图像融合。
 ```
 
 ```{figure} fig/cloning-math.png
 :name: fig-started-image-math
 :width: 100%
 
-无缝图像融合的另一个例子。左侧是原图和背景图，中间是将原图进行精细抠图之后直接贴到背景图上的效果，右侧是使用泊松图像编辑加上梯度混合处理后的效果。
+无缝图像融合的另一个例子。左侧是原图和背景图，中间是将原图进行精细抠图之后直接贴到背景图上的效果，右侧是使用泊松图像编辑加上梯度混合处理后的效果。{cite}`perez2003poisson`
 ```
 
 
