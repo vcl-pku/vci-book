@@ -10,8 +10,8 @@
 :name: fig-animation-fluids-fluids_in_cg
 :width: 80 %
 
-```{image} fig/animation-fluids-frozen_dam_break.png
-:alt: 《冰雪奇缘 2》中的溃坝现象
+```{image} fig/animation-fluids-qingshe_shuijie.jpg
+:alt: 《白蛇2：青蛇劫起》中的水劫
 ```
 
 ```{image} fig/animation-fluids-blackmyth_cloud.png
