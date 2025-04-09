@@ -2,16 +2,16 @@
 
 绘图（plot）是数据可视化中的一种基本工具，将数据点在二维或三维坐标系中通过图形化方式呈现，展示数据的关系、趋势、分布,从而帮助用户直观地理解数据的结构和模式。简单来说，绘图技术，通过某些图形表示，将数据中的大量信息简化为最简单和最干净的形式，使得数据（点）中固有的关系可以容易地被感知。
 
-如{numref}`fig-visualization-informational-plot`所示，plot 是一个非常通用的可视化操作，在不同的编程语言和工具中，均有对 plot 的默认实现。但，对同样的数据，有无数种可采用的可视化方法，而不恰当的绘图方式很容易给人们以不同的甚至错误的信息，因此如何使用绘图来正确传达数据所包含的信息是一件值得思考的事情。
+如{numref}`fig-visualization-informational-plot` 所示，plot 是一个非常通用的可视化操作，在不同的编程语言和工具中，均有对 plot 的默认实现。但，对同样的数据，有无数种可采用的可视化方法，而不恰当的绘图方式很容易给人们以不同的甚至错误的信息，因此如何使用绘图来正确传达数据所包含的信息是一件值得思考的事情。
 
 ```{figure} fig/visualization-informational-plot.png
 :name: fig-visualization-informational-plot
 不同编程工具中的默认绘图。
 ```
 
-从{numref}`fig-visualization-informational-plot`的对比图中，我们可以得到重要的两点结论：首先，绘图没有明确的使用标准或使用公式，这不同绘图在坐标轴和比例线、图内的数据矩形以及数据值的实际表示等方面上的差异可以看出来；其次，创建一张绘图是一个迭代的设计过程，一次绘图的设计方案不能普遍适用于所有类型的数据。
+从{numref}`fig-visualization-informational-plot` 的对比图中，我们可以得到重要的两点结论：首先，绘图没有明确的使用标准或使用公式，这不同绘图在坐标轴和比例线、图内的数据矩形以及数据值的实际表示等方面上的差异可以看出来；其次，创建一张绘图是一个迭代的设计过程，一次绘图的设计方案不能普遍适用于所有类型的数据。
 
-然而，人们也已经提出了一些普遍的绘图原则，可以被用作指导，以提高绘图能传达出有用信息的可能性。下面我们将介绍 William S. Cleveland 提出的提升绘图质量的两条路线和相应原则{cite}`Cleveland1993visualizing, Cleveland1994graphing`。
+然而，人们也已经提出了一些普遍的绘图原则，可以被用作指导，以提高绘图能传达出有用信息的可能性。下面我们将介绍 William S. Cleveland 提出的提升绘图质量的两条路线和相应原则 {cite}`Cleveland1993visualizing, Cleveland1994graphing`。
 
 ## 提升绘图质量的原则
 
@@ -84,7 +84,7 @@
 ```
 
 - **原则 4：调整图表的纵横比。**
-通过优化图表的纵横比，使图形中的线条方向更加清晰可辨。通常，45度的倾斜角度有助于提高图表的可读性。
+通过优化图表的纵横比，使图形中的线条方向更加清晰可辨。通常，45 度的倾斜角度有助于提高图表的可读性。
 ```{figure} fig/visualization-informational-plot_understanding4.png
 :width: 60%
 :name: fig-visualization-informational-plot_understanding4
@@ -101,7 +101,7 @@
 
 ## 基础绘图技术
 
-**折线图（line plot）**：也被称为**连接符号图（Connected symbol plot）**，是一种最常用的绘图技术，通过连接数据点来显示数据之间关系的图形。每个数据点用符号（例如圆圈、方块、点等）表示，并通过线条连接相邻的数据点。这类图表常用于展示连续数据之间的趋势或关系，如时间序列或其他有序的一维数据，如{numref}`fig-visualization-informational-lineplot`所示。在连接符号图中，符号标出了可能带有高频噪音的数据，连线显示出平滑数据的低频特征，符号连线则结合了两者的功能，利用符号展现数据实际分布并用连接线更清晰地跟踪数据随时间或其他变量的变化趋势。折线图非常适合于展现连续型数据（如时间序列、温度变化、收益率等）的趋势、峰值、波动等特征。
+**折线图（line plot）**：也被称为**连接符号图（Connected symbol plot）**，是一种最常用的绘图技术，通过连接数据点来显示数据之间关系的图形。每个数据点用符号（例如圆圈、方块、点等）表示，并通过线条连接相邻的数据点。这类图表常用于展示连续数据之间的趋势或关系，如时间序列或其他有序的一维数据，如{numref}`fig-visualization-informational-lineplot` 所示。在连接符号图中，符号标出了可能带有高频噪音的数据，连线显示出平滑数据的低频特征，符号连线则结合了两者的功能，利用符号展现数据实际分布并用连接线更清晰地跟踪数据随时间或其他变量的变化趋势。折线图非常适合于展现连续型数据（如时间序列、温度变化、收益率等）的趋势、峰值、波动等特征。
 对比多条折线时，应区分颜色或线型，避免信息混淆。
 ```{figure} fig/visualization-informational-lineplot.png
 :width: 80%
@@ -121,7 +121,7 @@
 多路点图（multiway dot plots）。用对齐了的多个并列点图展示多维数据。
 ```
 
-**散点图（scatter plot）**：利用二维或三维笛卡尔坐标来标识二维数据或三维数据的数据值，适用于需要观察“数值型数据之间的分布与关联度”的场合，可以用于直观识别集群、离群点、线性/非线性关系。如{numref}`fig-visualization-informational-scatter_correlation`所示，恰当地使用散点图能直观地揭示数据之间的相关性。如{numref}`fig-visualization-informational-scatter_line`所示，对于具有相关性的数据，通常还可以在图中加入一条最佳拟合的直线来展现相关性。
+**散点图（scatter plot）**：利用二维或三维笛卡尔坐标来标识二维数据或三维数据的数据值，适用于需要观察“数值型数据之间的分布与关联度”的场合，可以用于直观识别集群、离群点、线性/非线性关系。如{numref}`fig-visualization-informational-scatter_correlation` 所示，恰当地使用散点图能直观地揭示数据之间的相关性。如{numref}`fig-visualization-informational-scatter_line` 所示，对于具有相关性的数据，通常还可以在图中加入一条最佳拟合的直线来展现相关性。
 ```{figure} fig/visualization-informational-scatter_correlation.png
 :width: 80%
 :name: fig-visualization-informational-scatter_correlation
@@ -145,28 +145,28 @@
 利用散点图矩阵展示高维数据，并通过观察特定散点图或整行/列散点图中的散点分布形态得到维度之间的相关性（绿色方框）。
 ```
 
-**条形图（bar chart）**：常被用于离散型或分类型数据（如不同城市、产品、月份等）之间的数值比较，利用每个类别的矩形条的长度标识对应的数据值。一般矩形条的长边会被纵向摆放（类别被排列在横轴），这类条形图也被称为**柱状图**。在类别较多或类名过长时，矩形条也可以被横向摆放（类别被排列在纵轴），如{numref}`fig-visualization-informational-popularity`所示，这让条形图更加易读。
+**条形图（bar chart）**：常被用于离散型或分类型数据（如不同城市、产品、月份等）之间的数值比较，利用每个类别的矩形条的长度标识对应的数据值。一般矩形条的长边会被纵向摆放（类别被排列在横轴），这类条形图也被称为**柱状图**。在类别较多或类名过长时，矩形条也可以被横向摆放（类别被排列在纵轴），如{numref}`fig-visualization-informational-popularity` 所示，这让条形图更加易读。
 ```{figure} fig/visualization-informational-popularity.png
 :width: 60%
 :name: fig-visualization-informational-popularity
 世界人口数量条形图。 ©Apache ECharts
 ```
 
-**直方图（histogram）**：是一类特殊的条形图，被用于展示数据的分布情况。如{numref}`fig-visualization-informational-histogram`所示，它将数据分为若干个连续且不重叠的区间（bins），并通过柱形的高度表示每个区间内数据点的数量。直方图常用于分析数据的分布特征，例如查看数据的集中趋势、离散程度以及是否存在偏态或多峰分布。
+**直方图（histogram）**：是一类特殊的条形图，被用于展示数据的分布情况。如{numref}`fig-visualization-informational-histogram` 所示，它将数据分为若干个连续且不重叠的区间（bins），并通过柱形的高度表示每个区间内数据点的数量。直方图常用于分析数据的分布特征，例如查看数据的集中趋势、离散程度以及是否存在偏态或多峰分布。
 ```{figure} fig/visualization-informational-histogram.png
 :width: 90%
 :name: fig-visualization-informational-histogram
 柱状直方图。
 ```
 
-**箱形图（box plot）**：通常用于展示数据的统计方差，如{numref}`fig-visualization-informational-box`所示，显示数据的四分位数（Quartile）、中位数及最大值、最小值，以及可能的离群值。
+**箱形图（box plot）**：通常用于展示数据的统计方差，如{numref}`fig-visualization-informational-box` 所示，显示数据的四分位数（Quartile）、中位数及最大值、最小值，以及可能的离群值。
 ```{figure} fig/visualization-informational-box.png
 :width: 60%
 :name: fig-visualization-informational-box
 箱形图。黑色上下短横线、蓝色箱体上下边、红色中间线分别对应数据的最大值、最小值、Q1 四分位数、Q3 四分位数、中位数。
 ```
 
-**饼图（pie chart）**：也被成为扇形图（sector diagrams），用于显示数据的组成部分，如{numref}`fig-visualization-analytics-pie`所示，每个组成部分占据圆形的一个扇形子区域，扇形对应的中心角/面积展示了组成部分的占比。这种绘图方式可以直观地展示各组成部分的占比关系，但在组成类别过多或数值差异不大时，不同扇形不易比较，此时条形图等其它绘图技术可能是更合适的方案。
+**饼图（pie chart）**：也被成为扇形图（sector diagrams），用于显示数据的组成部分，如{numref}`fig-visualization-analytics-pie` 所示，每个组成部分占据圆形的一个扇形子区域，扇形对应的中心角/面积展示了组成部分的占比。这种绘图方式可以直观地展示各组成部分的占比关系，但在组成类别过多或数值差异不大时，不同扇形不易比较，此时条形图等其它绘图技术可能是更合适的方案。
 ```{figure} fig/visualization-informational-pie.png
 :width: 60%
 :name: fig-visualization-informational-pie
@@ -180,14 +180,14 @@
 雷达图。© Wikipedia
 ```
 
-**热力图（heat map）**：在二维图像中通过颜色的深浅或冷暖等变化来表示数据的数值大小，通常用于二维矩阵数据或地理分布场景。热力图的核心在于将数据的数值范围映射到颜色谱上，从而直观地展示数据的分布、密度或强度。如{numref}`fig-visualization-informational-heatmap`所示，对于二维矩阵数据，热力图的颜色分布在规则排列的矩阵单元格中；对于地理数据，如人口密度，则可以将数据转换成的颜色标在对应的地理位置处。
+**热力图（heat map）**：在二维图像中通过颜色的深浅或冷暖等变化来表示数据的数值大小，通常用于二维矩阵数据或地理分布场景。热力图的核心在于将数据的数值范围映射到颜色谱上，从而直观地展示数据的分布、密度或强度。如{numref}`fig-visualization-informational-heatmap` 所示，对于二维矩阵数据，热力图的颜色分布在规则排列的矩阵单元格中；对于地理数据，如人口密度，则可以将数据转换成的颜色标在对应的地理位置处。
 ```{figure} fig/visualization-informational-heatmap.png
 :width: 60%
 :name: fig-visualization-informational-heatmap
 热力图。© Wikipedia
 ```
 
-**桑基图（Sankey diagram）**：是一种“流图”，它通过宽度不同的弧线来展示数据的流动和比例关系，表示不同类别之间的能量、物质或成本的转移和分配情况，如{numref}`fig-visualization-informational-sankey`所示。桑基图的一个经典例子是拿破仑出征图，它是一种与地图相结合的桑基图。
+**桑基图（Sankey diagram）**：是一种“流图”，它通过宽度不同的弧线来展示数据的流动和比例关系，表示不同类别之间的能量、物质或成本的转移和分配情况，如{numref}`fig-visualization-informational-sankey` 所示。桑基图的一个经典例子是拿破仑出征图，它是一种与地图相结合的桑基图。
 ```{figure} fig/visualization-informational-sankey.png
 :width: 60%
 :name: fig-visualization-informational-sankey

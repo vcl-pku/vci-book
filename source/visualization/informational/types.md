@@ -1,4 +1,4 @@
-# 信息可视化的类型
+# 不同类型的信息可视化
 <!-- :label:`informational-types` -->
 
 <!-- ## 多变量绘图 -->
@@ -26,7 +26,7 @@
 ### 多维尺度法（Multidimensional Scaling，MDS）
 
 为了显示包含在距离矩阵中的信息，我们采用一种称为多维尺度法的降维形式，通过线性或非线性的映射，将高维数据映射到低维空间，从而展现数据之间的相似性。多维尺度法又称相似度结构分析（similarity structure analysis），其核心思想是如果高维空间中的距离能够反映数据的相似性或差异性，那么在低维空间中保持这些距离关系，就能有效揭示数据的结构。
-具体而言，多维尺度法根据数据点之间的距离或相似度矩阵（如欧式距离或余弦相似度等度量），在尽可能地保留数据间原有的距离结构的基础上，将高维数据映射到一个较低的维度（通常是二维或三维空间）中，并将映射后的低维数据绘制在二维或三维图像中，如{numref}`fig-visualization-informational-mds`所示。
+具体而言，多维尺度法根据数据点之间的距离或相似度矩阵（如欧式距离或余弦相似度等度量），在尽可能地保留数据间原有的距离结构的基础上，将高维数据映射到一个较低的维度（通常是二维或三维空间）中，并将映射后的低维数据绘制在二维或三维图像中，如{numref}`fig-visualization-informational-mds` 所示。
 ```{figure} fig/visualization-informational-mds.png
 :width: 80%
 :name: fig-visualization-informational-mds
@@ -38,19 +38,19 @@
 :name: fig-visualization-informational-mds_conflict
 多维尺度法可能会产生冲突：图中三个点，两两之间的相似度关系难以合理地反映在一张二维图像上。
 ```
-但在降维过程中，由于原高维空间的复杂性，数据的距离关系无法完全被保留或准确反映，甚至可能会出现冲突（conflict），如{numref}`fig-visualization-informational-mds_conflict`所示。
+但在降维过程中，由于原高维空间的复杂性，数据的距离关系无法完全被保留或准确反映，甚至可能会出现冲突（conflict），如{numref}`fig-visualization-informational-mds_conflict` 所示。
 
 ### 平行坐标法（Parallel Coordinates）
 
 经典可视化中假设不同维度的坐标轴相互正交，因此人们能够直观理解并可视化的正交坐标系最多不超过三维。
-于是当数据维度超过了三维后，这种基于正交坐标系的可视化技术就失败了，于是人们考虑放弃“正交”约束，改将各维度坐标轴画成平面内的一系列平行线，每个数据点的各维度分量对应有各坐标轴的取值，相连起来可形成一条折线。这种方法被称为平行坐标法，如{numref}`fig-visualization-informational-parallel`所示，每个数据点具有唯一的一种折线表示，且坐标轴的数量（即数据维度）是没有限制的（实际中需要考虑屏幕的大小和分辨率）。
+于是当数据维度超过了三维后，这种基于正交坐标系的可视化技术就失败了，于是人们考虑放弃“正交”约束，改将各维度坐标轴画成平面内的一系列平行线，每个数据点的各维度分量对应有各坐标轴的取值，相连起来可形成一条折线。这种方法被称为平行坐标法，如{numref}`fig-visualization-informational-parallel` 所示，每个数据点具有唯一的一种折线表示，且坐标轴的数量（即数据维度）是没有限制的（实际中需要考虑屏幕的大小和分辨率）。
 ```{figure} fig/visualization-informational-parallel.png
 :width: 60%
 :name: fig-visualization-informational-parallel
 echarts.js 中的平行坐标样例，通过空气中各气体含量的指标展示不同城市的空气污染情况。
 ```
 
-平行坐标空间和数据所处的原笛卡尔空间有着有趣的对应关系。一个基本的射影几何对偶性：笛卡尔坐标系中的点在平行坐标系对应一条折线，而笛卡尔坐标系中的一条直线则对应着平行坐标系中的一个点，如{numref}`fig-visualization-informational-parallel_duality`所示，对于分布在同一条直线上的一组数据，当数据的两个维度呈现负相关时（左一图），这组数据对应的平行坐标线段将相交于同一点；当数据的两个维度呈现正相关时（左二图），这组数据对应了一组平行的线段（可以看成相交于无穷远点）。另外，两个空间中的趋势、操作等也存在一定的几何对应关系，例如：
+平行坐标空间和数据所处的原笛卡尔空间有着有趣的对应关系。一个基本的射影几何对偶性：笛卡尔坐标系中的点在平行坐标系对应一条折线，而笛卡尔坐标系中的一条直线则对应着平行坐标系中的一个点，如{numref}`fig-visualization-informational-parallel_duality` 所示，对于分布在同一条直线上的一组数据，当数据的两个维度呈现负相关时（左一图），这组数据对应的平行坐标线段将相交于同一点；当数据的两个维度呈现正相关时（左二图），这组数据对应了一组平行的线段（可以看成相交于无穷远点）。另外，两个空间中的趋势、操作等也存在一定的几何对应关系，例如：
 - 笛卡尔空间中的圆和椭圆映射成平行坐标空间中的双曲线；
 - 笛卡尔空间中的旋转映射到平行坐标空间中的平移，反之亦然；
 - 笛卡尔空间中的拐点映射为平行坐标空间中的顶点。
@@ -60,20 +60,20 @@ echarts.js 中的平行坐标样例，通过空气中各气体含量的指标展
 平行坐标空间和笛卡尔坐标空间的几何对偶性示例。
 ```
 
-平行坐标可以同时展示数据所有维度的信息，很合适用来为用户给出对多维数据的概览可视化。但密集的数据被集中展示时，也有可能给用户带来困扰，如{numref}`fig-visualization-informational-parallel_dense`所示。
+平行坐标可以同时展示数据所有维度的信息，很合适用来为用户给出对多维数据的概览可视化。但密集的数据被集中展示时，也有可能给用户带来困扰，如{numref}`fig-visualization-informational-parallel_dense` 所示。
 ```{figure} fig/visualization-informational-parallel_dense.png
 :width: 50%
 :name: fig-visualization-informational-parallel_dense
 离群线段和部分相关性可以得到体现，但密集的平行坐标使图像杂乱而难以阅读。
 ```
-一种方法是通过高亮来突出单个数据，用户可以通过选择特定点/数据折线来高亮整条折线，来获得更好的针对特定数据的可视化效果。这种方法不仅限于高亮单个数据，也可以被拓展到高亮一个数据子集上，并且可以与多维尺度法联合使用，如{numref}`fig-visualization-informational-parallel_mds`所示，多维尺度法提供映射到低维的数据散点分布，用户可以通过点选散点图中的特定点（比如离群值），查看在平行坐标中被高亮出的折线，从而观察出它们的独有特征。
+一种方法是通过高亮来突出单个数据，用户可以通过选择特定点/数据折线来高亮整条折线，来获得更好的针对特定数据的可视化效果。这种方法不仅限于高亮单个数据，也可以被拓展到高亮一个数据子集上，并且可以与多维尺度法联合使用，如{numref}`fig-visualization-informational-parallel_mds` 所示，多维尺度法提供映射到低维的数据散点分布，用户可以通过点选散点图中的特定点（比如离群值），查看在平行坐标中被高亮出的折线，从而观察出它们的独有特征。
 ```{figure} fig/visualization-informational-parallel_mds.png
 :width: 60%
 :name: fig-visualization-informational-parallel_mds
 平行坐标和多维尺度方法的综合应用，通过高亮展示离群值相对于整体数据的独有特征。
 ```
 
-平行坐标法的一个常见问题是邻接性问题：相邻的坐标轴之间更容易进行比较和分析，而不相邻的坐标轴之间则困难得多。因此，如果想要研究所有维度两两之间的关系，则需要采用一系列的轴排列方式，绘制一组不同的平行坐标图，从而无冗余且无遗漏地用相邻坐标轴展示所有维度之间的所有两两组合{cite}`Heinrich2012ThePC`。另外，平行坐标法难以扩展到大规模的数据上，如{numref}`fig-visualization-informational-parallel_largescale`所示，过多的数据折线将完全掩盖掉可用信息，一种解决办法是使用一定聚类技术和透明渲染，从而重复出现的数据将占据更大的比重，数据之间的脉络关系也将获得更清晰的显示。也有研究{cite}`Zhou2008Clustering`尝试将连接平行坐标的折线改为弯曲边，通过最小化弯曲边的曲率和最大化相邻边的平行度，来优化边缘边的形状，提高了整体视觉上的聚类效果。
+平行坐标法的一个常见问题是邻接性问题：相邻的坐标轴之间更容易进行比较和分析，而不相邻的坐标轴之间则困难得多。因此，如果想要研究所有维度两两之间的关系，则需要采用一系列的轴排列方式，绘制一组不同的平行坐标图，从而无冗余且无遗漏地用相邻坐标轴展示所有维度之间的所有两两组合{cite}`Heinrich2012ThePC`。另外，平行坐标法难以扩展到大规模的数据上，如{numref}`fig-visualization-informational-parallel_largescale` 所示，过多的数据折线将完全掩盖掉可用信息，一种解决办法是使用一定聚类技术和透明渲染，从而重复出现的数据将占据更大的比重，数据之间的脉络关系也将获得更清晰的显示。也有研究{cite}`Zhou2008Clustering`尝试将连接平行坐标的折线改为弯曲边，通过最小化弯曲边的曲率和最大化相邻边的平行度，来优化边缘边的形状，提高了整体视觉上的聚类效果。
 ```{figure} fig/visualization-informational-parallel_largescale.png
 :width: 60%
 :name: fig-visualization-informational-parallel_largescale
@@ -86,7 +86,7 @@ echarts.js 中的平行坐标样例，通过空气中各气体含量的指标展
 
 ### 词云（Word Clouds）
 
-词云（Word Cloud）是一种常见的文本可视化技术，用于将文本中的关键词汇以可视化方式呈现。如{numref}`fig-visualization-informational-wordle_init`所示，它通过将文本中的词汇按照其出现频率绘制成图像，以便用户可以直观地看到哪些词汇在文本中出现得更频繁，从而突出显示文本的关键特征，帮助用户更容易地理解文本的内容和重点。如{numref}`fig-visualization-informational-wordle_variety`所示，词云通常以一种艺术性的方式排列词汇，使其形成一个视觉上吸引人的图形。在词云中，词汇的字体大小通常与其在文本中的频率成正比，出现频率更高的词汇通常会显示为更大的字体，而出现频率较低的词汇则以较小的字体呈现。有时，词云还可以使用不同的颜色来表示词汇的重要性或情感极性。词云中的词汇通常以不同的角度和位置排列，以使整个图像看起来更加吸引人。这种可视化排列并不依赖于词汇的实际顺序，而是根据可视化设计来确定的。
+词云（Word Cloud）是一种常见的文本可视化技术，用于将文本中的关键词汇以可视化方式呈现。如{numref}`fig-visualization-informational-wordle_init` 所示，它通过将文本中的词汇按照其出现频率绘制成图像，以便用户可以直观地看到哪些词汇在文本中出现得更频繁，从而突出显示文本的关键特征，帮助用户更容易地理解文本的内容和重点。如{numref}`fig-visualization-informational-wordle_variety` 所示，词云通常以一种艺术性的方式排列词汇，使其形成一个视觉上吸引人的图形。在词云中，词汇的字体大小通常与其在文本中的频率成正比，出现频率更高的词汇通常会显示为更大的字体，而出现频率较低的词汇则以较小的字体呈现。有时，词云还可以使用不同的颜色来表示词汇的重要性或情感极性。词云中的词汇通常以不同的角度和位置排列，以使整个图像看起来更加吸引人。这种可视化排列并不依赖于词汇的实际顺序，而是根据可视化设计来确定的。
 
 ```{figure} fig/visualization-informational-wordle_init.png
 :name: fig-visualization-informational-wordle_init
@@ -110,7 +110,7 @@ echarts.js 中的平行坐标样例，通过空气中各气体含量的指标展
 EdWordle框架，允许更紧凑的词云排布和用户交互。
 ```
 研究也关注如何使词云应用支持更丰富的用户交互和定制。
-如{numref}`fig-visualization-informational-wordle_init`所示，EdWordle {cite}`Wang2018EdWordleCW` 将每个词汇看成一个二维平面内的矩形刚体，在刚体上施加相互之间的吸引力、向画布中心的吸引力、阻尼力，并利用基于冲量的方法解除碰撞，而后通过刚体仿真器对词云刚体系统进行仿真，从而获得更紧密的词云排布。另外，它支持用户的拖拽、放缩、旋转、增删等多样的操作，在尽可能保证邻居关系的基础上，通过绕中心的旋转查找，找到被修改词条的目标位置，并形成符合用户需求的紧密排布。
+如{numref}`fig-visualization-informational-wordle_init` 所示，EdWordle {cite}`Wang2018EdWordleCW` 将每个词汇看成一个二维平面内的矩形刚体，在刚体上施加相互之间的吸引力、向画布中心的吸引力、阻尼力，并利用基于冲量的方法解除碰撞，而后通过刚体仿真器对词云刚体系统进行仿真，从而获得更紧密的词云排布。另外，它支持用户的拖拽、放缩、旋转、增删等多样的操作，在尽可能保证邻居关系的基础上，通过绕中心的旋转查找，找到被修改词条的目标位置，并形成符合用户需求的紧密排布。
 
 总之，词云是一种简单而有用的文本可视化工具，可用于快速了解文本数据的主要特征和重点。但需要注意，词云通常只提供了文本数据的高层次摘要，对于深入的文本分析可能需要更多复杂的技术和工具。
 
@@ -164,7 +164,7 @@ EdWordle框架，允许更紧凑的词云排布和用户交互。
 
 ### TIARA（Text Insight via Automated Responsive Analytics）
 
-如{numref}`fig-visualization-informational-tiara`所示，TIARA {cite}`TIARA2010` 采用流的形式来可视化文本：给定一组文档，TIARA首先使用主题分析技术将文档汇总为一组主题，每个主题由一组关键字表示（一层流）。除了提取主题外，TIARA还派生出随时间变化的关键字序列来描述每个主题随时间的内容演变（流中随横轴变化的关键字排布），关键字的纵轴宽度（每处流的纵轴宽度）表示了它出现的频率。
+如{numref}`fig-visualization-informational-tiara` 所示，TIARA {cite}`TIARA2010` 采用流的形式来可视化文本：给定一组文档，TIARA首先使用主题分析技术将文档汇总为一组主题，每个主题由一组关键字表示（一层流）。除了提取主题外，TIARA还派生出随时间变化的关键字序列来描述每个主题随时间的内容演变（流中随横轴变化的关键字排布），关键字的纵轴宽度（每处流的纵轴宽度）表示了它出现的频率。
 
 ```{figure} fig/visualization-informational-tiara.png
 :name: fig-visualization-informational-tiara
@@ -191,7 +191,7 @@ TIARA。
 
 ## 图可视化
 
-图可视化（Graph Visualization）是将图结构数据（如社交网络、交通网络、推荐系统等）可视化的技术。图数据由节点（代表实体）和边（表示实体之间的关系）构成。很多信息数据具有图结构，如{numref}`fig-visualization-informational-graph_apps`所示，包括并不限于组织架构、文件目录、社交网络等。图数据可视化的目的是帮助分析人员理解网络中的结构特征、节点之间的关系以及信息传播的路径。
+图可视化（Graph Visualization）是将图结构数据（如社交网络、交通网络、推荐系统等）可视化的技术。图数据由节点（代表实体）和边（表示实体之间的关系）构成。很多信息数据具有图结构，如{numref}`fig-visualization-informational-graph_apps` 所示，包括并不限于组织架构、文件目录、社交网络等。图数据可视化的目的是帮助分析人员理解网络中的结构特征、节点之间的关系以及信息传播的路径。
 ```{figure} fig/visualization-informational-graph_apps.png
 :name: fig-visualization-informational-graph_apps
 不同类型的图数据。
@@ -201,7 +201,7 @@ TIARA。
 - 节点之间的排斥力（Repulsive Force）：节点之间会相互排斥，类似于同电荷的粒子之间的排斥作用，这有助于避免节点之间的重叠，并使得节点分布更加均匀。
 - 边的吸引力（Spring-like Hooke Attraction）：图中的边像弹簧一样起到吸引作用，边的长度与节点之间的距离成比例。边的吸引力确保节点之间保持合理的距离，并有助于图的结构稳定。
 - 减少节点重叠：力导向布局通过综合作用力（排斥力和吸引力），在优化图结构的同时，最大限度地减少节点的重叠，使得图的可视化更加清晰易读。
-如{numref}`fig-visualization-informational-graph_force`所示，这种布局方式能够直观地展示图中的结构关系，常用于社交网络、推荐系统等图数据的可视化，帮助用户识别核心节点和群体结构。另外，这一可视化方法具有良好的交互性能，可以为用户提供直观的从混乱的布局到整理完毕的规整布局的演变过程，且允许用户的随意拖拽，支持实时动态的图可视化与交互。
+如{numref}`fig-visualization-informational-graph_force` 所示，这种布局方式能够直观地展示图中的结构关系，常用于社交网络、推荐系统等图数据的可视化，帮助用户识别核心节点和群体结构。另外，这一可视化方法具有良好的交互性能，可以为用户提供直观的从混乱的布局到整理完毕的规整布局的演变过程，且允许用户的随意拖拽，支持实时动态的图可视化与交互。
 
 ```{figure} fig/visualization-informational-graph_force.png
 :name: fig-visualization-informational-graph_force
@@ -216,7 +216,7 @@ TIARA。
 社交网络是一种特殊的图，社区网络中的节点倾向于形成紧密连接的子群（社区），社区内部连接密集，而社区之间连接稀疏。
 社区发现是面向社交网络数据的重要应用，通过分析这些连接模式，社区发现技术能够揭示网络中的潜在群体（如兴趣小组、社交圈子），帮助理解用户行为、信息传播以及网络演化规律，为社交分析、推荐系统等应用提供重要支持。
 
-Vizster{cite}`Vizster2005`是早期社交网络可视化的代表性工具，如{numref}`fig-visualization-informational-graph_vizster`所示，它在力导向图中配置了多种交互策略：可以通过点击来高亮单个用户信息，展示与其直接相关的社交关系；或通过选点多个用户来查看他们的社交网络，发现他们共有的社交关系。
+Vizster{cite}`Vizster2005`是早期社交网络可视化的代表性工具，如{numref}`fig-visualization-informational-graph_vizster` 所示，它在力导向图中配置了多种交互策略：可以通过点击来高亮单个用户信息，展示与其直接相关的社交关系；或通过选点多个用户来查看他们的社交网络，发现他们共有的社交关系。
 另外，Vizster在力导向布局中利用了**聚类布局**的思想来发现社区，自动检测社交网络中的社区结构，并用颜色编码区分不同社区。
 
 ```{figure} fig/visualization-informational-graph_vizster.png
@@ -233,7 +233,7 @@ Vizster。
 通过这种聚类算法，Vizster 得以自动检测社区结构，并允许用户通过拖动滑块来调节划分出“社区”的个数，社区个数越少、单个社区越大，社区内部人员的关系越紧密。
 
 包含聚类布局的力导向图可以与邻接矩阵分析结合，提供更直观的
-子图表达（Subgraph Represention）和社区模式，如{numref}`fig-visualization-informational-subgraph`所示，在邻接矩阵中，根据发现的社群对节点顺序进行重新排序后，非零值（有邻接边）集中在对角线附近，于是子对角块将对应各社区结构，社区信息被集中展示在子对角块中。
+子图表达（Subgraph Represention）和社区模式，如{numref}`fig-visualization-informational-subgraph` 所示，在邻接矩阵中，根据发现的社群对节点顺序进行重新排序后，非零值（有邻接边）集中在对角线附近，于是子对角块将对应各社区结构，社区信息被集中展示在子对角块中。
 
 ```{figure} fig/visualization-informational-subgraph.png
 :name: fig-visualization-informational-subgraph
@@ -241,7 +241,7 @@ Vizster。
 包含聚类布局的力导向图（左）与根据社区进行重新排列的邻接矩阵（右），
 ```
 
-**环状图（Circular graph）** 用嵌套的圆形排布节点，适用于树状结构或层次结构的可视化，如师生关系网络、组织架构等。在环状图中，如{numref}`fig-visualization-informational-circular`所示，根节点通常位于中心，子节点按层次向外辐射，层次关系一目了然。嵌套圆周排列充分利用屏幕空间，对称美观，支持通过缩放、高亮等交互操作聚焦特定分支或节点，适合用于展示中等规模的层次数据。但环状图泛化性有限，只适用于最基础的具有树状结构的图，若节点具有非单一父节点或图中存在回路，则环状图会被一定程度上破坏且显得混乱。
+**环状图（Circular graph）** 用嵌套的圆形排布节点，适用于树状结构或层次结构的可视化，如师生关系网络、组织架构等。在环状图中，如{numref}`fig-visualization-informational-circular` 所示，根节点通常位于中心，子节点按层次向外辐射，层次关系一目了然。嵌套圆周排列充分利用屏幕空间，对称美观，支持通过缩放、高亮等交互操作聚焦特定分支或节点，适合用于展示中等规模的层次数据。但环状图泛化性有限，只适用于最基础的具有树状结构的图，若节点具有非单一父节点或图中存在回路，则环状图会被一定程度上破坏且显得混乱。
 
 ```{figure} fig/visualization-informational-circular.png
 :name: fig-visualization-informational-circular
@@ -249,8 +249,8 @@ Vizster。
 环状图。
 ```
 
-**环形布局（Circular Layout）** 将图中的所有节点排布在一个圆周上，边以弧线或直线的形式连接节点，被放置在圆周内部，如{numref}`fig-visualization-informational-circular_layout`所示。
-为了更清晰地组织节点间的连接关系、体现图中包含的组织结构，环形布局也适合与着色和聚类方法相结合，如{numref}`fig-visualization-informational-circular_cluster`所示，从而减少杂乱的连线交叉，优化曲线曲率和形状，提高环形布局图的可读性。
+**环形布局（Circular Layout）** 将图中的所有节点排布在一个圆周上，边以弧线或直线的形式连接节点，被放置在圆周内部，如{numref}`fig-visualization-informational-circular_layout` 所示。
+为了更清晰地组织节点间的连接关系、体现图中包含的组织结构，环形布局也适合与着色和聚类方法相结合，如{numref}`fig-visualization-informational-circular_cluster` 所示，从而减少杂乱的连线交叉，优化曲线曲率和形状，提高环形布局图的可读性。
 
 ```{figure} fig/visualization-informational-circular_layout.png
 :name: fig-visualization-informational-circular_layout
