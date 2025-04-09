@@ -11,7 +11,7 @@
 :alt: 游戏中的角色动画
 ```
 
-```{image} fig/animation-basics-movie_character.png
+```{image} fig/animation-basics-movie_character.jpg
 :alt: 电影中的角色动画
 ```
 

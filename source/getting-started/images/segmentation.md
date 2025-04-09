@@ -60,24 +60,17 @@ $$ (eq-started-image-blue-eq)
 :name: fig-started-image-blue
 :width: 100%
 
-绿幕抠图
+绿幕抠图 from Star War 2005
 ```
 
 我们假设前景没有蓝色分量的原因在于，人身上的色调主要是红色和黄色，蓝色和绿色很少出现。由于限制众多，这个方法的缺陷也很明显：
 
 * 前景中不可以有蓝色，否则前景的某些区域也会被当成背景从而丢失。这也意味着蓝幕抠图不能应用到透明物体上。
-* 蓝色背景所反射的光可能会打到前景图上，造成扣取出的前景图边缘偏蓝 (如图\ref{fig:blue_screen_matting-reflection}所示)。
-
-```{figure} fig/blue_screen_matting-reflection.png
-:name: fig-started-image-blue-reflect
-:width: 60%
-
-蓝色背景反射到前景后对蓝幕抠图的影响
-```
+* 蓝色背景所反射的光可能会打到前景图上，造成扣取出的前景图边缘偏蓝。
 
 ### 三角抠图
 
-仅一张彩色图片提供的信息不足，所以这项技术通过对同样的前景物体配上两组不同的、已知的背景图分别拍摄以弥补这个不足。记另外一张背景图为 $\hat{\mathbf B}$，其与前景一起拍摄得到的图片为 $\hat{\mathbf C}$，则方程组变为：
+由于仅一张彩色图片提供的信息不足，三角抠图（Triangulation Matting）通过对同样的前景物体配上两组不同的、已知的背景图分别拍摄以弥补这个不足。记另外一张背景图为 $\hat{\mathbf B}$，其与前景一起拍摄得到的图片为 $\hat{\mathbf C}$，则方程组变为：
 
 $$
 \begin{aligned}
@@ -98,12 +91,13 @@ $$ (eq-started-image-tri-eq)
 :name: fig-started-image-tri-mat
 :width: 100%
 
-三角抠图的结果
+三角抠图的结果[^tri]
 ```
+[^tri]: [CS129: Computational Photography](https://cs.brown.edu/courses/cs129/results/final/njooma/)
 
 ## 贝叶斯抠图
 
-前面提到，传统的方法需要特定的拍摄条件，并且可能会存在各种各样不能处理的特殊情况；**贝叶斯抠图（Bayesian matting）** 是更智能的抠图算法，用户需要提供一张额外的三值图 (trimap)，该图的每个像素点有三种取值，分别表示前景、背景和未知，如{numref}`fig-started-image-trimap` 所示。
+前面提到，传统的方法需要特定的拍摄条件，并且可能会存在各种各样不能处理的特殊情况；**贝叶斯抠图（Bayesian matting）** {cite}`chuang2001bayesian`是更智能的抠图算法，用户需要提供一张额外的三值图 (trimap)，该图的每个像素点有三种取值，分别表示前景、背景和未知，如{numref}`fig-started-image-trimap` 所示。
 
 ````{subfigure} ABC
 :name: fig-started-image-trimap
@@ -119,7 +113,7 @@ $$ (eq-started-image-tri-eq)
 ```{image} fig/bayesian-trimap-result.jpg
 ```
 
-用户提供三值图以辅助算法完成抠图任务
+用户提供三值图以辅助算法完成抠图任务。{cite}`chuang2001bayesian`
 ````
 
 记输入的原图为 $\mathbf C$，抠图结果为标量场 $\alpha$，前景图为 $\mathbf F$，背景图为 $\mathbf B$。我们的问题是，给定三值图，求解未知区域的最大似然：
@@ -171,5 +165,5 @@ $$ (eq-started-image-bayesian3)
 :name: fig-started-image-bayesian-results
 :width: 100%
 
-贝叶斯抠图效果
+贝叶斯抠图效果。{cite}`chuang2001bayesian`
 ```

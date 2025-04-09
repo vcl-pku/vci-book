@@ -59,8 +59,9 @@ $$ (eq-started-curve-bezier-lerp2)
 :name: fig-started-curves-beziergon
 :width: 60%
 
-一条贝塞尔样条曲线
+一条贝塞尔样条曲线[^bezier-spline]
 ```
+[^bezier-spline]: [Wikipedia: Composite Bézier curve](https://en.wikipedia.org/wiki/Composite_B%C3%A9zier_curve)
 
 由上述构造方法我们可以求出贝塞尔曲线的数学表达式。以二阶贝塞尔曲线为例，结合公式 {eq}`eq-started-curve-bezier-lerp1` 和公式 {eq}`eq-started-curve-bezier-lerp2` 我们可以得到曲线的表达式： 
 
@@ -110,7 +111,7 @@ $$ (eq-started-curve-bezier-dS2)
 
 贝塞尔曲线另一条重要的性质是**凸包性质（convex-hull property）**。由于贝塞尔曲线的权重均非负，且曲线上任意一点关于控制点的权重和为 $1$，故而由凸包的定义可知，贝塞尔曲线被包围在由它所有控制点组成的最小凸包当中，即控制点凸包给出了一个贝塞尔曲线的包围盒（尽管不是最小包围盒）。这个性质能帮助我们很好地规划贝塞尔曲线的路径。比如在规划虚拟场景中相机的轨迹时，我们可以通过规划控制点的凸包，避免相机走到我们不想其到达的位置。
 
-```{figure} fig/hull.jpg
+```{figure} fig/convex.png
 :name: fig-started-curves-hull
 :width: 50%
 

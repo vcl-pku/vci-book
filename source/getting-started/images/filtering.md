@@ -76,26 +76,16 @@ $$ (eq-started-image-mean-filter)
 
 根据卷积的定义，均值滤波器的作用就是取临近的 $(2k+1) \times (2k+1)$ 个像素求平均，其效果如{numref}`fig-started-image-blur` 所示。
 
-````{subfigure} ABC
+```{figure} fig/blur.png
 :name: fig-started-image-blur
-:width: 100 %
-:gap: 15px
-
-```{image} fig/blur_original.png
-```
-
-```{image} fig/blur_3x3.png
-```
-
-```{image} fig/blur_5x5.png
-```
+:width: 100%
 
 从左到右：原图，使用 $3\times 3$ 的均值滤波，使用 $5 \times 5$ 的均值滤波
-````
+```
 
 从频域上我们也能理解均值滤波器为什么能够模糊化。如{numref}`fig-started-image-mean-filter` 所示，均值滤波器的傅里叶变换呈现中间值大，边缘值小的趋势，于是当其与图像的频谱相乘时，就保留了中心的低频部分，而去除的高频部分。
 
-```{figure} fig/mean-filter.png
+```{figure} fig/filter-spec.png
 :name: fig-started-image-mean-filter
 :width: 80%
 
@@ -136,22 +126,12 @@ $$ (eq-started-image-gxy)
 
 可以从公式中发现 $\mathbf{G}_x$ 可以提取水平方向的梯度，而在竖直方向做了模糊；$\mathbf{G}_y$ 则正好相反。应用这两个滤波器的结果如 {numref}`fig-started-image-edge` 所示。
 
-````{subfigure} ABC
+```{figure} fig/sobel-xy.png
 :name: fig-started-image-edge
-:width: 100 %
-:gap: 15px
-
-```{image} fig/edge_original.png
-```
-
-```{image} fig/edge_horizontal.png
-```
-
-```{image} fig/edge_vertical.png
-```
+:width: 100%
 
 从左到右：原图，使用水平滤波 $\mathbf{G}_x$，使用竖直滤波器 $\mathbf{G}_y$
-````
+```
 
 如果想要检测到各个方向的边缘，我们需要同时考虑两个方向的梯度，比如考虑梯度的模长：
 
@@ -161,19 +141,12 @@ $$ (eq-started-image-gnorm)
 
 我们可以在应用了公式 {eq}`eq-started-image-gxy` 中的滤波器之后，再求公式 {eq}`eq-started-image-gnorm` 中的模长，得到最后的结果，如{numref}`fig-started-image-church` 所示。
 
-````{subfigure} AB
+```{figure} fig/sobel.png
 :name: fig-started-image-church
-:width: 100 %
-:gap: 15px
-
-```{image} fig/edge_church.png
-```
-
-```{image} fig/edge_sobel.png
-```
+:width: 70%
 
 使用 Sobel 滤波器提取边缘的结果
-````
+```
 
 这样提取边缘的滤波器称为 Sobel-Feldman 滤波器，由 Irwin Sobel 和 Gary M. Feldman 合作提出。注意由于滤波器里包含了取模长的操作，Sobel-Feldman 滤波器就不再是线性滤波器了。 
 
