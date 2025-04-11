@@ -48,8 +48,10 @@
   - 社交媒体数据，如推文、帖子、评论等。
   - 传感器数据，如物联网设备采集的原始数据。
 
-> 缺图：图1：结构化、半结构化、非结构化数据对比图
-
+```{figure} fig/visualization-basics-data_structures.png
+:name: fig-visualization-basics-data_structures
+不同数据结构示例。左：结构化的表格数据；中：半结构化的 Web 响应数据；右：非结构化的文本和图片。
+```
 
 **2. 按数据测量尺度：**
 

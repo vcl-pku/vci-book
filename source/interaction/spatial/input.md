@@ -57,12 +57,12 @@
 
 ```{figure} fig/interaction-spatial-sketch.png
 :name: fig-interaction-spatial-sketch
-Teddy：一个3D自由形式设计的草图界面。
+Teddy {cite}`igarashi1999teddy`：一个3D自由形式设计的草图界面。
 ```
 
 ```{figure} fig/interaction-spatial-sketch2.png
 :name: fig-interaction-spatial-sketch2
-一个交互式且用户友好的素描系统。
+一个交互式且用户友好的素描系统 {cite}`shesh2004smartpaper`。
 ```
 
 ## 基于三维空间定位设备的三维交互
@@ -84,45 +84,51 @@ Teddy：一个3D自由形式设计的草图界面。
 ```{figure} fig/interaction-spatial-glove.png
 :scale: 30 %
 :name: fig-interaction-spatial-glove
-数据手套 © Haptx
+数据手套。 © Haptx
 ```
 
 ### 触觉和力反馈器
 
 触觉和力反馈器是一类模拟现实世界中触感和反作用力的设备，包括力学反馈手套、力学反馈操纵杆、力学反馈笔、力学反馈表面等装置。这一类设备希望使用户感觉到仿佛真的摸到了物体，主要通过视觉、气压感、振动触觉、电子触觉和神经肌肉模拟等方法实现。其中，电子触觉反馈器是向皮肤反馈宽度和频率可变的电脉冲，而神经肌肉模拟反馈是直接刺激皮层，这些方法都很不安全；较安全的方法是气压式和振动触感式的反馈器。然而，人的触觉非常敏感，精度一般的装置无法满足要求；对于触觉和力反馈器，还要考虑到模拟力的真实性、施加到人手上是否安全以及装置是否便于携带并让用户感到舒适等问题。由于精度、真实感、安全性等上述问题，目前这一类设备尚缺乏成熟产品。
 
+```{figure} fig/interaction-spatial-haptic_suit.png
+:scale: 30 %
+:name: fig-interaction-spatial-haptic_suit
+触觉反馈套装。 © Haptx
+```
+
 ### 实体用户界面（Tangible User Interface， TUI）
 
 实体用户界面是一种用户通过物理环境与数字信息互动的界面，最初称做可抓取用户界面（Graspable User Interface），
 通过让用户操控实际的物理物体来与计算机系统进行交互。这些物体可以是可触摸、抓取、转动、滑动或移动的对象。用户通过与这些物体的互动，传递指令给计算机，而计算机则根据物体的位置、形状、动作等参数作出响应。
-实体用户界面的先驱是在麻省理工学院 Media Lab 带领实体媒体小组（Tangible Media Group）的教授 Hiroshi Ishii，他获得了 Chi'2019 终身成就奖。他和 Brygg Ullmer 在1997年提出了对实体UI的愿景 {cite}`ishii1997tangible`，称为 Tangible Bits，旨在给数字信息赋予物理形态，使比特直接可操控和感知，追求物理对象与虚拟数据之间的无缝结合，他们据此对TUI的设计提出以下准则：
+实体用户界面的先驱是在麻省理工学院 Media Lab 带领实体媒体小组（Tangible Media Group）的石井裕（Hiroshi Ishii）教授，他获得了 Chi'2019 终身成就奖。他和布莱格·乌尔默（Brygg Ullmer）在 1997 年提出了对实体UI的愿景 {cite}`ishii1997tangible`，称为可触比特（Tangible Bits），旨在给数字信息赋予物理形态，使比特直接可操控和感知，追求物理对象与虚拟数据之间的无缝结合，他们据此对 TUI 的设计提出以下准则：
 
 - 物理表现与底层数字信息在计算上耦合：当用户移动或旋转带有传感器的物体时，系统会实时检测物体的运动，并在虚拟界面中做出响应。这两者（物理世界和数字世界）相互影响和协调，彼此“沟通”。
 - 物理表现体现了交互控制的机制：物理对象是用来与计算机互动的控制工具。例如，通过触摸、旋转或移动一个物体，用户能直接控制计算机中的某个程序或虚拟对象。
 - 物理表现在感知上与数字表现耦合：物理物体的变化不仅通过触觉反馈给用户感知，还通过视觉和听觉等感官反馈来传递数字世界的信息，从而使用户能同时感知物体和数字世界之间的关系。
 - 实体的物理状态体现系统数字状态的关键方面：物理物体的变化反映了计算机系统中虚拟状态的变化，物理物体的位置、旋转角度等也会与虚拟物体的状态一一对应，使得两者保持一致。
 
-Hiroshi Ishii也将实体交互界面应用在城市规划 {cite}`Underkoffler1999Urp` 中，如设计了基于建筑物物理模型的桌面工作台，提供了对气流、光照、人流、建筑材料设置等城市规划功能的观察和规划手段。
-在2012年，Hiroshi Ishii发表了关于实体用户界面的综述论文 {cite}`ishii2012radical`，提出实体用户界面设计的新范式：“实体设计需要在物理世界的不同材料和形态中精心设计界面，寻求不同属性的融合。”在这种设想下，未来将有“革命性原子”（Radical Atoms）材料，如同数字世界中构成数据流的比特一样，它将作为物理-数字世界交互的材料单元，提供不同属性的真实物理材料到数字空间的对应，于是人们可以通过对物理世界实体施加各种操作，这些操作均能对应到数字世界中，使物理-数字世界共同演化。如{numref}`fig-interaction-spatial-radical_atoms`展示了直接操作实体界面来制作一个正红色外壳的过程，人类可用类似捏黏土的方式来进行数字建模。
+石井裕教授也将实体交互界面应用在城市规划 {cite}`Underkoffler1999Urp` 中，如设计了基于建筑物物理模型的桌面工作台，提供了对气流、光照、人流、建筑材料设置等城市规划功能的观察和规划手段。
+在 2012 年，他发表了关于实体用户界面的综述论文 {cite}`ishii2012radical`，提出实体用户界面设计的新范式：“实体设计需要在物理世界的不同材料和形态中精心设计界面，寻求不同属性的融合。”在这种设想下，未来将有“革命性原子”（Radical Atoms）材料，如同数字世界中构成数据流的比特一样，它将作为物理-数字世界交互的材料单元，提供不同属性的真实物理材料到数字空间的对应，于是人们可以通过对物理世界实体施加各种操作，这些操作均能对应到数字世界中，使物理-数字世界共同演化。如{numref}`fig-interaction-spatial-radical_atoms` 展示了直接操作实体界面来制作一个正红色外壳的过程，人类可用类似捏黏土的方式来进行数字建模。
 
 ```{figure} fig/interaction-spatial-tui1999.png
 :width: 50%
 :name: fig-interaction-spatial-tui1999
-Urp 系统，利用实体用户界面进行城市规划设计。
+Urp 系统 {cite}`Underkoffler1999Urp`，利用实体用户界面进行城市规划设计。
 ```
 ```{figure} fig/interaction-spatial-radical_atoms.png
 :name: fig-interaction-spatial-radical_atoms
-基于 Radical Atoms 的未来交互新范式。
+基于 Radical Atoms 的未来交互新范式 {cite}`ishii2012radical`。
 ```
-实体用户界面的另一个典型例子可以参见Karen Vanderloock提出的Skweezee系统 {cite}`vanderloock2013skweezee`，他们通过在实体设备上定义了标准的交互操作来使得用户可以通过直接的物理实体实现交互控制。{numref}`fig-interaction-spatial-skweezee`展示了Skweezee中一种设备（cuboid）的七种标准交互操作。
+实体用户界面的另一个典型例子可以参见凯伦·范德洛克（Karen Vanderloock）提出的 Skweezee 系统 {cite}`vanderloock2013skweezee`，他们通过在实体设备上定义了标准的交互操作来使得用户可以通过直接的物理实体实现交互控制。{numref}`fig-interaction-spatial-skweezee`展示了 Skweezee 中一种设备（cuboid）的七种标准交互操作。
 ```{figure} fig/interaction-spatial-skweezee.png
 :name: fig-interaction-spatial-skweezee
-Skweezee: cuboid
+Skweezee: cuboid {cite}`vanderloock2013skweezee`。
 ```
 
 ### 物理控件（Physical Widgets）
 
-实体用户界面的发展有赖于物理控件（Physical Widgets或Phidgets）的发展，一类具有物理实体的**可重复使用**的交互设备。与Skweezee系统这样的TUI技术不同的是，物理控件往往是固定在桌面的交互设备，例如各种压力、温度的传感器控件或相机，其输入输出并配备有物理实体，允许用户通过物理交互来传递控制信号。如{numref}`fig-interaction-spatial-table_phidget`所示的桌面交互，利用相机摄影将用户的动作实时传递给系统并据此在桌面显示屏中作出交互反馈。物理控件的设置初衷在于提供一种便捷、低成本的方式来让计算机能够方便地获得与现实世界进行物理交互的能力。物理控件往往统一为USB接口，使用时只需要连接到计算机设备上，随后通过特定的驱动程序来处理数字输入输出。
+实体用户界面的发展有赖于物理控件（Physical Widgets 或 Phidgets）的发展，一类具有物理实体的**可重复使用**的交互设备。与 Skweezee 系统这样的 TUI 技术不同的是，物理控件往往是固定在桌面的交互设备，例如各种压力、温度的传感器控件或相机，其输入输出并配备有物理实体，允许用户通过物理交互来传递控制信号。如{numref}`fig-interaction-spatial-table_phidget` 所示的桌面交互，利用相机摄影将用户的动作实时传递给系统并据此在桌面显示屏中作出交互反馈。物理控件的设置初衷在于提供一种便捷、低成本的方式来让计算机能够方便地获得与现实世界进行物理交互的能力。物理控件往往统一为USB接口，使用时只需要连接到计算机设备上，随后通过特定的驱动程序来处理数字输入输出。
 ```{figure} fig/interaction-spatial-table_phidget.png
 :name: fig-interaction-spatial-table_phidget
 桌面交互。
