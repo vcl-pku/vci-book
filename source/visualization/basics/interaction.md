@@ -15,8 +15,10 @@
 Sketchpad被公认为是第一个真正的交互式图形用户界面和可视化系统，奠定了人机交互领域的基础。 
 Sketchpad引入了诸如几何约束、面向对象、视图与对象分离等重要概念，用户可以通过光笔在屏幕上直接绘制和操纵图形对象，展现了交互对可视化的重要作用。
 
-图1 Sketchpad界面图
-![Sketchpad界面示意图]
+```{figure} fig/visualization-basics-SketchpadDissertation.png
+:name: visualization-basics-SketchpadDissertation.png
+正在操纵Sketchpad的Ivan Sutherland。(Kerry Rodden根据Ivan Sutherland的原始照片扫描得到的Sketchpad论文电子版，由 Blackwell 和 Rodden编辑)
+```
 
 20世纪70-80年代，随着计算机图形学、GUI、面向对象编程等技术的发展，以及个人计算机的普及，交互式可视化迎来了蓬勃发展的时期。一系列里程碑式的可视化系统和技术相继出现：
 
