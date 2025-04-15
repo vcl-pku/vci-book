@@ -1,4 +1,4 @@
-# 标量场、矢量场、张量场的可视化
+# 二维空间科学数据
 
 ## 按物理量性质分类：标量场、矢量场、张量场
 
@@ -23,94 +23,77 @@
 
 ## 标量场可视化
 
-标量可视化是将分布在空间中的标量值数据转换为人类可感知的视觉形式（如颜色、等值线）的过程，以下将介绍几种经典方法。
+标量可视化是将分布在空间中的标量值数据转换为人类可感知的视觉形式（如颜色、线条等）的过程，以下我们将介绍几种经典方法。
 
 ### 颜色映射
 
-颜色映射（Color Mapping）将标量值通过预定义的颜色映射函数映射到颜色空间（如 RGB 或 HSV），使用图形库的标准着色和阴影功能来显示这些颜色，并以颜色差异来表示数值差异。
-颜色映射的基本定义式如下：对域 $D$ 内的任意点 $x \in D$，
+颜色映射（Color Mapping）是一种常见的标量可视化技术。其原理是把标量数据的数值，按照一定的规则，映射到颜色空间（如 RGB 或 HSV）里的颜色，这样每个数值就有了一个直观可见的“颜色表达”，颜色差异代表了数值差异。
+
+颜色映射的基本定义式如下：设 $S$ 为定义在域 $D$ 上的标量场，$S:D \rightarrow \mathbb{R}$ ，其中 $D\subseteq \mathbb{R}^2$，那么对域 $D$ 内的任意点 $\boldsymbol{x} \in D$，它映射到的颜色值可以写为
 
 $$
-C(x) = T(S(x))，
+V(\boldsymbol{x}) = T(S(\boldsymbol{x}))，
 $$ (visualization-scientific-color_mapping)
-
-$C$ 表示可视化的颜色值，$S$ 为定义在域 $D$ 上的标量场，$S:D \rightarrow \mathbb{R}$ ，其中 $D\subseteq \mathbb{R}^n$（通常 $n$ = 2 或 3），$\mathbb{R}$ 表示实数集。
 
 $T$ 表示颜色映射函数，可以定义为： 
 
 $$
-T: [S_{\text{min}}, S_{\text{max}}] \rightarrow \text{Colors}，
+T: [S_{\text{min}}, S_{\text{max}}] \rightarrow C，
 $$ (visualization-scientific-function)
 
-其中 $[S_{\text{min}}, S_{\text{max}}]$ 是颜色映射所考察的标量场取值范围（如，可取为 $S$ 的值域，或值域内某个取值区间），$\text{Colors}$ 表示一组颜色。
-最终，对于所有 $x \in D$，都可以将 $x$ 在域 $D$ 中的标量值 $S(x)$ 通过颜色映射函数 $T$ 转换为一个颜色，从而实现可视化。
+其中 $[S_{\text{min}}, S_{\text{max}}]$ 是 $S$ 的值域，$C$ 表示颜色空间。
+最终，对于所有 $\boldsymbol{x} \in D$，都可以将 $\boldsymbol{x}$ 在域 $D$ 中的标量值 $S(\boldsymbol{x})$ 通过颜色映射函数 $T$ 转换为一个颜色，从而实现可视化。
 
-颜色映射函数通过传递函数将归一化后的标量值转换为颜色值，而颜色查找表是一种特殊形式的传递函数，如{numref}`color_mapping`。
-基于颜色查找表是一种最直接的颜色映射方法，其流程包含如下步骤：
-- **定义颜色查找表**：
-查找表包含一组预定义的颜色数组（例如，红色、绿色、蓝色以及透明度分量或其他类似的表示），通常存储为 RGB 或 RGBA，每个颜色对应一个标量值。
+颜色映射函数 $T$ 的定义方式是多种多样的，基于色标来定义颜色映射函数是一种最直接的方案，如{numref}`color_mapping`，其流程包含如下步骤：
 
-- **标量归一化**：
-按设定的 $[S_{\text{min}}, S_{\text{max}}]$ 范围，将原始标量值 $S$ 线性缩放到标准范围 $[0,1]$ 内，超出范围的值截断至边界：
+1. 数据归一化：原始的标量场数据可能取值范围很大，且核心数据集中分布在更小的区间（如气温等），因此首先需要选定想要考察的标量值范围 $[\bar{S}_{\text{min}}, \bar{S}_{\text{max}}]$，将 $S$ 缩放到标准范围 $[0,1]$ 内（这里我们采用了线性的放缩，如果想突出某些特定数值区域，还可以用非线性归一化，比如对数、指数映射），并将超出考察范围的值截断至边界：
 
 $$
-S_{\text{norm}} = 
+\bar{S} = 
 \begin{cases}
-0, & S < S_{\text{min}} \\
-1, & S > S_{\text{max}} \\
-\frac{S - S_{\text{min}}} {S_{\text{max}}-S_{\text{min}}}, & \text{otherwise}
+0, & S < \bar{S}_{\text{min}} \\
+1, & S > \bar{S}_{\text{max}} \\
+\frac{S - \bar{S}_{\text{min}}} {\bar{S}_{\text{max}}-S_{\text{min}}}, & \text{otherwise}
 \end{cases}
 $$ (visualization-scientific-uniform)
 
-- **计算索引**：
-通过计算标量值在查找表中的索引位置计算出颜色值，从而将标量值映射到对应的颜色。
-$N$ 为查找表颜色数，则索引值 $\text{index}$（浮点数） 为：
+2. 定义色标：色标也被称为颜色查找表（colormap），它本质上是定义了从 $[0,1]$ 区间到颜色空间的连续映射函数。Matplotlib、Matlab 等工具中包含了多种预定好的色标方案，包括 Jet、Viridis 等，如{numref}`color_mapping` 所示。也可以进行色标的自定义，如：先定义 $[0,1]$ 内若干离散值对应的具体颜色，而后通过插值方法（{numref}`chap-getting-started-curves`）得到连续的颜色映射方案。
 
-$$
-\text{index}=S_{\text{norm}} \times (N-1)，
-$$ (visualization-scientific-index)
-
-
-- **颜色插值**
-颜色插值用于在查找表的离散颜色之间生成平滑过渡，线性插值是一种常见的插值方法。
-已知 $C_i$ 和 $C_{i+1}$ 为两个相邻的颜色，，$i = \lfloor \text{index} \rfloor$ 是索引值向下取整，则插值权重 $\alpha = \text{index}-i$，则颜色 $C$ 的插值公式如下：
-
-$$
-C=(1- \alpha) \times C_i+ \alpha \times C_{i+1}，
-$$ (visualization-scientific-interpolation)
+3. 查找颜色：用归一化后的标量值 $\bar{S}$ 作为索引，从色标中取出对应的颜色。
 
 ```{figure} fig/visualization-scientific-color_mapping.png
 :name: color_mapping
-颜色映射表的形式。
+根据不同可视化目标预定义出的色标。© Matplotlib
 ```
 
-### 等高线/等值面
+### 等值线
 
-颜色映射的一个自然扩展是等高线（等值线）（contours）与等值面（isosurfaces）的绘制。
+颜色映射的一个自然扩展是等值线（contours）的绘制。
 当我们看到一个用数据值着色的表面时，眼睛常常将颜色差别较大的相近区域区分为不同的区域。
-当我们绘制等高线时，实际上就是在构造这些区域之间的边界。
-特定的边界可以表示为两个区域 $F(x) < c$ 和 $F(x) > c$ 之间的 $n$ 维分隔面，其中 $c$ 是等高线值，$x$ 是数据集中的 $n$ 维点。
+当我们绘制等值线时，实际上就是在构造这些区域之间的边界。
+对于选取的某个标量值 $c$，等值线 $S(\boldsymbol{x})=c$ 就是划定两个区域 $S(\boldsymbol{x}) < c$ 和 $S(\boldsymbol{x}) > c$ 之间分割线。等值线在地理学、气象学等自然领域有着重要应用，地图上的等高线、气温分布图上的等温线就是等值线的具体应用。
 
-绘制等高线始终是从定义要生成的等高线或表面的等高线值开始的。
-由于实际数据多为离散采样点，如{numref}`fig-visualization-scientific-isometric` 中显示的 2D 结构化网格（数字代表网格点处的标量值），生成连续等值线/面需通过插值计算等值点位置。
+基于等值线的可视化就是将标量场中数值相同的点用线条连接起来，从而直观展现标量场的走势。在给定了需要生成的等值线的值后，由于实际数据多为离散采样点，绘制等值线需要经过定位离散等值点和插值得到线条两步。
 
-```{figure} fig/visualization-scientific-isometric.png
-:name: fig-visualization-scientific-isometric
-一个简单的等值线（$c=5$）测绘示意图。
+```{figure} fig/visualization-scientific-contour.png
+:name: fig-visualization-scientific-contour
+左：行进方块算法连线方案 © Wikipedia；右：一个简单的等值线（$c=5$）测绘示意图。
 ```
 
-最常见的插值技术是线性插值，我们沿单元格边缘定位等值点，从而确保拓扑连续性。
-在二维网格单元格边缘，等值点 $p$ 的位置由相邻顶点 $x_1，x_2$计算，公式如下：
+一个简单的实例如{numref}`fig-visualization-scientific-contour` 右所示，考虑图中的 2D 结构化网格（数字代表网格点处的标量值）中 $c=5$ 的等值线绘制。首先，由于等值线值可能位于离散的格点之间，我们首先需要在各条边上找到对应的等值点，由于最常见的插值技术是线性插值，因此这里也可以根据线性关系进行定位：若某条边的两个顶点 $\boldsymbol{x}_1,\boldsymbol{x}_2$ 处的值 $S_1, S_2$ 跨越了值 $c$，即 $S_1\le c\le S_2$，那么可以认为这条边上存在一个等值点
 
 $$
-p = x_1 + \frac{c-v_1}{v_2-v_1} \cdot (x_2-x_1)，
+\boldsymbol{p} = \boldsymbol{x}_1 + \frac{c-S_1}{S_2-S_1} \cdot (\boldsymbol{x}_2-\boldsymbol{x}_1)。
 $$ (visualization-scientific-contours)
-其中 $c$ 是目标等高线值，$v_1$，$v_2$ 是点 $x_1$，$x_2$ 处的标量值。
 
-例如，如果一条边在其两个端点的标量值为10和0，并且我们试图生成值为5的等高线，则边缘插值计算等高线通过边缘的中点。
+例如，如果一条边在其两个端点的标量值为 10 和 0，并且我们试图生成值为 5 的等值线，则计算可知等值线通过这条边的中点。
 
-一旦在单元格边缘生成了点，我们就可以将这些点连接成等高线。
-对于等高线的连接一种方法是使用分而治之的技术，独立处理每个单元格。这在二维中称为“行进方块算法”（Marching Squares），在三维中称为“行进立方体算法”（Marching Cubes），如{numref}`fig-visualization-scientific-marching_squares`和{numref}`fig-visualization-scientific-marching_cubes`所示。
+确定离散的等值点之后，我们需要把这些点连接起来，形成完整的等值线。由于等值线是局部连续的，也只受到局部数值的影响，因此，我们可以采用分而治之的策略，认为每个单元格内部的处理是互不影响的，一个单元格内的四个顶点及其数值，已经完全决定了：等值线要不要经过这个单元格；以及，如果经过，应该从哪个边进，从哪个边出。
+而在每个单元格内，由于每个顶点只有“内部”或“外部”两种状态，因此格点的状态组合只有 $2^4=16$ 种可能，因此等值线在每个单元格内部的走法是有限且可以分类的，如{numref}`fig-visualization-scientific-contour` 左所示。因此，只要根据单元格状态选择对应的连线方案，就可以得到最终连接好的等值线。这一方案被称为**“行进方块算法”（Marching Squares）**。
+
+<!-- 我们可以用一个四位的二进制数来编码每个单元格的状态（比如 1010 代表左上和右下角在内部，其他角在外部），然后查一张预先准备好的表，确定等值线在这个格子里应该怎么走。 -->
+
+<!-- 这一方案在二维中称为“行进方块算法”（Marching Squares），在三维中称为“行进立方体算法”（Marching Cubes），如{numref}`fig-visualization-scientific-marching_squares`和{numref}`fig-visualization-scientific-marching_cubes`所示。
 
 ```{figure} fig/visualization-scientific-marching_squares.png
 :name: fig-visualization-scientific-marching_squares
@@ -122,10 +105,8 @@ Marching Squares 算法示意。
 Marching Cubes 算法示意。
 ```
 
-这些技术的基本假设是，等高线只能以有限的方式通过一个单元格。拓扑状态的数量取决于单元格顶点的数量以及顶点与等高线值相对的内部/外部关系的数量。如果顶点的标量值大于等高线的标量值，则认为该顶点在等高线内部。标量值小于等高线值的顶点则被认为在等高线外部。
-对于一个方形单元格，有 16 种组合。通过将每个顶点的状态编码为一个二进制数字，可以计算出案例表中的索引。
-对于三维数据，考虑到立方体单元格中有八个点，有 $2^8=256$ 种不同的标量值组合。但是由于旋转平移对称性可以进一步缩减案例中的数目。关于 Marching Cubes 的算法流程可以参考 Lorensen 等人的工作 {cite}`lorensen1998marching`。
 
+-->
 
 一个 2D 温度场的等值线（等温线）绘制结果如{numref}`fig-visualization-scientific-temperature` 所示。
 ```{figure} fig/visualization-scientific-temperature.png
@@ -133,14 +114,20 @@ Marching Cubes 算法示意。
 2D 温度场的等温线可视化。
 ```
 
-{numref}`fig-visualization-scientific-marching_cubes_results`给出了一些利用Marching Cubes算法进行重建的结果。
+```{admonition} 思考
+:class: tip
+
+在{numref}`fig-visualization-scientific-contour` 中，我们根据16种单元格状态分类用线段连接了所有边上的等值点。如果要绘制出如{numref}`fig-visualization-scientific-temperature` 中圆滑的等值曲线，有没有更好的连接方案呢？
+```
+
+<!-- {numref}`fig-visualization-scientific-marching_cubes_results`给出了一些利用Marching Cubes算法进行重建的结果。 -->
 
 
-
+<!-- 
 ```{figure} fig/visualization-scientific-marching_cubes_results.png
 :name: fig-visualization-scientific-marching_cubes_results
 行进立方体算法的一些结果。
-```
+``` -->
 
 ## 矢量场可视化
 
