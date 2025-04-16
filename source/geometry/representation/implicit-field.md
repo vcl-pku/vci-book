@@ -21,8 +21,15 @@ f(\mathbf{x})=\left\{\begin{aligned}
 \end{aligned}\right.
 $$ (eq-geometry-representation-implicit_field-sdf)
 
+```{figure} fig/sdf.png
+:name: fig-geometry-representation-sdf
+:width: 50%
+
+有符号距离场的示意图。有符号距离场可以被表示为一系列储存在栅格处的有符号距离函数值（SDF Values），图中每一个“+”所示的格点，都对应了一个以格点为圆心、以有符号距离函数值的绝对值为半径的圆。有符号距离函数值大于零示意为绿色，小于零。显然，根据有符号距离函数的定义，这些圆都会与形状的表面相切。
+```
+
 ```{important}
-有符号距离场并没有规定符号在形状内部取负值还是在外部取负值，在数学领域，许多情况下倾向于规定在外部取负值。但在可视计算领域，有符号距离函数往往在形状内部取负值。
+有符号距离场并没有规定符号在形状内部取负值还是在外部取负值，在数学领域，许多情况下倾向于规定在外部取负值。但在可视计算领域，有符号距离函数往往在形状内部取负值，如 {numref}`fig-geometry-representation-sdf` 所示。
 ```
 
 ## 符号距离函数的性质
