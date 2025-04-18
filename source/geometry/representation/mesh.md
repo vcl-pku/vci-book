@@ -17,27 +17,27 @@
 :name: fig-geometry-representation-mesh_examples
 :width: 85%
 
-用多边形网格表示几何体的例子。
+用网格模型表示几何体的例子。
 ```
 
 当然，如果要使用网格模型表达光滑的曲面，则需要大量的面片才能让模型变得精细，{numref}`fig-geometry-representation-curved_mesh` 展示了面片数量较少时，网格模型表示曲面的能力有限。在几何处理章节（{numref}`chap-geometry-processing`）中，我们将会专门介绍网格细分算法来增加网格模型的面片数量，从而使其趋近光滑曲面。
 
 ```{figure} fig/curved_mesh.jpg
 :name: fig-geometry-representation-curved_mesh
-:width: 80%
+:width: 90%
 
-用网格模型表示曲面。可以看到当使用的面片数量较少时，得到的曲面就不够光滑。
+用网格模型表示曲面，从左到右使用的面片数量依次减少。可以看到当使用的面片数量较少时，得到的曲面就不够光滑。
 ```
 
 ## 三角网格
 
-三角网格是最常用的几何表示方式，通过记录组成每个三角面片的顶点坐标，可以唯一表达一个几何体。一种常见的表示三角网格的数据结构是分别记录所有顶点的三维坐标，以及每个面片的三个顶点的下标，例如一个四面体就可以按照 {numref}`fig-geometry-representation-tetrahedron` 的方式进行记录。这种数据结构通过共享顶点位置，减少了存储占用，同时保证了网格的整体性，即改变一个顶点在三维空间中的位置可以让与该顶点有关的所有三角面片发生移动。
+三角网格是最常用的几何表示方式，可以地唯一表达一个几何体。常见的表示三角网格的数据结构是分别记录所有顶点（vertex）的三维坐标，以及每个三角面片（triangle facet）的三个顶点的索引（index），例如一个四面体就可以按照 {numref}`fig-geometry-representation-tetrahedron` 的方式进行记录。这种数据结构通过共享顶点位置，减少了存储占用，同时保证了网格的整体性，即改变一个顶点在三维空间中的位置可以让与该顶点有关的所有三角面片发生移动。
 
-```{figure} fig/tet.jpg
+```{figure} fig/tet.png
 :name: fig-geometry-representation-tetrahedron
 :width: 90%
 
-用三角面片表示一个四面体。
+用三角网格表示一个四面体。
 ```
 
 ## 四边形网格
@@ -60,24 +60,36 @@
 :alt: (a) 纹理映射。
 ```
 
-```{image} fig/param_earth.png
+```{image} fig/param_earth.jpg
 :alt: (b) 世界地图绘制。
 ```
 
 网格参数化的应用。
 ````
 
-参数化的另一个具体应用是世界地图的绘制。通常可以采用球面坐标系来表示地球表面的每一个点，给定半径后，每一个点对应着唯一一组方位角和仰角。但在实际应用中，是将世界地图画在平面上的，如 {numref}`fig-geometry-representation-param_texture`(b) 所示。世界地图的绘制技术由来已久，出现了不同的技术，典型的有立体投影（或球极平面投影）、墨卡托投影和朗伯投影等方法，如 {numref}`fig-geometry-representation-param_map` 所示。
+参数化的另一个具体应用是世界地图的绘制 [^world_map]。通常可以采用球面坐标系来表示地球表面的每一个点，给定半径后，每一个点对应着唯一一组方位角和仰角。但在实际应用中，是将世界地图画在平面上的，如 {numref}`fig-geometry-representation-param_texture`(b) 所示。世界地图的绘制技术由来已久，出现了不同的技术，典型的有立体投影（或球极平面投影）、墨卡托投影等方法，如 {numref}`fig-geometry-representation-param_map` 所示。
 
-```{figure} fig/param_map.png
+````{subfigure} A|B
+:layout-sm: A|B
+:gap: 8px
+:subcaptions: below
 :name: fig-geometry-representation-param_map
-:width: 80%
-不同的世界地图绘制方法。图中依次展现了对地球表面进行正交投影、球极平面投影、墨卡托投影、朗伯投影得到的二维平面图。
+:width: 60%
+
+```{image} fig/param_map1.png
+:alt: (a) 立体投影。
 ```
+
+```{image} fig/param_map2.png
+:alt: (b) 墨卡托投影。
+```
+
+两种地图投影方法 [^map_proj]。
+````
 
 1. 球极平面投影：将一个圆球面通过指定极点射影至一个平面的映射。能够保持角度不变，但是面积会发生改变，尤其在极点附近。
 2. 墨卡托投影：投影后经线是一组竖直的等距离平行直线，纬线是垂直于经线的一组平行直线。各相邻纬线间隔由赤道向两极增大。一点上任何方向的长度比均相等，即没有角度变形，而面积变形显著，随远离标准纬线而增大。该投影具有等角航线被表示成直线的特性，故广泛用于编制航海图和航空图等。
-3. 朗伯投影：一种等面积的平面投影，它不仅可以精确记录面积，也能不改变方向，一般用于绘制精度要求较高的地质图或导航图。这种投影一般不会把整个世界划在同一张图上，因为地图外围的区域形变会比较大（外围会在远离基准点的方向压缩，导致轮廓变得很扁）。它一般只包括某个半球、某个大陆甚至某个区域。
+<!-- 3. 朗伯投影：一种等面积的平面投影，它不仅可以精确记录面积，也能不改变方向，一般用于绘制精度要求较高的地质图或导航图。这种投影一般不会把整个世界划在同一张图上，因为地图外围的区域形变会比较大（外围会在远离基准点的方向压缩，导致轮廓变得很扁）。它一般只包括某个半球、某个大陆甚至某个区域。 -->
 
 按照参数域的不同，网格参数化可以分为：
 1. 平面（planar）参数化，即将网格映射到平面；
@@ -99,23 +111,12 @@ $$ (eq-geometry-representation-parameterization-energy)
 
 其中 $n$ 是节点总数，$D_{ij}$ 是连接第 $i$ 和第 $j$ 个顶点的弹簧的劲度系数，也是其所对应边在系统中的权重。
 
-````{subfigure} AB
-:layout-sm: A|B
-:gap: 8px
-:subcaptions: below
+```{figure} fig/param_spring.png
 :name: fig-geometry-representation-param_spring
 :width: 90%
 
-```{image} fig/param_spring.png
-:alt: (a)
-```
-
-```{image} fig/param_spring_map.png
-:alt: (b)
-```
-
 开网格平面参数化的弹簧模型。(a) 将网格建模成节点-弹簧模型。(b) 将三维空间中的网格点 $\mathbf s=(x,y,z)$ 与二维参数空间中的点 $\mathbf t=(u,v)$ 建立一一映射关系。
-````
+```
 
 这里的自变量即参数化后顶点 $\mathbf t_i,\,i=1,\dots,n$ 对应的二维坐标。
 那么平衡状态对应于关于变量的导数为零：
@@ -158,7 +159,11 @@ $$ (eq-geometry-representation-parameterization2)
 :name: fig-geometry-representation-LOD
 :width: 85%
 
-层次细节模型。
+层次细节模型 [^lod]。
 ```
+
+[^world_map]: [Wikipedia: World map](https://en.wikipedia.org/wiki/World_map)
+[^map_proj]: [Wikipedia: Map projection](https://en.wikipedia.org/wiki/Map_projection)
+[^lod]: [Wikipedia: Level of detail](https://en.wikipedia.org/wiki/Level_of_detail_(computer_graphics))
 
 层次细节模型不仅可以应用于几何形状，还可以在纹理贴图中使用。Mipmap 贴图正是这样一种技术，通过预先计算一系列不同分辨率的纹理（典型的 Mipmap 贴图中，每一级的纹理宽度和高度都是上一级的一半），随后根据对象的距离确定所需要使用的贴图级别。这些方法往往都能够有效地提升实时渲染的性能。

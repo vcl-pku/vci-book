@@ -9,7 +9,7 @@
 :name: fig-geometry-processing-smoothing_teaser
 :width: 60%
 
-左边是带有噪音的三维扫描的人脸。右边上面一行表示原始的几何以及平均曲率，下面表示经过降噪后的几何和平均曲率。
+左边是带有噪音的三维扫描的人脸。右边上面一行表示原始的几何以及平均曲率，下面表示经过降噪后的几何和平均曲率 {cite}`Duarte2017`。
 ```
 
 我们可以借助扩散流的数学模型来帮助理解，它常被用来平滑给定的时空信号 $f(x,t)$。很多常见的物理现象可以用扩散流解释，比如热量从高温处逐渐往低温处扩散的过程，可以看作是一个扩散流的过程。扩散流公式写作：
@@ -57,21 +57,14 @@ $$ (eq-geometry-processing-smoothing5)
 :name: fig-geometry-processing-curvature_flow
 :width: 60%
 
-对左边的网格进行曲率平滑，中间是迭代10次的结果，右边是迭代100次的结果。
+左：初始网格的曲率可视化；中：平均曲率平滑迭代 10 次后的曲率；右：平均曲率平滑迭代 100 次后的曲率。
 ```
 
-在取均匀算子的情况下，因为没有考虑面的信息，只考虑了顶点位置，那么平滑不会沿着曲率方向，而是会往重心方向移动，即将每个顶点往相邻顶点的平均位置移动，如 {numref}`fig-geometry-processing-camparison_laplace1` 所示。这个过程等价于某种能量函数最小化，平衡状态下的形状应该是所有边长度相同。这种方式定义的拉普拉斯算子不反映网格形状，可能导致局部几何特征的失真。
-从 {numref}`fig-geometry-processing-camparison_laplace2` 中可以看出，余切算子能更好地保持几何特征，而均匀算子导致了三角网格切向的松弛。
+在取均匀算子的情况下，因为没有考虑面的信息，只考虑了顶点位置，那么平滑不会沿着曲率方向，而是会往重心方向移动，即将每个顶点往相邻顶点的平均位置移动。这个过程等价于某种能量函数最小化，平衡状态下的形状应该是所有边长度相同。这种方式定义的拉普拉斯算子不反映网格形状，可能导致局部几何特征的失真。
+从 {numref}`fig-geometry-processing-camparison_laplace` 中可以看出，余切算子能更好地保持几何特征，而均匀算子导致了三角网格切向的松弛。
 
-```{figure} fig/camparison_laplace1.png
-:name: fig-geometry-processing-camparison_laplace1
-:width: 60%
-
-使用不同算子对左边的网格平滑（十次迭代）。均匀算子会使得规则化三角形的重心（中心），而余切算子会保留三角形形状（右图）。
-```
-
-```{figure} fig/camparison_laplace2.png
-:name: fig-geometry-processing-camparison_laplace2
+```{figure} fig/camparison_laplace.png
+:name: fig-geometry-processing-camparison_laplace
 :width: 60%
 
 不同算子在网格平滑的过程中对几何特征保持的不同程度。

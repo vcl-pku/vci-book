@@ -1,21 +1,18 @@
 # 三维空间科学数据
 
-在前面对标量场、矢量场、张量场的可视化方法进行介绍时，我们主要是根据数据本身的属性（标量、矢量、张量）来区分可视化类型。然而在实际应用中，数据还可能以不同的几何形式呈现在空间中，例如：
-某些数据仅限定在诸如曲面、地形、CAD 模型边界等“表面”上，需要进行**表面可视化**。
-更多时候，数据分布在三维体内部，如医学成像的 CT 或 MRI 扫描结果、流体模拟的 3D 网格数据等，这些数据往往需要**体积可视化**技术才能揭示其内部结构。
-因此我们继续探讨“表面数据”和“体数据”在可视化时所采用的不同技术。
-
+与二维数据主要聚焦于物理量类型不同，在三维空间中，数据还可能以不同的几何形式呈现在空间中，
+科学数据的空间结构成为可视化设计的关键依据。常见的三维科学数据可以分为两类：表面数据和体数据。前者通常指具有明确几何边界的二维嵌入式结构，如医学图像中的器官表面或地质断层；而后者则描述填满空间的体积信息，如CT扫描结果、气象体场或模拟中的物质密度分布。对不同结构的数据，可视化技术需要在几何建模、渲染策略与交互方式上做出相应调整，以有效呈现其内部结构与分布特征。
 
 ## 按空间结构分类：表面数据、体数据
 
-### 表面数据（Surface Data）
+### 表面数据
 
-表面数据用于表示三维对象的外部形状和结构，通常以网格和参数化表示，其中网格是由顶点、边和面组成的集合，通常用于表示复杂的三维形状，参数化表示为通过数学公式来定义表面，如贝塞尔曲面或 NURBS (非均匀有理 B 样条)。
+表面数据（Surface Data）用于表示三维对象的外部形状和结构，通常以网格和参数化表示，其中网格是由顶点、边和面组成的集合，通常用于表示复杂的三维形状，参数化表示为通过数学公式来定义表面，如贝塞尔曲面或 NURBS (非均匀有理 B 样条)。
 表面数据具有高维嵌套（二维结构嵌入三维空间）和局部细节丰富的特点。可视化时，准确展现几何细节、处理复杂拓扑结构以及支持高效渲染是主要挑战。
 
-### 体积数据（Volume Data）
+### 体积数据
 
-体积数据表示的是三维空间内部的数据分布，每个空间位置对应一个数据值。常见的体积数据包括：医学成像（如 CT 或 MRI 扫描）、气象模拟（如三维风速场或云量分布）、工程仿真（如流体动力学模拟的速度和压力场）。
+体积数据（Volume Data）表示的是三维空间内部的数据分布，每个空间位置对应一个数据值。常见的体积数据包括：医学成像（如 CT 或 MRI 扫描）、气象模拟（如三维风速场或云量分布）、工程仿真（如流体动力学模拟的速度和压力场）。
 体积数据具有数据量大、内部结构复杂且可能缺乏明确边界的特点，如何有效提取内部特征、减少遮挡干扰，以及在保证细节的同时进行高效绘制是体积数据可视化的关注重点。
 
 常见的体积数据的存储模式包括：结构化网格、非结构化网格、无网格拓扑的离散点点云等。
@@ -67,21 +64,20 @@
 
 ### 体渲染
 
-体渲染（volume rendering）是科学可视化中用于探索三维体数据内部结构的核心技术。
-与传统的表面渲染不同，体渲染无需提取表面的几何网格，而是直接操作体素（三维像素，如{numref}`fig-visualization-scientific-voxels` 中的三维立方体或体单元）数据：通过对体数据进行逐像素或逐射线的光线跟踪，模拟光线在参与性介质（如云雾、生物组织）中的传播过程，将3D体内部的“密度”或“标量值”映射为颜色和透明度，再投影到屏幕上，形成半透明的可视化效果，从而突出体积中感兴趣的数值范围（如医学中突出骨骼、血管等）。揭示数据的全局特征与局部细节。
-其核心价值在于平衡透明度与对比度，使观察者既能捕捉整体分布，又能聚焦关键区域，因此适用于无明确边界或内部结构复杂的数据。
+体渲染最初用于在计算机图形中生成云、烟、火焰、果冻等半透明物体的可视化效果。这些物体通常不具有明确的表面边界，并且物质的密度相对较低，，形状模糊且内部结构复杂。于是研究者们提出了一种新的思路：直接描述空间中的物理属性分布（如密度、温度、颜色、发光强度），并模拟光线在参与性介质（如云雾、生物组织）中的传播过程，将3D体内部的“密度”或“标量值”映射为颜色和透明度，再投影到屏幕上，形成半透明的可视化效果。这种方法的最大优势在于它无需提取表面的几何网格，而是直接考察物质介质中的属性分布情况并计算透射出介质的光照，实现了对飘渺的云彩、朦胧的烟雾等自然现象的真实模拟。
 
+而后体渲染技术也被广泛用于科学可视化，尤其是在医学成像领域。这些领域中的数据通常以规则的模式采集到，如体素（三维像素，如{numref}`fig-visualization-scientific-voxels` 中的三维立方体或体单元）数据。体渲染可以突出体积数据中感兴趣的数值范围（如医学中突出骨骼、血管等），揭示数据的全局特征与局部细节。
 
 ```{figure} fig/visualization-scientific-voxels.png
 :scale: 70%
 :name: fig-visualization-scientific-voxels
-三维体素数据
+三维体素数据示例。
 ```
 
-体渲染最初用于在计算机图形中生成非刚性物体的可视化效果，如云、烟、果冻等。这些物体通常不具有明确的表面边界，并且其物质的密度相对较低。
-体渲染通过将气体或其他非刚性物质抽象为粒子群或体素群来更好地处理这些物体的半透明和不规则特性，使其在视觉上更为真实。
 <!-- 在这种表示中，物体被视为由大量小粒子组成的集合体，而非一个具有固定形状和边界的实体，这允许光线以更自然的方式穿过物体，从而更好地模拟光子与粒子间的相互作用。
 当光线穿过这些由粒子群构成的物体时，它们不断与粒子发生相互作用，例如散射和吸收。这种相互作用导致光线路径的改变，从而产生了体渲染中独特的视觉效果。 -->
+
+> 这段要改：
 
 在体渲染过程中，传递函数（Transfer Function）和光线投影（Ray Casting）是密不可分的两个关键环节。
 传递函数用于将体素所携带的标量值映射成颜色和不透明度，从而在视觉上表现出不同的密度或材质特征。
@@ -89,78 +85,103 @@
 值得注意的是，体渲染中一般不涉及反射模型；大多数直接体绘制只考虑介质对光的吸收与散射，而反射通常出现在具有明确表面或镜面特性的物体中，故在经典的体渲染里并不常用。
 
 
-我们首先对比体渲染和之前提到的表面渲染，然后介绍体渲染的物理公式，最后介绍体渲染的经典实现算法。
-
-#### 体渲染和表面渲染的对比
-
-```{table} 表面渲染与体渲染的比较
-:widths: auto
-:align: center
-:name: tab-visualization-scientific-rendering_comparison
-| **特性**  | **表面渲染 (Surface Rendering)**   | **体渲染 (Volume Rendering)**  |
-|:-----------:|:---------------------------:|:---------------------------:|
-| 数据转换     | 数据被转换为表面基元（如三角形），然后进行绘制。       | 不需要提取表面基元，数据由一个或多个（假定连续的）3D 场构成。 |
-| 可视化表示   | 所有可见内容都是嵌入在 3D 空间中的 2D 表面。          | 直接渲染整个体积，类似于一团彩色的果冻。                    |
-| 数据隐藏风险 | 转换为几何基元可能会丢失或隐藏某些数据。              | 数据较少可能被隐藏，提供更全面的视觉信息。                   |
-| 适用场景     | 适用于不透明物体。                                  | 适用于需要详细展示内部结构的应用场景。                      |
-```
-
-表面渲染和体渲染的对比如{numref}`fig-visualization-scientific-rendering_comparison` 所示，可见体渲染可以在给出相应的形状的前提下并对于内部给出一些信息。
-
-```{figure} fig/visualization-scientific-rendering_comparison.png
-:name: fig-visualization-scientific-rendering_comparison
-表面渲染和体渲染的对比图
-```
+<!-- 我们首先对比体渲染和之前提到的表面渲染，然后介绍体渲染的物理公式，最后介绍体渲染的经典实现算法。 -->
 
 #### 体渲染的原理
 
-体渲染把光子与粒子发生作用的过程，进一步细化为三种类型：
+体渲染建立在光学传输模型的基础上：如{numref}`fig-visualization-scientific-transmission` 所示，光透射过体积介质打到相机屏幕上，出射光强决定了图像的渲染结果。
+
+```{figure} fig/visualization-scientific-transmission.png
+:scale: 40%
+:name: fig-visualization-scientific-transmission
+体渲染的原理：光与介质作用后的出射光强决定了图像渲染结果。
+```
+
+在光的透射过程中，由于光子与体积介质中的粒子发生作用，光强会因以下现象发生改变，如{numref}`fig-visualization-scientific-phenomena` 所示：
 
 - 吸收 (absorption)：光子被粒子吸收，会导致入射光的辐射强度减弱。
 - 放射 (emission)：粒子本身可能发光，这会进一步增大辐射强度。
-- 散射 (scattering)：光子和其他粒子相碰撞后，导致方向发生偏移，如果偏移朝向光束方向则会增加光路上的辐射强度，反之则会减弱入射光强度。
+- 散射 (scattering)：光子和其他粒子相碰撞后，导致方向发生偏移，如果偏移朝向光束方向则会增加光路上的辐射强度（内散射，in-scattering），反之则会减弱入射光强度（外散射，out-scattering）。
 
-我们通过{numref}`fig-visualization-scientific-beam` 来说明这些系数导致的光学方程。
-
-```{figure} fig/visualization-scientific-beam.png
-:scale: 80%
-:name: fig-visualization-scientific-beam
-体渲染的光与介质作用的示意图
+```{figure} fig/visualization-scientific-phenomena.png
+:scale: 60%
+:name: fig-visualization-scientific-phenomena
+体渲染的原理：光与介质作用的四种现象。
 ```
-    
-取一处介质微元，一束光线从介质的一个面到另一个面。其中假设介质的厚度为 $\Delta s$，介质的横截面积为 $E$，介质中的杂质粒子的横截面积为 $A=\pi r^2$，粒子面密度为 $\rho$，则在这个空间内的粒子数目为 $\rho E \Delta s$（假设所取的介质足够薄，薄到跟粒子直径近似时，可以认为粒子无重叠地散开在这一薄层内），总的遮挡面积为 $\rho E \Delta s A$。则遮挡的比率为 $\epsilon=\rho E \Delta s A / E = \rho A \Delta s$。也就是说在所有入射光线中，有占比 $\epsilon$ 的光线被粒子遮挡，剩余 $1-\epsilon$ 的光线穿透介质。这意味着，记入射光强度为 $I_\text{i}$，出射光强度为 $I_\text{o}$，那么由于介质中的杂质粒子遮挡，光强的变化量为：
+
+<!-- 我们通过{numref}`fig-visualization-scientific-transmission` 来说明这些系数导致的光学方程。 -->
+
+如{numref}`fig-visualization-scientific-transmission` 所示，接下来我们将对上述现象进行建模并导出光学方程。
+
+取一处厚度为 $\Delta s$、横截面积为 $E$的介质微元。
+记粒子面密度为 $\rho$，则在这个空间内的粒子数目为 $\rho E \Delta s$（假设所取的介质足够薄，薄到跟粒子直径近似时，可以认为粒子无重叠地散开在这一薄层内），记介质中的杂质粒子的横截面积为 $A=\pi r^2$，则总的遮挡面积为 $\rho E \Delta s A$。则粒子在介质中的遮挡的比率为 $\epsilon=\rho E \Delta s A / E = \rho A \Delta s$。也就是说在所有入射光线中，有占比 $\epsilon$ 的光线被粒子遮挡，剩余 $1-\epsilon$ 的光线穿透介质。需要注意的是：该计算方法需要粒子的平均密度较低，从而粒子的大小与粒子间的平均距离相比可以忽略不计——这是统计独立碰撞的先决条件，通常适用于任何气态介质，但不适用于沙子和雪等致密颗粒介质。
+
+这意味着，记入射光强度为 $I_\text{i}$，出射光强度为 $I_\text{o}$，那么由于介质中的杂质粒子遮挡，光强的变化量为：
 
 $$
-I_\text{o} - I_\text{i} = \Delta I = -\rho(s) A I_\text{o} \Delta s 
-$$ (visualization-scientific-volume1)
+I_\text{o} - I_\text{i} = \Delta I = -\rho(s) A I_\text{i} \Delta s 。
+$$ 
 
 将上式扩展到普遍情形：对于连续介质而言，在光束路径 $[s_\text{start},s_\text{end}]$ 上，假设 $\rho(s)$ 是沿着光路的函数，那么光强也将沿着光路变化，记为 $I(s)$，则上式可写为：
 $$
-\mathrm{d}I(s)= -\rho(s) A I(s) \mathrm{d} s 
-$$(visualization-scientific-volume2)
+\mathrm{d}I(s)= -\rho(s) A I(s) \mathrm{d} s = -\tau_a(s)I(s) \mathrm{d} s 。
+$$ 
 
-类似地，记射入介质时的光强为 $I(s_\text{start})=I_\text{i}$，射出介质时光强为 $I(s_\text{end})=I_\text{o}$，那么通过积分得到二者之间的关系：
+<!-- 类似地，记射入介质时的光强为 $I(s_\text{start})=I_\text{i}$，射出介质时光强为 $I(s_\text{end})=I_\text{o}$，那么通过积分得到二者之间的关系：
 
 $$ 
-I_o = I_i \exp \left( -\int_{s_\text{start}}^{s_\text{end}} \rho(s) A I(s) \, ds \right) 
-= I_i \exp \left( -\int_{s_\text{start}}^{s_\text{end}} \tau_a(s) I(s) \, ds \right) 
-$$ (visualization-scientific-volume3)
+I_o = I_i \exp \left( -\int_{s_\text{start}}^{s_\text{end}} \rho(s) A I(s) \, \mathrm{d} s \right) 
+= I_i \exp \left( -\int_{s_\text{start}}^{s_\text{end}} \tau_a(s) I(s) \, \mathrm{d} s \right) ，
+$$  -->
 
-其中 $\tau_a = \rho A$ 是吸收系数。对于其他的放射和散射项，也可以定义类似的系数。对于放射而言，假设介质粒子放射发出的光的光强为 $I_e$，那么类似地，在介质微元一侧能接收到的光线占比即为例子占据微元截面的比例系数，因此放射系数 $\tau_e = \tau_a$。对于散射而言，记外部光的光强为 $I_s$，散射系数 $\tau_s$，包括外散射（弹射光子偏移光路）系数和内散射（弹射光子偏向光路）系数。于是有：
+其中我们记 $\tau_a = \rho A$ 为吸收系数。对于其他的放射和散射项，也可以建立类似的数学模型。
+
+对于放射而言，假设介质粒子放射发出的光的光强为 $I_e$，那么类似地，在介质微元一侧能接收到的光线占比即为例子占据微元截面的比例系数，因此放射系数 $\tau_e = \tau_a$。
+
+对于散射而言，假设外部光的光强为 $I_s$，我们简单地将受到散射的光子占比记为散射系数 $\tau_s$，包括外散射（弹射光子偏移当前光路）系数和内散射（弹射外部光子偏向光路）系数。
+
+将上述四个现象集合起来，于是可以得到：
 
 $$ 
-\frac{dI}{ds} = -(\tau_a + \tau_s) I(s) + \tau_a(s) I_e(s) + \tau_s(s) I_s(s) 
-$$ (visualization-scientific-volume4)
+\frac{\mathrm{d} I}{\mathrm{d} s} = -\tau_a I(s) + \tau_a(s) I_e(s) - \tau_s(s) I(s) + \tau_s I_s(s)，
+$$ (visualization-scientific-volume_rendering_diff)
 
-其中 $I_s$ 为内散射的光强。对该方程进行积分求解便可以得到光强，然后通过光强和颜色的对应关系，可以得到某视角观测得到的颜色。一些体渲染得到的结果图如下。
+其中等式右边四项分别对应吸收、放射、外散射和内散射。为方便，记 $\sigma_t = \sigma_a+\sigma_s$ 为消光系数（extinction coefficient），$q(s)=\tau_a(s) I_e(s)+\tau_s I_s(s)$ 为源项，包含介质的自放射和内散射，从而上述方程可以整理为一个典型的一阶线性常微分方程形式：
 
-```{figure} fig/visualization-scientific-beam.png
-:scale: 80%
-:name: fig-visualization-scientific-volume
-体渲染结果图
-```
+$$
+\frac{\mathrm{d} I}{\mathrm{d} s} +\tau_t(s) I(s) = q(s)
+$$ (visualization-scientific-volume_rendering_typicaldiff)
+
+为积分该方程，我们引入**透射率（Transmittance）**：
+
+$$
+T(s)=\exp(-\int_{s_0}^s\sigma_t(s')\mathrm{d}s')，
+$$ (visualization-scientific-volume_rendering_transmittance)
+
+它代表了光从 $s_0$ 传播到 $s$ 未被吸收或散射出去的概率，满足：$\mathrm{d}T(s) = - \sigma (s)T(s)\mathrm{d} s$。其中，记 $s_0$ 为光线的起点，比如无穷远，因此可以假设光线在起点处无衰减：$T(s_0)=1$，且光强即为背景光强：$I(s_0)=I_{\text{bg}}$。
+
+于是利用积分因子 $1/T(s)$，对式 {eq}`visualization-scientific-volume_rendering_typicaldiff` 从 $s_0$ 到 $s$ 积分得到：
+
+$$
+I(s)=T(s)I_{\text{bg}}+\int_{s_0}^s T(s)q(s)\mathrm{d}s，
+$$ (visualization-scientific-volume_rendering)
+
+第一项是背景光经过介质后的剩余能量，第二项是介质自身发光和散射光的累积贡献，每点的贡献按当前的透射率加权。式 {eq}`visualization-scientific-volume_rendering` 所需要计算的积分方程。
+
+<!-- 
+```{admonition} 思考
+:class: tip
+{eq}`visualization-scientific-volume_rendering_integral` 是如何从{eq}`visualization-scientific-volume_rendering_diff` 中推导出来的呢？（提示：使用 $1/T(s)$ 作为积分因子。）
+``` -->
 
 #### 体渲染经典实现算法
+
+对从每个像素点发射出的每条给定方向的光线路径，我们需要计算出式 {eq}`visualization-scientific-volume_rendering` 的具体值来获得渲染结果。而显然这个复杂的积分是无法直接计算的，为此，研究者们开发出了各种数值积分方法。如{numref}`fig-visualization-scientific-numerical_integral` 所示。这里我们
+```{figure} fig/visualization-scientific-numerical_integral.png
+:name: fig-visualization-scientific-numerical_integral
+各类数值积分方法，从左至右：基于均分积分区间并求和的黎曼和方法，基于高斯积分点的高斯方法，基于随机采样的蒙特卡洛方法。{cite}`rendering2021course`
+```
+
 
 **1. 光线投影**
 
@@ -275,14 +296,35 @@ $$
 但是训练速度慢，难以处理动态物体或运动模糊，还依赖大量视角一致的输入图像。
 
 
+#### 对比：表面渲染和体渲染
 
+```{table} 表面渲染与体渲染的比较
+:widths: auto
+:align: center
+:name: tab-visualization-scientific-rendering_comparison
+| **特性**  | **表面渲染 (Surface Rendering)**   | **体渲染 (Volume Rendering)**  |
+|:-----------:|:---------------------------:|:---------------------------:|
+| 数据转换     | 数据被转换为表面基元（如三角形），然后进行绘制。       | 不需要提取表面基元，数据由一个或多个（假定连续的）3D 场构成。 |
+| 可视化表示   | 所有可见内容都是嵌入在 3D 空间中的 2D 表面。          | 直接渲染整个体积，类似于一团彩色的果冻。                    |
+| 数据隐藏风险 | 转换为几何基元可能会丢失或隐藏某些数据。              | 数据较少可能被隐藏，提供更全面的视觉信息。                   |
+| 适用场景     | 适用于不透明物体。                                  | 适用于需要详细展示内部结构的应用场景。                      |
+```
+
+表面渲染和体渲染的对比如{numref}`fig-visualization-scientific-rendering_comparison` 所示，可见体渲染可以在给出相应的形状的前提下并对于内部给出一些信息。
+
+```{figure} fig/visualization-scientific-rendering_comparison.png
+:name: fig-visualization-scientific-rendering_comparison
+表面渲染和体渲染的对比图
+```
+
+
+{numref}`fig-visualization-scientific-vis_comparison`展示了使用 3D 等值面来可视化标量场的结果以及对于生物组织的体渲染结果。
 
 ```{figure} fig/visualization-scientific-vis_comparison.png
 :name: fig-visualization-scientific-vis_comparison
 左图：使用 3D 等值面来可视化标量场，右图：对于生物组织的体渲染。
 ```
 
-{numref}`fig-visualization-scientific-vis_comparison`展示了使用 3D 等值面来可视化标量场的结果以及对于生物组织的体渲染结果。
 
 ## 对比：表面可视化与体积可视化
 {numref}`tab-visualization-scientific-vis_comparison` 总结了表面可视化和体积可视化的差异。

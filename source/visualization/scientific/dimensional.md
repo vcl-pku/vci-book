@@ -1,5 +1,8 @@
 # 二维空间科学数据
 
+许多科学数据是在二维空间中定义的，或可以自然地投影到二维平面上进行分析，如，地图中的地形高度或温度信息、气象图中的风场变化、工程图纸中的应力分布等。
+然而，即使都位于二维空间中，这些数据所携带的物理信息却存在着差异。根据数据在每个空间点上所记录的数据的属性，我们通常将其划分为三类：标量场（如温度、气压）、矢量场（如风速、位移）、张量场（如应力张量、各向异性扩散率）。不同类型的物理量不仅承载的信息复杂度不同，也需要匹配不同的可视编码方式和可视分析策略。
+
 ## 按物理量性质分类：标量场、矢量场、张量场
 
 ### 标量场数据
@@ -89,7 +92,7 @@ $$ (visualization-scientific-contours)
 例如，如果一条边在其两个端点的标量值为 10 和 0，并且我们试图生成值为 5 的等值线，则计算可知等值线通过这条边的中点。
 
 确定离散的等值点之后，我们需要把这些点连接起来，形成完整的等值线。由于等值线是局部连续的，也只受到局部数值的影响，因此，我们可以采用分而治之的策略，认为每个单元格内部的处理是互不影响的，一个单元格内的四个顶点及其数值，已经完全决定了：等值线要不要经过这个单元格；以及，如果经过，应该从哪个边进，从哪个边出。
-而在每个单元格内，由于每个顶点只有“内部”或“外部”两种状态，因此格点的状态组合只有 $2^4=16$ 种可能，因此等值线在每个单元格内部的走法是有限且可以分类的，如{numref}`fig-visualization-scientific-contour` 左所示。因此，只要根据单元格状态选择对应的连线方案，就可以得到最终连接好的等值线。这一方案被称为**“行进方块算法”（Marching Squares）**。
+而在每个单元格内，由于每个顶点只有“内部”或“外部”两种状态，因此格点的状态组合只有 $2^4=16$ 种可能，因此等值线在每个单元格内部的走法是有限且可以分类的，如{numref}`fig-visualization-scientific-contour` 左所示。因此，只要根据单元格状态选择对应的连线方案，就可以得到最终连接好的等值线。这一方案被称为 **“行进方块算法”（Marching Squares）**。
 
 <!-- 我们可以用一个四位的二进制数来编码每个单元格的状态（比如 1010 代表左上和右下角在内部，其他角在外部），然后查一张预先准备好的表，确定等值线在这个格子里应该怎么走。 -->
 
@@ -135,27 +138,28 @@ Marching Cubes 算法示意。
 
 ### 箭头表示法
 
-对于矢量的可视化，常见的方法是使用箭头（arrows）来表示矢量的方向和大小。如{numref}`fig-visualization-scientific-vector_field` 展示了一些常用的箭头和用箭头表示的矢量场。
+对于矢量场的可视化，使用箭头（arrows）来表示某点处的矢量是一种最简单直接的方式，中学物理课中的箭头标注的受力分析图就是使用箭头表示矢量的一个范例。
+
+设 $\boldsymbol{v} $ 为定义在域 $D$ 上的矢量场，其中 $\boldsymbol{v}: D \rightarrow \mathbb{R}^n$（通常 $n$ = 2 或 3 ），表示每个点 $\boldsymbol{x} \in D$ 的矢量值。
+箭头表示法在矢量场的定义域上采样一组点（通常是网格点），并在每个点上绘制一个箭头（也叫向量图元或 glyph），该箭头的方向对应矢量方向，箭头大小（按一定的缩放比例）对应矢量大小。
+但需要注意的是，这个缩放比例只用于将“矢量大小”转换成“箭头长度”的可视比例，是将矢量的数值大小映射到可视化中所用的一种尺度表示，并不等同于场景的真实空间尺度。
+
+- **方向**：
+   在点 $x$ 处的箭头方向与矢量 $\boldsymbol{v}(\boldsymbol{x})$ 方向一致。可以用矢量的单位向量 $\hat{\boldsymbol{v}}(\boldsymbol{x}) = \frac{\boldsymbol{v}(\boldsymbol{x})}{\|\boldsymbol{v}(\boldsymbol{x})\|}$ 表示，其中 $\|\boldsymbol{v}(x)\|$ 是矢量的大小（模长）。
+
+- **长度**：
+   箭头的长度通常与矢量的大小成比例。可以定义为 $L(x) = k \cdot \|\boldsymbol{v}(\boldsymbol{x})\|$，其中 $k$ 是缩放因子。
+
+最终，矢量场的可视化 $\boldsymbol{v}$ 可以表示为一组箭头，其中每个箭头的位置、方向和长度由 $\boldsymbol{x}$、$\hat{\boldsymbol{v}}(\boldsymbol{x})$ 和 $L(\boldsymbol{x})$ 决定。这可以表示为 $(\text{位置: } \boldsymbol{x}, \text{方向: } \hat{\boldsymbol{v}}(\boldsymbol{x}), \text{长度: } L(\boldsymbol{x}))$。
+
+{numref}`fig-visualization-scientific-vector_field` 图展示了箭头表示法的效果图。左侧图是一个标准的箭头图；中间图改用了水滴形状的箭头，并改用颜色而非箭头长度来表示矢量场大小，这是一种与颜色映射方法的结合；右侧图展示了一个定义在二维空间上的三维矢量场的可视化，使用三维的红色圆箭头表示矢量，并且使用了 3D 渲染技术以获得真实的可视化效果。
 
 ```{figure} fig/visualization-scientific-vector_field.png
 :name: fig-visualization-scientific-vector_field
-常用来描述矢量场的箭头和可视化的效果。
+箭头表示法示例。左：标准的箭头可视化 © Wikipedia；中：使用水滴形箭头的可视化 © Wolfram；右：三维箭头的可视化（薄壳材料的剩磁强度分布）。
 ```
 
-设 $\mathbf{V} $ 为定义在域 $D$ 上的矢量场，其中 $\mathbf{V}: D \rightarrow \mathbb{R}^n$（通常 $n$ = 2 或 3 ），表示每个点 $x \in D$ 的矢量值。
-
-箭头方向对应矢量的方向，而箭头长度则是将矢量的数值大小映射到可视化中所用的一种尺度表示，通常会乘以一个缩放因子来避免过长或过短的箭头。
-但需要注意的是，这个缩放因子只用于将“矢量大小”转换成“箭头长度”的可视比例，并不等同于场景的真实空间尺度。
-
-- **方向**：
-   在点 $x$ 处的箭头方向与矢量 $\mathbf{V}(x)$ 方向一致。可以用矢量的单位向量 $\hat{\mathbf{v}}(x) = \frac{\mathbf{V}(x)}{\|\mathbf{V}(x)\|}$ 表示，其中 $\|\mathbf{V}(x)\|$ 是矢量的大小（模长）。
-
-- **长度**：
-   箭头的长度通常与矢量的大小成比例。可以定义为 $L(x) = k \cdot \|\mathbf{V}(x)\|$，其中 $k$ 是缩放因子。
-
-最终，矢量场的可视化 $\mathbf{V}$ 可以表示为一组箭头，其中每个箭头的位置、方向和长度由 $\mathbf{x}$、$\hat{\mathbf{v}}(x)$ 和 $L(x)$ 决定。这可以表示为 $\mathbf{U}(x) = (\text{position: } \mathbf{x}, \text{direction: } \hat{\mathbf{v}}(x), \text{length: } L(x))$。
-
-这类方法能对矢量场进行直观的展示，且实现简单。但是要么在高密度区域易重叠（视觉混乱），要么使用足够大的图片画出箭头但像素利用率低。
+<!-- 这类方法能对矢量场进行直观的展示，且实现简单。但是要么在高密度区域易重叠（视觉混乱），要么使用足够大的图片画出箭头但像素利用率低。 --> 
 
 ### 流线，路径线，迹线
 
@@ -167,39 +171,39 @@ Marching Cubes 算法示意。
 
 **1. 流线（streamlines）**
 
-流线是相对静止（稳态）或瞬时切片情况下，通过一个种子点在空间中连续积分速度向量得到的空间曲线。流线关注的是瞬时流场的结构，在非稳定流场中流线的形态会随时间变化。这里积分所使用的速度向量是在特定时刻的流场中各点的流速矢量。换言之，流线展示了“如果在特定时刻将粒子置于某点，它的瞬时流动方向轨迹”（如{numref}`fig-visualization-scientific-steamlines`），但并不是一条真实的运动轨迹，不应用于展示流体随时间的实际运动路径。
+流线是相对静止（稳态）或瞬时切片情况下，通过一个种子点在空间中连续积分速度向量得到的空间曲线。流线关注的是瞬时流场的结构，在非稳定流场中流线的形态会随时间变化。这里积分所使用的速度向量是在特定时刻的流场中各点的流速矢量。换言之，流线展示了“如果在特定时刻将粒子置于某点，它的瞬时流动方向轨迹”（如{numref}`fig-visualization-scientific-streamline`），但并不是一条真实的运动轨迹，不应用于展示流体随时间的实际运动路径。
 
-```{figure} fig/visualization-scientific-steamlines.png
+<!-- ```{figure} fig/visualization-scientific-steamlines.png
 :name: fig-visualization-scientific-steamlines
 流线描述动态矢量场的效果。
-```
+``` -->
 
-设流场在时刻 $t_0$ 的速度场为 $\mathbf{v}(\mathbf{X}, t_0)$。
-引入一个积分参数 $s$，流线 $\mathbf{X}(s)$ 可以定义为：
+设流场在时刻 $t_0$ 的速度场为 $\boldsymbol{v}(\boldsymbol{x}, t_0)$。
+引入一个积分参数 $s$，流线 $\boldsymbol{x}(s)$ 可以定义为：
 
 $$
-\frac{d\mathbf{X}(s)}{ds} &= \mathbf{v}(\mathbf{X}(s), t_0), \\
-\mathbf{X}(0) &= \mathbf{X}_0.
+\frac{d\boldsymbol{x}(s)}{ds} &= \boldsymbol{v}(\boldsymbol{x}(s), t_0), \\
+\boldsymbol{x}(0) &= \boldsymbol{x}_0.
 $$ (visualization-scientific-streamlines1)
 
 其中：
-- $ \mathbf{X}_0$ 是流线上一个起始点；
+- $ \boldsymbol{x}_0$ 是流线上一个起始点；
 - $s$ 可以理解为沿曲线的“积分步”或“路径长度”参量；
-- $\mathbf{v}(\mathbf{X}(s), t_0)$ 表示在时刻 $t_0$ 位置 $\mathbf{X}(s)$ 的速度向量。
+- $\boldsymbol{v}(\boldsymbol{x}(s), t_0)$ 表示在时刻 $t_0$ 位置 $\boldsymbol{x}(s)$ 的速度向量。
 
 
 流线的计算流程：
 1. 选取种子点：可手动或自动选择若干点作为粒子的初始位置；
-2. 数值积分：在向量场中，以初值 $\mathbf{X_0}$ 为起点，通过积分方法（如**欧拉方法**或**龙格-库塔方法**，
+2. 数值积分：在向量场中，以初值 $\boldsymbol{x}_0$ 为起点，通过积分方法（如**欧拉方法**或**龙格-库塔方法**，
 前者是一阶近似，计算快但精度低；后者有四阶精度，稳定性高，广泛应用于工程仿真）不断更新粒子位置；
 3. 停止条件：达到网格边界、速度阈值过小或最大积分步数后终止。
 4. 将积分得到的点序列连成曲线，并对曲线进行着色(如速度大小)或其它视觉编码。
 
-也可以通过一些实验的方法观测流线。由于流线只有在很短的时间内才可以认为是恒定的，于是实验上观测流线的方法是，观察摄入染料的短时间内（曝光时间量级）线形。一些流线展示的实验结果如下图。
+也可以通过一些实验的方法观测流线。由于流线只有在很短的时间内才可以认为是恒定的，于是实验上观测流线的方法是，观察摄入染料的短时间内（曝光时间量级）线形。
 
 ```{figure} fig/visualization-scientific-streamline.png
 :name: fig-visualization-scientific-streamline
-一些流线实验例子。
+流线示例。左：与箭头表示法结合的流线绘制；中：条形磁铁周围的磁力线，由撒在磁铁上方纸上的铁屑排列表示；右：世界地图上的洋流示意。 © Wikipedia
 ```
 
 对于时变流场，则可以选择路径线和迹线来展示随时间变化的流动。
@@ -209,15 +213,15 @@ $$ (visualization-scientific-streamlines1)
 与流线不同，路径线在非稳态流场（随时间变化的场）中表示从开始点到结束点的实际运动轨迹。它反映了粒子在真实时间维度下的移动过程。
 因此，在稳态流场中，各处流速不随时间变化，路径线与流线重合，但在非稳态流场中，路径线与流线不再等价。
 
-对于一个在时刻 $t_0$ 处于位置 $\mathbf{X_0}$ 的粒子，将其随时间 $t$ 变化的轨迹记为 $\mathbf{X}(t)$，则满足：
+对于一个在时刻 $t_0$ 处于位置 $\boldsymbol{x}_0$ 的粒子，将其随时间 $t$ 变化的轨迹记为 $\boldsymbol{x}(t)$，则满足：
 
 $$
-\frac{d\mathbf{X}(t)}{dt} &= \mathbf{v}(\mathbf{X}(t),t),\\
-\mathbf{X}(t_0) &= \mathbf{X_0}.
+\frac{d\boldsymbol{x}(t)}{dt} &= \boldsymbol{v}(\boldsymbol{x}(t),t),\\
+\boldsymbol{x}(t_0) &= \boldsymbol{x}_0.
 $$ (visualization-scientific-pathlines1)
 其中：
-- $\mathbf{v}(\mathbf{X},t)$ 是非稳态（或稳态）流场随时间变化的速度函数；
-- $\mathbf{X}(t)$ 称为路径线或粒子轨迹。
+- $\boldsymbol{v}(\boldsymbol{x},t)$ 是非稳态（或稳态）流场随时间变化的速度函数；
+- $\boldsymbol{x}(t)$ 称为路径线或粒子轨迹。
 
 路径线计算流程：
 1. 时序数据获取：流场在多个时间步(如 $t_0$，$t_1$，$t_2$，…)上都有速度向量信息；
@@ -229,7 +233,7 @@ $$ (visualization-scientific-pathlines1)
 
 ```{figure} fig/visualization-scientific-pathline.png
 :name: fig-visualization-scientific-pathline
-路径线样例：长时间曝光的篝火火花照片显示了热空气流动的路径。© Wikipedia
+路径线示例：长时间曝光的篝火火花照片显示了热空气流动的路径。© Wikipedia
 ```
 
 **3. 迹线（streaklines）**
@@ -237,26 +241,26 @@ $$ (visualization-scientific-pathlines1)
 用来表示在同一空间位置持续释放的粒子所形成的轨迹。直观地说，想象不断地往水流中滴墨水，那么这些墨滴在流体中被带动形成的一条连续曲线，就是迹线。迹线描述的事连续注入的粒子的集合运动，而不是依赖某个粒子的历史轨迹。迹线在实验流体动力学中常用，比如通过注入染料或烟雾来观察流动。
 
 设:
-- $\mathbf{v}(\mathbf{X},t) $为流场的速度场（向量场）；
-- 在坐标 $\mathbf{X}_0$ 处持续释放粒子；
+- $\boldsymbol{v}(\boldsymbol{x},t) $为流场的速度场（向量场）；
+- 在坐标 $\boldsymbol{x}_0$ 处持续释放粒子；
 - $\tau$ 表示粒子的释放时刻（可从 0 到当前时刻 $t$ 范围内）。
 
-对于在时间 $\tau$ 被释放的粒子，我们用 $\mathbf{X}(t;\tau)$ 表示它在时间 $t\ge\tau$ 时所处的位置，满足以下常微分方程：
+对于在时间 $\tau$ 被释放的粒子，我们用 $\boldsymbol{x}(t;\tau)$ 表示它在时间 $t\ge\tau$ 时所处的位置，满足以下常微分方程：
 
 $$
-\frac{d\mathbf{X}(t;\tau)}{dt} = \mathbf{v}(\mathbf{X}(t;\tau),t),\\
+\frac{d\boldsymbol{x}(t;\tau)}{dt} = \boldsymbol{v}(\boldsymbol{x}(t;\tau),t),\\
 $$ (visualization-scientific-streaklines1)
 
 并且它的初值条件（初始位置）为:
 $$
-\mathbf{X}(\tau;\tau) = \mathbf{X}_0.
+\boldsymbol{x}(\tau;\tau) = \boldsymbol{x}_0.
 $$ 
 
-即该粒子在被释放的瞬间（$t=\tau$）在 $\mathbf{X}_0$ 位置。
+即该粒子在被释放的瞬间（$t=\tau$）在 $\boldsymbol{x}_0$ 位置。
 
 ```{figure} fig/visualization-scientific-streakline.png
 :name: fig-visualization-scientific-streakline
-迹线样例：风洞中汽车周边的空气流动。© Wikipedia
+迹线示例。左：风洞中汽车周边的空气流动。© Wikipedia 右：模拟软件中飞机周边的空气流动。© Paraview
 ```
 
 总结来说，流线、路径线、迹线可视化在流体动力学、气象学和海洋学等领域中非常有用，它们帮助揭示流体流动的模式和结构。三者均是理解流体运动特征、构建流体可视化的重要工具。在非稳定流动中，迹线和流线、路径线会有明显的差异，而在稳定流动中，三者会重合。
@@ -267,17 +271,16 @@ $$
 点噪声法（spot noise）属于基于纹理的矢量场可视化技术，通过在图像平面上铺设许多“微型噪声点（spots 或 dots）”，并且让这些小斑点的形状、方向、拉伸程度等与局部向量信息相对应，从而在整体上形成密集且连续的流动纹理效果。
 
 点噪声法的核心原理：
-1. 基础噪声纹理：先生成一张均匀随机噪声图（或散点图）；
-2. 局部变形：在向量场每个像素/采样点周围放置一个“点扩散核”，根据该位置上的速度方向 $\mathbf{v}(x,y)$ 调整点扩散核形变（例如：让其朝流向方向拉伸）；
-3. 叠加与渲染：将所有点扩散核投影或累加到最终图像中，形成从微观层面上就已指向流向的纹理图。
-
-可以使用一个简单的线性组合来生成最终的可视化图像，例如：
+1. 采样噪声点：在矢量场定义域内随机采样噪声点（比如采样每个像素点）；
+2. 局部变形：在每个噪声点处放置一个扩散核，根据该位置上的矢量方向 $\boldsymbol{v}(x,y)$ 调整点扩散核的形变（例如：让其朝流向方向拉伸）；
+3. 叠加与渲染：将所有点扩散核以一定的密度投影或累加到最终图像中，形成一张连续纹理，会呈现出矢量场的流动趋势、局部结构甚至涡旋。
+可以使用一个简单的线性组合来完成叠加 {cite}`SpotNoise1998`：
 
 $$
-I(x, y) = I_0 + \alpha \cdot N(x, y) 
+I(\boldsymbol{x}) = I_0 + \sum_i\alpha_i \cdot h(\boldsymbol{x}-\boldsymbol{x}_i) 
 $$ (visualization-scientific-spot_noise)
 
-其中，$I(x, y)$ 是最终图像的强度，$I_0$ 是背景强度，$\alpha$ 是一个调节因子，用来控制噪声对最终图像的影响程度。
+其中，$I(\boldsymbol{x})$ 是最终图像的强度，$I_0$ 是可以额外设置的背景强度，$\alpha_i$ 是每个扩散核调节因子，用来控制噪声对最终图像的影响程度，$h$ 被称为点函数（spot function），用于表达形变后的扩散核，是一种形状核函数（类似于一个局部纹理模板），可以有不同的设计方案。
 
 ```{figure} fig/visualization-scientific-spot_noise.png
 :name: fig-visualization-scientific-spot_noise
@@ -422,7 +425,7 @@ Jarke J. van Wijk, Image Based Flow Visualization ©http://www.win.tue.nl/~vanwi
 具体来说，超流线有以下三个特点：
 - 主方向：超流线通常沿最大特征值方向 $\mathbf{e_1}$ 追踪。
 - 局部截面：沿着曲线的每一采样点，生成一个截面，并在截面上用椭圆(或其他形状) 表示 $\lambda_2$，$\lambda_3$ 的相对大小和方向。
-- 曲线积分：在坐标空间中，以 $\mathbf{e_1}(x)$ 作为导向向量场，数值积分出曲线 $\mathbf{x}(s)$，从而得到超流线主体走向。
+- 曲线积分：在坐标空间中，以 $\mathbf{e_1}(x)$ 作为导向向量场，数值积分出曲线 $\boldsymbol{x}(s)$，从而得到超流线主体走向。
 
 超流线多应用在应力张量可视化中以进行材料断裂分析，或用于展示扩散张量场的各向异性传播。
 该方法可以同时表达主方向趋势与横截面特性，但是也需要面临三维空间中视觉遮挡的挑战。
