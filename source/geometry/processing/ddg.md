@@ -25,7 +25,7 @@
 :name: fig-geometry-processing-local-average
 :width: 80%
 
-计算局部平均区域时对顶点邻域的三种选取方式，所选定的邻域用蓝色标出。
+计算局部平均区域时对顶点邻域的三种选取方式，所选定的邻域用深色标出。
 ```
 
 ## 法向量
@@ -50,13 +50,13 @@ $$
     f(\mathbf x)=\alpha(\mathbf x)f_i+\beta(\mathbf x) f_j +\gamma(\mathbf x) f_k
 $$ (eq-geometry-processing-ddg-gradient_linear)
 
-其中权重 $\alpha,\,\beta,\,\gamma$ 是点 $\mathbf x$ 关于顶点 $\mathbf x_i,\,\mathbf x_j,\,\mathbf x_k$ 的重心坐标，且满足 $\alpha +\beta + \gamma =1$。如 {numref}`fig-geometry-processing-barycentric` 所示定义，重心坐标表征的是该点到各顶点的相对位置，一组重心坐标可以唯一地确定三角形中的一点。
+其中权重 $\alpha,\,\beta,\,\gamma$ 是点 $\mathbf x$ 关于顶点 $\mathbf x_i,\,\mathbf x_j,\,\mathbf x_k$ 的重心坐标，且满足 $\alpha +\beta + \gamma =1$；特别地，如 {numref}`fig-geometry-processing-barycentric` 所示定义，重心坐标表征的是该点到各顶点的相对位置，其相对于每个顶点的系数（$\alpha,\beta,\gamma$）等于该顶点相对的小三角形占整个三角形的面积比例。一组重心坐标可以唯一地确定三角形中的一点。
 
 ```{figure} fig/barycentric.png
 :name: fig-geometry-processing-barycentric
 :width: 30%
 
-重心坐标 $\alpha(\mathbf x)$ 的值等于绿色部分三角形与整个三角形的面积之比。
+重心坐标示意图。
 ```
 
 那么函数 $f(\mathbf x)$ 的导数为：
