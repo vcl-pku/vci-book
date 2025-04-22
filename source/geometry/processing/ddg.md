@@ -50,7 +50,16 @@ $$
     f(\mathbf x)=\alpha(\mathbf x)f_i+\beta(\mathbf x) f_j +\gamma(\mathbf x) f_k
 $$ (eq-geometry-processing-ddg-gradient_linear)
 
-其中权重 $\alpha,\,\beta,\,\gamma$ 是点 $\mathbf x$ 关于顶点 $\mathbf x_i,\,\mathbf x_j,\,\mathbf x_k$ 的重心坐标，且满足 $\alpha +\beta + \gamma =1$；特别地，如 {numref}`fig-geometry-processing-barycentric` 所示定义，重心坐标表征的是该点到各顶点的相对位置，其相对于每个顶点的系数（$\alpha,\beta,\gamma$）等于该顶点相对的小三角形占整个三角形的面积比例。一组重心坐标可以唯一地确定三角形中的一点。
+其中权重 $\alpha,\,\beta,\,\gamma$ 是点 $\mathbf x$ 关于顶点 $\mathbf x_i,\,\mathbf x_j,\,\mathbf x_k$ 的重心坐标，且满足：
+
+$$
+    \begin{aligned}
+    \alpha\mathbf x_i+\beta \mathbf x_j +\gamma \mathbf x_k&=\mathbf x \\
+    \alpha +\beta + \gamma &=1
+    \end{aligned}
+$$ (eq-geometry-processing-ddg-barycentric)
+
+如 {numref}`fig-geometry-processing-barycentric` 所示定义，重心坐标表征的是该点到各顶点的相对位置，其相对于每个顶点的系数（$\alpha,\beta,\gamma$）等于该顶点相对的小三角形占整个三角形的面积比例。一组重心坐标可以唯一地确定三角形中的一点。
 
 ```{figure} fig/barycentric.png
 :name: fig-geometry-processing-barycentric
@@ -108,9 +117,9 @@ $$ (eq-geometry-processing-ddg-qulv_disc)
 
 ### 余切拉普拉斯
 
-```{figure} fig/cal_suanzi.png
+```{figure} fig/operator.png
 :name: fig-geometry-processing-cal_suanzi
-:width: 60%
+:width: 40%
 
 计算余切拉普拉斯算子的方式。
 ```
