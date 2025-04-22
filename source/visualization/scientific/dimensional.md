@@ -1,7 +1,8 @@
-# 二维空间科学数据
+# 标量场、矢量场、张量场数据的可视化
 
-许多科学数据是在二维空间中定义的，或可以自然地投影到二维平面上进行分析，如，地图中的地形高度或温度信息、气象图中的风场变化、工程图纸中的应力分布等。
-然而，即使都位于二维空间中，这些数据所携带的物理信息却存在着差异。根据数据在每个空间点上所记录的数据的属性，我们通常将其划分为三类：标量场（如温度、气压）、矢量场（如风速、位移）、张量场（如应力张量、各向异性扩散率）。不同类型的物理量不仅承载的信息复杂度不同，也需要匹配不同的可视编码方式和可视分析策略。
+<!-- 许多科学数据是在二维空间中定义的，或可以自然地投影到二维平面上进行分析，如，地图中的地形高度或温度信息、气象图中的风场变化、工程图纸中的应力分布等。
+然而，即使都位于二维空间中，这些数据所携带的物理信息却存在着差异。根据数据在每个空间点上所记录的数据的属性，我们通常将其划分为三类：标量场（如温度、气压）、矢量场（如风速、位移）、张量场（如应力张量、各向异性扩散率）。不同类型的物理量不仅承载的信息复杂度不同，也需要匹配不同的可视编码方式和可视分析策略。 -->
+在科学计算与工程分析中，不同的物理量常以不同的数学形式存在，例如温度、电势等标量，速度、力等矢量，以及应力张量等更复杂的量。为了清晰有效地展示这些量的空间分布与变化趋势，我们需要根据物理量的类型，采用具有针对性的可视化策略。
 
 ## 按物理量性质分类：标量场、矢量场、张量场
 
@@ -9,7 +10,7 @@
 
 标量场（Scalar Fields）数据是单值分布在空间网格上的数据，每个空间点对应一个标量值。
 常见的标量场数据有：医学影像（CT 扫描的 Hounsfield 单位值），气象数据（全球温度分布、大气压强），材料科学（金属疲劳试验中的应力分布）。
-标量场数据具有空间连续性和数值范围跨度大的特点，特征提取困难及三维体数据内部结构可能被外部遮挡，是其可视化的核心挑战。
+标量场数据具有空间连续性和数值范围跨度大的特点，特征提取困难及三维体数据（我们将在下一小节介绍体数据的可视化方法）内部结构可能被外部遮挡，是其可视化的核心挑战。
 
 ### 矢量场数据
 
@@ -47,7 +48,7 @@ $$ (visualization-scientific-function)
 其中 $[S_{\text{min}}, S_{\text{max}}]$ 是 $S$ 的值域，$C$ 表示颜色空间。
 最终，对于所有 $\boldsymbol{x} \in D$，都可以将 $\boldsymbol{x}$ 在域 $D$ 中的标量值 $S(\boldsymbol{x})$ 通过颜色映射函数 $T$ 转换为一个颜色，从而实现可视化。
 
-颜色映射函数 $T$ 的定义方式是多种多样的，基于色标来定义颜色映射函数是一种最直接的方案，如{numref}`color_mapping`，其流程包含如下步骤：
+颜色映射函数 $T$ 的定义方式是多种多样的，基于色标来定义颜色映射函数是一种最直接的方案，如{numref}`fig-visualization-scientific-color_mapping`，其流程包含如下步骤：
 
 1. 数据归一化：原始的标量场数据可能取值范围很大，且核心数据集中分布在更小的区间（如气温等），因此首先需要选定想要考察的标量值范围 $[\bar{S}_{\text{min}}, \bar{S}_{\text{max}}]$，将 $S$ 缩放到标准范围 $[0,1]$ 内（这里我们采用了线性的放缩，如果想突出某些特定数值区域，还可以用非线性归一化，比如对数、指数映射），并将超出考察范围的值截断至边界：
 
@@ -60,16 +61,22 @@ $$
 \end{cases}
 $$ (visualization-scientific-uniform)
 
-2. 定义色标：色标也被称为颜色查找表（colormap），它本质上是定义了从 $[0,1]$ 区间到颜色空间的连续映射函数。Matplotlib、Matlab 等工具中包含了多种预定好的色标方案，包括 Jet、Viridis 等，如{numref}`color_mapping` 所示。也可以进行色标的自定义，如：先定义 $[0,1]$ 内若干离散值对应的具体颜色，而后通过插值方法（{numref}`chap-getting-started-curves`）得到连续的颜色映射方案。
+2. 定义色标：色标也被称为颜色查找表（colormap），它本质上是定义了从 $[0,1]$ 区间到颜色空间的连续映射函数。Matplotlib、Matlab 等工具中包含了多种预定好的色标方案，包括 Jet、Viridis 等，如{numref}`fig-visualization-scientific-colormap` 所示。也可以进行色标的自定义，如：先定义 $[0,1]$ 内若干离散值对应的具体颜色，而后通过插值方法（{numref}`chap-getting-started-curves`）得到连续的颜色映射方案。
 
 3. 查找颜色：用归一化后的标量值 $\bar{S}$ 作为索引，从色标中取出对应的颜色。
 
-```{figure} fig/visualization-scientific-color_mapping.png
-:name: color_mapping
+```{figure} fig/visualization-scientific-colormap.png
+:name: fig-visualization-scientific-colormap
 根据不同可视化目标预定义出的色标。© Matplotlib
 ```
 
-### 等值线
+颜色映射方法简单直接，且不占用位置、形状等是可视化表达通道，因此被广泛用于各类数据的可视化，如二维平面数据、三维表面数据、体积数据等等，如{numref}`fig-visualization-scientific-color_mapping` 所示。
+```{figure} fig/visualization-scientific-color_mapping.png
+:name: fig-visualization-scientific-color_mapping
+不同类型数据的颜色映射。左：二维泰勒涡的速度场大小可视化 {cite}`Pan2024Fluid`；中：三维空间中磁感线上磁感应强度大小可视化 {cite}`Sun2021MPM`；右：汽车撞击时所受应力大小在汽车模型表面的可视化 © Wikipedia。
+```
+
+### 等值线与等值面
 
 颜色映射的一个自然扩展是等值线（contours）的绘制。
 当我们看到一个用数据值着色的表面时，眼睛常常将颜色差别较大的相近区域区分为不同的区域。
@@ -123,14 +130,23 @@ Marching Cubes 算法示意。
 在{numref}`fig-visualization-scientific-contour` 中，我们根据16种单元格状态分类用线段连接了所有边上的等值点。如果要绘制出如{numref}`fig-visualization-scientific-temperature` 中圆滑的等值曲线，有没有更好的连接方案呢？
 ```
 
-<!-- {numref}`fig-visualization-scientific-marching_cubes_results`给出了一些利用Marching Cubes算法进行重建的结果。 -->
+等值线扩展到三维空间内的版本就是等值面（isosurface），它能够揭示出数据中具有特定意义的内部结构，比如医学图像中的器官轮廓、流体中的温度分布边界等。等值面绘制是三维标量场可视化中的核心技术之一，其目的是从体数据中提取出所有等于某个给定数值（等值）的点所形成的“等值面”。
 
+等值面绘制的经典算法是“行进方块算法”的三维版本——“行进立方体算法”（Marching Cubes）。这一算法也常被用于体数据的表面重建任务（如：流体、符号距离场的表面重建）。其算法思想与前者类似，区别在于每个单元从二维变成了三维。对于三维数据，考虑到立方体单元格中有八个点，因此每个单元格有 $2^8=256$ 种标量值组合的可能。但是由于旋转平移对称性可以进一步缩减案例中的数目，一个经典的版本如{numref}`fig-visualization-scientific-marching_cubes` 所示。关于行进立方体算法的算法流程可以参考威廉·洛伦森
+（William Lorensen）等人的工作 {cite}`lorensen1998marching`。 
 
-<!-- 
+```{figure} fig/visualization-scientific-marching_cubes.png
+:name: fig-visualization-scientific-marching_cubes
+行进立方体算法的等值面绘制方案（最初发布的15种构型的版本）。 © Wikipedia
+```
+
+{numref}`fig-visualization-scientific-marching_cubes_results`给出了一些利用Marching Cubes算法进行重建的结果。
+
 ```{figure} fig/visualization-scientific-marching_cubes_results.png
 :name: fig-visualization-scientific-marching_cubes_results
-行进立方体算法的一些结果。
-``` -->
+不同版本的行进立方体算法的一些结果。{cite}`NMC2021`
+```
+<!-- {numref}`fig-visualization-scientific-marching_cubes_results`给出了一些利用Marching Cubes算法进行重建的结果。 -->
 
 ## 矢量场可视化
 
@@ -156,7 +172,7 @@ Marching Cubes 算法示意。
 
 ```{figure} fig/visualization-scientific-vector_field.png
 :name: fig-visualization-scientific-vector_field
-箭头表示法示例。左：标准的箭头可视化 © Wikipedia；中：使用水滴形箭头的可视化 © Wolfram；右：三维箭头的可视化（薄壳材料的剩磁强度分布）。
+箭头表示法示例。左：标准的箭头可视化 © Wikipedia；中：使用水滴形箭头的可视化 © Wolfram；右：三维箭头的可视化（薄壳材料的剩磁强度分布）{cite}`Chen2022Thinshell`。
 ```
 
 <!-- 这类方法能对矢量场进行直观的展示，且实现简单。但是要么在高密度区域易重叠（视觉混乱），要么使用足够大的图片画出箭头但像素利用率低。 --> 
@@ -164,10 +180,10 @@ Marching Cubes 算法示意。
 ### 流线，路径线，迹线
 
 在矢量场可视化中，流场（例如空气流动、水流等）可视化是其中最常见且直观的重要应用，许多矢量场可视化技术最初就是为流场设计的。流场可视化用于研究和理解复杂的三维涡流动和湍流的物理过程。这些流动可能是稳定的或非稳定的，流动模式也可以以多种方式显示，如染料或烟雾注入流场后拍摄的照片，或是使用一些技术（如热线或数字粒子图像测速法）测量的矢量场。为了更系统地分析流动特性，人们通常会从测量数据中提取流线、迹线或路径线等辅助图形，用以揭示流体的局部行为和整体演变。
-```{figure} fig/visualization-scientific-traditional_method.png
+<!-- ```{figure} fig/visualization-scientific-traditional_method.png
 :name: fig-visualization-scientific-traditional_method
 不同可视化技术在相同2D流场中的比较: (a) 箭头图, (b) 流线段, (c) 线积分卷积 (LIC), (d) 基于拓扑的方法。
-```
+``` -->
 
 **1. 流线（streamlines）**
 
@@ -282,74 +298,95 @@ $$ (visualization-scientific-spot_noise)
 
 其中，$I(\boldsymbol{x})$ 是最终图像的强度，$I_0$ 是可以额外设置的背景强度，$\alpha_i$ 是每个扩散核调节因子，用来控制噪声对最终图像的影响程度，$h$ 被称为点函数（spot function），用于表达形变后的扩散核，是一种形状核函数（类似于一个局部纹理模板），可以有不同的设计方案。
 
-```{figure} fig/visualization-scientific-spot_noise.png
+```{figure} fig/visualization-scientific-spot_noise_2D&3D.png
+:name: fig-visualization-scientific-spot_noise_2D&3D
+基于点噪声法可视化 2D（左）、3D（右）矢量场，颜色对应矢量大小。{cite}`Sabadello2002EnhancingSN`
+```
+
+<!-- ```{figure} fig/visualization-scientific-spot_noise.png
 :name: fig-visualization-scientific-spot_noise
 基于点噪声法可视化标量场，（a）值，（b）梯度，（c）流，（d）速度势。
-```
+``` -->
 
 点噪声法算法的优点在于它能生成直观流场可视化图像，适合展示复杂的流体动力学特性。缺点是在处理非常高速或高度湍流的流场时，可能无法清晰展示所有细节。
 
 ### 线性积分卷积
 
-线性积分卷积（Line Integral Convolution，LIC）是一种具有 2D/3D 矢量场通用性的新技术，能够成像密集矢量场、独立于预定义的纹理生成稠密可视化效果，并且可以应用于二维和三维数据中。
+线性积分卷积（Line Integral Convolution，LIC）是一种具有 2D/3D 矢量场通用性的新技术，如{numref}`fig-visualization-scientific-lic_examples` 所示，能够成像密集矢量场、独立于预定义的纹理生成稠密可视化效果，并且可以应用于二维和三维数据中。
 
-在引入LIC之前，我们先介绍图线和纹理之间的卷积融合。数字微分法（Digital Differential Analyzer, DDA）是一种用于栅格化直线段的技术，即将数学上的连续直线转换为像素网格上的近似表示。
-通过将曲线进行栅格化，然后和背景纹理进行求卷积，可以得到包含两者信息的融合。DDA-Concolution算法的流程如下图所示：
+```{figure} fig/visualization-scientific-lic_examples.png
+:name: fig-visualization-scientific-lic_examples
+LIC 方法示例。{cite}`LIC1993` 左：北美风速场；右：速度归一化后的流场示例。
+```
+
+在介绍 LIC 之前，我们先介绍基于栅格化直线和背景纹理之间的卷积融合的方法。在{numref}`chap-stated-drawing-rasterizaton` 和 {numref}`sec-getting-started-curves-rasterization` 中我们介绍过如何将数学上的连续直线和曲线绘制到像素网格上，这是通过数字微分法（Digital Differential Analyzer, DDA）实现的。在此基础上，如{numref}`fig-visualization-scientific-ddac` 所示，人们提出了数字微分卷积法（DDA-Convolution，DDAC）：（1）对矢量场中的任一点处的矢量，（2）从该点处沿矢量方向，按设定步长 $L$ 向前后各走一步，得到对应的一条直线段，（3）将这条线段投影到背景纹理图（如：随机生成的噪声背景图）中，（4）在这条线段上对背景纹理进行求卷积，得到该点最终的像素值。
 
 ```{figure} fig/visualization-scientific-ddac.png
 :name: fig-visualization-scientific-ddac
-数字微分卷积法的操作流程。
+数字微分卷积法的操作流程。{cite}`LIC1993`
 ```
 
-对于DDAC算法，假设速度场近似成直线效果还好，但是对于曲率半径很小的点不准确。而且本身简单地应用卷积，自带一个去噪平均化效果，高频的会看不出，造成信息频率缺失不平衡。还有aliasing的问题，受制于分辨率限制，导致可能会有不对称的结果。因此后续会提出LIC算法来修缮上述问题。
+DDAC 算法对于局部近似成直线的矢量场（如：平流的流场）的效果较好，但是对于尺寸小于 $2L$ 的复杂结构，或者说曲率较大的点（如：急转弯的流场），这种方法并不准确。而且，简单地应用卷积会自带一个去噪平均化的效果。因此，DDAC 算法难以体现矢量场中的高频的变化，造成细微结构的丢失和信息频率的缺失和不平衡。因此，人们后续提出了 LIC 算法来修缮上述问题。
 
-LIC算法简单来讲就是加上了两个限制，沿流线进行卷积就可以解决曲率精度不够的问题，同时通过内禀保证对称性来解决离散化时候的走样（aliasing）问题。
+<!-- LIC算法简单来讲就是加上了两个限制，沿流线进行卷积就可以解决曲率精度不够的问题，同时通过内禀保证对称性来解决离散化时候的走样（aliasing）问题。 -->
 
+LIC 算法 {cite}`LIC1993` 最初被发表在 1993 年的 SIGGRAPH 上，是在 DDAC 算法的基础上做出的主要改进是：卷积不再沿着切线直线方向，而是改为沿流线进行曲线段上的卷积，以此来解决大曲率处直线近似的精度不够的问题。
+在 LIC 算法中，像素点 ${x,y}$ 处的值，同样是沿前向和后向分别沿流线走动一段曲线轨迹得到的，这种双向行走有助于保持单元格对称性。从
+$$
+P_{0} &= (x+0.5, y+0.5)， \\
+P_{0}' &= P_{0}，
+$$
+出发，前向和后向的步进被表示为：
 
 $$
-P_{i} &= P_{i-1} + \frac{V(\lfloor P_{i-1} \rfloor)}{|V(\lfloor P_{i-1} \rfloor)|} \triangle s_{i-1}  \\
-P_{i}' &= P_{i-1}' - \frac{V(\lfloor P_{i-1}' \rfloor)}{|V(\lfloor P_{i-1}' \rfloor)|} \Delta s'_{i-1} 
+P_{i} &= P_{i-1} + \frac{\boldsymbol{v}(\lfloor P_{i-1} \rfloor)}{|\boldsymbol{v}(\lfloor P_{i-1} \rfloor)|} \Delta s_{i-1}，  \\
+P_{i}' &= P_{i-1}' - \frac{\boldsymbol{v}(\lfloor P_{i-1}' \rfloor)}{|\boldsymbol{v}(\lfloor P_{i-1}' \rfloor)|} \Delta s'_{i-1} ，
 $$ (visualization-scientific-LIC1)
 
+其中，我们用上标一撇表示后向轨迹，用坐标加 0.5 后向下取整符号来获得距离目标点最近的格点并获取格点上的矢量场采样值 $\boldsymbol{v}(\lfloor P \rfloor)$，$\Delta s$ 与 $\Delta s'$ 表示步进长度，是沿着平行于矢量场的方向从 $P_i$ 或 $P'_i$ 到最近单元格边缘的正负参数距离，需要根据矢量场的网格精度来进行调整。
 
-其中：
 
-$$
-P_{0} &= (x+0.5, y+0.5), \\
-P_{0}' &= P_{0}
-$$
-$P$ 表示图像（纹理图像）中的像素位置。$V(\lfloor P \rfloor)$ 表示在格点 $(P_x, P_y)$ 上输入矢量场的矢量。
 
-因此，流场的卷积结果可以表示为：
+对于第 $i$ 段轨迹，我们可以计算出这段轨迹上卷积核函数 $k(w)$ 的准确积分：
 
 $$
 h_{i} = \int_{s_i}^{s_i + \Delta s_i} k(w) dw 
 $$ (visualization-scientific-LIC2)
-其中  $\Delta s_i$ 和 $\Delta s_i'$ 是沿着平行于矢量场的线从 $P_i$ 到最近单元格边缘的正负参数距离。 
-$\Delta s_i = \min(s_{top}, s_{bottom}, s_{left}, s_{right})$，$\Delta s_i'$ 类似。
+<!-- 其中  
+$\Delta s_i = \min(s_{top}, s_{bottom}, s_{left}, s_{right})$，$\Delta s_i'$ 类似。 -->
+
+这个结果将被用作步骤（4）离散卷积中对应像素处背景纹理的权重，
 最终图像上应该呈现的结果由 $F'(x, y)$ 给出：
 
 $$
-F'(x, y) = \frac{\sum_{i=0}^l F(\lfloor P_i \rfloor) h_i + \sum_{i=0}^{l'} F(\lfloor P_i' \rfloor) h_i'}{\sum_{i=0}^l h_i + \sum_{i=0}^{l'} h_i'}
+F'(x, y) = \frac{\sum_{i=0}^l F(\lfloor P_i \rfloor) h_i + \sum_{i=0}^{l'} F(\lfloor P_i' \rfloor) h_i'}{\sum_{i=0}^l h_i + \sum_{i=0}^{l'} h_i'}，
 $$ (visualization-scientific-LIC3)
 
+其中 $F(\lfloor P \rfloor)$ 是 $\lfloor P \rfloor$ 位置处的初始背景像素值。
 
-对于LIC算法的分析可以参考[此博客网站](http://www.zhanpingliu.org/Research/FlowVis/LIC/LIC.htm)。此博客同时给出了其他经典的流场可视化实现例子，感兴趣的同学请自行阅读。
+```{admonition} 思考
+:class: tip
+
+在式 {eq}`visualization-scientific-LIC1` 中，我们只使用了矢量的方向而没有使用大小，大小可以通过颜色映射方法反应到图像中，如{numref}`fig-visualization-scientific-lic_examples` 右所示。能否将矢量大小也反映在卷积中（如{numref}`fig-visualization-scientific-lic_examples` 左所示）？
+```
 
 ```{figure} fig/visualization-scientific-lic_wind.png
 :name: fig-visualization-scientific-lic_wind
-LIC算法效果类似于一堆细沙被强风吹散。
+LIC算法效果类似于一堆细沙被强风吹散。[^fig-visualization-scientific-lic-ref] © Zhanping Liu
+
 ```
 
 ```{figure} fig/visualization-scientific-lic_pipeline.png
 :name: fig-visualization-scientific-lic_pipeline
-LIC算法流程。
+LIC算法流程。[^fig-visualization-scientific-lic-ref] © Zhanping Liu
 ```
 
-在传统的 LIC 方法中，每个像素点的计算都是独立的，而 TexMap LIC 则通过将 LIC 运算映射到纹理空间中来优化这一过程。
+[^fig-visualization-scientific-lic-ref]:对于LIC算法的分析可以参考原论文 {cite}`LIC1993` 或[此博客网站](http://www.zhanpingliu.org/Research/FlowVis/LIC/LIC.htm)。此博客同时给出了其他经典的流场可视化实现例子，感兴趣的同学可以自行阅读。
+
+后续人们也提出了若干对 LIC 算法的改进思路。在传统的 LIC 方法中，每个像素点的计算都是独立的，而 TexMap LIC 则通过将 LIC 运算映射到纹理空间中来优化这一过程。
 这种方法使得 LIC 能够更好地利用现代图形硬件的能力，尤其是在处理大规模或复杂的矢量场数据时，能够显著提高渲染速度和图像质量。
 Volume LIC 是将 LIC 方法扩展到三维空间的一种技术，用于三维矢量场的可视化。它通过在体积数据中沿着矢量流线进行积分卷积，生成能够表现三维流动特性的图像。
-
+<!-- 
 ### 流场可视化前沿
 
 可视化的前沿领域集中于对于以下问题的探索，如不稳定流（Unsteady Flow）的可视化、可视化算法的加速、结合网络的可视化。
@@ -372,15 +409,16 @@ Volume LIC 是将 LIC 方法扩展到三维空间的一种技术，用于三维�
 
 LSTM 可以帮助识别流场中的复杂模式，如周期性涡旋，以及长期依赖关系。这种方法在预测未来的流体行为以及分析非稳定流动中表现出了巨大的潜力。
 
-Flow Net 从流场数据集生成的一组流线或流面，然后使用自编码器来学习它们各自的潜在特征描述符。然后利用潜在空间中的隐变量去生成符合输入表征的流线或流面，来得到一个合理的混合预定义模式的结果。
+Flow Net 从流场数据集生成的一组流线或流面，然后使用自编码器来学习它们各自的潜在特征描述符。然后利用潜在空间中的隐变量去生成符合输入表征的流线或流面，来得到一个合理的混合预定义模式的结果。 -->
 
 ### 其他方法
 
 其他的矢量场可视化方法还有：流拓扑可视化 (Flow Topology Visualization)，粒子系统 (Particle-based Methods)等，如{numref}`fig-visualization-scientific-flow_vis` 所示。
+矢量场可视化的前沿领域还在探索关于不稳定流（Unsteady Flow）的可视化、可视化算法的加速、结合神经网络表达的可视化方法等等，这里不再展开描述。
 
 ```{figure} fig/visualization-scientific-flow_vis.png
 :name: fig-visualization-scientific-flow_vis
-Jarke J. van Wijk, Image Based Flow Visualization ©http://www.win.tue.nl/~vanwijk/ibfv/
+多种多样的流场可视化方法。{cite}`Wijk2002`
 ```
 
 在实际应用中，标量场也常与矢量场一起，被用来表述具有多类型数据的空间信息。
@@ -392,51 +430,63 @@ Jarke J. van Wijk, Image Based Flow Visualization ©http://www.win.tue.nl/~vanwi
 ```
 
 ## 张量场可视化
-张量场可视化是一种将复杂的多维数据转换成直观图形的技术，广泛应用于材料科学、医学成像（如扩散张量成像 DTI）、地球物理学等领域。
-因为张量本身并不直观，所以张量可视化会采取一些已存在的局部基元特征来体现空间分布的张量信息。
-在大部分应用中，张量一般是对称的（如应力张量），对称张量有三个特征值：$\lambda_1 \ge \lambda_2 \ge \lambda_3$，对应三个主方向/特征向量 $\mathbf{e_1}$，$\mathbf{e_2}$，$\mathbf{e_3}$，通过特征值分解，我们可以得到张量的几何特征，从而进行可视化。
-以下是三种常见的张量可视化方案：
+张量场可视化是一种将复杂的多维数据转换成直观图形的技术，广泛应用于材料科学、医学成像、地球物理学等领域。
+张量本身并不直观，
+<!-- 所以张量可视化会采取一些已存在的局部基元特征来体现空间分布的张量信息。 -->
+为了有效传达其结构和特征，人们发展出了多种可视化手段，与矢量场可视化的思路类似，主要包括基于图元、纹理和几何结构的方法。这些方法从不同角度捕捉张量场的空间分布、方向性和局部变化特征，各具优势与适用场景。
+<!-- 在大部分应用中，张量一般是对称的（如应力张量），对称张量有三个特征值：$\lambda_1 \ge \lambda_2 \ge \lambda_3$，对应三个主方向/特征向量 $\mathbf{e_1}$，$\mathbf{e_2}$，$\mathbf{e_3}$，通过特征值分解，我们可以得到张量的几何特征，从而进行可视化。
+以下是三种常见的张量可视化方案： -->
 
-### 基于图元的可视化（Glyph-based Visualization）
+### 基于图元的可视化
 
-此类方法通过几何形状（Glyph）的方向、大小和形状来编码张量的各向异性特性，常见图元包括箭头、椭球、圆柱、超二次曲面等。
+第一类方法是基于图元（glyph）的可视化。这类方法的核心思想是使用简单的二维或三维几何图形，如箭头、椭球、圆柱或长方体等，将张量的主要信息编码到图形的方向、大小和形状之中。
 
-- 椭球体：将对称正定张量分解为三个主方向和相应长度（特征值）后，绘制椭球体；椭球轴的方向与张量主方向一致，轴长与特征值大小相关。
-- 圆柱：用于扩散张量成像（DTI），圆柱长轴方向为纤维主扩散方向，直径反映扩散各向异性指数。
-- 盒状符号：以一个长方体来表示三个正交特征方向，长宽高对应特征值。
+例如，在一个三维二阶对称张量场中，通过对张量进行特征值分解，可以获得三个正交主方向以及对应的特征值。将这些方向作为几何体的主轴，将特征值映射为主轴的长度，就能构造出反映张量各向异性的椭球图元。
 
-基于图元的可视化可以直观表达局部张量特性，但是在高密度区域易产生视觉混乱。
+在应力分析、材料科学以及医学图像处理等领域中，图元法被广泛应用。它在医学成像中的一个典型应用是扩散张量成像（Diffusion Tensor Imaging，DTI），每个体素内的张量常被表示为一个椭球体，其中主轴方向对应水分子的主扩散方向，轴长则反映扩散强度。
+{numref}`fig-visualization-scientific-hyperglyph` 展示了使用不同类型图元的张量场可视化效果。
 
-### 基于纹理的可视化（Texture-based Visualization）
-
-这类方法通过在空间中铺设或合成规则或随机的纹理图案(如线条、条带、噪声纹理)，并根据张量的大小、方向或不变量等信息，调节相应纹理的“密度、形状、取向、颜色”等视觉特征，从而在整个区域内连续地渲染张量分布。
-纹理可视化具有以下核心特点：
-- 全局连续性：纹理覆盖整个数据区域，避免基于离散图元的视觉碎片化。
-- 方向编码：纹理走向与张量主方向对齐（如条纹沿主方向延伸）。
-- 各向异性表达：纹理密度或对比度反映各向异性程度（高各向异性区域纹理更密集/高对比）。
-- 多属性融合：颜色映射可叠加其他标量属性（如应力大小）。
-
-此类方法适用于大范围平滑张量场，具有很高的视觉连续性和表达精度，但是需要生成全局纹理，因此产生较大的计算开销。
-
-### 超流线（Hyperstreamlines）
-
-在矢量场中，流线体现局部向量方向。而在张量场中，如果我们将主方向之一当作“流动方向”，沿该方向跟踪曲线，并在垂直平面内用椭圆或其他形变展现张量在该点的其他主值和主方向，就得到超流线。
-超流线同时保留空间走向（第一主方向）与局部张量形态（其他特征方向），在一条曲线上把张量随空间变化的特征“画出来”，从而能够提供空间上的直观感知，使观察者能够从不同角度观察和分析数据。
-具体来说，超流线有以下三个特点：
-- 主方向：超流线通常沿最大特征值方向 $\mathbf{e_1}$ 追踪。
-- 局部截面：沿着曲线的每一采样点，生成一个截面，并在截面上用椭圆(或其他形状) 表示 $\lambda_2$，$\lambda_3$ 的相对大小和方向。
-- 曲线积分：在坐标空间中，以 $\mathbf{e_1}(x)$ 作为导向向量场，数值积分出曲线 $\boldsymbol{x}(s)$，从而得到超流线主体走向。
-
-超流线多应用在应力张量可视化中以进行材料断裂分析，或用于展示扩散张量场的各向异性传播。
-该方法可以同时表达主方向趋势与横截面特性，但是也需要面临三维空间中视觉遮挡的挑战。
-
-
-每种类型的方法都有其特定的应用场景和优势，选择哪一种取决于要可视化的数据类型和需要强调的数据特征。例如，图元适合强调数据点的局部特征，而纹理和超流线则更适合展示数据的整体流动和结构。{numref}`fig-visualization-scientific-mri` 和 {numref}`fig-visualization-scientific-tensor_types` 给出相应的张量可视化效果。
-
-```{figure} fig/visualization-scientific-mri.png
-:name: fig-visualization-scientific-mri
-通过箭头来可视化核磁共振图像。
+```{figure} fig/visualization-scientific-hyperglyph.png
+:name: fig-visualization-scientific-hyperglyph
+基于图元的张量可视化，第一行采用椭球体（ellipsoids）图元，第二行采用超二次曲面（superquadrics）图元。左：不同张量取值的图元形状；中：脑 DT-MRI 数据集的二维切片的可视化；右：3D 脑 DT-MRI 数据集可视化。。{cite}`Kindlmann2004`
 ```
+
+这种方法的优点在于直观、可解释，能够清晰地传达局部的张量特性。但当张量场密度较高时，图元可能会发生严重遮挡和重叠，从而降低整体可读性。
+
+### 基于纹理的可视化
+
+基于纹理的可视化方法通过将张量信息映射到空间中的连续纹理图案来传达其分布特征。纹理可以是规则的线条、条带，也可以是随机噪声图案。可视化过程中，张量场首先被简化为一组主要方向信息，再控制纹理图案的走向、密度和颜色，以反映张量的主方向、各向异性程度和其他不变量特征。
+
+这种方法具有显著的全局连续性优势，能够在整个可视区域内统一展现张量变化趋势，避免了图元方法在稠密场中的离散感。
+非常适合用于流体力学、弹性力学等需要展示连续张量分布的场景，但其计算和渲染成本较高，且细节控制上不如图元法灵活。
+
+这类方法的很多研究是基于纹理的矢量场可视化的拓展，如：LIC 的变体 HyperLIC {cite}`HyperLIC2003`；结合三维噪声场、并使用体渲染方法（我们将在下一小节介绍体渲染）渲染张量图元的可视化方法 {cite}`NoiseField3D2022`。这里不再详述。
+
+```{figure} fig/visualization-scientific-hyperLIC.png
+:name: fig-visualization-scientific-hyperLIC
+基于 HyperLIC 的张量可视化。第一行：二维 HyperLIC，不同视角下，单点载荷下的应力张量可视化；第二行：三维 HyperLIC，不同视角下，MRI 脑弥散张量（diffusion tensor）数据的可视化。{cite}`HyperLIC2003`
+```
+
+```{figure} fig/visualization-scientific-3DNoiseField.png
+:width: 80%
+:name: fig-visualization-scientific-3DNoiseField
+基于三维噪声场的张量可视化：不同视角下，心肌应变率（strain rate）数据的张量可视化，该数据是二维张量，用于刻画张量的平面图元被置于左心壁。{cite}`NoiseField3D2022`
+```
+
+### 超流线
+
+基于几何结构的可视化方法的代表性技术是超流线（hyperstreamlines）。在矢量场中，流线体现局部向量方向。而在张量场中，如果我们将张量的主方向之一当作“流动方向”，沿该方向跟踪曲线，并在垂直截面平面内用椭圆或其他形变展现张量在该点的其他主值和主方向，就得到超流线，如。
+
+超流线同时保留空间走向（第一主方向）与局部张量形态（其他特征方向），在一条曲线上把张量随空间变化的特征“画出来”，同时展示张量的主导流动趋势和局部各向异性形态，因此在材料科学和生物组织建模中尤其重要。例如，在DTI中，神经纤维束的走向可通过对主扩散方向进行超流线跟踪而还原，并通过截面上的椭圆形状直观反映各向异性扩散程度。该方法具有很高的表达能力和三维结构感，但也面临遮挡、过度密集等可视化挑战。
+
+```{figure} fig/visualization-scientific-hyperStreamline.png
+:width: 80%
+:name: fig-visualization-scientific-hyperStreamline
+基于超流线的张量可视化：脑扩散张量数据的可视化。利用各向异性播种策略和主特征向量方向生成超流线。左：500 条；右：1200条。{cite}`Sabadello2002EnhancingSN`
+```
+
+
+每种类型的张量场可视化方法都有其特定的应用场景和优势，选择哪一种取决于要可视化的数据类型和需要强调的数据特征。例如，图元适合强调数据点的局部特征，而纹理和超流线则更适合展示数据的整体流动和结构。{numref}`fig-visualization-scientific-tensor_types` 给出相应的张量可视化效果。
 
 ```{figure} fig/visualization-scientific-tensor_types.png
 :name: fig-visualization-scientific-tensor_types

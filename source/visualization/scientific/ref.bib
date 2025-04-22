@@ -1,3 +1,26 @@
+
+@inproceedings{Pan2024Fluid,
+title={Learning Reduced Fluid Dynamics},
+author={Zherong Pan and Xifeng Gao and Kui Wu},
+booktitle={AAAI Conference on Artificial Intelligence},
+year={2024}
+}
+@article{Sun2021MPM,
+author = {Sun, Yuchen and Ni, Xingyu and Zhu, Bo and Wang, Bin and Chen, Baoquan},
+title = {A material point method for nonlinearly magnetized materials},
+year = {2021},
+issue_date = {December 2021},
+publisher = {Association for Computing Machinery},
+journal = {ACM Trans. Graph.},
+}
+@article{Chen2022Thinshell,
+author = {Chen, Xuwen and Ni, Xingyu and Zhu, Bo and Wang, Bin and Chen, Baoquan},
+title = {Simulation and Optimization of Magnetoelastic Thin Shells},
+year = {2022},
+publisher = {Association for Computing Machinery},
+journal = {ACM Trans. Graph.},
+}
+
 @incollection{lorensen1998marching,
   title={Marching cubes: A high resolution 3D surface construction algorithm},
   author={Lorensen, William E and Cline, Harvey E},
@@ -5,7 +28,18 @@
   pages={347--353},
   year={1998}
 }
-
+@article{NMC2021,
+author = {Chen, Zhiqin and Zhang, Hao},
+title = {Neural marching cubes},
+year = {2021},
+issue_date = {December 2021},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {40},
+number = {6},
+abstract = {We introduce Neural Marching Cubes, a data-driven approach for extracting a triangle mesh from a discretized implicit field. We base our meshing approach on Marching Cubes (MC), due to the simplicity of its input, namely a uniform grid of signed distances or occupancies, which frequently arise in surface reconstruction and from neural implicit models. However, classical MC is defined by coarse tessellation templates isolated to individual cubes. While more refined tessellations have been proposed by several MC variants, they all make heuristic assumptions, such as trilinearity, when determining the vertex positions and local mesh topologies in each cube. In principle, none of these approaches can reconstruct geometric features that reveal coherence or dependencies between nearby cubes (e.g., a sharp edge), as such information is unaccounted for, resulting in poor estimates of the true underlying implicit field. To tackle these challenges, we re-cast MC from a deep learning perspective, by designing tessellation templates more apt at preserving geometric features, and learning the vertex positions and mesh topologies from training meshes, to account for contextual information from nearby cubes. We develop a compact per-cube parameterization to represent the output triangle mesh, while being compatible with neural processing, so that a simple 3D convolutional network can be employed for the training. We show that all topological cases in each cube that are applicable to our design can be easily derived using our representation, and the resulting tessellations can also be obtained naturally and efficiently by following a few design guidelines. In addition, our network learns local features with limited receptive fields, hence it generalizes well to new shapes and new datasets. We evaluate our neural MC approach by quantitative and qualitative comparisons to all well-known MC variants. In particular, we demonstrate the ability of our network to recover sharp features such as edges and corners, a long-standing issue of MC and its variants. Our network also reconstructs local mesh topologies more accurately than previous approaches. Code and data are available at https://github.com/czq142857/NMC.},
+journal = {ACM Trans. Graph.},
+}
 @article{pilar2013representing,
   title={Representing flow patterns by using streamlines with glyphs},
   author={Pilar, David HF and Ware, Colin},
@@ -41,4 +75,86 @@ pages = {359–365},
 numpages = {7},
 location = {Research Triangle Park, North Carolina, USA},
 series = {VIS '98}
+}
+
+@inbook{LIC1993,
+author = {Cabral, Brian and Leedom, Leith (Casey)},
+title = {Imaging Vector Fields Using Line Integral Convolution},
+year = {1993},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+edition = {1},
+booktitle = {Seminal Graphics Papers: Pushing the Boundaries, Volume 2},
+articleno = {40},
+numpages = {8}
+}
+
+
+@article{Wijk2002,
+author = {van Wijk, Jarke J.},
+title = {Image based flow visualization},
+year = {2002},
+issue_date = {July 2002},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {21},
+number = {3},
+journal = {ACM Trans. Graph.},
+month = jul,
+pages = {745–754},
+numpages = {10},
+keywords = {flow visualization, line integral convolution, texture mapping}
+}
+
+@inproceedings{Kindlmann2004,
+author = {Kindlmann, Gordon},
+title = {Superquadric tensor glyphs},
+year = {2004},
+isbn = {390567307X},
+publisher = {Eurographics Association},
+address = {Goslar, DEU},
+abstract = {Tensor field visualization is a challenging task due in part to the multi-variate nature of individual tensor samples. Glyphs convey tensor variables by mapping the tensor eigenvectors and eigenvalues to the orientation and shape of a geometric primitive, such as a cuboid or ellipsoid. Though widespread, cuboids and ellipsoids have problems of asymmetry and visual ambiguity. Cuboids can display misleading orientation for tensors with underlying rotational symmetry. Ellipsoids differing in shape can be confused, from certain viewpoints, because of similarities in profile and shading. This paper addresses the problems of asymmetry and ambiguity with a new tunable continuum of glyphs based on superquadric surfaces. Superquadric tensor glyphs enjoy the necessary symmetry properties of ellipsoids, while also imitating cuboids and cylinders to better convey shape and orientation, where appropriate. The new glyphs are demonstrated on fields of diffusion tensors from the human brain.},
+booktitle = {Proceedings of the Sixth Joint Eurographics - IEEE TCVG Conference on Visualization},
+pages = {147–154},
+numpages = {8},
+location = {Konstanz, Germany},
+series = {VISSYM'04}
+}
+
+@inproceedings{Sabadello2002EnhancingSN,
+  title={Enhancing spot noise visualizations of 2d and 3d vector fields},
+  author={Markus Sabadello},
+  year={2002},
+}
+
+@INPROCEEDINGS{HyperLIC2003,
+  author={Xiaoqiang Zheng and Pang, A.},
+  booktitle={IEEE Visualization, 2003. VIS 2003.}, 
+  title={HyperLIC}, 
+  year={2003},
+  volume={},
+  number={},
+  pages={249-256},
+  keywords={Tensile stress;Anisotropic magnetoresistance;Data visualization;Animation;Eigenvalues and eigenfunctions;Convolution;Computer science;Computational fluid dynamics;Magnetic resonance imaging;Chromium},
+}
+
+@inproceedings{NoiseField3D2022,
+author = {Sigfridsson, Andreas and Ebbers, Tino and Heiberg, Einar and Wigstr\"{o}m, Lars},
+title = {Tensor field visualisation using adaptive filtering of noise fields combined with glyph rendering},
+year = {2002},
+publisher = {IEEE Computer Society},
+address = {USA},
+booktitle = {Proceedings of the Conference on Visualization '02},
+pages = {371–378},
+numpages = {8},
+keywords = {volume rendering, visualisation, tensor, strain-rate, hybrid rendering, glyph rendering},
+location = {Boston, Massachusetts},
+series = {VIS '02}
+}
+
+@inproceedings{Sabadello2002EnhancingSN,
+  title={Anisotropy Based Seeding for Hyperstreamline},
+  author={Wei Shen and Alex Pang},
+  year={2004},
+  booktitle={Proceedings of IASTED International Conference on Computer Graphics and Imaging (CGIM’04)}
 }
