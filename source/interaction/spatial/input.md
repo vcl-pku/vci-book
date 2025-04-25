@@ -81,21 +81,35 @@ Teddy {cite}`igarashi1999teddy`：一个3D自由形式设计的草图界面。
 
 数据手套则是一种穿戴设备，通过其上的传感器可以精确的捕捉手指和手腕的相对运动，获取各种手势信号，并且可以配合一个六自由度的跟踪器，跟踪手的实际位置和方向。
 
-```{figure} fig/interaction-spatial-glove.png
+<!-- ```{figure} fig/interaction-spatial-glove.png
 :scale: 30 %
 :name: fig-interaction-spatial-glove
 数据手套。 © Haptx
-```
+``` -->
 
 ### 触觉和力反馈器
 
 触觉和力反馈器是一类模拟现实世界中触感和反作用力的设备，包括力学反馈手套、力学反馈操纵杆、力学反馈笔、力学反馈表面等装置。这一类设备希望使用户感觉到仿佛真的摸到了物体，主要通过视觉、气压感、振动触觉、电子触觉和神经肌肉模拟等方法实现。其中，电子触觉反馈器是向皮肤反馈宽度和频率可变的电脉冲，而神经肌肉模拟反馈是直接刺激皮层，这些方法都很不安全；较安全的方法是气压式和振动触感式的反馈器。然而，人的触觉非常敏感，精度一般的装置无法满足要求；对于触觉和力反馈器，还要考虑到模拟力的真实性、施加到人手上是否安全以及装置是否便于携带并让用户感到舒适等问题。由于精度、真实感、安全性等上述问题，目前这一类设备尚缺乏成熟产品。
 
-```{figure} fig/interaction-spatial-haptic_suit.png
-:scale: 30 %
+<!-- ```{figure} fig/interaction-spatial-haptic_suit.png
+
 :name: fig-interaction-spatial-haptic_suit
 触觉反馈套装。 © Haptx
+``` -->
+
+````{subfigure} AB
+:gap: 20px
+:subcaptions: below
+:name: fig-visualization-scientific-haptx
+
+```{image} fig/interaction-spatial-glove.png
+:width: 70 %
 ```
+```{image} fig/interaction-spatial-haptic_suit.png
+:width: 40 %
+```
+左：数据手套；右：触觉反馈套装。 © Haptx
+````
 
 ### 实体用户界面（Tangible User Interface， TUI）
 
@@ -131,12 +145,12 @@ Skweezee: cuboid {cite}`vanderloock2013skweezee`。
 实体用户界面的发展有赖于物理控件（Physical Widgets 或 Phidgets）的发展，一类具有物理实体的**可重复使用**的交互设备。与 Skweezee 系统这样的 TUI 技术不同的是，物理控件往往是固定在桌面的交互设备，例如各种压力、温度的传感器控件或相机，其输入输出并配备有物理实体，允许用户通过物理交互来传递控制信号。如{numref}`fig-interaction-spatial-table_phidget` 所示的桌面交互，利用相机摄影将用户的动作实时传递给系统并据此在桌面显示屏中作出交互反馈。物理控件的设置初衷在于提供一种便捷、低成本的方式来让计算机能够方便地获得与现实世界进行物理交互的能力。物理控件往往统一为USB接口，使用时只需要连接到计算机设备上，随后通过特定的驱动程序来处理数字输入输出。
 ```{figure} fig/interaction-spatial-table_phidget.png
 :name: fig-interaction-spatial-table_phidget
-桌面交互。
+桌面交互。{cite}`Patten2001Sensetable`
 ```
 与3D打印技术结合使得物理控件的制作成为可编程的，Vázquez等人利用3D打印技术设计了一种气动装置 {cite}`Vazquez2015phidget`，如{numref}`fig-interaction-spatial-pressure_phidget`所示，通过按钮、滑动条、旋钮等各类空气元件的内部压力改变来获得对应的驱动力和输入信号，在配备电子元件后，还可以将物理量信息转化为电信号来实现定量的输入控制。
 ```{figure} fig/interaction-spatial-pressure_phidget.png
 :name: fig-interaction-spatial-pressure_phidget
-3D打印制作出的气压传感控件。
+3D打印制作出的气压传感控件。{cite}`Vazquez2015phidget`
 ```
 
 ## 基于三维显示与多通道交互的智慧交互

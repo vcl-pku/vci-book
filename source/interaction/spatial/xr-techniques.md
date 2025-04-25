@@ -25,7 +25,7 @@
 ```
 
 ```{image} fig/interaction-spatial-ar.png
-:alt: 增强/混合现实
+:alt: 增强/混合现实 © HoloLens
 ```
 虚拟现实与增强/混合现实。
 ````
@@ -43,7 +43,7 @@ VR 应用使用的典型硬件是 VR 头显，并可能配备有手柄或外部�
 
 不同的 VR 设备的位姿测量的能力不同，对应着设备所配备的不同的自由度。自由度（Degrees of Freedom， DoF）指的是能够独立自由运动的参数的数目，如{numref}`fig-interaction-spatial-dof` 所示，一般设备的自由度有两种常用配置：
 - 3度自由度（3-DoF）：此配置允许用户的头部在三个轴（俯仰、偏航、翻滚）上旋转，适合于静态体验，如观看虚拟现实影片或进行简单的查看任务。
-- 6度自由度（6-DoF）：除了3-DoF提供的头部旋转外，6-DoF还支持用户在空间中的前后、左右、上下移动，极大增强了交互性和沉浸感，允许用户在虚拟世界中自由行走和探索。
+- 6度自由度（6-DoF）：除了 3-DoF 提供的头部旋转外，6-DoF 还支持用户在空间中的前后、左右、上下移动，极大增强了交互性和沉浸感，允许用户在虚拟世界中自由行走和探索。
 
 ```{figure} fig/interaction-spatial-dof.png
 :scale: 70 %
@@ -133,7 +133,7 @@ VIO技术融合了来自摄像头的**视觉信息**和来自加速度计与陀�
 
 ```{figure} fig/interaction-spatial-virtuix_omni.png
 :name: fig-interaction-spatial-virtuix_omni
-全向跑步机Virtuix Omni。
+全向跑步机 Virtuix Omni。
 ```
 
 **全向跑步机**（Omnidirectional Treadmill），如Virtuix Omni（如{numref}`fig-interaction-spatial-virtuix_omni` 所示），提供了真实行走的体验而不离开原地，使得用户可以在物理空间受限的情况下，在虚拟环境中自由移动。这种设备是通过一个能够检测步伐方向和速度的低摩擦平台来实现的，用户佩戴专用鞋或滑动设备，可以在虚拟世界中360度的自由行走、跑步甚至旋转。但该技术系外部设备需求较高、价格昂贵，因此主要被应用于专业场地，且设备需要与用户接触，不能做到完全无感。
@@ -148,7 +148,7 @@ VIO技术融合了来自摄像头的**视觉信息**和来自加速度计与陀�
 ```{figure} fig/interaction-spatial-rdw.png
 :name: fig-interaction-spatial-rdw
 :width: 80%
-通过重定向行走3.5米 $\times$ 3.5米的真实房间中记录的物理路径（蓝色曲线）和6.4米 $\times$ 6.4米的合成空间中的虚拟路径（橙色曲线）的俯视图。{cite}`Sun2018TowardsVR`
+通过重定向行走 3.5 米 $\times$ 3.5 米的真实房间中记录的物理路径（蓝色曲线）和 6.4 米 $\times$ 6.4 米的合成空间中的虚拟路径（橙色曲线）的俯视图。{cite}`Sun2018TowardsVR`
 ```
 
 用户进行低速运动时给系统提供了足够的重定向的余地，但当用户需要进行跑跳等快速运动时，在有限的物理空间中很容易撞上障碍物或墙壁。对此，一个可以累加在重定向行走技术之上的解决方案是空间重映射，如{numref}`fig-interaction-spatial-remapping` 所示，
@@ -169,15 +169,15 @@ VIO技术融合了来自摄像头的**视觉信息**和来自加速度计与陀�
 ```{figure} fig/interaction-spatial-sgd.png
 :width: 80%
 :name: fig-interaction-spatial-sgd
-SGD方法。
+SGD 方法。
 ```
 ### 未来发展
 
-**设备精确性与反应速度的提高** ：随着硬件技术的进步，未来的VR设备将提供更高的精确性和更快的反应速度。这包括更高分辨率的眼动追踪系统、更灵敏的运动传感器以及更快速的处理器，这些都是实现复杂空间重映射技术的关键。高精度的传感器和快速的反应能力能够确保虚拟环境中的任何微小调整都即时且精确地反映用户的实际动作，增强沉浸感和现实感。
+**设备精确性与反应速度的提高** ：随着硬件技术的进步，未来的 VR 设备将提供更高的精确性和更快的反应速度。这包括更高分辨率的眼动追踪系统、更灵敏的运动传感器以及更快速的处理器，这些都是实现复杂空间重映射技术的关键。高精度的传感器和快速的反应能力能够确保虚拟环境中的任何微小调整都即时且精确地反映用户的实际动作，增强沉浸感和现实感。
 
 **用户体验的舒适性和自然性** ：提高用户体验的舒适性和自然性是VR技术发展的另一个重要方向。这不仅涉及硬件设计的人体工程学优化，如更轻便的头显和更适合长时间佩戴的材料，还包括软件界面的用户友好性改进。例如，通过改进用户界面（UI）和用户体验（UX）设计，使得用户在进行复杂的虚拟操作时感觉更直观和轻松。此外，对VR环境的声音、光影和质感进行真实的模拟，也是提升自然性的关键。
 
-**综合应用和跨领域融合** ：随着VR技术的成熟，其应用领域将进一步扩展，不仅限于娱乐和游戏，还将深入到教育、训练、医疗和工业设计等多个领域。跨领域的融合将推动VR技术与其他先进技术如人工智能、大数据和物联网的结合，共同创造出全新的应用场景和用户体验。
+**综合应用和跨领域融合** ：随着 VR 技术的成熟，其应用领域将进一步扩展，不仅限于娱乐和游戏，还将深入到教育、训练、医疗和工业设计等多个领域。跨领域的融合将推动 VR 技术与其他先进技术如人工智能、大数据和物联网的结合，共同创造出全新的应用场景和用户体验。
 
 ## 增强/混合现实
 <!-- Orion has the largest field of view in the smallest AR glasses form to date. That field of view unlocks truly immersive use cases for Orion, from multitasking windows and big-screen entertainment to life-size holograms of people – all digital content that can seamlessly blend with your view of the physical world.

@@ -2,10 +2,19 @@
 
 <!-- 与二维数据主要聚焦于物理量类型不同，在三维空间中，数据还可能以不同的几何形式呈现在空间中，
 科学数据的空间结构成为可视化设计的关键依据。常见的三维科学数据可以分为两类：表面数据和体数据。前者通常指具有明确几何边界的二维嵌入式结构，如医学图像中的器官表面或地质断层；而后者则描述填满空间的体积信息，如CT扫描结果、气象体场或模拟中的物质密度分布。对不同结构的数据，可视化技术需要在几何建模、渲染策略与交互方式上做出相应调整，以有效呈现其内部结构与分布特征。 -->
-在实际应用中，数据还可能以不同的几何形式呈现在空间中，例如：
+在实际应用中，数据不仅会有物理属性上的不同，还可能以不同的几何形式呈现在空间中：
 某些数据仅限定在诸如曲面、地形、CAD 模型边界等“表面”上，需要进行**表面可视化**。
 更多时候，数据分布在三维体内部，如医学成像的 CT 或 MRI 扫描结果、流体模拟的 3D 网格数据等，这些数据往往需要**体积可视化**技术才能揭示其内部结构。
 因此，本节中我们继续探讨“表面数据”和“体数据”在可视化时所采用的不同技术。
+<!-- 还可能有着多种多样的组织方式，包括且不限于：结构化网格（按规则、均匀间隔进行采样，形成具有行列索引关系的网格）、非结构化网格（三角形、四面体、多面体网格等具有不规则连接关系的网格）、无网格拓扑的离散点点云等等。 -->
+
+<!-- - **结构网格**数据指在空间或时空范围内按规则、均匀间隔进行采样，形成具有行列（或行列层）索引关系的网格。例如：流体力学中的规则网格（如 CFD 仿真输出，采用均匀笛卡尔网格），医学影像的 3D 体素数据（CT、MRI 采用固定分辨率扫描）。 结构网格具备简单的拓扑关系，因而易于索引、插值和处理；但其不灵活的分辨率布置会导致数据量庞大或分辨率不足，在非均匀或复杂几何域中也难以适配。
+
+- **非结构网格**数据指在空间中采用三角形、四面体、多面体等具有不规则连接关系的网格单元对域进行剖分，存储每个单元的属性。
+例如：有限元分析（FEM）模型、地质构造模拟网格（地层间往往复杂，需自适应网格）、海洋/气象模型对海岸线等不规则区域的剖分。
+非结构网格可灵活适应复杂几何边界，并可在感兴趣区域加密采样，但数据结构较复杂，渲染和拓扑运算(如等值面提取、流线跟踪)需要针对单元连接关系做更多预处理。
+
+- **离散点云**数据指在空间或时空中仅给出一组拥有坐标及测量值（标量或矢量等）的散点，没有显式的网格连接关系。 常见的离散点云数据包括：激光雷达扫描（LiDAR）、粒子仿真输出（如分子动力学、天体多体模拟）、观测仪器采样的稀疏离散测量数据。 离散点云数据无需事先网格化，灵活度高，容易真实地反映局部细节；但可视化算法需要做插值、重构或聚类，才能形成连续可视效果，且在大规模点云下的渲染与交互也面临性能挑战。 -->
 
 ## 按空间结构分类：表面数据、体数据
 
@@ -18,17 +27,6 @@
 
 体积数据（Volume Data）表示的是三维空间内部的数据分布，每个空间位置对应一个数据值。常见的体积数据包括：医学成像（如 CT 或 MRI 扫描）、气象模拟（如三维风速场或云量分布）、工程仿真（如流体动力学模拟的速度和压力场）。
 体积数据具有数据量大、内部结构复杂且可能缺乏明确边界的特点，如何有效提取内部特征、减少遮挡干扰，以及在保证细节的同时进行高效绘制是体积数据可视化的关注重点。
-
-常见的体积数据的存储模式包括：结构化网格、非结构化网格、无网格拓扑的离散点点云等。
-
-- **结构网格**数据指在空间或时空范围内按规则、均匀间隔进行采样，形成具有行列（或行列层）索引关系的网格。例如：流体力学中的规则网格（如 CFD 仿真输出，采用均匀笛卡尔网格），医学影像的 3D 体素数据（CT、MRI 采用固定分辨率扫描）。 结构网格具备简单的拓扑关系，因而易于索引、插值和处理；但其不灵活的分辨率布置会导致数据量庞大或分辨率不足，在非均匀或复杂几何域中也难以适配。
-
-- **非结构网格**数据指在空间中采用三角形、四面体、多面体等具有不规则连接关系的网格单元对域进行剖分，存储每个单元的属性。
-例如：有限元分析（FEM）模型、地质构造模拟网格（地层间往往复杂，需自适应网格）、海洋/气象模型对海岸线等不规则区域的剖分。
-非结构网格可灵活适应复杂几何边界，并可在感兴趣区域加密采样，但数据结构较复杂，渲染和拓扑运算(如等值面提取、流线跟踪)需要针对单元连接关系做更多预处理。
-
-- **离散点云**数据指在空间或时空中仅给出一组拥有坐标及测量值（标量或矢量等）的散点，没有显式的网格连接关系。 常见的离散点云数据包括：激光雷达扫描（LiDAR）、粒子仿真输出（如分子动力学、天体多体模拟）、观测仪器采样的稀疏离散测量数据。 离散点云数据无需事先网格化，灵活度高，容易真实地反映局部细节；但可视化算法需要做插值、重构或聚类，才能形成连续可视效果，且在大规模点云下的渲染与交互也面临性能挑战。
-
 
 ## 表面可视化
 
@@ -125,8 +123,9 @@
 ```{figure} fig/visualization-scientific-transmission.png
 :width: 40%
 :name: fig-visualization-scientific-transmission
-体渲染的原理：光与介质作用后的出射光强决定了图像渲染结果。
+体渲染的原理：光与介质作用后的出射光强决定了图像渲染结果。©️ https://www.scratchapixel.com/ [^ref]
 ```
+[^ref]: 图片来源于网站 https://www.scratchapixel.com/lessons/3d-basic-rendering/volume-rendering-for-developers/volume-rendering-summary-equations.html
 
 在光的透射过程中，由于光子与体积介质中的粒子发生作用，光强会因以下现象发生改变，如{numref}`fig-visualization-scientific-phenomena` 所示：
 
@@ -139,7 +138,7 @@
 ```{figure} fig/visualization-scientific-phenomena.png
 :width: 60%
 :name: fig-visualization-scientific-phenomena
-体渲染的原理：光与介质作用的四种现象。
+体渲染的原理：光与介质作用的四种现象。[^ref]
 ```
 
 <!-- 我们通过{numref}`fig-visualization-scientific-transmission` 来说明这些系数导致的光学方程。 -->
@@ -182,29 +181,53 @@ $$ (visualization-scientific-volume_rendering_diff)
 其中等式右边四项分别对应吸收、放射、外散射和内散射。为方便，记 $\sigma_t = \sigma_a+\sigma_s$ 为消光系数（extinction coefficient），$q(s)=\tau_a(s) I_e(s)+\tau_s I_s(s)$ 为源项，包含介质的自放射和内散射，从而上述方程可以整理为一个典型的一阶线性常微分方程形式：
 
 $$
-\frac{\mathrm{d} I}{\mathrm{d} s} +\tau_t(s) I(s) = q(s)
+\frac{\mathrm{d} I}{\mathrm{d} s} +\tau_t(s) I(s) = q(s)。
 $$ (visualization-scientific-volume_rendering_typicaldiff)
 
-为积分该方程，我们引入**透射率（Transmittance）**：
+为积分该方程，我们记积分变量为 $x$，并引入积分因子：
 
 $$
-T(s)=\exp(-\int_{s_0}^s\sigma_t(s')\mathrm{d}s')，
+\bar{T}(x)=\exp(-\int_{0}^x\sigma_t(x')\mathrm{d}x')，
 $$ (visualization-scientific-volume_rendering_transmittance)
 
-它代表了光从 $s_0$ 传播到 $s$ 未被吸收或散射出去的概率，满足：$\mathrm{d}T(s) = - \sigma (s)T(s)\mathrm{d} s$。其中，记 $s_0$ 为光线的起点，比如无穷远，因此可以假设光线在起点处无衰减：$T(s_0)=1$，且光强即为背景光强：$I(s_0)=I_{\text{bg}}$。
+它代表了光从原点（相机位置）$0$ 到积分点 $x$ 后未被吸收或散射出去的概率，也被称作**透射率（Transmittance）**，满足：$\mathrm{d}\bar{T}(x) = - \sigma (x)\bar{T}(x)\mathrm{d} x$。
 
-于是利用积分因子 $1/T(s)$，对式 {eq}`visualization-scientific-volume_rendering_typicaldiff` 从 $s_0$ 到 $s$ 积分得到：
+考虑到：光线在起点处无衰减：$\bar{T}(0)=1$，且光强即为背景光强：$I(0)=I_{\text{bg}}$。
+于是对式 {eq}`visualization-scientific-volume_rendering_typicaldiff` 从 $0$ 到 $s$ 积分得到：
 
 $$
-I(s)=T(s)I_{\text{bg}}+\int_{s_0}^s T(s)q(s)\mathrm{d}s，
+I(s)&=\bar{T}(s)\left[\frac{I(0)}{\bar{T}(0)}+\int_{0}^s \frac{q(x)}{\bar{T}(x)}\mathrm{d}x\right]\\
+&=\bar{T}(s)I_{\mathrm{bg}}+\int_{0}^s \frac{\bar{T}(s)}{\bar{T}(x)}q(x)\mathrm{d}x。
+$$ (visualization-scientific-volume_rendering_integral)
+
+而一般来说，我们更习惯逆着光线方向积分，即，从观察者位置 $x=s$ 出发到相机位置 $x=0$ 为止，因此我们重新设置积分变量 $t=s-x$ 来代替 $x$，如{numref}`fig-visualization-scientific-volume_rendering_ray_direction` 所示，并重写透射率和光强的积分结果：式 {eq}`visualization-scientific-volume_rendering_integral`中，
+
+$$
+\bar{T}(s)&=\exp(-\int_{0}^s\sigma_t(x')\mathrm{d}x')=\exp(-\int_{0}^s\sigma_t(t')\mathrm{d}t')=T(s)
+\\
+\frac{\bar{T}(s)}{\bar{T}(x)}&=\exp(-\int_{x}^s\sigma_t(x')\mathrm{d}x')
+=\exp(-\int_{0}^t\sigma_t(t')\mathrm{d}t')
+=T(t)，
+$$
+
+这里我们将改写积分方向后的透射率表达式记为 $T(t)$。故最后得到简化形式：
+
+$$
+I(s)=T(s)I_{\text{bg}}+\int_{0}^s T(t)q(t)\mathrm{d}t，
 $$ (visualization-scientific-volume_rendering)
 
-第一项是背景光经过介质后的剩余能量，第二项是介质自身发光和散射光的累积贡献，每点的贡献按当前的透射率加权。
+这就是体渲染中最常用的积分方程形式。
+
+```{figure} fig/visualization-scientific-volume_rendering_ray_direction.png
+:width: 60%
+:name: fig-visualization-scientific-volume_rendering_ray_direction
+体渲染中的积分方向示意：实线为顺光线方向，虚线为逆光线方向。
+```
 
 <!-- 
 ```{admonition} 思考
 :class: tip
-{eq}`visualization-scientific-volume_rendering_integral` 是如何从{eq}`visualization-scientific-volume_rendering_diff` 中推导出来的呢？（提示：使用 $1/T(s)$ 作为积分因子。）
+{eq}`visualization-scientific-volume_rendering_integral` 是如何从{eq}`visualization-scientific-volume_rendering_diff` 中推导出来的呢？（提示：使用 $1/\bar{T}(s)$ 作为积分因子。）
 ``` -->
 
 #### 体渲染经典实现算法

@@ -13,7 +13,7 @@
 
 从{numref}`fig-visualization-informational-plot` 的对比图中，我们可以得到重要的两点结论：首先，绘图没有明确的使用标准或使用公式，这不同绘图在坐标轴和比例线、图内的数据矩形以及数据值的实际表示等方面上的差异可以看出来；其次，创建一张绘图是一个迭代的设计过程，一次绘图的设计方案不能普遍适用于所有类型的数据。
 
-然而，人们也已经提出了一些普遍的绘图原则，可以被用作指导，以提高绘图能传达出有用信息的可能性。下面我们将介绍 William S. Cleveland 提出的提升绘图质量的两条路线和相应原则 {cite}`Cleveland1993visualizing, Cleveland1994graphing`。
+然而，人们也已经提出了一些普遍的绘图原则，可以被用作指导，以提高绘图能传达出有用信息的可能性。下面我们将介绍威廉·克利夫兰（William S. Cleveland）提出的提升绘图质量的两条路线和相应原则 {cite}`Cleveland1993visualizing, Cleveland1994graphing`。
 
 ## 提升绘图质量的原则
 
@@ -32,7 +32,7 @@
 ```{figure} fig/visualization-informational-plot_vision2.png
 :width: 60%
 :name: fig-visualization-informational-plot_vision2
-左：图中添加了适当数量的点。右：图中添加了过多数量的点。
+左：图中添加了过多数量的点。右：图中添加了适当数量的点。
 ```
 
 - **原则 3：使用简洁的参考线、标签、注释和图例。**
@@ -40,7 +40,7 @@
 ```{figure} fig/visualization-informational-plot_vision3.png
 :width: 60%
 :name: fig-visualization-informational-plot_vision3
-左：适当的辅助线帮助用户阅读数据。右：多余的参考线使图像杂乱、重点不突出。
+左：多余的参考线使图像杂乱、重点不突出。右：适当的辅助线帮助用户阅读数据。
 ```
 
 - **原则 4：确保叠加数据集中的不同组的符号可分离，同组的符号在视觉上易于组合。**
@@ -48,7 +48,7 @@
 ```{figure} fig/visualization-informational-plot_vision4.png
 :width: 60%
 :name: fig-visualization-informational-plot_vision4
-左：对不同数据集采用相同的视觉符号使之无法区分。右：对不同数据集采用易于区分的视觉符号，图中不同直线对应不同线型有助于在仅黑白两色的媒介中清楚展示不同直线的图像。
+左：对不同数据集采用相同的视觉符号使之无法区分。右：对不同数据集采用易于区分的视觉符号，并且图中不同直线对应不同线型有助于在仅黑白两色的媒介中清楚展示不同直线的图像。
 ```
 
 - **原则 5：使用适当的比例刻度和数据边距。**
@@ -115,7 +115,7 @@
 ```{figure} fig/visualization-informational-dotplot.png
 :width: 60%
 :name: fig-visualization-informational-dotplot
-点图。通常按数据值由大到小绘制，并将最大值排在顶部（除非需要保留数据的固有顺序）。该图中使用了对数坐标来减少数据绘制的偏斜，更好地展示数据规律。
+点图。通常按数据值由大到小绘制，并将最大值排在顶部（除非需要保留数据的固有顺序）。该图中使用了对数坐标来减少数据绘制的偏斜，更好地展示数据规律。© SCI Utah
 ```
 ```{figure} fig/visualization-informational-dotplot_multidim.png
 :width: 60%
@@ -127,14 +127,14 @@
 ```{figure} fig/visualization-informational-scatter_correlation.png
 :width: 80%
 :name: fig-visualization-informational-scatter_correlation
-散点图，从左到右依次展现了高相关性、低相关性、无相关性。
+散点图，从左到右依次展现了高相关性、低相关性、无相关性。© SCI Utah
 ```
 ```{figure} fig/visualization-informational-scatter_line.png
 :width: 80%
 :name: fig-visualization-informational-scatter_line
-利用最小二乘法求解最佳拟合直线。具有相关性的数据（左、中）将能得到较好拟合，但可能会受到离群值的影响（右）。
+利用最小二乘法求解最佳拟合直线。具有相关性的数据（左、中）将能得到较好拟合，但可能会受到离群值的影响（右）。© SCI Utah
 ```
-散点图的一个扩展是**气泡图 (Bubble Chart) **，它将散点改成具有大小或颜色的圆圈，利用这一新增的视觉通道表达第三个维度。
+散点图的一个扩展是**气泡图（Bubble Chart）**，它将散点改成具有大小或颜色的圆圈，利用这一新增的视觉通道表达第三个维度。
 ```{figure} fig/visualization-informational-bubble.png
 :width: 80%
 :name: fig-visualization-informational-bubble
@@ -144,19 +144,19 @@
 ```{figure} fig/visualization-informational-scatter_highdim.png
 :width: 60%
 :name: fig-visualization-informational-scatter_highdim
-利用散点图矩阵展示高维数据，并通过观察特定散点图或整行/列散点图中的散点分布形态得到维度之间的相关性（绿色方框）。
+利用散点图矩阵展示高维数据，并通过观察特定散点图或整行/列散点图中的散点分布形态得到维度之间的相关性（绿色方框）。© Junk Charts
 ```
 
 **条形图（bar chart）**：常被用于离散型或分类型数据（如不同城市、产品、月份等）之间的数值比较，利用每个类别的矩形条的长度标识对应的数据值。一般矩形条的长边会被纵向摆放（类别被排列在横轴），这类条形图也被称为**柱状图**。在类别较多或类名过长时，矩形条也可以被横向摆放（类别被排列在纵轴），如{numref}`fig-visualization-informational-popularity` 所示，这让条形图更加易读。
 ```{figure} fig/visualization-informational-popularity.png
 :width: 60%
 :name: fig-visualization-informational-popularity
-世界人口数量条形图。 ©Apache ECharts
+世界人口数量条形图。 © Apache ECharts
 ```
 
 **直方图（histogram）**：是一类特殊的条形图，被用于展示数据的分布情况。如{numref}`fig-visualization-informational-histogram` 所示，它将数据分为若干个连续且不重叠的区间（bins），并通过柱形的高度表示每个区间内数据点的数量。直方图常用于分析数据的分布特征，例如查看数据的集中趋势、离散程度以及是否存在偏态或多峰分布。
 ```{figure} fig/visualization-informational-histogram.png
-:width: 90%
+:width: 80%
 :name: fig-visualization-informational-histogram
 柱状直方图。
 ```

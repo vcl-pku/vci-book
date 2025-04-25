@@ -25,7 +25,7 @@
 ```{figure} fig/visualization-basics-world_history.png
 :scale: 35 %
 :name: fig-visualization-basics-world_history
-地球演化历史图。 ©https://www.behance.net/gallery/10901127/History-of-Life
+地球演化历史图。 © https://www.behance.net/gallery/10901127/History-of-Life
 ```
 
 - 2020 美国大选可视化
@@ -38,7 +38,7 @@
 {numref}`fig-visualization-basics-America2020_raw` 和{numref}`fig-visualization-basics-America2020_count` 分别展示了两种不同的竞选结果可视化方法。
 ```{figure} fig/visualization-basics-America2020_raw.png
 :name: fig-visualization-basics-America2020_raw
-原始地图直接映射，观感上与实际结果不一致。 ©https://www.politico.com/2020-election/results/president/
+原始地图直接映射，观感上与实际结果不一致。 © https://www.politico.com/2020-election/results/president/
 ```
 {numref}`fig-visualization-basics-America2020_raw` 展示了在原始地图上进行颜色编码的结果。
 每个州票数占比和实际面积并不匹配，这会导致染色面积与得票情况不一致，从而带来困扰。
@@ -59,7 +59,7 @@
 
 ```{figure} fig/visualization-basics-Napoleon.png
 :name: fig-visualization-basics-Napoleon
-拿破仑征俄图。
+拿破仑征俄图。© Wikipedia
 ```
 
 线条宽度的变化代表拿破仑的军队人数变化，黄色为进军路线，黑色为撤退路线，文字标明了行军途经的特定地点、河流以及具体人数。底部温度折线从右到左反映了撤退途中的温度变化。
@@ -95,7 +95,7 @@
 
 ```{figure} fig/visualization-basics-army.png
 :name: fig-visualization-basics-army
-南丁格尔玫瑰图；蓝色表示死于可预防疾病的士兵人数，红色表示死于枪伤只的人数，黑色表示死于其他意外的人数。
+南丁格尔玫瑰图；蓝色表示死于可预防疾病的士兵人数，红色表示死于枪伤只的人数，黑色表示死于其他意外的人数。© Wikipedia: File: Nightingale-mortality.jpg
 ```
 
 {numref}`fig-visualization-basics-army` 展示了 1854 年 4 月到 1855 年 3 月这一年间士兵的死亡情况。
