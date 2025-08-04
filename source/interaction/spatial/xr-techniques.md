@@ -91,13 +91,13 @@ PnP 问题。已知若干点在世界空间中的三维坐标（$\boldsymbol{c}_
 :width: 80 %
 
 ```{image} fig/interaction-spatial-pnp_alg1.png
-:alt: 任意两个特征点$\boldsymbol{X}_1,\,\boldsymbol{X}_2$和相机$\boldsymbol{X}_0$之间的相对关系。图中用绿色框出已知量，红色框出未知量。
+:width: 90% 
 ```
 
 ```{image} fig/interaction-spatial-pnp_alg2.png
-:alt: 三个特征点可以在两两组合后分别列出三个方程。
+:width: 90%
 ```
-PnP 问题求解步骤1：计算出相机与各特征点之间的距离。
+PnP 问题求解步骤1：计算出相机与各特征点之间的距离。左：任意两个特征点 $\boldsymbol{X}_1,\,\boldsymbol{X}_2$ 和相机 $\boldsymbol{X}_0$ 之间的相对关系。图中用绿色框出已知量，红色框出未知量；右：三个特征点可以在两两组合后分别列出三个方程。
 ````
 
 如{numref}`fig-interaction-spatial-pnp_alg` 所示，当 $n=3$ 时，P3P 问题是 PnP 问题的最小形式。记3个特征点为 $\boldsymbol{X}_1,\,\boldsymbol{X}_2,\,\boldsymbol{X}_3$。考察任两个特征点与相机之间的关系，如{numref}`fig-interaction-spatial-pnp_alg`左所示，首先，可以计算出两个特征点之间的距离 $c$，通过它们在相机屏幕上的对应像素位置计算出它们之间的夹角 $\gamma$，于是通过余弦定理可以得到：

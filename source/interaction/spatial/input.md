@@ -230,7 +230,7 @@ Skweezee: cuboid {cite}`vanderloock2013skweezee`。
 ```{figure} fig/interaction-spatial-eye_eog.png
 :width: 80 %
 :name: fig-interaction-spatial-eye_eog
-阅读图片时的眼动特征。给出左上角的图片，在无提示时注视主要集中在人脸，但整体上是杂乱的。在给出提示（如年龄、衣着、环境、位置）后注视会相应地集中到提示对应的信息的部分。
+利用眼电法记录眼动信息。
 ```
 - 为了获得更准确的眼动信息，有研究将电磁巩膜搜索线圈嵌入到专用的隐形眼镜中，并将线圈连接到记录设备中，通过眼睛运动产生的感应电压来记录眼动轨迹。实验会令研究者位于法拉第笼中以屏蔽外部电磁干扰，并固定头部以减少头部动作的干扰。但这种方法对眼动实验参与者的眼睛有较大的影响，长时间实验会造成一定的生理伤害。
 ```{figure} fig/interaction-spatial-eye_reflection.png
