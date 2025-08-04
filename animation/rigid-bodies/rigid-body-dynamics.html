@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>22.1. 刚体动力学 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'animation/rigid-bodies/rigid-body-dynamics';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="22.2. 碰撞与摩擦" href="contact-and-friction.html" />
+    <link rel="prev" title="22. 刚体模拟" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/drawing-2d/index.html">4. 绘图</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/polygon.html">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/representation/index.html">9. 几何表达</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/mesh.html">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../character/index.html">20. 角色动画</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../character/motion-capture.html">20.1. 动作捕捉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../character/motion-synthesis.html">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../character/skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../character/summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">22. 刚体模拟</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/basics/index.html">24. 可视化基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/content.html">24.2. 可视化研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/design.html">24.3. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/data.html">24.4. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/interaction.html">24.5. 可视化中的交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/summary.html">24.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/dimensional.html">25.1. 标量场、矢量场、张量场数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/spatial.html">25.2. 表面数据、体积数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/summary.html">25.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/informational/index.html">26. 信息可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/plot.html">26.1. 基础绘图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/types.html">26.2. 不同类型的信息可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/system.html">27.2. 可视分析系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/summary.html">27.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/spatial/index.html">29. 空间交互技术</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/input.html">29.1. 三维交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/xr-techniques.html">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/animation/rigid-bodies/rigid-body-dynamics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>刚体动力学</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">22.1.1. 刚体的运动</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">22.1.1.1. 刚体的平动</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">22.1.1.2. 刚体的转动</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">22.1.2. 刚体力学</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">22.1.2.1. 力影响速度</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">22.1.2.2. 力矩影响角速度</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-animation-rigid-bodies-dynamics-time-integration">22.1.3. 刚体模拟的时间积分算法</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-animation-rigid-bodies-dynamics">
+<span id="id1"></span><h1><span class="section-number">22.1. </span>刚体动力学<a class="headerlink" href="#sec-animation-rigid-bodies-dynamics" title="Link to this heading">#</a></h1>
+<p>在力学中，刚体是一个理想化的物理模型，我们对这个模型的基本假设是它不会产生任何形变；用更严谨的说法讲，刚体是<strong>一种任意两个质点之间的距离在运动过程中保持不变的物体</strong>。生活中我们遇到的一些比较坚硬的物体都不是刚体，因为它们在受力时总会产生微小的形变，只不过肉眼看不到——严格来讲它们应该属于劲度（stiffness）很强的弹性体。事实上，物体只有发生形变才可能产生抵抗的作用力，在力学中刚体的受力情况其实是取物体形变程度趋于零的极限得到的。</p>
+<section id="id2">
+<h2><span class="section-number">22.1.1. </span>刚体的运动<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="fig-animation-rigid-bodies-rigid-motion">
+<a class="reference internal image-reference" href="../../_images/animation-rigid_bodies-rigid_motion.png"><img alt="../../_images/animation-rigid_bodies-rigid_motion.png" src="../../_images/animation-rigid_bodies-rigid_motion.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 22.1 </span><span class="caption-text">坐标系的选择以及刚性运动的描述</span><a class="headerlink" href="#fig-animation-rigid-bodies-rigid-motion" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>在 <a class="reference internal" href="../elastomers/fem.html#sec-animation-elastomers-fem"><span class="std std-numref">§21.2</span></a> 中我们已经了解了什么是刚性运动（还记得超弹性体的能量要满足刚性运动下的不变性吗？），即只包含平移和旋转的运动。事实上，这个结论可以从刚体的定义推导出来。接下来，如<a class="reference internal" href="#fig-animation-rigid-bodies-rigid-motion"><span class="std std-numref">图 22.1</span></a> 所示，我们将参考构型下刚体的质心为原点构造直角坐标系，并且选取质心为参考点（即刚体在任一时刻的旋转都认为是关于质心的旋转），那么参考构型下的任意一点 <span class="math notranslate nohighlight">\(\boldsymbol X\)</span> 与刚体经过一系列运动后该点位置 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> 的关系可以表示为</p>
+<div class="math notranslate nohighlight" id="equation-animation-rigid-bodies-rigid-motion">
+<span class="eqno">(22.1)<a class="headerlink" href="#equation-animation-rigid-bodies-rigid-motion" title="Link to this equation">#</a></span>\[
+\boldsymbol x(t)=\boldsymbol R(t)\boldsymbol X+\boldsymbol c(t)，
+\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 是旋转矩阵，<span class="math notranslate nohighlight">\(\boldsymbol c\)</span> 是运动后刚体的质心；这里我们将和运动时间 <span class="math notranslate nohighlight">\(t\)</span> 有关的量写成了函数的形式。通过式 <a class="reference internal" href="#equation-animation-rigid-bodies-rigid-motion">(22.1)</a> 我们自然可以想到，如果需要刻画刚体的运动，需要分别研究好 <span class="math notranslate nohighlight">\(\boldsymbol c(t)\)</span> 和 <span class="math notranslate nohighlight">\(\boldsymbol R(t)\)</span>，它们分别对应于刚体的平动和转动。</p>
+<section id="id3">
+<h3><span class="section-number">22.1.1.1. </span>刚体的平动<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>刚体的平动完全由质心的运动刻画，我们可以直接将整个刚体看成位置与质心重合的质点，因此刚体平动的速度 <span class="math notranslate nohighlight">\(\boldsymbol v\)</span> 与质心位置的关系是 <span class="math notranslate nohighlight">\(\boldsymbol v=\dot{\boldsymbol c}\)</span>。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">22.1.1.2. </span>刚体的转动<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>由刚体的定义可以推出任意两点在任一时刻的相对速度与它们的相对位置正交，利用这个结论，我们可以证明绕定点转动的刚体一定存在唯一一个过该点的转动瞬轴（instantaneous axis），即在其上的任一质点速度为 <span class="math notranslate nohighlight">\(\mathbf 0\)</span> 的轴。证明方法可以参考 <span id="id5">[<a class="reference internal" href="summary.html#id5" title="曹虎周. 刚体定点运动瞬时转轴的存在与唯一性证明. 榆林高等专科学校学报, pages 57, 2000.">00</a>]</span>，大体思路就是找到刚体上两个具有不平行速度的质点，过它们分别作两个垂直于速度方向的平面，交线就是转动瞬轴，如<a class="reference internal" href="#fig-animation-rigid-bodies-instantaneous-axis"><span class="std std-numref">图 22.2</span></a> 所示。</p>
+<figure class="align-default" id="fig-animation-rigid-bodies-instantaneous-axis">
+<a class="reference internal image-reference" href="../../_images/animation-rigid_bodies-instantaneous_axis.png"><img alt="../../_images/animation-rigid_bodies-instantaneous_axis.png" src="../../_images/animation-rigid_bodies-instantaneous_axis.png" style="width: 40%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 22.2 </span><span class="caption-text">通过刚体质点的速度确定转动瞬轴：取两个速度方向不平行的质点 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span>，过 <span class="math notranslate nohighlight">\(A\)</span> 作垂直于 <span class="math notranslate nohighlight">\(\boldsymbol v_A\)</span> 的平面 <span class="math notranslate nohighlight">\(\mathcal P_A\)</span>，过 <span class="math notranslate nohighlight">\(B\)</span> 作垂直于 <span class="math notranslate nohighlight">\(\boldsymbol v_B\)</span> 的平面 <span class="math notranslate nohighlight">\(\mathcal P_B\)</span>，<span class="math notranslate nohighlight">\(\mathcal P_A\)</span> 与 <span class="math notranslate nohighlight">\(\mathcal P_B\)</span> 的交线即为转动瞬轴。</span><a class="headerlink" href="#fig-animation-rigid-bodies-instantaneous-axis" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>如果我们将刚体每一时刻的位置都统一减去质心的位置，那么剩下的部分就是刚体绕质心的转动，在每一时刻都存在一个转动瞬轴。借助“任意两点在任一时刻的相对速度与它们的相对位置正交”这个结论，读者不难推理出刚体每个质点上的速度构成的速度场就是围绕着转动瞬轴的涡，并且速度的大小与质点到转动瞬轴的位置成正比。</p>
+<div class="hint admonition">
+<p class="admonition-title">提示：证明刚体质点速度的性质</p>
+<p>由于任意两点在任一时刻的相对速度与它们的相对位置正交，且转动瞬轴上所有质点的速度均为 <span class="math notranslate nohighlight">\(\mathbf 0\)</span>，读者可以尝试证明：任意一个不在转动瞬轴上质点的速度必然垂直于转动瞬轴与质点质心连线张成的平面，由此可以立即得到速度场是绕着转动瞬轴的旋转。</p>
+<figure class="align-default" id="fig-animation-rigid-bodies-velocity-length">
+<a class="reference internal image-reference" href="../../_images/animation-rigid_bodies-velocity_length.png"><img alt="../../_images/animation-rigid_bodies-velocity_length.png" src="../../_images/animation-rigid_bodies-velocity_length.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 22.3 </span><span class="caption-text">在垂直于转动瞬轴的平面 <span class="math notranslate nohighlight">\(\mathcal P_C\)</span> 上证明速度的大小与到轴的距离成正比</span><a class="headerlink" href="#fig-animation-rigid-bodies-velocity-length" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>若希望证明速度的大小与质点到转动瞬轴的位置成正比，我们可以只在过质心与转动瞬轴垂直的平面 <span class="math notranslate nohighlight">\(\mathcal P_C\)</span> 上证明此结论，对于空间中的其他点，其速度等于该点在 <span class="math notranslate nohighlight">\(\mathcal P_C\)</span> 上投影点处的速度。如<a class="reference internal" href="#fig-animation-rigid-bodies-velocity-length"><span class="std std-numref">图 22.3</span></a>，设质心为点 <span class="math notranslate nohighlight">\(C\)</span>，在 <span class="math notranslate nohighlight">\(\mathcal P_C\)</span> 上再取两点 <span class="math notranslate nohighlight">\(A\)</span>、<span class="math notranslate nohighlight">\(B\)</span> 使得 <span class="math notranslate nohighlight">\(A\)</span>、<span class="math notranslate nohighlight">\(B\)</span>、<span class="math notranslate nohighlight">\(C\)</span> 不共线，记向量 <span class="math notranslate nohighlight">\(CA\)</span> 和 <span class="math notranslate nohighlight">\(CB\)</span> 分别为 <span class="math notranslate nohighlight">\(\boldsymbol r_A\)</span> 和 <span class="math notranslate nohighlight">\(\boldsymbol r_B\)</span>，<span class="math notranslate nohighlight">\(A\)</span>、<span class="math notranslate nohighlight">\(B\)</span> 的速度分别为 <span class="math notranslate nohighlight">\(\boldsymbol v_A\)</span> 和 <span class="math notranslate nohighlight">\(\boldsymbol v_B\)</span>，那么我们有</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\boldsymbol r_A\cdot\boldsymbol v_A=\boldsymbol r_B\cdot\boldsymbol v_B=0，\\
+(\boldsymbol r_A-\boldsymbol r_B)\cdot(\boldsymbol v_A-\boldsymbol v_B)=0，
+\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\cdot\)</span> 表示向量的内积。通过这些等式可以立即得到</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol r_A\cdot\boldsymbol v_B=-\boldsymbol r_B\cdot\boldsymbol v_A，
+\]</div>
+<p>这等价于</p>
+<div class="math notranslate nohighlight">
+\[
+\Vert\boldsymbol r_A\Vert\cdot\Vert\boldsymbol v_B\Vert\cos\langle\boldsymbol r_A,\boldsymbol v_B\rangle=-\Vert\boldsymbol r_B\Vert\cdot\Vert\boldsymbol v_A\Vert\cos\langle\boldsymbol r_B,\boldsymbol v_A\rangle。
+\]</div>
+<p>由于 <span class="math notranslate nohighlight">\(\boldsymbol r_A\)</span>、<span class="math notranslate nohighlight">\(\boldsymbol r_B\)</span> 不共线，所以等式两边的三角函数必不为零，再利用 <span class="math notranslate nohighlight">\(\boldsymbol r_A\)</span> 与 <span class="math notranslate nohighlight">\(\boldsymbol v_A\)</span> 垂直、<span class="math notranslate nohighlight">\(\boldsymbol r_B\)</span> 与 <span class="math notranslate nohighlight">\(\boldsymbol v_B\)</span> 垂直且等式两边三角函数必须反号，读者不难推出 <span class="math notranslate nohighlight">\(\cos\langle\boldsymbol r_A,\boldsymbol v_B\rangle=-\cos\langle\boldsymbol r_B,\boldsymbol v_A\rangle\)</span>，于是得出向量模长的关系 <span class="math notranslate nohighlight">\(\frac{\Vert\boldsymbol r_A\Vert}{\Vert\boldsymbol r_B\Vert}=\frac{\Vert\boldsymbol v_A\Vert}{\Vert\boldsymbol v_B\Vert}\)</span>，这也正是我们希望证明的速度大小的关系。</p>
+</div>
+<p>到这里读者不难发现，刚体上所有质点的速度的总自由度其实很少，我们只需要知道转动瞬轴的方向，以及一个能够表示速度大小的量，就能够还原出整个刚体的转动速度。角速度（angular velocity）便是这样一个描述刚体转动有多快的量，它是一个三维矢量，记为 <span class="math notranslate nohighlight">\(\boldsymbol\omega\)</span>；其方向与转动瞬轴平行，刚体的转动方向遵循右手定则，即当 <span class="math notranslate nohighlight">\(\boldsymbol\omega\)</span> 指向自身时看到的刚体是逆时针转动的；其大小又记为不加粗的 <span class="math notranslate nohighlight">\(\omega\)</span>，表示刚体每秒钟旋转的圈数，单位为秒的负一次方（<span class="math notranslate nohighlight">\(\mathrm s^{-1}\)</span>），因此角速度又称为角频率向量（angular frequency vector）。</p>
+<p>通过上述对刚体质点上速度的研究，我们不难证明：若刚体质心固定，对于任一质点，设质心到该点的向量为 <span class="math notranslate nohighlight">\(\boldsymbol r\)</span>，则该点的速度为 <span class="math notranslate nohighlight">\(\boldsymbol\omega\times\boldsymbol r\)</span>。这也对应于式 <a class="reference internal" href="#equation-animation-rigid-bodies-rigid-motion">(22.1)</a> 中旋转部分的速度，即</p>
+<div class="math notranslate nohighlight" id="equation-animation-rigid-bodies-angular-linear-velocity">
+<span class="eqno">(22.2)<a class="headerlink" href="#equation-animation-rigid-bodies-angular-linear-velocity" title="Link to this equation">#</a></span>\[
+\dot{\boldsymbol R}\boldsymbol X=\boldsymbol\omega\times(\boldsymbol x-\boldsymbol c)=\boldsymbol\omega\times(\boldsymbol R\boldsymbol X)。
+\]</div>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">22.1.2. </span>刚体力学<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>我们已经建立的刚体的状态（位置和方向）与速度和角速度之间的关系，接下来将会继续了解速度与角速度如何受外力的影响。</p>
+<section id="id7">
+<h3><span class="section-number">22.1.2.1. </span>力影响速度<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>刚体平动的加速度（也即质心的加速度）乘以刚体的质量就等于其所受的合外力，即</p>
+<div class="math notranslate nohighlight" id="equation-animation-rigid-bodies-force-velocity">
+<span class="eqno">(22.3)<a class="headerlink" href="#equation-animation-rigid-bodies-force-velocity" title="Link to this equation">#</a></span>\[
+m\dot{\boldsymbol v}=m\ddot{\boldsymbol c}=\boldsymbol F，
+\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(m\)</span> 表示刚体的质量，<span class="math notranslate nohighlight">\(F\)</span> 表示其受到的合外力。式 <a class="reference internal" href="#equation-animation-rigid-bodies-force-velocity">(22.3)</a> 的形式非常像牛顿第二定律，但二者并不能混为一谈，感兴趣的读者可以阅读以下对该式的证明。</p>
+<div class="proof admonition" id="proof">
+<p>Proof. 为了方便推理，我们将刚体近似成由 <span class="math notranslate nohighlight">\(N\)</span> 个质点组成的质点系统，并且所有的外力只会作用在质点上。我们分别记质点 <span class="math notranslate nohighlight">\(i\)</span> 的质量、位移、受到的外力为 <span class="math notranslate nohighlight">\(m_i\)</span>、<span class="math notranslate nohighlight">\(\boldsymbol x_i\)</span>、<span class="math notranslate nohighlight">\(\boldsymbol f_i\)</span>。另外，为了保持任意两个质点间的距离不变，质点之间还会存在内力，记质点 <span class="math notranslate nohighlight">\(i\)</span> 受到质点 <span class="math notranslate nohighlight">\(j\)</span> 作用的力为 <span class="math notranslate nohighlight">\(\boldsymbol f^\mathrm{inner}_{ij}\)</span>，由牛顿第三定律可知 <span class="math notranslate nohighlight">\(\boldsymbol f^\mathrm{inner}_{ij}+\boldsymbol f^\mathrm{inner}_{ji}=\mathbf 0\)</span>。</p>
+<p>首先，由质心的定义 <span class="math notranslate nohighlight">\(\boldsymbol c=\frac 1m\sum_i^Nm_i\boldsymbol x_i\)</span> 等式两边分别对时间求二阶导数可以得到</p>
+<div class="math notranslate nohighlight">
+\[
+m\ddot{\boldsymbol c}=\sum_i^Nm_i\ddot{\boldsymbol x}_i。
+\]</div>
+<p>对每个质点应用牛顿第二定律，并考虑到质点 <span class="math notranslate nohighlight">\(i\)</span> 所受的力为其所受的外力以及其余质点作用于它的内力，上式可继续变化：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+m\ddot{\boldsymbol c}&amp;=\sum_{i=1}^Nm_i\ddot{\boldsymbol x}_i\\
+&amp;=\sum_{i=1}^N\left(\boldsymbol f_i+\sum_{j\ne i}\boldsymbol f^\mathrm{inner}_{ij}\right)\\
+&amp;=\sum_{i=1}^N\boldsymbol f_i+\sum_{i=1}^N\sum_{j=i+1}^N(\boldsymbol f^\mathrm{inner}_{ij}+\boldsymbol f^\mathrm{inner}_{ji})\\
+&amp;=\boldsymbol F。
+\end{split}\]</div>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">22.1.2.2. </span>力矩影响角速度<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>为了描述力如何影响角速度，我们需要先引入力矩（torque）的概念，因为只有力矩才能与角速度的变化率建立直接关系。</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 22.1 </span> (力矩)</p>
+<section class="definition-content" id="proof-content">
+<p>设力 <span class="math notranslate nohighlight">\(\boldsymbol F\)</span> 的作用点为 <span class="math notranslate nohighlight">\(A\)</span>，选取参考点 <span class="math notranslate nohighlight">\(O\)</span>，记向量 <span class="math notranslate nohighlight">\(OA\)</span> 为 <span class="math notranslate nohighlight">\(\boldsymbol r\)</span>，则 <span class="math notranslate nohighlight">\(\boldsymbol F\)</span> 的力矩为</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol\tau=\boldsymbol r\times\boldsymbol F。
+\]</div>
+</section>
+</div><p>力矩与角速度变化率的关系也可以表示成类似式 <a class="reference internal" href="#equation-animation-rigid-bodies-force-velocity">(22.3)</a> 的形式，但在此前我们还需要引入惯性张量（inertia）的概念。</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 22.2 </span> (惯性张量)</p>
+<section class="definition-content" id="proof-content">
+<p>选取参考点 <span class="math notranslate nohighlight">\(O\)</span>，其位置记为 <span class="math notranslate nohighlight">\(\boldsymbol x_O\)</span>。</p>
+<p>对于一个连续介质刚体而言，设其占据的区域为 <span class="math notranslate nohighlight">\(\Omega\)</span>，则它的惯性张量为</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol I=\int_\Omega(\Vert\boldsymbol r\Vert^2\mathbf I-\boldsymbol r\boldsymbol r^\top)\rho\mathrm d\boldsymbol x，
+\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\boldsymbol r=\boldsymbol x-\boldsymbol x_O\)</span> 表示 <span class="math notranslate nohighlight">\(O\)</span> 到位置 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> 的位移矢量，<span class="math notranslate nohighlight">\(\rho\)</span> 为定义在 <span class="math notranslate nohighlight">\(\Omega\)</span> 上的刚体的密度场。</p>
+<p>对于 <span class="math notranslate nohighlight">\(N\)</span> 个点的质点系统而言，设质点 <span class="math notranslate nohighlight">\(i\)</span> 的质量为 <span class="math notranslate nohighlight">\(m_i\)</span>，<span class="math notranslate nohighlight">\(O\)</span> 到质点 <span class="math notranslate nohighlight">\(i\)</span> 的位移为 <span class="math notranslate nohighlight">\(\boldsymbol r_i\)</span>，则该质点系统的惯性张量为</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol I=\sum_{i=1}^Nm_i(\Vert\boldsymbol r_i\Vert^2\mathbf I-\boldsymbol r_i\boldsymbol r_i^\top)。
+\]</div>
+</section>
+</div><p>现在我们选取参考点为刚体的质心，那么对于刚体中的任一位置 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span>，其关于参考点的相对位移 <span class="math notranslate nohighlight">\(\boldsymbol r=\boldsymbol x-\boldsymbol c=\boldsymbol R\boldsymbol X\)</span>（见式 <a class="reference internal" href="#equation-animation-rigid-bodies-rigid-motion">(22.1)</a>），所以只要我们知道参考构型下刚体的惯性张量 <span class="math notranslate nohighlight">\(\boldsymbol I_\mathrm{ref}\)</span>，就可以求得 <span class="math notranslate nohighlight">\(t\)</span> 时刻下刚体的惯性张量：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\boldsymbol I(t)&amp;=\int_{\Omega(t)}(\Vert\boldsymbol r(t)\Vert^2\mathbf I-\boldsymbol r(t)[\boldsymbol r(t)]^\top)\rho(\boldsymbol x,t)\mathrm d\boldsymbol x\\
+&amp;=\int_{\Omega_\mathrm{ref}}(\Vert\boldsymbol R(t)\boldsymbol X\Vert^2\mathbf I-\boldsymbol R(t)\boldsymbol X\boldsymbol X^\top[\boldsymbol R(t)]^\top)\rho_\mathrm{ref}(\boldsymbol X)\mathrm d\boldsymbol X\\
+&amp;=\boldsymbol R(t)\left(\int_{\Omega_\mathrm{ref}}(\Vert\boldsymbol X\Vert^2\mathbf I-\boldsymbol X\boldsymbol X^\top)\rho_\mathrm{ref}(\boldsymbol X)\mathrm d\boldsymbol X\right)[\boldsymbol R(t)]^\top\\
+&amp;=\boldsymbol R(t)\boldsymbol I_\mathrm{ref}[\boldsymbol R(t)]^\top，
+\end{split}\]</div>
+<p>这里我们使用了 <span class="math notranslate nohighlight">\(\mathrm{ref}\)</span> 下标表示参考构型下的量，并且也将和时间有关的量显式地表示成了关于 <span class="math notranslate nohighlight">\(t\)</span> 的函数，第二个等号用到了换元法以及 <span class="math notranslate nohighlight">\(\mathrm d\boldsymbol x=\mathrm d(\boldsymbol{RX}+\boldsymbol c)=\mathrm d\boldsymbol X\)</span> 这个体积微元的旋转和平移不变性的关系。这个结论对于质点系统同样有效，读者不妨自行证明。</p>
+<p>在力矩与角速度变化率的关系可以表示为</p>
+<div class="math notranslate nohighlight" id="equation-animation-rigid-bodies-torque-angular">
+<span class="eqno">(22.4)<a class="headerlink" href="#equation-animation-rigid-bodies-torque-angular" title="Link to this equation">#</a></span>\[
+\boldsymbol I\dot{\boldsymbol\omega}=\boldsymbol\tau-\boldsymbol\omega\times\boldsymbol{I\omega}，
+\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\boldsymbol\tau=\sum_i\boldsymbol\tau_i\)</span> 为总力矩。我们同样可以借助质点系统对式 <a class="reference internal" href="#equation-animation-rigid-bodies-torque-angular">(22.4)</a> 进行证明，感兴趣的读者可以阅读。</p>
+<div class="proof admonition" id="proof">
+<p>Proof. 我们继续使用上一个证明中的记号，另外记 <span class="math notranslate nohighlight">\(\boldsymbol v_i=\dot{\boldsymbol x}_i\)</span>，<span class="math notranslate nohighlight">\(\boldsymbol a_i=\ddot{\boldsymbol x}_i\)</span>。选取质心为参考点，并记 <span class="math notranslate nohighlight">\(\boldsymbol r_i=\boldsymbol x_i-\boldsymbol c\)</span> 为质点 <span class="math notranslate nohighlight">\(i\)</span> 相对质心的位移。那么质点 <span class="math notranslate nohighlight">\(i\)</span> 所受外力力矩为 <span class="math notranslate nohighlight">\(\boldsymbol\tau_i=\boldsymbol r_i\times\boldsymbol f_i\)</span>，质点系统的角动量（angular momentum）为</p>
+<div class="math notranslate nohighlight" id="equation-animation-rigid-bodies-angular-momentum">
+<span class="eqno">(22.5)<a class="headerlink" href="#equation-animation-rigid-bodies-angular-momentum" title="Link to this equation">#</a></span>\[
+\boldsymbol J=\sum_{i=1}^N\boldsymbol r_i\times m_i\boldsymbol v_i。
+\]</div>
+<p>将式 <a class="reference internal" href="#equation-animation-rigid-bodies-angular-momentum">(22.5)</a> 两边对时间求导可得</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\dot{\boldsymbol J}&amp;=\frac{\mathrm d}{\mathrm dt}\sum_{i=1}^N(\boldsymbol x_i-\boldsymbol c)\times m_i\boldsymbol v_i\\
+&amp;=\sum_{i=1}^N(\boldsymbol v_i-\boldsymbol v)\times m_i\boldsymbol v_i+\boldsymbol r_i\times m_i\boldsymbol a_i\\
+&amp;=\sum_{i=1}^N\boldsymbol v_i\times m_i\boldsymbol v_i+\boldsymbol v\times\sum_{i=1}^Nm_i\boldsymbol v_i+\sum_{i=1}^N\boldsymbol r_i\times m_i\boldsymbol a_i\\
+&amp;=\sum_{i=1}^N\boldsymbol r_i\times\left(\boldsymbol f_i+\sum_{j\ne i}\boldsymbol f^\mathrm{inner}_{ij}\right)\\
+&amp;=\sum_{i=1}^N\boldsymbol\tau_i+\sum_{i=1}^N\sum_{j=i+1}^N(\boldsymbol r_i\times\boldsymbol f^\mathrm{inner}_{ij}+\boldsymbol r_j\times\boldsymbol f^\mathrm{inner}_{ji})\\
+&amp;=\sum_{i=1}^N\boldsymbol\tau_i+\sum_{i=1}^N\sum_{j=i+1}^N(\boldsymbol r_i-\boldsymbol r_j)\times\boldsymbol f^\mathrm{inner}_{ij}\\
+&amp;=\boldsymbol\tau，
+\end{split}\]</div>
+<p>其中最后一步是因为两个质点之间的内力必然沿两点连线的方向。</p>
+<p>将式 <a class="reference internal" href="#equation-animation-rigid-bodies-rigid-motion">(22.1)</a> 两边对时间求导，再利用式 <a class="reference internal" href="#equation-animation-rigid-bodies-angular-linear-velocity">(22.2)</a> 可得 <span class="math notranslate nohighlight">\(\boldsymbol v_i=\boldsymbol v+\boldsymbol\omega\times\boldsymbol r_i\)</span>，将此代入式 <a class="reference internal" href="#equation-animation-rigid-bodies-angular-momentum">(22.5)</a> 可得</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\boldsymbol J&amp;=\sum_{i=1}^N\boldsymbol r_i\times m_i(\boldsymbol v+\boldsymbol\omega\times\boldsymbol r_i)\\
+&amp;=\left(\sum_{i=1}^Nm_i\boldsymbol r_i\right)\times\boldsymbol v+\sum_{i=1}^Nm_i\boldsymbol r_i\times(\boldsymbol\omega\times\boldsymbol r_i)\\
+&amp;=\sum_{i=1}^Nm_i[(\boldsymbol r_i\cdot\boldsymbol r_i)\boldsymbol\omega-(\boldsymbol r_i\cdot\boldsymbol\omega)\boldsymbol r_i]\\
+&amp;=\left(\sum_{i=1}^Nm_i(\Vert\boldsymbol r_i\Vert^2\mathbf I-\boldsymbol r_i\boldsymbol r_i^\top)\right)\boldsymbol\omega\\
+&amp;=\boldsymbol{I\omega}，
+\end{split}\]</div>
+<p>其中第二行等号后的 <span class="math notranslate nohighlight">\(\sum_{i=1}^Nm_i\boldsymbol r_i=\mathbf 0\)</span>，<span class="math notranslate nohighlight">\(\boldsymbol r_i\times(\boldsymbol\omega\times\boldsymbol r_i)=(\boldsymbol r_i\cdot\boldsymbol r_i)\boldsymbol\omega-(\boldsymbol r_i\cdot\boldsymbol\omega)\boldsymbol r_i\)</span> 这个等式关系读者可以自行验证。上式的形式与动量与速度的关系 <span class="math notranslate nohighlight">\(\boldsymbol p=m\boldsymbol v\)</span> 在形式上十分相似，角动量 <span class="math notranslate nohighlight">\(\boldsymbol J\)</span> 与动量 <span class="math notranslate nohighlight">\(\boldsymbol p\)</span> 相对应，角速度 <span class="math notranslate nohighlight">\(\boldsymbol\omega\)</span> 与线速度 <span class="math notranslate nohighlight">\(\boldsymbol v\)</span> 相对应，惯性张量 <span class="math notranslate nohighlight">\(\boldsymbol I\)</span> 充当的就是质量 <span class="math notranslate nohighlight">\(m\)</span> 的角色。将上式的两边对时间求导可得</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\boldsymbol\tau=\dot{\boldsymbol J}&amp;=\dot{\boldsymbol I}\boldsymbol\omega+\boldsymbol I\dot{\boldsymbol\omega}\\
+&amp;=\boldsymbol I\dot{\boldsymbol\omega}+(\dot{\boldsymbol R}\boldsymbol I_\mathrm{ref}\boldsymbol R^\top+\boldsymbol R\boldsymbol I_\mathrm{ref}\dot{\boldsymbol R}^\top)\boldsymbol\omega\\
+&amp;=\boldsymbol I\dot{\boldsymbol\omega}+([\boldsymbol\omega]\boldsymbol I-\boldsymbol I[\boldsymbol\omega])\boldsymbol\omega\\
+&amp;=\boldsymbol I\dot{\boldsymbol\omega}+\boldsymbol\omega\times\boldsymbol{I\omega}，
+\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\([\boldsymbol\omega]=\begin{bmatrix}0&amp;-\omega_z&amp;\omega_y\\\omega_z&amp;0&amp;-\omega_x\\-\omega_y&amp;\omega_x&amp;0\end{bmatrix}\)</span> 为 <span class="math notranslate nohighlight">\(\boldsymbol\omega\)</span> 的叉乘矩阵，对于任一三维向量 <span class="math notranslate nohighlight">\(\boldsymbol y\)</span> 有 <span class="math notranslate nohighlight">\([\boldsymbol\omega]\boldsymbol y=\boldsymbol\omega\times\boldsymbol y\)</span>；第三个等号我们用了旋转矩阵的导数 <span class="math notranslate nohighlight">\(\dot{\boldsymbol R}=[\boldsymbol\omega]\boldsymbol R\)</span>，这可以借助式 <a class="reference internal" href="#equation-animation-rigid-bodies-angular-linear-velocity">(22.2)</a> 通过 <span class="math notranslate nohighlight">\(\boldsymbol X\)</span> 的任意性推导出来。由此可立即得出式 <a class="reference internal" href="#equation-animation-rigid-bodies-torque-angular">(22.4)</a>。</p>
+</div>
+</section>
+</section>
+<section id="sec-animation-rigid-bodies-dynamics-time-integration">
+<span id="id9"></span><h2><span class="section-number">22.1.3. </span>刚体模拟的时间积分算法<a class="headerlink" href="#sec-animation-rigid-bodies-dynamics-time-integration" title="Link to this heading">#</a></h2>
+<p>我们在本节中通过列出刚体模拟的时间积分算法对上述介绍的结论进行总结。在模拟过程中需要维护的量包括刚体质心的位置 <span class="math notranslate nohighlight">\(\boldsymbol c\)</span>、平动速度 <span class="math notranslate nohighlight">\(\boldsymbol v\)</span>、旋转矩阵 <span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 以及角速度 <span class="math notranslate nohighlight">\(\boldsymbol\omega\)</span>，此外我们需要知道或者与计算得到的量包括时间步长 <span class="math notranslate nohighlight">\(h\)</span>、刚体的质量 <span class="math notranslate nohighlight">\(m\)</span> 以及参考构型下的惯性张量 <span class="math notranslate nohighlight">\(\boldsymbol I_\mathrm{ref}\)</span>。那么在每个时间步需要依次执行以下步骤：</p>
+<ol class="arabic simple">
+<li><p>计算外力 <span class="math notranslate nohighlight">\(\boldsymbol F=\sum_i\boldsymbol f_i\)</span> 和外力矩 <span class="math notranslate nohighlight">\(\boldsymbol\tau=\sum_i(\boldsymbol R\boldsymbol X_i)\times\boldsymbol f_i\)</span>。</p></li>
+<li><p>更新速度：<span class="math notranslate nohighlight">\(\boldsymbol v\gets\boldsymbol v+\frac hm\boldsymbol F\)</span>。</p></li>
+<li><p>更新质心位置：<span class="math notranslate nohighlight">\(\boldsymbol c\gets\boldsymbol c+h\boldsymbol v\)</span>。</p></li>
+<li><p>计算的当前惯性张量 <span class="math notranslate nohighlight">\(\boldsymbol I=\boldsymbol R\boldsymbol I_\mathrm{ref}\boldsymbol R^\top\)</span>。</p></li>
+<li><p>更新角速度：<span class="math notranslate nohighlight">\(\boldsymbol\omega\gets\boldsymbol\omega+h\boldsymbol I^{-1}(\boldsymbol\tau-\boldsymbol\omega\times\boldsymbol{I\omega})\)</span>。</p></li>
+<li><p>更新旋转矩阵：<span class="math notranslate nohighlight">\(\boldsymbol R\gets\mathrm{rotvec\_to\_matrix}(h\boldsymbol\omega)\boldsymbol R\)</span>。</p></li>
+</ol>
+<p>在第 5 步我们需要求惯性张量的逆，首先对于体积非零的刚体而言 <span class="math notranslate nohighlight">\(\boldsymbol I\)</span> 一定可逆，其次 <span class="math notranslate nohighlight">\(\boldsymbol I\)</span> 是一个 <span class="math notranslate nohighlight">\(3\times 3\)</span> 的矩阵，求逆运算的开销不会很大，并且可以预计算出 <span class="math notranslate nohighlight">\(\boldsymbol I_\mathrm{ref}^{-1}\)</span>，并利用 <span class="math notranslate nohighlight">\(\boldsymbol I^{-1}=\boldsymbol R\boldsymbol I_\mathrm{ref}^{-1}\boldsymbol R^\top\)</span> 避免每个时间步都求一次逆。在第 6 步中的 <span class="math notranslate nohighlight">\(\mathrm{rotvec\_to\_matrix}(\cdot)\)</span> 运算可以参考 <a class="reference internal" href="../kinematic-principles/rotation-representation.html#sec-animation-kinematic-principles-rotation-representation"><span class="std std-numref">§19.1</span></a> 中各种旋转表示之间的转换，注意这里不用 <span class="math notranslate nohighlight">\(\dot{\boldsymbol R}=[\boldsymbol\omega]\boldsymbol R\)</span> 的离散化形式是为了避免修改 <span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 后不再是旋转矩阵。</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">22. </span>刚体模拟</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="contact-and-friction.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">22.2. </span>碰撞与摩擦</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">22.1.1. 刚体的运动</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">22.1.1.1. 刚体的平动</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">22.1.1.2. 刚体的转动</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">22.1.2. 刚体力学</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">22.1.2.1. 力影响速度</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">22.1.2.2. 力矩影响角速度</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-animation-rigid-bodies-dynamics-time-integration">22.1.3. 刚体模拟的时间积分算法</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

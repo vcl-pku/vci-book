@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.2. 多边形 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'getting-started/drawing-2d/polygon';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="4.3. 合成" href="composition.html" />
+    <link rel="prev" title="4.1. 光栅化" href="rasterization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">4. 绘图</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/representation/index.html">9. 几何表达</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/mesh.html">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/character/index.html">20. 角色动画</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-capture.html">20.1. 动作捕捉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-synthesis.html">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/rigid-bodies/index.html">22. 刚体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/rigid-body-dynamics.html">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/basics/index.html">24. 可视化基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/content.html">24.2. 可视化研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/design.html">24.3. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/data.html">24.4. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/interaction.html">24.5. 可视化中的交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/summary.html">24.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/dimensional.html">25.1. 标量场、矢量场、张量场数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/spatial.html">25.2. 表面数据、体积数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/summary.html">25.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/informational/index.html">26. 信息可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/plot.html">26.1. 基础绘图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/types.html">26.2. 不同类型的信息可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/system.html">27.2. 可视分析系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/summary.html">27.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/spatial/index.html">29. 空间交互技术</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/input.html">29.1. 三维交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/xr-techniques.html">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/getting-started/drawing-2d/polygon.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>多边形</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2.1. 多边形的光栅化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.2. 颜色插值</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.3. 图像拉伸</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  
+<style>
+  .ss-layout-default-AB { grid-template-areas: 'A B'; }
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">4.2. </span>多边形<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>与绘制线不同，绘制多边形需要对多边形的内部进行填充。我们先从如何画一个纯色的多边形开始，再考虑如何在内部填充颜色。</p>
+<section id="id2">
+<h2><span class="section-number">4.2.1. </span>多边形的光栅化<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>三角形是最简单的多边形，对于计算机图形学来说非常重要。任意一个二维多边形都可以切割成多个三角形的组合，同时三角形也是三维模型的重要组成部分（<a class="reference internal" href="../../geometry/basics/index.html#chap-geometry-basics"><span class="std std-numref">§8</span></a>）。我们考虑绘制由 <span class="math notranslate nohighlight">\(P_0=(x_0, y_0)\)</span>，<span class="math notranslate nohighlight">\(P_1=(x_1, y_1)\)</span>，<span class="math notranslate nohighlight">\(P_2=(x_2, y_2)\)</span> 三个顶点定义的三角形，三个顶点保证逆时针顺序。在最简单的想法下，我们可以判断每个像素是否在三角形内部，如果是就绘制颜色，如<a class="reference internal" href="#code-started-drawing-tri"><span class="std std-numref">代码 4.4</span></a> 所示。</p>
+<div class="literal-block-wrapper docutils container" id="code-started-drawing-tri">
+<div class="code-block-caption"><span class="caption-number">代码 4.4 </span><span class="caption-text">最简单的三角形光栅化算法</span><a class="headerlink" href="#code-started-drawing-tri" title="Link to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">draw_triangle</span><span class="p">(</span><span class="n">x0</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y0</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y2</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos">2</span>  <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="linenos">3</span>  <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="hll"><span class="linenos">4</span>  <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">5</span>    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">6</span>      <span class="k">if</span> <span class="n">inside</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">7</span>        <span class="n">draw</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>那么如何判断点 <span class="math notranslate nohighlight">\(P=(x,y)\)</span> 是否在三角形内部？我们可以借助上一节提到的直线的隐式函数。如<a class="reference internal" href="#fig-started-drawing-triangle-test"><span class="std std-numref">图 4.7</span></a> 所示，我们规定边的方向为逆时针方向，也就是从 <span class="math notranslate nohighlight">\(P_i\)</span> 指向 <span class="math notranslate nohighlight">\(P_{i+1}\)</span>（<span class="math notranslate nohighlight">\(P_2\)</span> 指向 <span class="math notranslate nohighlight">\(P_0\)</span>），将其逆时针旋转 <span class="math notranslate nohighlight">\(90^\circ\)</span> 得到垂直于边的法向 <span class="math notranslate nohighlight">\(N_i\)</span>，那么 <span class="math notranslate nohighlight">\(N_i\)</span> 一定指向三角形的内部。如果点 <span class="math notranslate nohighlight">\(P\)</span> 位于三条边的法向一侧，也就是代入三条边的隐式方程 <span class="math notranslate nohighlight">\(F_i(P)\)</span> 都大于 0，那么点 <span class="math notranslate nohighlight">\(P\)</span> 就位于三角形内部。反之如果有任意一条边的 <span class="math notranslate nohighlight">\(F_i(P)&lt;0\)</span>，那么点 <span class="math notranslate nohighlight">\(P\)</span> 就位于三角形的外部。</p>
+<figure class="align-default" id="fig-started-drawing-triangle-test">
+<a class="reference internal image-reference" href="../../_images/triangle-test.png"><img alt="../../_images/triangle-test.png" src="../../_images/triangle-test.png" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 4.7 </span><span class="caption-text">三角形内外检测</span><a class="headerlink" href="#fig-started-drawing-triangle-test" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>这里我们遇到了和直线绘制中类似的情况。这个算法并没有什么问题，但是每个点都需要计算三次直线的隐式方程，包含整数乘法运算，有没有可能通过累加的方式避免乘法运算呢？观察最简单的三角形绘制算法，我们其实是在一行一行地绘制三角形中的像素。如果已知三角形在一行中的左边端点 <span class="math notranslate nohighlight">\(y_L\)</span> 和右边端点 <span class="math notranslate nohighlight">\(y_R\)</span>，中间的像素其实没有必要进行内外检测，可以直接绘制。而维护左右端点的过程其实就是在绘制直线的过程。我们没有必要重复计算三条边与当前行的交点，而是可以通过上一行的交点和直线的斜率，增量更新到当前行的交点，这正是绘制直线的 DDA 算法。通过这种方式我们能够避免对所有像素进行三角形内外检测，而只通过增量更新的方法逐行绘制，这种算法被称为<strong>扫描线算法（Sweep-Line Algorithm）</strong>。这里我们仅在<a class="reference internal" href="#code-started-drawing-tri-dda"><span class="std std-numref">代码 4.5</span></a> 中给出大致的伪代码。</p>
+<div class="literal-block-wrapper docutils container" id="code-started-drawing-tri-dda">
+<div class="code-block-caption"><span class="caption-number">代码 4.5 </span><span class="caption-text">三角形光栅化的扫描线算法</span><a class="headerlink" href="#code-started-drawing-tri-dda" title="Link to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">draw_triangle</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+<span class="linenos">2</span>  <span class="k">for</span> <span class="n">each</span> <span class="n">edge</span> <span class="n">pair</span><span class="p">:</span>
+<span class="linenos">3</span>  <span class="n">initialize</span> <span class="n">x_L</span><span class="p">,</span> <span class="n">x_R</span>
+<span class="linenos">4</span>  <span class="n">compute</span> <span class="n">dx_L</span><span class="o">/</span><span class="n">dy_L</span><span class="p">,</span> <span class="n">dx_R</span><span class="o">/</span><span class="n">dy_R</span>
+<span class="hll"><span class="linenos">5</span>  <span class="k">for</span> <span class="n">each</span> <span class="n">scanline</span> <span class="n">at</span> <span class="n">y</span><span class="p">:</span>
+</span><span class="hll"><span class="linenos">6</span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x_L</span><span class="p">,</span> <span class="n">x_R</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span> 
+</span><span class="hll"><span class="linenos">7</span>    <span class="n">draw</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">8</span>    <span class="n">x_L</span> <span class="o">+=</span> <span class="n">dx_L</span><span class="o">/</span><span class="n">dy_L</span>
+</span><span class="hll"><span class="linenos">9</span>    <span class="n">x_R</span> <span class="o">+=</span> <span class="n">dx_R</span><span class="o">/</span><span class="n">dy_R</span>
+</span></pre></div>
+</div>
+</div>
+<p>扫描线算法的想法可以自然拓展到多边形中。我们可以首先对多边形的所有边进行排序，然后用类似方法维护左右交点，从上到下进行扫描线的绘制。在面对多边形时，我们还要额外注意多边形非凸的情况。如<a class="reference internal" href="#fig-started-drawing-poly"><span class="std std-numref">图 4.8</span></a> 所示，一条扫描线有可能和多边形有不只两个交点。为了处理这种情况，我们可以将所有边与扫描线的交点从左到右排序，可以发现第奇数交点到第偶数交点中间就是需要绘制的像素，而第偶数交点到第奇数交点之间是在多边形外部的区域。</p>
+<figure class="sphinx-subfigure align-default" id="fig-started-drawing-poly" style="width: 100%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="../../_images/poly1.png" src="../../_images/poly1.png" />
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="../../_images/poly2.png" src="../../_images/poly2.png" />
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 4.8 </span><span class="caption-text">扫描线算法绘制填充多边形</span><a class="headerlink" href="#fig-started-drawing-poly" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>扫描线算法相比于简单的三角形算法更高效，然而在现代计算机上，其实使用的最多的是并行版的简单算法。这背后的原因在于，三角形在现代图形学中的地位非常重要，在后面 <a class="reference internal" href="../../rendering/shading/index.html#chap-rendering-shading"><span class="std std-numref">§14</span></a> 的学习中我们会发现现代的渲染管线是完全围绕三角形搭建起来的，现代显卡的重要功能就是绘制三角形。为了能够快速绘制大量的三角形，现代显卡基本都会提供三角形内外检测的专门硬件模块，从而在硬件上实现并行的三角形绘制。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">4.2.2. </span>颜色插值<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>在上面介绍的算法中，我们只介绍了如何绘制纯色图形，在更一般的情况下我们希望在多边形内部填充不一样的内容，乃至为多边形内部的每个像素确定不同的颜色。比如，我们可以指定多边形各个顶点的颜色，然后在内部对顶点颜色进行插值，如<a class="reference internal" href="#fig-started-drawing-opengl"><span class="std std-numref">图 4.9</span></a> 所示。</p>
+<figure class="align-default" id="fig-started-drawing-opengl">
+<a class="reference internal image-reference" href="../../_images/OpenGL_triangle.png"><img alt="../../_images/OpenGL_triangle.png" src="../../_images/OpenGL_triangle.png" style="width: 40%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 4.9 </span><span class="caption-text">三角形颜色插值：学习 OpenGL 的第一课 “hello triangle” 样例</span><a class="headerlink" href="#fig-started-drawing-opengl" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>在绘制线段时，假设两个顶点 <span class="math notranslate nohighlight">\((x_0, y_0)\)</span> 和 <span class="math notranslate nohighlight">\((x_1, y_1)\)</span> 的颜色分别为 <span class="math notranslate nohighlight">\(c_0\)</span> 和 <span class="math notranslate nohighlight">\(c_1\)</span>，那么 <span class="math notranslate nohighlight">\((x, y)\)</span> 像素点上的颜色可以通过线性插值得到：</p>
+<div class="math notranslate nohighlight" id="equation-eq-started-drawing-intp">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-eq-started-drawing-intp" title="Link to this equation">#</a></span>\[
+c = c_0 (1 - t) + c_1 t\text{, } t = \frac{x - x_0}{x_1 - x_0}
+\]</div>
+<p>当使用扫描线算法绘制多边形时，我们可以应用公式 <a class="reference internal" href="#equation-eq-started-drawing-intp">(4.2)</a> 在每一条横向扫描线内部插值，并且扫描线的两个端点的颜色可以再通过一次纵向边上的线性插值得到。因此，我们可以通过纵向横向两个方向的线性插值得到多边形内部的颜色，这样的方法称为<strong>双线性插值（Bi-linear Interpolation）</strong>，如<a class="reference internal" href="#fig-started-drawing-scan-intp"><span class="std std-numref">图 4.10</span></a> 所示。</p>
+<figure class="align-default" id="fig-started-drawing-scan-intp">
+<a class="reference internal image-reference" href="../../_images/color-intp.png"><img alt="../../_images/color-intp.png" src="../../_images/color-intp.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 4.10 </span><span class="caption-text">三角形双线性颜色插值</span><a class="headerlink" href="#fig-started-drawing-scan-intp" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>上面的插值算法针对于扫描线算法，那么<a class="reference internal" href="#code-started-drawing-tri"><span class="std std-numref">代码 4.4</span></a> 中的简单三角形绘制算法应该如何插值颜色？在不使用扫描线时，我们直接绘制每个单独的像素，就需要确定每个像素相对于三角形三个顶点的权重，形式为：</p>
+<div class="math notranslate nohighlight" id="equation-eq-started-drawing-tri-intp">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-eq-started-drawing-tri-intp" title="Link to this equation">#</a></span>\[
+c = \alpha c_0 + \beta c_1 + \gamma c_2 \text{, } \alpha + \beta + \gamma = 1
+\]</div>
+<p><span class="math notranslate nohighlight">\((\alpha, \beta, \gamma)\)</span> 是我们要求的权重，类似于公式 <a class="reference internal" href="#equation-eq-started-drawing-intp">(4.2)</a> 中的 <span class="math notranslate nohighlight">\((1-t, t)\)</span>。<span class="math notranslate nohighlight">\(\alpha + \beta + \gamma = 1\)</span> 是权重的归一化条件。此外，我们还要求当像素点位于顶点 <span class="math notranslate nohighlight">\((x_i, y_i)\)</span> 时，对应的颜色 <span class="math notranslate nohighlight">\(c=c_i\)</span>：比如在顶点 <span class="math notranslate nohighlight">\((x_0, y_0)\)</span> 上时，应有 <span class="math notranslate nohighlight">\(\alpha=1\)</span>，<span class="math notranslate nohighlight">\(\beta=0\)</span>，<span class="math notranslate nohighlight">\(\gamma=0\)</span>。这里我们直接给出满足这些要求的权重构造方法，称为<strong>重心坐标（barycentric coordinate）</strong>。</p>
+<figure class="align-default" id="fig-started-drawing-barycentric">
+<a class="reference internal image-reference" href="../../_images/barycentric1.png"><img alt="../../_images/barycentric1.png" src="../../_images/barycentric1.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 4.11 </span><span class="caption-text">重心坐标插值</span><a class="headerlink" href="#fig-started-drawing-barycentric" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>如<a class="reference internal" href="#fig-started-drawing-barycentric"><span class="std std-numref">图 4.11</span></a> 所示，<span class="math notranslate nohighlight">\((\alpha, \beta, \gamma)\)</span> 通过分割出的三个三角形的面积之间的比值确定：每个顶点的权重等于与顶点相对的三角形面积除以三角形总面积。这样的定义自然满足我们列出的要求：<span class="math notranslate nohighlight">\(\alpha + \beta + \gamma = 1\)</span>，并且在顶点 A 处，<span class="math notranslate nohighlight">\(\alpha=1\)</span>，<span class="math notranslate nohighlight">\(\beta=0\)</span>，<span class="math notranslate nohighlight">\(\gamma=0\)</span>。此外，重心坐标也是线性的，意味着权重在三角形内部是均匀变化的：不管我们在三角形内部的任何一点上向右（或向上）移动一个像素，权重对应的改变始终是一个常数。我们把这个证明留作一个习题。</p>
+<p>由于重心坐标插值和上面提到的双线性插值都是线性插值，它们其实是等价的。如何证明？首先，颜色的三个分量插值是相互独立的，我们可以单独考察其中一个分量，比如 R 通道。如果将 R 通道作为垂直于屏幕的 <span class="math notranslate nohighlight">\(z\)</span> 轴，将每个像素沿 <span class="math notranslate nohighlight">\(z\)</span> 轴平移对应的 R 值，我们就可以得到一个三维空间中的曲面。如果插值是线性的，这个曲面其实是一个倾斜的平面。而三个顶点是可以唯一确定空间中的一个平面，因此重心坐标插值和双线性插值是等价的。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.2.3. </span>图像拉伸<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>上面我们讨论了如何插值颜色，我们现在来看一下看起来稍微不一样的问题：如何像<a class="reference internal" href="#fig-started-drawing-warp"><span class="std std-numref">图 4.12</span></a> 一样拉伸一个图像？</p>
+<figure class="align-default" id="fig-started-drawing-warp">
+<a class="reference internal image-reference" href="../../_images/image-warp.png"><img alt="../../_images/image-warp.png" src="../../_images/image-warp.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 4.12 </span><span class="caption-text">图像拉伸</span><a class="headerlink" href="#fig-started-drawing-warp" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>如果我们把拉伸的结果看成是对不规则四边形内部的填色，那么图像拉伸的问题就和上面介绍的颜色插值问题建立起了关联。区别在于，现在我们填充的颜色不再是顶点颜色插值得到，而是从原图像中查表得到。对应的问题就变成了，我们如何知道拉伸后每个像素对应原图像的哪个像素？解决方法其实非常简单。我们可以在原图像的空间中建立一个直角坐标系，每个顶点对应一个 <span class="math notranslate nohighlight">\((u, v)\)</span>，一般直接称为 <strong>UV 坐标（UV coordinate）</strong>。拉伸图像之后，四个顶点和四条边上的 UV 坐标不会发生变化。我们使用上面介绍的颜色插值方法，在拉伸后的空间对 UV 坐标进行插值，可以得到每个像素对应的 UV 坐标，再回到原图像空间查找对应的像素就知道对应的颜色了。</p>
+<figure class="align-default" id="fig-started-drawing-uv">
+<a class="reference internal image-reference" href="../../_images/uv.png"><img alt="../../_images/uv.png" src="../../_images/uv.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 4.13 </span><span class="caption-text">UV 映射</span><a class="headerlink" href="#fig-started-drawing-uv" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>一个需要注意的点是，尽管我们在上面证明了三角形的双线性插值和重心坐标方法是等价的，四边形没有唯一线性的插值方法。我们可以直接对四边形做双线性插值，或者将其分割成两个三角形分别使用重心坐标插值，得到的结果如<a class="reference internal" href="#fig-started-drawing-diff"><span class="std std-numref">图 4.14</span></a> 所示。可以看到，两种方法插值的结果并不一致，颜色的占比不同。此外，这里演示的 UV 映射拉伸的方法是在二维中进行的，但是它还会在后面三维渲染的 <a class="reference internal" href="../../rendering/textures/index.html#chap-rendering-textures"><span class="std std-numref">§15</span></a> 纹理章节中发挥巨大作用。</p>
+<figure class="align-default" id="fig-started-drawing-diff">
+<a class="reference internal image-reference" href="../../_images/different-warping.png"><img alt="../../_images/different-warping.png" src="../../_images/different-warping.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 4.14 </span><span class="caption-text">不同插值方法的结果</span><a class="headerlink" href="#fig-started-drawing-diff" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="rasterization.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">4.1. </span>光栅化</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="composition.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span>合成</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2.1. 多边形的光栅化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.2. 颜色插值</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.3. 图像拉伸</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

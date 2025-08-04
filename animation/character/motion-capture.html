@@ -1,0 +1,841 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>20.1. 动作捕捉 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'animation/character/motion-capture';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="20.2. 动作合成" href="motion-synthesis.html" />
+    <link rel="prev" title="20. 角色动画" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/drawing-2d/index.html">4. 绘图</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/polygon.html">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/representation/index.html">9. 几何表达</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/mesh.html">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">20. 角色动画</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">20.1. 动作捕捉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="motion-synthesis.html">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../rigid-bodies/index.html">22. 刚体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/rigid-body-dynamics.html">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/basics/index.html">24. 可视化基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/content.html">24.2. 可视化研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/design.html">24.3. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/data.html">24.4. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/interaction.html">24.5. 可视化中的交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/summary.html">24.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/dimensional.html">25.1. 标量场、矢量场、张量场数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/spatial.html">25.2. 表面数据、体积数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/summary.html">25.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/informational/index.html">26. 信息可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/plot.html">26.1. 基础绘图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/types.html">26.2. 不同类型的信息可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/system.html">27.2. 可视分析系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/summary.html">27.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/spatial/index.html">29. 空间交互技术</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/input.html">29.1. 三维交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/xr-techniques.html">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/animation/character/motion-capture.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>动作捕捉</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">20.1.1. 外骨骼</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">20.1.2. 惯性传感器</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">20.1.3. 光学动捕</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">20.1.3.1. 多视角重建</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">20.1.3.2. 标记点的丢失</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">20.1.3.3. 无标记点的光学动捕</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">20.1.3.3.1. 基于深度相机的无标记点光学动捕</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">20.1.4. 其他运动估计方法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">20.1.4.1. 基于单视角视频的运动估计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">20.1.4.2. 使用少量传感器进行运动估计</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  
+<style>
+  .ss-layout-default-AB { grid-template-areas: 'A B'; }
+@media (max-width: 576px) {
+  .ss-layout-sm-A_B { grid-template-areas: 'A' 'B'; }
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="sec-animation-character-motion-capture">
+<span id="id1"></span><h1><span class="section-number">20.1. </span>动作捕捉<a class="headerlink" href="#sec-animation-character-motion-capture" title="Link to this heading">#</a></h1>
+<p>当我们有一个虚拟角色和它的骨骼框架以后，一个很直接的让其动起来的方法，就是手动指定每个关节的弯曲程度。整个过程就像操控一个玩具小人一样，我们将其摆成我们想要的姿势。然而这样只能得到一个静态的姿势，如何产生整个的运动呢？如果能结合之前讲过的插值内容，可以发现做法也是很简单的：我们把几个关键的姿势摆出来，通过插值产生姿势之间的切换，如<a class="reference internal" href="#fig-animation-character-motion-inbetween"><span class="std std-numref">图 20.1</span></a>。</p>
+<figure class="align-default" id="fig-animation-character-motion-inbetween">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_inbetween.png"><img alt="../../_images/animation-character-motion_inbetween.png" src="../../_images/animation-character-motion_inbetween.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.1 </span><span class="caption-text">通过蓝色关键帧和插值算法得到的角色动画<a class="footnote-reference brackets" href="#fig-animation-character-motion-inbetween-ref" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></span><a class="headerlink" href="#fig-animation-character-motion-inbetween" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>然而这样的方法只适用于大范围的，非精细的运动。由插值产生的动作往往较为平滑，缺少细节和风格。在一些快速的多变的运动中，我们需要非常多的关键帧才能确保动画的质量，而这会导致我们的工作量大幅度上升。</p>
+<p>这时我们就要依赖另一个产生动作数据的重要方法：动作捕捉（motion capture），一般读为“Mocap”。动作捕捉是通过设备记录人和物体运动的方法。就角色来说，我们需要一些专业的动捕演员，让其穿戴特定的设备进行表演。在每一时刻，演员的肢体运动甚至面部表情会都会被设备记录下来，转化成骨骼的旋转数据，记录完毕后将其交给后续的处理流程。</p>
+<figure class="align-default" id="fig-animation-character-mocap">
+<a class="reference internal image-reference" href="../../_images/animation-character-mocap.png"><img alt="../../_images/animation-character-mocap.png" src="../../_images/animation-character-mocap.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.2 </span><span class="caption-text">动捕演员<a class="footnote-reference brackets" href="#fig-animation-character-mocap-ref" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></span><a class="headerlink" href="#fig-animation-character-mocap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>相比于插值动画，动捕数据由于是对演员的动作进行了密集的捕捉，可以较为简单地获得非常风格化和流程的动作。动作捕捉在如今有非常多的应用，下面列出了几个主要的方面：</p>
+<ul class="simple">
+<li><p>休闲娱乐：如游戏、影视、虚拟偶像、元宇宙。</p></li>
+<li><p>体育运动：如运专业体育训练、演出动作的优化。</p></li>
+<li><p>医疗：用于帮助医生诊断、治疗一些与运动相关的疾病，以及受伤复建等。</p></li>
+<li><p>机器人：例如对无人机、机械臂的跟踪和定位。</p></li>
+</ul>
+<p>在进行动作捕捉时，我们需要一些设备来完成动作的提取和转化，根据不同的原理，我们可以将设备进行分类，我们将在下面的章节对这些设备进行简单的介绍。</p>
+<section id="id4">
+<h2><span class="section-number">20.1.1. </span>外骨骼<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>基于外骨骼（exoskeleton）的动捕设备是一种早期较为常用的动捕设备，如<a class="reference internal" href="#fig-animation-character-exoskeleton"><span class="std std-numref">图 20.3</span></a> 所示。外骨骼设备的原理十分简单，由于动捕演员穿戴了一套外骨骼，演员的肢体动作会带动外骨骼运动，通过测量外骨骼各关节的角度来近似人体上对应关节的角度；在拥有各关节角度之后，结合外骨骼设备的内参（如每个部件的长度等），我们就可以利用 <a class="reference internal" href="../kinematic-principles/kinematics.html#sec-animation-kinematic-principles-kinematics-forward"><span class="std std-numref">§19.2.1</span></a> 中的方法还原人体的动作了。</p>
+<figure class="align-default" id="fig-animation-character-exoskeleton">
+<a class="reference internal image-reference" href="../../_images/animation-character-exoskeleton.png"><img alt="../../_images/animation-character-exoskeleton.png" src="../../_images/animation-character-exoskeleton.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.3 </span><span class="caption-text">基于外骨骼的动捕设备</span><a class="headerlink" href="#fig-animation-character-exoskeleton" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>基于外骨骼的动捕技术最大的问题在于穿戴的设备特别妨碍动捕演员做动作，当我们需要做一些比较难或者比较危险的动作时（比如躺在地上）穿着外骨骼就很难实现。但另一方面，外骨骼技术非常适用于手部动作的采集，因为手相对身体比较小，采用外骨骼技术能够获得更加准确的数据。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">20.1.2. </span>惯性传感器<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>基于惯性传感器的动捕技术（如<a class="reference internal" href="#fig-animation-character-inertial-mocap"><span class="std std-numref">图 20.4</span></a>）主要依赖于惯性测量单元（inertial measurement unit，IMU），它一般是一个六轴传感器，包括 <span class="math notranslate nohighlight">\(3\)</span> 自由度的加速度计（accelerometers）和 <span class="math notranslate nohighlight">\(3\)</span> 自由度的角速度计（gyroscope）。通过这些传感器的信息，我们可以得到人体各部位的相对运动，进而使用逆向运动学（<a class="reference internal" href="../kinematic-principles/kinematics.html#sec-animation-kinematic-principles-kinematics-backward"><span class="std std-numref">§19.2.3</span></a>）或者优化的方法来求解每个关节的旋转。</p>
+<figure class="align-default" id="fig-animation-character-inertial-mocap">
+<a class="reference internal image-reference" href="../../_images/animation-character-inertial_mocap.png"><img alt="../../_images/animation-character-inertial_mocap.png" src="../../_images/animation-character-inertial_mocap.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.4 </span><span class="caption-text">基于惯性传感器的动捕技术</span><a class="headerlink" href="#fig-animation-character-inertial-mocap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>基于惯性传感器的动捕技术存在的一个不可避免的问题就是传感器的漂移。由于惯性传感器测量的是加速度或者速度，为了得到位置，需要对加速度或速度进行积分，而随着时间的推移，这个积分的误差会累积，导致得到的位置关系越来越不准确。在实践中，常常会因此看到人物会飘起来或者陷进地面。我们往往会借助其他技术来减少漂移带来的影响，比如一些启发性的辅助措施，例如我们可以借助“人的脚总是接触地面”这个先验知识来对整个人体的位姿加一个修正项；另外一方面我们也可以使用更精确的或者添加更多的传感器来减小积分时产生的误差，例如可以借助重力传感器来避免在竖直方向产生过大的漂移，类似还可以借助磁场传感器、光流传感器等。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">20.1.3. </span>光学动捕<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<figure class="sphinx-subfigure align-default" id="fig-animation-character-optical-mocap" style="width: 100%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-A_B" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="(a) 标记点" src="../../_images/animation-character-optical_markers.png" />
+<span class="caption">(a) 标记点</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="(b) 相机组" src="../../_images/animation-character-optical_camera.png" />
+<span class="caption">(b) 相机组</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 20.5 </span><span class="caption-text">光学动捕</span><a class="headerlink" href="#fig-animation-character-optical-mocap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>光学动捕（optical mocap）是目前最为流形的一种动捕技术，其主要原理是通过相机来进行三维定位。动捕演员需要穿戴一些反光或发光的标记点（如<a class="reference internal" href="#fig-animation-character-optical-mocap"><span class="std std-numref">图 20.5</span></a>(a)），此外场景中会放置多个（一般是 <span class="math notranslate nohighlight">\(6\)</span> 到 <span class="math notranslate nohighlight">\(8\)</span> 个，如<a class="reference internal" href="#fig-animation-character-optical-mocap"><span class="std std-numref">图 20.5</span></a>(b)）摄像机，每个相机都能够拍摄到这些标记点，通过多个视角的标记点位置来重建每个标记点的三维坐标。于是，我们只需要在动捕演员身体上的每个关节处都放置若干个标记点，通过这些点的三维坐标就可以反推出每个关节的位置和朝向。</p>
+<section id="id7">
+<h3><span class="section-number">20.1.3.1. </span>多视角重建<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>这里介绍一种利用两个相机重建标记点三维位置的方法。如<a class="reference internal" href="#fig-animation-character-optical-markers-reconstruction"><span class="std std-numref">图 20.6</span></a> 所示，我们已知两个相机的焦距、位置、朝向信息，就可以在为每个相机作一个平面表示相机拍摄到的图片所在的屏幕，一个标记点会在两个屏幕上分别投射出一个点，我们从两个相机的焦点出发向各自屏幕上对应点引出一条射线，那么两条射线应当能够相交，这个交点就是还原出的三维位置。</p>
+<figure class="align-default" id="fig-animation-character-optical-markers-reconstruction">
+<a class="reference internal image-reference" href="../../_images/animation-character-optical_markers_reconstruction.png"><img alt="../../_images/animation-character-optical_markers_reconstruction.png" src="../../_images/animation-character-optical_markers_reconstruction.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.6 </span><span class="caption-text">双视角还原标记点位置</span><a class="headerlink" href="#fig-animation-character-optical-markers-reconstruction" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>这个方法虽然简单，但并不常用，因为实际情况中两个相机会带来较大的测量误差。一般来说我们至少需要 <span class="math notranslate nohighlight">\(3\)</span> 个相机来定位一个点，且相机越多误差越低，尤其是当场景中出现遮挡关系时更加需要多个相机来准确地重建。</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">20.1.3.2. </span>标记点的丢失<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>光学动捕的一个常见问题在于标记点在动作过程中很可能会丢失，比如当动捕演员趴在地上时，没有任何摄像机能够看到胸口的标记点；此外，在进行复杂动作的过程中可能会使标记点错位。这些问题对光学动捕是十分不利的，所以人们往往需要耗费大量精力为采集到的数据进行补点操作，补齐丢失的标记点或是纠正对应错误的标记点（例如有些手上的标记点可能会被算法误认为是腿上的标记点）。这种后处理工作繁琐且昂贵，在业界这种工作往往是按照动捕序列的时长以秒为单位计费的。近期也有一些研究借助机器学习来简化这个补点的过程，感兴趣的读者可以深入调研。</p>
+</section>
+<section id="id9">
+<h3><span class="section-number">20.1.3.3. </span>无标记点的光学动捕<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>由于标记点占据一定的体积，动捕演员携带标记点做动作往往会受到影响，尤其是在采集动物的动作数据时。针对这个问题，目前最常见的解决方案是采用基于多视角相机的无标记点的动捕技术 (如<a class="reference internal" href="#fig-animation-character-optical-markerless"><span class="std std-numref">图 20.7</span></a>)。其原理与普通的光学动捕技术类似，已知多个相机的内参和位姿，通过识别每个相机拍摄出图像中的关节等特征来重建人体姿态。但这类方法的准确性会受光线等因素影响。</p>
+<figure class="align-default" id="fig-animation-character-optical-markerless">
+<a class="reference internal image-reference" href="../../_images/animation-character-optical_markerless.png"><img alt="../../_images/animation-character-optical_markerless.png" src="../../_images/animation-character-optical_markerless.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.7 </span><span class="caption-text">无标记点的光学动捕</span><a class="headerlink" href="#fig-animation-character-optical-markerless" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id10">
+<h4><span class="section-number">20.1.3.3.1. </span>基于深度相机的无标记点光学动捕<a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+<p>深度摄像机拍摄出来的图片中每个像素点除了颜色信息外还会携带深度信息，通过额外的深度信息我们可以重建出人物的表面网格，进而重建出人物的姿态。<a class="reference internal" href="#fig-animation-character-stereocamera"><span class="std std-numref">图 20.8</span></a> 展示了一个深度相机，<a class="reference internal" href="#fig-animation-character-depth-mocap1"><span class="std std-numref">图 20.9</span></a> 和<a class="reference internal" href="#fig-animation-character-depth-mocap2"><span class="std std-numref">图 20.10</span></a> 分别展示了两种使用深度相机重建出的人物动画。当然，在不同身体部位之间出现遮挡时，深度相机动捕就会遇到问题；另外，单视角深度相机也难以区分拍摄到的是身体的（前、后、左、右）哪一侧。</p>
+<p>总体来说，无标记点的光学动捕精确度不如传统的光学动捕技术高，当然这也说明这方面技术还有很大的进步空间，它们也是近期研究的热点。</p>
+<figure class="align-default" id="fig-animation-character-stereocamera">
+<a class="reference internal image-reference" href="../../_images/animation-character-stereocamera.jpg"><img alt="../../_images/animation-character-stereocamera.jpg" src="../../_images/animation-character-stereocamera.jpg" style="width: 30%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.8 </span><span class="caption-text">一个深度相机</span><a class="headerlink" href="#fig-animation-character-stereocamera" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-animation-character-depth-mocap1">
+<a class="reference internal image-reference" href="../../_images/animation-character-depth_mocap1.png"><img alt="../../_images/animation-character-depth_mocap1.png" src="../../_images/animation-character-depth_mocap1.png" style="width: 30%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.9 </span><span class="caption-text">使用深度相机重建的骨架</span><a class="headerlink" href="#fig-animation-character-depth-mocap1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-animation-character-depth-mocap2">
+<a class="reference internal image-reference" href="../../_images/animation-character-depth_mocap2.png"><img alt="../../_images/animation-character-depth_mocap2.png" src="../../_images/animation-character-depth_mocap2.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.10 </span><span class="caption-text">使用深度相机重建的人物动作</span><a class="headerlink" href="#fig-animation-character-depth-mocap2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">20.1.4. </span>其他运动估计方法<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>另外还有一些运动估计（motion estimation）的方法，它们可以借助低成本的设备还原出一个较为合理的动作，但由于这些方法的输入往往是不够的，不能准确地还原出人体动作，所以被称为运动估计而非动作捕捉。</p>
+<section id="id12">
+<h3><span class="section-number">20.1.4.1. </span>基于单视角视频的运动估计<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<figure class="sphinx-subfigure align-default" id="fig-animation-character-monocular-video" style="width: 100%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-A_B" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="二维姿态估计" src="../../_images/animation-character-motion_estimation_monocular_video1.png" />
+<span class="caption">二维姿态估计</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="基于视频的三维姿态估计" src="../../_images/animation-character-motion_estimation_monocular_video2.png" />
+<span class="caption">基于视频的三维姿态估计</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 20.11 </span><span class="caption-text">基于单视角视频的运动估计<a class="footnote-reference brackets" href="#fig-animation-character-motion-estimation-monocular-video1-ref" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a><a class="footnote-reference brackets" href="#fig-animation-character-motion-estimation-monocular-video2-ref" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></span><a class="headerlink" href="#fig-animation-character-monocular-video" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>图<a class="reference internal" href="#fig-animation-character-monocular-video"><span class="std std-numref">图 20.11</span></a> 展示了两个基于单视角视频运动估计的研究工作。由于单视角相机看到的是三维动作到二维的投影，输入具有一定的歧义，我们只能结合大量的训练数据来估计一个最大可能性的动作。</p>
+</section>
+<section id="id15">
+<h3><span class="section-number">20.1.4.2. </span>使用少量传感器进行运动估计<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<figure class="sphinx-subfigure align-default" id="fig-animation-character-motion-estimation-sparse-sensor" style="width: 100%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-A_B" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="(a) 借助稀疏的惯性测量单元进行运动估计" src="../../_images/animation-character-motion_estimation_sparse_sensor_imu.png" />
+<span class="caption">(a) 借助稀疏的惯性测量单元进行运动估计</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="(b) 虚拟现实中的运动估计" src="../../_images/animation-character-motion_estimation_sparse_sensor_vr.png" />
+<span class="caption">(b) 虚拟现实中的运动估计</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 20.12 </span><span class="caption-text">使用少量传感器进行的运动估计</span><a class="headerlink" href="#fig-animation-character-motion-estimation-sparse-sensor" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>这类方法往往只需要借助很少量的（<span class="math notranslate nohighlight">\(5\)</span> 到 <span class="math notranslate nohighlight">\(6\)</span> 个）标记点或传感器进行运动估计（如<a class="reference internal" href="#fig-animation-character-motion-estimation-sparse-sensor"><span class="std std-numref">图 20.12</span></a>(a)），这类方法可以借助逆向运动学技术还原出人物动作。在虚拟现实场景中，我们甚至只有 <span class="math notranslate nohighlight">\(3\)</span> 个已知的标记点（虚拟现实头盔、两个手柄，如<a class="reference internal" href="#fig-animation-character-motion-estimation-sparse-sensor"><span class="std std-numref">图 20.12</span></a>(b)，有时甚至只有头盔这一个标记点的信息）。对于这种信息极度缺失的病态问题，目前的技术能够达到的效果也很有限，但这同样意味着我们还有很大的研究空间。</p>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="fig-animation-character-motion-inbetween-ref" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>图片来源：<a class="reference external" href="https://arxiv.org/pdf/2102.04942.pdf">Robust Motion In-betweening</a></p>
+</aside>
+<aside class="footnote brackets" id="fig-animation-character-mocap-ref" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>图片来源：<a class="reference external" href="https://www.squeezestudio.com/en/projects/motion-capture">Squeeze</a></p>
+</aside>
+<aside class="footnote brackets" id="fig-animation-character-motion-estimation-monocular-video1-ref" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">3</a><span class="fn-bracket">]</span></span>
+<p>左图来源：[OpenPose, 2D Pose estimation]</p>
+</aside>
+<aside class="footnote brackets" id="fig-animation-character-motion-estimation-monocular-video2-ref" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">4</a><span class="fn-bracket">]</span></span>
+<p>右图来源：[3D Video-based Pose estimation, source: DeepMotion Inc.]</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">20. </span>角色动画</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="motion-synthesis.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">20.2. </span>动作合成</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">20.1.1. 外骨骼</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">20.1.2. 惯性传感器</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">20.1.3. 光学动捕</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">20.1.3.1. 多视角重建</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">20.1.3.2. 标记点的丢失</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">20.1.3.3. 无标记点的光学动捕</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">20.1.3.3.1. 基于深度相机的无标记点光学动捕</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">20.1.4. 其他运动估计方法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">20.1.4.1. 基于单视角视频的运动估计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">20.1.4.2. 使用少量传感器进行运动估计</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

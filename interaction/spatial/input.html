@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>29.1. 三维交互技术 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'interaction/spatial/input';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="29.2. 虚拟现实与增强现实" href="xr-techniques.html" />
+    <link rel="prev" title="29. 空间交互技术" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/drawing-2d/index.html">4. 绘图</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/polygon.html">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/representation/index.html">9. 几何表达</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/mesh.html">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/character/index.html">20. 角色动画</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-capture.html">20.1. 动作捕捉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-synthesis.html">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/rigid-bodies/index.html">22. 刚体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/rigid-body-dynamics.html">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/basics/index.html">24. 可视化基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/content.html">24.2. 可视化研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/design.html">24.3. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/data.html">24.4. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/interaction.html">24.5. 可视化中的交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/summary.html">24.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/dimensional.html">25.1. 标量场、矢量场、张量场数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/spatial.html">25.2. 表面数据、体积数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/summary.html">25.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/informational/index.html">26. 信息可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/plot.html">26.1. 基础绘图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/types.html">26.2. 不同类型的信息可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/system.html">27.2. 可视分析系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/summary.html">27.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">29. 空间交互技术</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">29.1. 三维交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xr-techniques.html">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/interaction/spatial/input.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>三维交互技术</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">29.1.1. 基于经典交互技术的三维交互</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">29.1.2. 基于三维空间定位设备的三维交互</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">29.1.2.1. 三维空间定位设备</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">29.1.2.2. 触觉和力反馈器</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tangible-user-interface-tui">29.1.2.3. 实体用户界面（Tangible User Interface， TUI）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-widgets">29.1.2.4. 物理控件（Physical Widgets）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">29.1.3. 基于三维显示与多通道交互的智慧交互</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">29.1.3.1. 手势识别</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">29.1.3.2. 眼动追踪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">29.1.3.3. 语音识别</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">29.1.3.4. 多通道交互的基本特点</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  
+<style>
+  .ss-layout-default-AB { grid-template-areas: 'A B'; }
+@media (max-width: 576px) {
+  .ss-layout-sm-AB { grid-template-areas: 'A B'; }
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="sec-interaction-spatial-input">
+<span id="id1"></span><h1><span class="section-number">29.1. </span>三维交互技术<a class="headerlink" href="#sec-interaction-spatial-input" title="Link to this heading">#</a></h1>
+<p>相比于传统的二维交互，进行三维空间中的交互要困难得多，主要原因包括：</p>
+<ul class="simple">
+<li><p>物体自由度高：相较于二维对象，三维空间中的对象具有六个自由度，包括三个空间坐标（X，Y，Z）和三个旋转轴（滚转、俯仰、偏航），这增加了操控的复杂性。</p></li>
+<li><p>视角遮蔽严重：操作大量三维对象时，不恰当的摄像机角度可能导致物体直接互相重叠、遮挡，使得用户难以准确地定位和操作对象。</p></li>
+<li><p>操作思维局限：目前人们所习惯使用的交互工具（如鼠标、显示屏）几乎完全是基于二维的，人们并没有关于三维空间操作和编辑的共识，需要通过三维交互技术的发展来塑造对三维交互的理解。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-6dof">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-6DoF.png"><img alt="../../_images/interaction-spatial-6DoF.png" src="../../_images/interaction-spatial-6DoF.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.2 </span><span class="caption-text">三维飞机模型的三个旋转自由度：滚转（roll）、俯仰（pitch）、偏航（yaw）。© Wikipedia</span><a class="headerlink" href="#fig-interaction-spatial-6dof" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-interaction-spatial-complex-scene">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-complex_scene.png"><img alt="../../_images/interaction-spatial-complex_scene.png" src="../../_images/interaction-spatial-complex_scene.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.3 </span><span class="caption-text">三维场景包含复杂的遮挡关系和空间层次结构。© Wikipedia</span><a class="headerlink" href="#fig-interaction-spatial-complex-scene" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>因此，三维交互技术不仅需要考虑到操作的直观性，还要解决视角、空间理解和操作工具的局限性，这些都使得三维交互设计与实现更为困难：</p>
+<ul class="simple">
+<li><p>三维选择：点击设备不再是在二维屏幕上进行选择，而是在一个具有纵深的三维空间中进行选择，三维场景具有复杂的层次结构和遮挡关系，这给准确选中目标物体造成了困难。</p></li>
+<li><p>窗口部件：作为展示信息的窗口部件一般以二维画布的形式存在，如何在三维空间中进行窗口布局、是否需要加入阴影或遮挡关系等问题需要精心设计。</p></li>
+<li><p>运算速度：三维场景中的计算量显著高于二维场景，需要以高效的计算来维持人机交互的实时性。</p></li>
+</ul>
+<p>为了解决这些困难、获得更自然的交互体验，人们不断探索着三维交互的技术范式。
+最基础的三维交互手段借助于各类经典交互设备，如显示屏、鼠标键盘等，通过传统方法操作二维屏幕内的三维对象；接着，人们也通过三维空间定位技术建立起了更直接的从三维物理世界到二维数字世界的空间映射，突破了传统鼠标键盘等输入方式的限制，允许用户通过物理世界中的操作与数字空间直接进行交互；而后，人们尝试超越二维屏幕的三维交互，头戴式显示、体积显示等三维显示技术使之成为了可能，三维显示为用户提供了绝佳的沉浸式视觉体验，于是基于多通道交互的智慧交互方式随之兴起，三维显示与多通道交互的深度融合带来了更真实高效的三维交互方式。
+本章将从三个阶段依次探讨“自然和谐的人机交互”的发展进程。</p>
+<!-- 而后人们开始尝试超越二维屏幕的三维交互，如{numref}`fig-interaction-spatial-3Dcave`所示的三维洞穴等大型设备，将显示设备铺展到所有墙体乃至天花板。而对于单人用户，则有各类VR/AR眼镜、头盔等设备用于向用户展示三维场景，包括Google glass、Oculus Quest (Meta)、Microsoft Hololens等产品，并提出了多种多样的交互方式设计，走向自然且智能的人机交互。 -->
+<!-- ！！！！！！！！
+
+这个图放到第二阶段里！！！！！！！！
+```{figure} fig/interaction-spatial-3Dcave.png
+:name: fig-interaction-spatial-3Dcave
+3D洞穴。
+``` -->
+<section id="id2">
+<h2><span class="section-number">29.1.1. </span>基于经典交互技术的三维交互<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="fig-interaction-spatial-4panel">
+<img alt="../../_images/interaction-spatial-4panel.png" src="../../_images/interaction-spatial-4panel.png" />
+<figcaption>
+<p><span class="caption-number">图 29.4 </span><span class="caption-text">3D Max中的三视图 © From <a class="reference external" href="https://zhuanlan.zhihu.com/p/62301659">zhuanlan.zhihu.com</a></span><a class="headerlink" href="#fig-interaction-spatial-4panel" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>经典交互技术依赖于二维屏幕进行显示，基于这类技术的三维交互在二维屏幕内操作三维对象，其主要挑战在于如何将二维的输入输出同三维空间建立联系。一种经典的方法是基于多视图，如<a class="reference internal" href="#fig-interaction-spatial-4panel"><span class="std std-numref">图 29.4</span></a>所示，常见于各种三维建模软件。这一类方法往往建立四个视图窗口，由三维对象的三视图和一个来自用户控制的自由视角主视图组成。当用户需要对物体进行三维变换时，主视图可以进行六自由度的三维变换，而三视图的每个视角可以进行相应视角下的四自由度二维变换，这有效地缓解了视角遮蔽和三维变换自由度高的问题。</p>
+<p>另一类方法 <span id="id3">[<a class="reference internal" href="summary.html#id7" title="Scott S. Snibbe, Kenneth P. Herndon, Daniel C. Robbins, D. Brookshire Conner, and Andries van Dam. Using deformations to explore 3d widget design. SIGGRAPH Comput. Graph., 26(2):351–352, jul 1992.">SHR+92</a>]</span> 则将二维中的控制杆（handle）扩展到三维，如<a class="reference internal" href="#fig-interaction-spatial-3dhandle"><span class="std std-numref">图 29.5</span></a> 所示，于是用户可以通过点选特定轴完成移动、伸缩、旋转等操作。这一类方法往往不依赖多角度视图，将三维操作转化成二维操作，提供了更加简单而自然的交互方式。</p>
+<figure class="align-default" id="fig-interaction-spatial-3dhandle">
+<img alt="../../_images/interaction-spatial-3Dhandle.png" src="../../_images/interaction-spatial-3Dhandle.png" />
+<figcaption>
+<p><span class="caption-number">图 29.5 </span><span class="caption-text">3D控制杆 <span id="id4">[<a class="reference internal" href="summary.html#id7" title="Scott S. Snibbe, Kenneth P. Herndon, Daniel C. Robbins, D. Brookshire Conner, and Andries van Dam. Using deformations to explore 3d widget design. SIGGRAPH Comput. Graph., 26(2):351–352, jul 1992.">SHR+92</a>]</span> ：左图所示的标准长方体上具有一系列可交互的三维控制杆，右图展示了缩短蓝色控制杆后因此变形的三维物体。</span><a class="headerlink" href="#fig-interaction-spatial-3dhandle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>除了上述鼠标操作的经典方法外，也有一些方法允许用户使用触控笔草绘来进行三维交互，如<a class="reference internal" href="#fig-interaction-spatial-sketch"><span class="std std-numref">图 29.6</span></a> <span id="id5">[<a class="reference internal" href="summary.html#id8" title="Takeo Igarashi, Satoshi Matsuoka, and Hidehiko Tanaka. Teddy: a sketching interface for 3d freeform design. In Proceedings of the 26th Annual Conference on Computer Graphics and Interactive Techniques, SIGGRAPH '99, 409–416. USA, 1999. ACM Press/Addison-Wesley Publishing Co.">IMT99</a>]</span> 和<a class="reference internal" href="#fig-interaction-spatial-sketch2"><span class="std std-numref">图 29.7</span></a> <span id="id6">[<a class="reference internal" href="summary.html#id9" title="Amit Shesh and Baoquan Chen. Smartpaper: an interactive and user friendly sketching system. In Computer Graphics Forum, volume 23, 301–310. Wiley Online Library, 2004.">SC04</a>]</span>，用户可以通过在平板上勾画物体的外轮廓来构建出三维物体，并且可以通过笔划对物体进行切割或拼接等操作。</p>
+<figure class="align-default" id="fig-interaction-spatial-sketch">
+<img alt="../../_images/interaction-spatial-sketch.png" src="../../_images/interaction-spatial-sketch.png" />
+<figcaption>
+<p><span class="caption-number">图 29.6 </span><span class="caption-text">Teddy <span id="id7">[<a class="reference internal" href="summary.html#id8" title="Takeo Igarashi, Satoshi Matsuoka, and Hidehiko Tanaka. Teddy: a sketching interface for 3d freeform design. In Proceedings of the 26th Annual Conference on Computer Graphics and Interactive Techniques, SIGGRAPH '99, 409–416. USA, 1999. ACM Press/Addison-Wesley Publishing Co.">IMT99</a>]</span>：一个3D自由形式设计的草图界面。</span><a class="headerlink" href="#fig-interaction-spatial-sketch" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-interaction-spatial-sketch2">
+<img alt="../../_images/interaction-spatial-sketch2.png" src="../../_images/interaction-spatial-sketch2.png" />
+<figcaption>
+<p><span class="caption-number">图 29.7 </span><span class="caption-text">一个交互式且用户友好的素描系统 <span id="id8">[<a class="reference internal" href="summary.html#id9" title="Amit Shesh and Baoquan Chen. Smartpaper: an interactive and user friendly sketching system. In Computer Graphics Forum, volume 23, 301–310. Wiley Online Library, 2004.">SC04</a>]</span>。</span><a class="headerlink" href="#fig-interaction-spatial-sketch2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id9">
+<h2><span class="section-number">29.1.2. </span>基于三维空间定位设备的三维交互<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>基于经典交互技术的三维交互开启了人们对于三维交互的思考与认知，但从二维获取的输入终究是受限的，为了获得更准确、自然的三维交互，人们开发出了全新的三维交互设备，为进行三维交互提供了更直接的空间映射和更自然的交互体验，如三维空间定位设备、各类传感器、可穿戴设施等，于是人们得以综合图形界面和物理传感，迈入了“普适计算”（Ubiquitous Computing）时代。</p>
+<!-- 从三维定位设备开始，最开始2d交互适用的是鼠标拖拽，并会跟一些按键结合，实施一些三维操作；另一种想法是扩展鼠标——飞行鼠标(mouse in the air, bat)，它控制的是三维空间中的点，包括位置和旋转自由度，但它的弊端是作为一个磁性立方体，它只能再接收器附近进行移动；而后随着vr ar的发展和头显设备的发展，一些应用使用配备传感器的手柄来获取位置、旋转等信息；随着游戏的发展，发展出了joystick/trackball等适合用于三维交互的设备，而对于移动端的手机交互，有些会采用操作映射将简单的二位屏幕交互映射成一些三维操作 -->
+<section id="id10">
+<h3><span class="section-number">29.1.2.1. </span>三维空间定位设备<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>要建立从三维空间到数字空间的直接映射、通过三维空间的移动来传达输入信息，那么首先要获知输入设备或用户在三维空间中的信息。三维空间定位设备的发展为促进三维交互技术的发展提供了重要基础。</p>
+<p>早期的三维空间定位设备包括空间跟踪定位器（或三维空间传感器）和数据手套（data glove）。</p>
+<p>空间跟踪定位器（或三维空间传感器）是指一类定位于身体或虚拟现实交互道具上的设备，往往是一个小型的芯片，能够感知空间六自由度（位置与旋转）及其变化并跟踪运动。空间跟踪定位存在低频磁场式和超声式传感器等不同类型，采用磁场或超声来计算设备在三维空间中的运动状态。我们将在下一节里详细讲述如何利用空间定位设备来定位用户的位姿。</p>
+<p>数据手套则是一种穿戴设备，通过其上的传感器可以精确的捕捉手指和手腕的相对运动，获取各种手势信号，并且可以配合一个六自由度的跟踪器，跟踪手的实际位置和方向。</p>
+<!-- ```{figure} fig/interaction-spatial-glove.png
+:scale: 30 %
+:name: fig-interaction-spatial-glove
+数据手套。 © Haptx
+``` -->
+</section>
+<section id="id11">
+<h3><span class="section-number">29.1.2.2. </span>触觉和力反馈器<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>触觉和力反馈器是一类模拟现实世界中触感和反作用力的设备，包括力学反馈手套、力学反馈操纵杆、力学反馈笔、力学反馈表面等装置。这一类设备希望使用户感觉到仿佛真的摸到了物体，主要通过视觉、气压感、振动触觉、电子触觉和神经肌肉模拟等方法实现。其中，电子触觉反馈器是向皮肤反馈宽度和频率可变的电脉冲，而神经肌肉模拟反馈是直接刺激皮层，这些方法都很不安全；较安全的方法是气压式和振动触感式的反馈器。然而，人的触觉非常敏感，精度一般的装置无法满足要求；对于触觉和力反馈器，还要考虑到模拟力的真实性、施加到人手上是否安全以及装置是否便于携带并让用户感到舒适等问题。由于精度、真实感、安全性等上述问题，目前这一类设备尚缺乏成熟产品。</p>
+<!-- ```{figure} fig/interaction-spatial-haptic_suit.png
+
+:name: fig-interaction-spatial-haptic_suit
+触觉反馈套装。 © Haptx
+``` -->
+<figure class="sphinx-subfigure align-default" id="fig-visualization-scientific-haptx">
+<div class="sphinx-subfigure-grid ss-layout-default-AB" style="display: grid; gap: 20px; grid-gap: 20px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-glove.png"><img alt="../../_images/interaction-spatial-glove.png" src="../../_images/interaction-spatial-glove.png" style="width: 70%;" />
+</a>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-haptic_suit.png"><img alt="../../_images/interaction-spatial-haptic_suit.png" src="../../_images/interaction-spatial-haptic_suit.png" style="width: 40%;" />
+</a>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 29.8 </span><span class="caption-text">左：数据手套；右：触觉反馈套装。 © Haptx</span><a class="headerlink" href="#fig-visualization-scientific-haptx" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="tangible-user-interface-tui">
+<h3><span class="section-number">29.1.2.3. </span>实体用户界面（Tangible User Interface， TUI）<a class="headerlink" href="#tangible-user-interface-tui" title="Link to this heading">#</a></h3>
+<p>实体用户界面是一种用户通过物理环境与数字信息互动的界面，最初称做可抓取用户界面（Graspable User Interface），
+通过让用户操控实际的物理物体来与计算机系统进行交互。这些物体可以是可触摸、抓取、转动、滑动或移动的对象。用户通过与这些物体的互动，传递指令给计算机，而计算机则根据物体的位置、形状、动作等参数作出响应。
+实体用户界面的先驱是在麻省理工学院 Media Lab 带领实体媒体小组（Tangible Media Group）的石井裕（Hiroshi Ishii）教授，他获得了 Chi’2019 终身成就奖。他和布莱格·乌尔默（Brygg Ullmer）在 1997 年提出了对实体UI的愿景 <span id="id12">[<a class="reference internal" href="summary.html#id10" title="Hiroshi Ishii and Brygg Ullmer. Tangible bits: towards seamless interfaces between people, bits and atoms. In Proceedings of the ACM SIGCHI Conference on Human Factors in Computing Systems, CHI '97, 234–241. New York, NY, USA, 1997. Association for Computing Machinery.">IU97</a>]</span>，称为可触比特（Tangible Bits），旨在给数字信息赋予物理形态，使比特直接可操控和感知，追求物理对象与虚拟数据之间的无缝结合，他们据此对 TUI 的设计提出以下准则：</p>
+<ul class="simple">
+<li><p>物理表现与底层数字信息在计算上耦合：当用户移动或旋转带有传感器的物体时，系统会实时检测物体的运动，并在虚拟界面中做出响应。这两者（物理世界和数字世界）相互影响和协调，彼此“沟通”。</p></li>
+<li><p>物理表现体现了交互控制的机制：物理对象是用来与计算机互动的控制工具。例如，通过触摸、旋转或移动一个物体，用户能直接控制计算机中的某个程序或虚拟对象。</p></li>
+<li><p>物理表现在感知上与数字表现耦合：物理物体的变化不仅通过触觉反馈给用户感知，还通过视觉和听觉等感官反馈来传递数字世界的信息，从而使用户能同时感知物体和数字世界之间的关系。</p></li>
+<li><p>实体的物理状态体现系统数字状态的关键方面：物理物体的变化反映了计算机系统中虚拟状态的变化，物理物体的位置、旋转角度等也会与虚拟物体的状态一一对应，使得两者保持一致。</p></li>
+</ul>
+<p>石井裕教授也将实体交互界面应用在城市规划 <span id="id13">[<a class="reference internal" href="summary.html#id11" title="John Underkoffler and Hiroshi Ishii. Urp: a luminous-tangible workbench for urban planning and design. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, CHI '99, 386–393. New York, NY, USA, 1999. Association for Computing Machinery.">UI99</a>]</span> 中，如设计了基于建筑物物理模型的桌面工作台，提供了对气流、光照、人流、建筑材料设置等城市规划功能的观察和规划手段。
+在 2012 年，他发表了关于实体用户界面的综述论文 <span id="id14">[<a class="reference internal" href="summary.html#id12" title="Hiroshi Ishii, Dávid Lakatos, Leonardo Bonanni, and Jean-Baptiste Labrune. Radical atoms: beyond tangible bits, toward transformable materials. Interactions, 19(1):38–51, jan 2012.">ILBL12</a>]</span>，提出实体用户界面设计的新范式：“实体设计需要在物理世界的不同材料和形态中精心设计界面，寻求不同属性的融合。”在这种设想下，未来将有“革命性原子”（Radical Atoms）材料，如同数字世界中构成数据流的比特一样，它将作为物理-数字世界交互的材料单元，提供不同属性的真实物理材料到数字空间的对应，于是人们可以通过对物理世界实体施加各种操作，这些操作均能对应到数字世界中，使物理-数字世界共同演化。如<a class="reference internal" href="#fig-interaction-spatial-radical-atoms"><span class="std std-numref">图 29.10</span></a> 展示了直接操作实体界面来制作一个正红色外壳的过程，人类可用类似捏黏土的方式来进行数字建模。</p>
+<figure class="align-default" id="fig-interaction-spatial-tui1999">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-tui1999.png"><img alt="../../_images/interaction-spatial-tui1999.png" src="../../_images/interaction-spatial-tui1999.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.9 </span><span class="caption-text">Urp 系统 <span id="id15">[<a class="reference internal" href="summary.html#id11" title="John Underkoffler and Hiroshi Ishii. Urp: a luminous-tangible workbench for urban planning and design. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, CHI '99, 386–393. New York, NY, USA, 1999. Association for Computing Machinery.">UI99</a>]</span>，利用实体用户界面进行城市规划设计。</span><a class="headerlink" href="#fig-interaction-spatial-tui1999" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-interaction-spatial-radical-atoms">
+<img alt="../../_images/interaction-spatial-radical_atoms.png" src="../../_images/interaction-spatial-radical_atoms.png" />
+<figcaption>
+<p><span class="caption-number">图 29.10 </span><span class="caption-text">基于 Radical Atoms 的未来交互新范式 <span id="id16">[<a class="reference internal" href="summary.html#id12" title="Hiroshi Ishii, Dávid Lakatos, Leonardo Bonanni, and Jean-Baptiste Labrune. Radical atoms: beyond tangible bits, toward transformable materials. Interactions, 19(1):38–51, jan 2012.">ILBL12</a>]</span>。</span><a class="headerlink" href="#fig-interaction-spatial-radical-atoms" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>实体用户界面的另一个典型例子可以参见凯伦·范德洛克（Karen Vanderloock）提出的 Skweezee 系统 <span id="id17">[<a class="reference internal" href="summary.html#id13" title="Karen Vanderloock, Vero Vanden Abeele, Johan A.K. Suykens, and Luc Geurts. The skweezee system: enabling the design and the programming of squeeze interactions. In Proceedings of the 26th Annual ACM Symposium on User Interface Software and Technology, UIST '13, 521–530. New York, NY, USA, 2013. Association for Computing Machinery.">VVASG13</a>]</span>，他们通过在实体设备上定义了标准的交互操作来使得用户可以通过直接的物理实体实现交互控制。<a class="reference internal" href="#fig-interaction-spatial-skweezee"><span class="std std-numref">图 29.11</span></a>展示了 Skweezee 中一种设备（cuboid）的七种标准交互操作。</p>
+<figure class="align-default" id="fig-interaction-spatial-skweezee">
+<img alt="../../_images/interaction-spatial-skweezee.png" src="../../_images/interaction-spatial-skweezee.png" />
+<figcaption>
+<p><span class="caption-number">图 29.11 </span><span class="caption-text">Skweezee: cuboid <span id="id18">[<a class="reference internal" href="summary.html#id13" title="Karen Vanderloock, Vero Vanden Abeele, Johan A.K. Suykens, and Luc Geurts. The skweezee system: enabling the design and the programming of squeeze interactions. In Proceedings of the 26th Annual ACM Symposium on User Interface Software and Technology, UIST '13, 521–530. New York, NY, USA, 2013. Association for Computing Machinery.">VVASG13</a>]</span>。</span><a class="headerlink" href="#fig-interaction-spatial-skweezee" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="physical-widgets">
+<h3><span class="section-number">29.1.2.4. </span>物理控件（Physical Widgets）<a class="headerlink" href="#physical-widgets" title="Link to this heading">#</a></h3>
+<p>实体用户界面的发展有赖于物理控件（Physical Widgets 或 Phidgets）的发展，一类具有物理实体的<strong>可重复使用</strong>的交互设备。与 Skweezee 系统这样的 TUI 技术不同的是，物理控件往往是固定在桌面的交互设备，例如各种压力、温度的传感器控件或相机，其输入输出并配备有物理实体，允许用户通过物理交互来传递控制信号。如<a class="reference internal" href="#fig-interaction-spatial-table-phidget"><span class="std std-numref">图 29.12</span></a> 所示的桌面交互，利用相机摄影将用户的动作实时传递给系统并据此在桌面显示屏中作出交互反馈。物理控件的设置初衷在于提供一种便捷、低成本的方式来让计算机能够方便地获得与现实世界进行物理交互的能力。物理控件往往统一为USB接口，使用时只需要连接到计算机设备上，随后通过特定的驱动程序来处理数字输入输出。</p>
+<figure class="align-default" id="fig-interaction-spatial-table-phidget">
+<img alt="../../_images/interaction-spatial-table_phidget.png" src="../../_images/interaction-spatial-table_phidget.png" />
+<figcaption>
+<p><span class="caption-number">图 29.12 </span><span class="caption-text">桌面交互。<span id="id19">[<a class="reference internal" href="summary.html#id14" title="James Patten, Hiroshi Ishii, Jim Hines, and Gian Pangaro. Sensetable: a wireless object tracking platform for tangible user interfaces. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, CHI '01, 253–260. New York, NY, USA, 2001. Association for Computing Machinery.">PIHP01</a>]</span></span><a class="headerlink" href="#fig-interaction-spatial-table-phidget" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>与3D打印技术结合使得物理控件的制作成为可编程的，Vázquez等人利用3D打印技术设计了一种气动装置 <span id="id20">[<a class="reference internal" href="summary.html#id15" title="Marynel Vázquez, Eric Brockmeyer, Ruta Desai, Chris Harrison, and Scott E. Hudson. 3d printing pneumatic device controls with variable activation force capabilities. In Proceedings of the 33rd Annual ACM Conference on Human Factors in Computing Systems, CHI '15, 1295–1304. New York, NY, USA, 2015. Association for Computing Machinery.">VazquezBD+15</a>]</span>，如<a class="reference internal" href="#fig-interaction-spatial-pressure-phidget"><span class="std std-numref">图 29.13</span></a>所示，通过按钮、滑动条、旋钮等各类空气元件的内部压力改变来获得对应的驱动力和输入信号，在配备电子元件后，还可以将物理量信息转化为电信号来实现定量的输入控制。</p>
+<figure class="align-default" id="fig-interaction-spatial-pressure-phidget">
+<img alt="../../_images/interaction-spatial-pressure_phidget.png" src="../../_images/interaction-spatial-pressure_phidget.png" />
+<figcaption>
+<p><span class="caption-number">图 29.13 </span><span class="caption-text">3D打印制作出的气压传感控件。<span id="id21">[<a class="reference internal" href="summary.html#id15" title="Marynel Vázquez, Eric Brockmeyer, Ruta Desai, Chris Harrison, and Scott E. Hudson. 3d printing pneumatic device controls with variable activation force capabilities. In Proceedings of the 33rd Annual ACM Conference on Human Factors in Computing Systems, CHI '15, 1295–1304. New York, NY, USA, 2015. Association for Computing Machinery.">VazquezBD+15</a>]</span></span><a class="headerlink" href="#fig-interaction-spatial-pressure-phidget" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id22">
+<h2><span class="section-number">29.1.3. </span>基于三维显示与多通道交互的智慧交互<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>三维显示技术的发展进一步推动了三维交互技术的革新。在三维显示技术营造的沉浸式视觉环境中，为了获得更加沉浸的交互体验，人们力图通过更自然的表意手段进行交互，包括并不限于姿势识别、手势识别、视线追踪、语音识别、面部表情识别、人体动作识别等。当然，这些多通道交互方式并不仅限于AR/VR等使用三维显示的应用中，它同样可以用于使用二维显示（如经典的屏幕显示）或无显示（如智能家居或自动驾驶）的场景，其中，与二维/三维用户界面相结合的多通道交互也被称为多通道用户界面交互。本小节中我们将主要介绍三种主要的多通道交互手段。</p>
+<section id="id23">
+<h3><span class="section-number">29.1.3.1. </span>手势识别<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>“手势”（gesture）是人类利用手掌和手指的运动和位形构建的一套表意系统，如<a class="reference internal" href="#fig-interaction-spatial-gesture-ar"><span class="std std-numref">图 29.14</span></a>所示，需要注意的是，在“手势识别”这一语言环境中，“手势”关心的是手掌或手指等输入工具的移动路径，而不仅是开始、结束时刻的位置。因此“拖拽”并不被认为是一个手势，因为它的操作结果只与起始点和结束点有关。另外我们强调手势与位姿的不同：位姿关心的是某一时刻的静止状态，而手势关心的是空间路径。为了获取路径，手势识别技术需要设计路径的表达方式（或者说是路径曲线的插值方式），从而令程序能够识别出不同的手势并获取对应的输入信息。如何更加精确地、高效地设计路径表示方式并识别路径，是手势识别技术的一大核心问题。获取手势的方式是多样的，既可以使用单个手指完成手势，也可以使用多个手指共同组成手势；可以通过计算机视觉技术从相机录影中获取手势，也可以通过Kinect或Leap Motion这类实时传感设备识别手势，或通过数据手套等穿戴式设备来获得手部姿势和位置。</p>
+<!-- ```{figure} fig/interaction-spatial-gesture.png
+:name: fig-interaction-spatial-gesture
+手势识别。蓝色识别框及对应路径表达了一个手势。
+``` -->
+<figure class="align-default" id="fig-interaction-spatial-gesture-ar">
+<img alt="../../_images/interaction-spatial-gesture_ar.png" src="../../_images/interaction-spatial-gesture_ar.png" />
+<figcaption>
+<p><span class="caption-number">图 29.14 </span><span class="caption-text">利用内置于眼镜中的传感器识别手势并进行交互。</span><a class="headerlink" href="#fig-interaction-spatial-gesture-ar" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>事实上，通过鼠标、触控笔、手指在屏幕上的路径类操作也被认为是手势，如<a class="reference internal" href="#fig-interaction-spatial-gesture-screen"><span class="std std-numref">图 29.15</span></a>所示的用于文本校阅<span id="id24">[<a class="reference internal" href="summary.html#id16" title="Michael L Coleman. Text editing on a graphic display device using hand drawn proofreader's symbols. In Proceedings of the Second University of Illinois Conference on Computer Graphics, 283-290. Pertinent Concepts in Computer Graphics, 1969.">Col69</a>, <a class="reference internal" href="summary.html#id17" title="RHYNE, J. R. and C. G. WOLF. Gestural interfaces for information processing applications. In Tech. Rep. RC12179, IBM T.J. Watson Research Center. 1986.">RW86</a>]</span>和图形编辑<span id="id25">[<a class="reference internal" href="summary.html#id18" title="W. Buxton, E. Fiume, R. Hill, A. Lee, and C. Woo. Continuous hand-gesture driven input. In Proceedings of Graphics Interface '83, 191-195. 1983.">BFH+83</a>]</span>中的手势。这类手势被广泛用于智能触屏设备以及ProCreate、OneNote等APP中，如翻页、回到主页面等常用操作通常被设计为一些简单易学的手势以提供快捷友好的交互手段。</p>
+<figure class="sphinx-subfigure align-default" id="fig-interaction-spatial-gesture-screen" style="width: 80%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-AB" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="用于文本校阅中的手势设置。" src="../../_images/interaction-spatial-gesture_text.png" />
+<span class="caption">用于文本校阅中的手势设置。</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-gesture_graphics.png"><img alt="用于图形编辑中的手势操作。" src="../../_images/interaction-spatial-gesture_graphics.png" style="width: 70%;" />
+</a>
+<span class="caption">用于图形编辑中的手势操作。</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 29.15 </span><span class="caption-text">文本或图形操作中的手势。</span><a class="headerlink" href="#fig-interaction-spatial-gesture-screen" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>基于手势的交互的最明显优势是直接而快捷，便于用户理解和使用。相比于基于鼠标等点击设备先选中再操作的流程而言，单个手势可以同时表达对操作对象的选择和操作意图（如：”对某个物体打叉“，该步骤既选中了操作对象，也指明了操作内容），因此提高了信息传递的效率，使得交互过程更加高效。另外，由于手势的种类众多，因此潜在的设计空间很大，在人们已经建立了对一些手势的常识先验（如手语）的情况下，手势将成为一种十分自然的交互手段。基于手势识别的交互也能很容易地集成到事件驱动的编程中。</p>
+<p>而另一方面，基于手势识别的交互也有诸多劣势。首先，除去一些约定俗成的手势，如果程序设计了新的手势操作，那么如何让用户迅速掌握手势用法、提高交互设计的可见性将是一个难点。其次，手势交互模式难以告知用户处理过程的中间信息（如：鼠标点击后若程序正在处理，会将鼠标图标变成旋转中的圆圈来表示”加载中“，但手本身并非虚拟元素因此无法直接对它做更改），于是用户将难以获知自己的交互操作是否被接收并处理。另外，为了尽可能满足所有用户的需求，手势设计需要考虑到残障人士在完成手势中可能存在的操作困难。手势操作一般来说慢于键盘，因此为了高效地传递较为复杂的信息，手势交互仍需要与其他交互方式相结合使用。最后，用户输入的手势会有旋转和放缩上的差异，如<a class="reference internal" href="#fig-interaction-spatial-gesture-recog"><span class="std std-numref">图 29.16</span></a>所示，对识别结果造成影响，而不同手势类型对旋转不变性和放缩不变性的要求不完全一致，因此需要开发者的精心设计。</p>
+<figure class="align-default" id="fig-interaction-spatial-gesture-recog">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-gesture_recog.png"><img alt="../../_images/interaction-spatial-gesture_recog.png" src="../../_images/interaction-spatial-gesture_recog.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.16 </span><span class="caption-text">具有不同旋转或不同大小的手势输入有可能对应同一个手势，也有可能对应不同手势，需要手势识别程序进行甄别。</span><a class="headerlink" href="#fig-interaction-spatial-gesture-recog" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>主要的手势识别技术包括：</p>
+<ul class="simple">
+<li><p>模式匹配技术：是一种最简单的识别技术，将传感器输入的原始数据与预先存储的模板进行匹配，通过度量两者之间的相似度完成识别任务。该类技术从输入数据中提取出有效特征，如曲率、速度、方向及其变化等，并使用支持向量机（Support Vector Machine， SVM）等分类算法进行识别。这类方法算法复杂度较低且不需要大量训练数据，适用于手势种类有限且差异较大的场景，常被用于早期的触摸屏设备中简单的手势输入。</p></li>
+<li><p>神经网络技术：神经网络方法从数据集中自行学习手势特征，避免了手动设计特征的麻烦，可以处理更复杂多样的手势。神经网络具有的自组织和自学习能力和分布性特点，使该类技术抗噪声能力比较强，能处理不完整的模式，也能拓展应用于新的场景和人物。该类技术被广泛应用于自动驾驶、虚拟现实等应用和产品中。</p></li>
+<li><p>统计分析技术：使用统计模型分析是手势数据的特征向量，是一种基于概率的分类方法，采用贝叶斯极大似然估计（Maximum Likelihood Estimation， MLE）确定分类函数，也可以采用隐马尔可夫模型（Hidden Markov Model， HMM）处理时序手势数据。该类方法有较好的抗噪能力，能相对稳健地处理或预测手势。</p></li>
+</ul>
+<!-- 三维定位技术和相机影像技术的发展使手势识别成为了可能。当成功定位了手的位置后，我们接下来需要考察如何设计和识别手势动作。 -->
+</section>
+<section id="id26">
+<h3><span class="section-number">29.1.3.2. </span>眼动追踪<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>当用户在浏览信息时，会自然地将目光聚焦在感兴趣的内容上，如<a class="reference internal" href="#fig-interaction-spatial-eye-reading"><span class="std std-numref">图 29.17</span></a>、<a class="reference internal" href="#fig-interaction-spatial-eye-picture"><span class="std std-numref">图 29.18</span></a>所示，因此，视线可以被看成一种新型的点击设备，交互程序通过“自动”将光标置于用户的视线所在实现人机交互。</p>
+<figure class="align-default" id="fig-interaction-spatial-eye-reading">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-eye_reading.png"><img alt="../../_images/interaction-spatial-eye_reading.png" src="../../_images/interaction-spatial-eye_reading.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.17 </span><span class="caption-text">阅读文本时典型的眼动过程。注视主要停留于有实际表意的单词的中部，并会逐行扫描过文件。</span><a class="headerlink" href="#fig-interaction-spatial-eye-reading" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-interaction-spatial-eye-picture">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-eye_picture.png"><img alt="../../_images/interaction-spatial-eye_picture.png" src="../../_images/interaction-spatial-eye_picture.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.18 </span><span class="caption-text">阅读图片时的眼动特征。给出左上角的图片，在无提示时注视主要集中在人脸，但整体上是杂乱的。在给出提示（如年龄、衣着、环境、位置）后注视会相应地集中到提示对应的信息的部分。</span><a class="headerlink" href="#fig-interaction-spatial-eye-picture" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>典型的眼动包括：</p>
+<ul class="simple">
+<li><p>跳动（Saccades）是眼球从一个注视点快速移动到另一个注视点的动作，通常持续时间较短（几十毫秒）。跳动是眼球快速扫视过程中的大部分眼动，通常用于切换注视的焦点。</p></li>
+<li><p>注视（Fixations）是指眼睛的中央窝对准某一位置停留不动的状态，通常持续几百毫秒到几秒钟。在注视期间，眼球的运动非常微小（一般不会超过1° 视角），反映了对某个物体或区域的集中关注。</p></li>
+<li><p>平滑尾随跟踪（Smooth Pursuit）是眼睛在注视一个缓慢移动的物体时，平滑而连续地跟随其运动的过程。
+眼动追踪交互主要利用的是眼球的跳动和注视。</p></li>
+</ul>
+<p>眼动追踪交互技术的相关研究主要涉及两方面：一是视线跟踪原理和技术，用于准确捕捉用户的视线所在；二是人机界面的设计和技术，用于确定眼动模式所具体对应的交互模式。其中，前者是该类交互技术的核心难点，接下来我们将对其进行简要介绍。</p>
+<p>视线跟踪技术的发展大致经历了三个阶段。</p>
+<ul class="simple">
+<li><p>早期尝试会使用直接观察的方法，或是将一个橡胶吸盘吸在眼球表面，连续拍照记录数据，这种方法非常的不方便、不舒适。眼电法（Electrooculography，EOG）通过记录眼周若干点位的电信号变化来测量眼动轨迹的过程，但仍然是一种不准确的方法。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-eye-eog">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-eye_eog.png"><img alt="../../_images/interaction-spatial-eye_eog.png" src="../../_images/interaction-spatial-eye_eog.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.19 </span><span class="caption-text">利用眼电法记录眼动信息。</span><a class="headerlink" href="#fig-interaction-spatial-eye-eog" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>为了获得更准确的眼动信息，有研究将电磁巩膜搜索线圈嵌入到专用的隐形眼镜中，并将线圈连接到记录设备中，通过眼睛运动产生的感应电压来记录眼动轨迹。实验会令研究者位于法拉第笼中以屏蔽外部电磁干扰，并固定头部以减少头部动作的干扰。但这种方法对眼动实验参与者的眼睛有较大的影响，长时间实验会造成一定的生理伤害。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-eye-reflection">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-eye_reflection.png"><img alt="../../_images/interaction-spatial-eye_reflection.png" src="../../_images/interaction-spatial-eye_reflection.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.20 </span><span class="caption-text">利用红外边缘反射与搜索线圈追踪眼动。</span><a class="headerlink" href="#fig-interaction-spatial-eye-reflection" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>目前最常用的眼动追踪技术是基于视频的眼动追踪，其基本原理是使用相机摄取受试者的眼睛图像，而后利用数据分析处理技术实时计算出眼珠的水平和垂直运动的时间、位移距离、速度及瞳孔直径、注视位置等信息。
+设备捕捉到的眼动数据通常是嘈杂的，因此对眼动数据的预处理是必要的，其目的是滤除噪声、识别定位及局部校准与补偿等，稳定提取眼睛定位坐标。另外，眼球存在固有的抖动，眼睛眨动、头部剧烈移动会造成的数据中断，这些干扰信号使得提取有意义的眼动信息非常困难。因此解决此问题的办法之一是利用眼动的某种先验模型加以弥补。</p></li>
+</ul>
+<p>在面向广泛用户群体的低成本应用场景中，通过结合普通摄像机与先进的图像处理技术，已经能够实现基本的眼动追踪功能。然而，鉴于普通相机在捕获眼部图像时的精度局限性，对于VR/AR等要求更高精准度的应用领域，主流解决方案转向了采用集成于VR眼镜或头戴式显示设备中的红外摄像机，并辅以红外光照明器来强化眼部特征识别，进而达成更为精确的眼动追踪效果。此技术的一大优势在于，由于红外线属于非可见光谱范围，因此能够有效避免环境光线的干扰，无论是白天还是夜晚均能稳定运行，同时确保用户的视觉体验不受影响。此外，‌<em>EyeTrackVR‌</em>等开源眼动追踪工具，也成为了推动眼动追踪技术普及的重要力量。</p>
+<p>基于红外摄像机的检测大多基于以下两种原理：</p>
+<ul class="simple">
+<li><p>巩膜-虹膜边缘法（<a class="reference internal" href="#fig-interaction-spatial-eye-detect1"><span class="std std-numref">图 29.21</span></a>）通过测量巩膜和虹膜边界处反射的红外光来追踪眼球运动。红外光的反射强度会随眼睛转动而变化：当眼球向一侧移动时，虹膜在该方向上的面积增大，相应侧的红外反射减少，而另一侧的反射增加。通过计算这一差分信号，可以无接触地测量眼动。该方法在水平方向的精度较高，但垂直方向的精度较低，易受环境光干扰，并且对头部位置变化较为敏感，误差较大。</p></li>
+<li><p>瞳孔-角膜反射追踪法（<a class="reference internal" href="#fig-interaction-spatial-eye-detect2"><span class="std std-numref">图 29.22</span></a>）利用红外光照射眼睛，在角膜表面形成稳定的反射光斑（Purkinje 反射点）。在光源和头部相对位置不变的情况下，角膜反射点的位置不会改变，因此可以作为眼球和摄像机的相对位置基准。通过测量瞳孔中心位置与角膜反射点的相对位移，可以计算视线向量坐标。进一步结合校准程序，建立视线向量与屏幕注视点之间的映射关系，实现对用户注视位置的实时跟踪。这种方法具有较高的精度，广泛应用于VR/AR设备、驾驶员监测和人机交互系统。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-eye-detect1">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-eye_detect1.png"><img alt="../../_images/interaction-spatial-eye_detect1.png" src="../../_images/interaction-spatial-eye_detect1.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.21 </span><span class="caption-text">巩膜-虹膜边缘法。</span><a class="headerlink" href="#fig-interaction-spatial-eye-detect1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-interaction-spatial-eye-detect2">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-eye_detect2.png"><img alt="../../_images/interaction-spatial-eye_detect2.png" src="../../_images/interaction-spatial-eye_detect2.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.22 </span><span class="caption-text">瞳孔-角膜反射追踪法</span><a class="headerlink" href="#fig-interaction-spatial-eye-detect2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>利用眼动追踪进行交互面临着“米达斯接触”问题（Midas Touch Problem）：在眼动交互系统中，如果光标始终随着用户视线移动，可能会引起误操作或用户的厌烦，因为用户可能只是随意浏览，而不希望每次转移视线都触发计算机命令。在理想情况下，系统应在用户有意控制时响应视线输入，而在其他情况下忽略其视线移动。为此，眼动追踪也可以结合其他交互方式（如键盘、语音输入）来触发操作，以避免误触问题。
+一款理想的眼动追踪系统应满足以下要求：</p>
+<ul class="simple">
+<li><p>不妨碍视野，确保用户能够自然观察环境；</p></li>
+<li><p>无接触、低干扰，不会影响用户的日常活动；</p></li>
+<li><p>高精度，能够精确检测并响应细微的视线移动；</p></li>
+<li><p>动态范围大，从 1 弧分（1/60°）到 45° 之间均可追踪；</p></li>
+<li><p>高速响应，能够实时捕捉眼动变化；</p></li>
+<li><p>与身体和头部运动数据结合，提供更稳定的追踪效果；</p></li>
+<li><p>定位校正简单，用户无需频繁进行复杂的校准过程；</p></li>
+</ul>
+</section>
+<section id="id27">
+<h3><span class="section-number">29.1.3.3. </span>语音识别<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>语音识别通过将人类的语音自动转换成文本进而识别交互指令。语音交互操作便捷、学习成本低，无需接触，还适用于远距离交互和无屏幕设备交互，被广泛用于各类应用场景。智能语音助手如Siri、Google Assistant等，能够通过语音命令控制设备并提供服务；语音转写技术可以将会议录音或采访内容自动转为文本，便于记录和分析；实时语音翻译功能则通过语音识别与机器翻译技术相结合，实现多语言之间的即时翻译。此外，语音控制技术在智能家居、汽车导航等领域也得到广泛应用，用户可以通过语音控制家电、导航系统等设备。</p>
+<p>目前主流的语音识别技术是基于统计模式识别的理论开发的。
+它所要解决的基本数学问题是：给定输入信号或从每帧语音中识别出来的升学特征序列 <span class="math notranslate nohighlight">\(o=\{o_1,\,o_2,\,\cdots,\,o_n\}\)</span>，符号集（字典）<span class="math notranslate nohighlight">\(W=\{W_1,\,W_2,\,\cdots,\,W_m\}\)</span>，求解符号串 <span class="math notranslate nohighlight">\(w=\{w_1,\,w_2,\,\cdots,\,w_n\mathop{|}\forall i,\,w_i\in W\}\)</span>，使得 <span class="math notranslate nohighlight">\(w=\mathop{\mathrm{\arg\max}} \mathrm{P}(w|o)\)</span>，<span class="math notranslate nohighlight">\(w\)</span> 即为语音输入对应的字符串。利用贝叶斯公式可得 <span class="math notranslate nohighlight">\(w=\mathop{\mathrm{\arg\max}} \mathrm{P}(o|w)\mathrm{P}(w)/\mathrm{P}(o)\)</span>。由于给定输入信号后 <span class="math notranslate nohighlight">\(\mathrm{P}(o)\)</span> 是确定的，因此上述问题等价于求解:
+<div class="math notranslate nohighlight">
+\[w=\mathop{\mathrm{\arg\max}} \mathrm{P}(o|w)\mathrm{P}(w)\]</div>
+
+这是语音识别所要求解的基本问题。</p>
+<p>经典的语音识别流程分为以下几个阶段：</p>
+<ul class="simple">
+<li><p>首先，通过麦克风等设备采集用户的声音信号，并对信号进行预处理，如噪声去除和特征提取；</p></li>
+<li><p>然后，使用<strong>声学模型</strong>（如隐马尔可夫模型）对音频信号进行分析，识别出其中的语音单元；</p></li>
+<li><p>根据<strong>发音词典</strong>所所建立的语音单元与语言单元间的映射，找到音素对应的单词；</p></li>
+<li><p>最后<strong>语言模型</strong>根据上下文进行优化，确保识别结果符合语言习惯，另外可能还会使用自然语言处理（NLP）技术修正错误，恢复标点符号，使识别结果更自然。</p></li>
+</ul>
+<p>语音识别技术的最重大突破之一是<strong>隐马尔可夫模型</strong>的应用，因为它通过建模语音信号的状态转移过程来识别音素，提供了一种严谨、高效、可扩展的方法来处理语音信号序列。深度神经网络也被广泛用于语音识别中，通过卷积神经网络（CNN）和长短时记忆网络（LSTM）处理音频信号中的时序信息，并实现端到端的语音识别，这一方法较传统技术更加精准和高效。近年来，基于深度学习的端到端语音识别技术逐渐成为主流，它通过深度学习模型直接将音频信号转化为文本，省去了传统模型中的特征提取和分帧等步骤。</p>
+<p>语音识别技术已经在实际使用中达到了较好的效果，但仍然会受到一些因素的影响，如环境噪声干扰、口音、人物音色等，汉语本身的四声特点、如何进行不同语种混杂的识别也是需要关注的问题。不过，随着深度学习、噪声消除、语境理解等技术的进步，语音识别将进一步提升其实用性，并在未来的人机交互领域发挥更加重要的作用。</p>
+</section>
+<section id="id28">
+<h3><span class="section-number">29.1.3.4. </span>多通道交互的基本特点<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>使用多个感觉和效应通道：同时使用多个感知通道（如视觉、听觉、触觉等）来提升用户的交互体验，用户在交互过程中能够更全面地表达操作意图和感知系统反馈。</p></li>
+<li><p>允许非精确的交互：与传统的单一通道交互相比，多通道交互不要求用户进行高度精确的操作。通过多种感知通道的配合，系统可以更灵活地响应用户的意图，即使操作略有偏差，也能保证交互的有效性和流畅性。</p></li>
+<li><p>三维和直接操纵：多通道交互允许用户在三维空间中进行操作，支持更自然的直接操控，用户能够以更直观的方式与虚拟世界中的对象进行互动。</p></li>
+<li><p>交互的双向性：输入输出通道可能产生复杂的耦合，如视线追踪的交互结果将反馈给眼睛，力传感器可以提供触觉反馈。这种双向的交互形式增强了用户的沉浸感。</p></li>
+<li><p>交互的隐含性：具体的交互操作内容是隐含但自然直观的，符合人类日常行为，使得用户无需额外培训即可直觉地使用系统。</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">29. </span>空间交互技术</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="xr-techniques.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">29.2. </span>虚拟现实与增强现实</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">29.1.1. 基于经典交互技术的三维交互</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">29.1.2. 基于三维空间定位设备的三维交互</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">29.1.2.1. 三维空间定位设备</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">29.1.2.2. 触觉和力反馈器</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tangible-user-interface-tui">29.1.2.3. 实体用户界面（Tangible User Interface， TUI）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-widgets">29.1.2.4. 物理控件（Physical Widgets）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">29.1.3. 基于三维显示与多通道交互的智慧交互</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">29.1.3.1. 手势识别</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">29.1.3.2. 眼动追踪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">29.1.3.3. 语音识别</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">29.1.3.4. 多通道交互的基本特点</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

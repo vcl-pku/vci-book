@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>9.1. 网格表示 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'geometry/representation/mesh';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="9.2. 体素和点云表示" href="voxel-and-point-cloud.html" />
+    <link rel="prev" title="9. 几何表达" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/drawing-2d/index.html">4. 绘图</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/polygon.html">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">9. 几何表达</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/character/index.html">20. 角色动画</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-capture.html">20.1. 动作捕捉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-synthesis.html">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/rigid-bodies/index.html">22. 刚体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/rigid-body-dynamics.html">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/basics/index.html">24. 可视化基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/content.html">24.2. 可视化研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/design.html">24.3. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/data.html">24.4. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/interaction.html">24.5. 可视化中的交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/summary.html">24.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/dimensional.html">25.1. 标量场、矢量场、张量场数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/spatial.html">25.2. 表面数据、体积数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/summary.html">25.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/informational/index.html">26. 信息可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/plot.html">26.1. 基础绘图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/types.html">26.2. 不同类型的信息可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/system.html">27.2. 可视分析系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/summary.html">27.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/spatial/index.html">29. 空间交互技术</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/input.html">29.1. 三维交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/xr-techniques.html">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/geometry/representation/mesh.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>网格表示</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">9.1.1. 三角网格</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">9.1.2. 四边形网格</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">9.1.3. 网格参数化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.1.4. 层次细节模型</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  
+<style>
+  .ss-layout-default-A_B { grid-template-areas: 'A' 'B'; }
+@media (max-width: 576px) {
+  .ss-layout-sm-A_B { grid-template-areas: 'A' 'B'; }
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="sec-geometry-representation-mesh">
+<span id="id1"></span><h1><span class="section-number">9.1. </span>网格表示<a class="headerlink" href="#sec-geometry-representation-mesh" title="Link to this heading">#</a></h1>
+<p>多边形网格模型是计算机图形学领域中最常用的几何表达方法，通过记录顶点和多边形来表示几何体的表面。
+多边形网格模型是由一组顶点、边和面组成，这些定义了物体的形状。顶点是3D空间中的单一点，边是连接两个顶点的线，面是边的封闭环。面通常是三角形或四边形，并可用于表示曲面或其他复杂形状。这种表示方法有利于对几何体进行表面处理，但与点云相比需要更为复杂的数据结构。一个典型的多边形网络数据结构如 <a class="reference internal" href="#fig-geometry-representation-mesh-structure"><span class="std std-numref">图 9.1</span></a> 所示，由顶点列表、边列表和面列表构成。在某些应用中，人们还会设计一些额外的数据结构来方便邻居查找等常用操作，从而提高效率。值得一提的是，多面体的顶点数 <span class="math notranslate nohighlight">\(v\)</span>、边数 <span class="math notranslate nohighlight">\(e\)</span>、面数 <span class="math notranslate nohighlight">\(f\)</span> 满足 <span class="math notranslate nohighlight">\(v-e+f=2\)</span>，这个规律被称为欧拉定理。</p>
+<figure class="align-default" id="fig-geometry-representation-mesh-structure">
+<a class="reference internal image-reference" href="../../_images/mesh.jpg"><img alt="../../_images/mesh.jpg" src="../../_images/mesh.jpg" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 9.1 </span><span class="caption-text">通过记录顶点表、边表和多边形表面表来表示一个多边形网格。</span><a class="headerlink" href="#fig-geometry-representation-mesh-structure" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>多边形网格相较于其他几何表达有很多优点。它相对容易理解和使用，也能十分简便地进行渲染和几何形状处理。多边形网格也非常通用，它可以用来创建各种形状，从简单的立方体到复杂的角色。它还可以用于创建3D打印模型，以及逼真的动画和模拟。多边形网格具有很高的可扩展性。它可以用来创建任何大小的3D模型，从微小的物体到大型结构。<a class="reference internal" href="#fig-geometry-representation-mesh-examples"><span class="std std-numref">图 9.2</span></a> 展示了用网格模型表示各种形状的例子。</p>
+<figure class="align-default" id="fig-geometry-representation-mesh-examples">
+<a class="reference internal image-reference" href="../../_images/mesh_examples.jpg"><img alt="../../_images/mesh_examples.jpg" src="../../_images/mesh_examples.jpg" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 9.2 </span><span class="caption-text">用网格模型表示几何体的例子。</span><a class="headerlink" href="#fig-geometry-representation-mesh-examples" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>当然，如果要使用网格模型表达光滑的曲面，则需要大量的面片才能让模型变得精细，<a class="reference internal" href="#fig-geometry-representation-curved-mesh"><span class="std std-numref">图 9.3</span></a> 展示了面片数量较少时，网格模型表示曲面的能力有限。在几何处理章节（<a class="reference internal" href="../processing/index.html#chap-geometry-processing"><span class="std std-numref">§11</span></a>）中，我们将会专门介绍网格细分算法来增加网格模型的面片数量，从而使其趋近光滑曲面。</p>
+<figure class="align-default" id="fig-geometry-representation-curved-mesh">
+<a class="reference internal image-reference" href="../../_images/curved_mesh.jpg"><img alt="../../_images/curved_mesh.jpg" src="../../_images/curved_mesh.jpg" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 9.3 </span><span class="caption-text">用网格模型表示曲面，从左到右使用的面片数量依次减少。可以看到当使用的面片数量较少时，得到的曲面就不够光滑。</span><a class="headerlink" href="#fig-geometry-representation-curved-mesh" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id2">
+<h2><span class="section-number">9.1.1. </span>三角网格<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>三角网格是最常用的几何表示方式，可以地唯一表达一个几何体。常见的表示三角网格的数据结构是分别记录所有顶点（vertex）的三维坐标，以及每个三角面片（triangle facet）的三个顶点的索引（index），例如一个四面体就可以按照 <a class="reference internal" href="#fig-geometry-representation-tetrahedron"><span class="std std-numref">图 9.4</span></a> 的方式进行记录。这种数据结构通过共享顶点位置，减少了存储占用，同时保证了网格的整体性，即改变一个顶点在三维空间中的位置可以让与该顶点有关的所有三角面片发生移动。</p>
+<figure class="align-default" id="fig-geometry-representation-tetrahedron">
+<a class="reference internal image-reference" href="../../_images/tet.png"><img alt="../../_images/tet.png" src="../../_images/tet.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 9.4 </span><span class="caption-text">用三角网格表示一个四面体。</span><a class="headerlink" href="#fig-geometry-representation-tetrahedron" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id3">
+<h2><span class="section-number">9.1.2. </span>四边形网格<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>四边形网格也是较为常用的一种网格表示，所有多边形面片全部是四边形构成，与三角网格一样，结构规整，易于存储。另外四边形网格的一大优点在于，其四边形特性在纹理映射贴图时的计算非常方便。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">9.1.3. </span>网格参数化<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>在计算机图形学中有一个非常独特的领域：网格参数化（mesh parameterization），它是将三维和二维联系起来的桥梁。
+网格参数化是数字几何处理中非常重要的问题。其最早起源于纹理映射的需要。1974年，Catmull提出纹理映射技术，通过二维纹理空间和三维曲面之间的对应关系，计算三维曲面上每一点颜色值，如 <a class="reference internal" href="#fig-geometry-representation-param-texture"><span class="std std-numref">图 9.5</span></a>(a) 所示。这个过程需要建立三维曲面和二维纹理平面之间的一一映射，也就是参数化的过程，即计算三维空间曲面的每个网格顶点对应的两个纹理空间中坐标值 <span class="math notranslate nohighlight">\((u,v)\)</span>。</p>
+<figure class="sphinx-subfigure align-default" id="fig-geometry-representation-param-texture" style="width: 60%">
+<div class="sphinx-subfigure-grid ss-layout-default-A_B ss-layout-sm-A_B" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="(a) 纹理映射。" src="../../_images/param_texture.png" />
+<span class="caption">(a) 纹理映射。</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="(b) 世界地图绘制。" src="../../_images/param_earth.jpg" />
+<span class="caption">(b) 世界地图绘制。</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 9.5 </span><span class="caption-text">网格参数化的应用。</span><a class="headerlink" href="#fig-geometry-representation-param-texture" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>参数化的另一个具体应用是世界地图的绘制 <a class="footnote-reference brackets" href="#world-map" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>。通常可以采用球面坐标系来表示地球表面的每一个点，给定半径后，每一个点对应着唯一一组方位角和仰角。但在实际应用中，是将世界地图画在平面上的，如 <a class="reference internal" href="#fig-geometry-representation-param-texture"><span class="std std-numref">图 9.5</span></a>(b) 所示。世界地图的绘制技术由来已久，出现了不同的技术，典型的有立体投影（或球极平面投影）、墨卡托投影等方法，如 <a class="reference internal" href="#fig-geometry-representation-param-map"><span class="std std-numref">图 9.6</span></a> 所示。</p>
+<figure class="sphinx-subfigure align-default" id="fig-geometry-representation-param-map" style="width: 60%">
+<div class="sphinx-subfigure-grid ss-layout-default-A_B ss-layout-sm-A_B" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="(a) 立体投影。" src="../../_images/param_map1.png" />
+<span class="caption">(a) 立体投影。</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="(b) 墨卡托投影。" src="../../_images/param_map2.png" />
+<span class="caption">(b) 墨卡托投影。</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 9.6 </span><span class="caption-text">两种地图投影方法 <a class="footnote-reference brackets" href="#map-proj" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>。</span><a class="headerlink" href="#fig-geometry-representation-param-map" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple">
+<li><p>球极平面投影：将一个圆球面通过指定极点射影至一个平面的映射。能够保持角度不变，但是面积会发生改变，尤其在极点附近。</p></li>
+<li><p>墨卡托投影：投影后经线是一组竖直的等距离平行直线，纬线是垂直于经线的一组平行直线。各相邻纬线间隔由赤道向两极增大。一点上任何方向的长度比均相等，即没有角度变形，而面积变形显著，随远离标准纬线而增大。该投影具有等角航线被表示成直线的特性，故广泛用于编制航海图和航空图等。</p></li>
+</ol>
+<!-- 3. 朗伯投影：一种等面积的平面投影，它不仅可以精确记录面积，也能不改变方向，一般用于绘制精度要求较高的地质图或导航图。这种投影一般不会把整个世界划在同一张图上，因为地图外围的区域形变会比较大（外围会在远离基准点的方向压缩，导致轮廓变得很扁）。它一般只包括某个半球、某个大陆甚至某个区域。 -->
+<p>按照参数域的不同，网格参数化可以分为：</p>
+<ol class="arabic simple">
+<li><p>平面（planar）参数化，即将网格映射到平面；</p></li>
+<li><p>球面（spherical）参数化，即将网格映射到规则的球面；</p></li>
+<li><p>基域（simplicial）参数化，采用一个同构的简化模型作为参数域；</p></li>
+<li><p>基于其它参数域的参数化。</p></li>
+</ol>
+<p>按照参数化过程中保持哪种几何量，可以将参数化分为保长度（Isometric）的参数化、保角度（Conformal）的参数化、保面积（Equiareal）的参数化等等，即：将网格曲面映射到平面上时，分别保证长度、角度、面积不发生扭曲。事实上，保长度的映射等价于既保角度又保面积的映射。从三维网格表面映射到平面或其他参数域，理想的参数化是保形参数化，即保持局部形状不发生改变。这里的形状描述包括长度、角度、面积等几何度量。但理论上只有可展曲面（developable surface）存在保形参数化，如圆柱侧面，而一般的曲面在进行映射时都会发生不同程度的扭曲。</p>
+<p>寻找网格表面顶点和平面上点之间的一一对应，又可以分为两种类型的平面参数化：</p>
+<ol class="arabic simple">
+<li><p>开网格参数化，这种情形下网格是具有边界的开网格，又分为固定边界映射和自由边界映射；</p></li>
+<li><p>闭网格参数化，这种情形下网格构成一个封闭曲面，通常人为指定一条边界将封闭网格切开，然后转化为开网格进行参数化。</p></li>
+</ol>
+<p>开网格的平面参数化中，最基础的模型是弹簧模型。如 <a class="reference internal" href="#fig-geometry-representation-param-spring"><span class="std std-numref">图 9.7</span></a> 所示，网格顶点作为图节点，网格边作为连接节点的边，形成多个弹簧连接的一个整体。建立从网格到纹理空间的参数化映射，也就是将每个网格顶点 <span class="math notranslate nohighlight">\(\mathbf s_i=(x_i,y_i,z_i)\in\mathbb R^3\)</span> 映射成二维参数空间中的点 <span class="math notranslate nohighlight">\(\mathbf t_i=(u_i,v_i)\in \mathbb R^2\)</span>，我们可以采用弹簧系统的能量函数来描述参数化后的系统状态。弹簧的拉伸最后会达到平衡状态，使得整个系统能量最低，这个状态也就是参数化的最终结果。我们将总能量定义为加权的弹簧能量：</p>
+<div class="math notranslate nohighlight" id="equation-eq-geometry-representation-parameterization-energy">
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-eq-geometry-representation-parameterization-energy" title="Link to this equation">#</a></span>\[
+    E=\sum_{i=1}^n\sum_{j\in \Omega(i)}\frac{1}{2}D_{ij}\lVert\mathbf t_i-\mathbf t_j\rVert^2
+\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(n\)</span> 是节点总数，<span class="math notranslate nohighlight">\(D_{ij}\)</span> 是连接第 <span class="math notranslate nohighlight">\(i\)</span> 和第 <span class="math notranslate nohighlight">\(j\)</span> 个顶点的弹簧的劲度系数，也是其所对应边在系统中的权重。</p>
+<figure class="align-default" id="fig-geometry-representation-param-spring">
+<a class="reference internal image-reference" href="../../_images/param_spring.png"><img alt="../../_images/param_spring.png" src="../../_images/param_spring.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 9.7 </span><span class="caption-text">开网格平面参数化的弹簧模型。(a) 将网格建模成节点-弹簧模型。(b) 将三维空间中的网格点 <span class="math notranslate nohighlight">\(\mathbf s=(x,y,z)\)</span> 与二维参数空间中的点 <span class="math notranslate nohighlight">\(\mathbf t=(u,v)\)</span> 建立一一映射关系。</span><a class="headerlink" href="#fig-geometry-representation-param-spring" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>这里的自变量即参数化后顶点 <span class="math notranslate nohighlight">\(\mathbf t_i,\,i=1,\dots,n\)</span> 对应的二维坐标。
+那么平衡状态对应于关于变量的导数为零：</p>
+<div class="math notranslate nohighlight" id="equation-eq-geometry-representation-parameterization1">
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-eq-geometry-representation-parameterization1" title="Link to this equation">#</a></span>\[
+    \frac{\partial E}{\partial \mathbf t_i}=\sum_{j\in \Omega(i)}D_{ij}(\mathbf t_i-\mathbf t_j)
+\]</div>
+<p>记系数 <span class="math notranslate nohighlight">\(\lambda_{ij}=D_{ij}/\sum_{k\in\Omega(i)}D_{ik}\)</span>，可将上述式子整理为：</p>
+<div class="math notranslate nohighlight" id="equation-eq-geometry-representation-parameterization2">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-eq-geometry-representation-parameterization2" title="Link to this equation">#</a></span>\[
+    \mathbf t_i-\sum_{j\in \Omega(i)}\lambda_{ij}\mathbf t_j=\mathbf 0
+\]</div>
+<p>即，网格每个顶点在参数化后可以表示为相邻顶点的线性组合，组合系数 <span class="math notranslate nohighlight">\(\lambda_{ij}\)</span> 是连接该顶点的弹簧系数的加权平均，也被称为仿射组合系数。
+在指定好组合系数之后，该方程变成关于顶点参数化坐标的线性方程组。对所有顶点的约束构成一个齐次方程组，包含 <span class="math notranslate nohighlight">\(2n\)</span> 个未知数和 <span class="math notranslate nohighlight">\(2n\)</span> 个线性方程。如果不增加约束条件，那么零解是其平凡解。可以通过对系统施加额外约束从而得到非平凡解。</p>
+<p>一种约束条件采用固定边界映射，也称为重心坐标映射方法。将开网格边界上的顶点首先映射到指定的凸多边形边界上，例如正方形，那么这些顶点对应的参数化坐标在方程组中变为已知，从而可以求解内部顶点的参数化后的坐标。</p>
+<p>另外，在弹簧系统中，可以通过设置合适的仿射组合系数来引导平面网格的参数化。特别的，这组仿射组合系数需要满足一些条件，例如凸组合，即保证凸多边形的加权平均仍然在凸多边形内部；线性重构，即如果网格本身是平面上的网格，组合后的点保持不变。常用的仿射组合系数有三种：</p>
+<ol class="arabic simple">
+<li><p>平均系数：<span class="math notranslate nohighlight">\(\lambda_{ij}=\frac{1}{n_i}\)</span>，即设置为相邻顶点个数的倒数；</p></li>
+<li><p>均值坐标系数：<span class="math notranslate nohighlight">\(\lambda_{ij}=(\tan{\frac{\beta_{ji}}{2}}+\tan{\frac{\alpha_{ij}}{2}})/r_{ij}\)</span>，式中符号含义见 <a class="reference internal" href="#fig-geometry-representation-param-triangle"><span class="std std-numref">图 9.8</span></a>；</p></li>
+<li><p>调和坐标系数：<span class="math notranslate nohighlight">\(\lambda_{ij}=(\cot{\gamma_{ij}}+\cot{\gamma_{ji}})/2\)</span>，只和角度有关，近似于保角映射。</p></li>
+</ol>
+<figure class="align-default" id="fig-geometry-representation-param-triangle">
+<a class="reference internal image-reference" href="../../_images/param_triangle.png"><img alt="../../_images/param_triangle.png" src="../../_images/param_triangle.png" style="width: 35%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 9.8 </span><span class="caption-text">用边两侧的三角形中的量计算组合系数。</span><a class="headerlink" href="#fig-geometry-representation-param-triangle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id7">
+<h2><span class="section-number">9.1.4. </span>层次细节模型<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>网格模型通过多边形表示几何形状的特点，决定了其所能表达的几何细节丰富程度与多边形的面数直接相关。实际应用场景中，我们往往既需要保证场景有着精细的建模，又要实时地对网格模型进行渲染和显示。由于计算开销，这两种需求之间往往存在矛盾：精细的模型有过多的多边形面数，会导致较慢的渲染速度；过于简单的模型又无法呈现足够的细节，造成渲染质量的下降。为了解决这一难题，层次细节模型（Level Of Detail，LOD）技术被提出。它基于一种简单的思想：当网格模型距离观察位置非常远时，即使用少量的多边形表示也不会导致渲染质量的显著下降，只有距离较近的网格模型才需要使用丰富的多边形面来保证细节的质量。因此，如果能够自适应地降低较远处物体的面数，提升近处物体的面数，让计算资源服务于更重要的部分，便能在渲染质量和渲染效率之间取得平衡。</p>
+<p>层次细节模型就是这样一种技术，最简单的建立层次细节模型的方法就是预先对精细的模型进行不同程度的简化，然后缓存这些模型。随后，在渲染的过程中根据对象的距离确定所需要呈现的细节级别，从而选取对应的简化模型来加速渲染，如 <a class="reference internal" href="#fig-geometry-representation-lod"><span class="std std-numref">图 9.9</span></a> 所示。在 <a class="reference internal" href="../processing/simplification.html#sec-geometry-processing-simplification"><span class="std std-numref">§11.3</span></a> 中，我们会更详细地讨论网格模型的简化方法。</p>
+<figure class="align-default" id="fig-geometry-representation-lod">
+<a class="reference internal image-reference" href="../../_images/LOD.png"><img alt="../../_images/LOD.png" src="../../_images/LOD.png" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 9.9 </span><span class="caption-text">层次细节模型 <a class="footnote-reference brackets" href="#lod" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>。</span><a class="headerlink" href="#fig-geometry-representation-lod" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>层次细节模型不仅可以应用于几何形状，还可以在纹理贴图中使用。Mipmap 贴图正是这样一种技术，通过预先计算一系列不同分辨率的纹理（典型的 Mipmap 贴图中，每一级的纹理宽度和高度都是上一级的一半），随后根据对象的距离确定所需要使用的贴图级别。这些方法往往都能够有效地提升实时渲染的性能。</p>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="world-map" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/World_map">Wikipedia: World map</a></p>
+</aside>
+<aside class="footnote brackets" id="map-proj" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Map_projection">Wikipedia: Map projection</a></p>
+</aside>
+<aside class="footnote brackets" id="lod" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Level_of_detail_(computer_graphics)">Wikipedia: Level of detail</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>几何表达</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="voxel-and-point-cloud.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">9.2. </span>体素和点云表示</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">9.1.1. 三角网格</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">9.1.2. 四边形网格</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">9.1.3. 网格参数化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.1.4. 层次细节模型</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

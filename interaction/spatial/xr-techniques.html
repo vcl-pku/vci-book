@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>29.2. 虚拟现实与增强现实 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'interaction/spatial/xr-techniques';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="29.3. 本章小结" href="summary.html" />
+    <link rel="prev" title="29.1. 三维交互技术" href="input.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/drawing-2d/index.html">4. 绘图</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/polygon.html">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/representation/index.html">9. 几何表达</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/mesh.html">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/character/index.html">20. 角色动画</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-capture.html">20.1. 动作捕捉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/motion-synthesis.html">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/character/summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/rigid-bodies/index.html">22. 刚体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/rigid-body-dynamics.html">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/rigid-bodies/summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../animation/fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../animation/fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/basics/index.html">24. 可视化基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/content.html">24.2. 可视化研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/design.html">24.3. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/data.html">24.4. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/interaction.html">24.5. 可视化中的交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/summary.html">24.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/dimensional.html">25.1. 标量场、矢量场、张量场数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/spatial.html">25.2. 表面数据、体积数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/summary.html">25.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/informational/index.html">26. 信息可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/plot.html">26.1. 基础绘图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/types.html">26.2. 不同类型的信息可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/system.html">27.2. 可视分析系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/summary.html">27.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">29. 空间交互技术</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="input.html">29.1. 三维交互技术</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/interaction/spatial/xr-techniques.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>虚拟现实与增强现实</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vr">29.2.1. 虚拟现实（VR）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-position-and-pose-estimation">29.2.1.1. 用户位姿估计（User Position and Pose Estimation）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">29.2.1.2. 无限空间体验</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">29.2.1.3. 未来发展</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">29.2.2. 增强/混合现实</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  
+<style>
+  .ss-layout-default-AB { grid-template-areas: 'A B'; }
+@media (max-width: 576px) {
+  .ss-layout-sm-AB { grid-template-areas: 'A B'; }
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">29.2. </span>虚拟现实与增强现实<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>三维交互技术的不断发展提升了用户与数字环境的交互方式，当沉浸式的人机交互体验成为可能，构建一个以人为中心的虚拟世界就不再遥远。</p>
+<p>在当今数字时代，虚拟现实、增强现实以及混合现实这些术语越来越普遍，它们共同构成了扩展现实的概念。这些技术通过不同方式改变我们感知和互动的现实世界，开启了全新的交互体验。</p>
+<p><strong>虚拟现实</strong>（Virtual Reality，VR）是一种完全沉浸式的体验，用户通过头戴显示设备进入一个完全由计算机生成的场景。在这种环境中，现实世界被完全屏蔽，用户的视觉、听觉甚至触觉都被引导至一个虚构的世界。这种技术主要用于游戏、模拟训练以及教育等领域，提供了一个无界限的平台，让用户可以探索、学习和执行任务，而不受物理空间的限制。</p>
+<p><strong>增强现实</strong>（Augmented Reality，AR）技术则是在用户的现实世界中叠加计算机生成的图像或信息。通过智能手机、平板电脑或专门的 AR 眼镜，用户可以看到真实世界与虚拟对象的结合。这种技术的一个著名例子是《Pokemon Go》，这款游戏将虚拟的宠物怪兽置入真实世界的地理位置中，玩家需要在物理世界中移动来捕捉它们。AR 技术广泛应用于导航、教育、零售和娱乐等领域，通过增强现实世界的信息，提高用户的互动和认知效率。</p>
+<p><strong>混合现实</strong>（Mixed Reality，MR）则进一步扩展了 AR 的概念，它允许用户在虚拟环境中与真实世界的物体进行互动。这种交互可以通过特定的头戴设备实现，如微软的 HoloLens，用户不仅可以看到真实和虚拟世界的融合，还可以用手直接操作虚拟元素。MR 技术为工业设计、医疗、教育等行业提供了强大的应用潜力，使得复杂的数据和模型可以在真实环境中被直观地展示和操作。</p>
+<p><strong>扩展现实</strong>（Extended Reality，XR）是一个包括 VR、AR 及 MR 所有形式的综合术语。XR 涵盖了从完全虚拟到部分增强的所有现实交互形式，它的目标是通过提供更加丰富、多元的互动方式 来增强人类的感知能力和操作效率。</p>
+<figure class="sphinx-subfigure align-default" id="fig-interaction-spatial-xr-intro" style="width: 80%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-AB" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-vr.png"><img alt="虚拟现实" src="../../_images/interaction-spatial-vr.png" style="width: 90%;" />
+</a>
+<span class="caption">虚拟现实</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="增强/混合现实 © HoloLens" src="../../_images/interaction-spatial-ar.png" />
+<span class="caption">增强/混合现实 © HoloLens</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 29.23 </span><span class="caption-text">虚拟现实与增强/混合现实。</span><a class="headerlink" href="#fig-interaction-spatial-xr-intro" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>通过这些技术，我们可以预见一个未来，在这个未来中，人们的学习、工作和娱乐方式将被彻底改变。虚拟现实与增强现实技术的发展不仅仅推动了技术界的边界，更拓展了我们对现实世界的理解和认知。</p>
+<section id="vr">
+<h2><span class="section-number">29.2.1. </span>虚拟现实（VR）<a class="headerlink" href="#vr" title="Link to this heading">#</a></h2>
+<!-- ### 硬件：VR 头显 -->
+<section id="user-position-and-pose-estimation">
+<h3><span class="section-number">29.2.1.1. </span>用户位姿估计（User Position and Pose Estimation）<a class="headerlink" href="#user-position-and-pose-estimation" title="Link to this heading">#</a></h3>
+<p>VR 应用使用的典型硬件是 VR 头显，并可能配备有手柄或外部摄像头等辅助设备。在虚拟现实应用中，对用户位置（position）和姿态（pose）的精确估计是实现高质量沉浸式体验的核心。其中，姿态指的是用户的朝向（orientation）。</p>
+<!-- 本节详细介绍度量自由度（DoF）、追踪技术、数据融合方法及其在实际设备中的应用。 -->
+<blockquote>
+<div><p>Pose 一词在机器人学或计算机视觉等语境下也被当成“位姿”使用，包含位置和朝向两部分。在 VR 头显相关语境中，则常被用于仅指代姿态朝向。因此，在不同文献中，该词的具体指代需要结合上下文语境判断。</p>
+</div></blockquote>
+<p>不同的 VR 设备的位姿测量的能力不同，对应着设备所配备的不同的自由度。自由度（Degrees of Freedom， DoF）指的是能够独立自由运动的参数的数目，如<a class="reference internal" href="#fig-interaction-spatial-dof"><span class="std std-numref">图 29.24</span></a> 所示，一般设备的自由度有两种常用配置：</p>
+<ul class="simple">
+<li><p>3度自由度（3-DoF）：此配置允许用户的头部在三个轴（俯仰、偏航、翻滚）上旋转，适合于静态体验，如观看虚拟现实影片或进行简单的查看任务。</p></li>
+<li><p>6度自由度（6-DoF）：除了 3-DoF 提供的头部旋转外，6-DoF 还支持用户在空间中的前后、左右、上下移动，极大增强了交互性和沉浸感，允许用户在虚拟世界中自由行走和探索。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-dof">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-dof.png"><img alt="../../_images/interaction-spatial-dof.png" src="../../_images/interaction-spatial-dof.png" style="width: 681.8px; height: 409.5px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.24 </span><span class="caption-text">自由度（DoF）示意图。</span><a class="headerlink" href="#fig-interaction-spatial-dof" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-interaction-spatial-env-dof">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-env_dof.png"><img alt="../../_images/interaction-spatial-env_dof.png" src="../../_images/interaction-spatial-env_dof.png" style="width: 698.5999999999999px; height: 222.6px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.25 </span><span class="caption-text">配备不同自由度的 VR 设备，为用户提供不同程度的交互自由和沉浸式体验。</span><a class="headerlink" href="#fig-interaction-spatial-env-dof" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>对于一个 6-DoF 的 VR 系统，如何定位 VR 用户的位姿？这需要用到追踪技术，主要分为外部引导（Outside-In）和内部引导（Inside-Out）两类。</p>
+<figure class="align-default" id="fig-interaction-spatial-tracking">
+<img alt="../../_images/interaction-spatial-tracking.png" src="../../_images/interaction-spatial-tracking.png" />
+<figcaption>
+<p><span class="caption-number">图 29.26 </span><span class="caption-text">追踪技术。</span><a class="headerlink" href="#fig-interaction-spatial-tracking" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>早期的 VR 系统，如 HTC Vive 和 Valve Index，采用的是外部引导技术，通过设置在环境中的外部传感器（通常是摄像头或红外传感器），捕捉穿戴设备上的特定标记或特征点，实现对用户动作的精确追踪。具体来说，分为以下两步：</p>
+<ul class="simple">
+<li><p>特征点检测（Feature Detection）：外部传感器通过检测用户身上的特征点（如头戴显示器、控制器上的标记或传感器）来跟踪用户的位置和方向。这些传感器可以通过红外光、激光或其他方式识别特征点。</p></li>
+<li><p>位姿估计（Pose Estimation）和追踪（Tracking）：基于传感器收集到的数据，系统会通过算法来估计用户的位置和姿态，并实时跟踪其变化。这些算法会结合外部传感器的数据，对用户的运动轨迹进行连续估计和调整。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-vrheadset-feature">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-vrheadset_feature.png"><img alt="../../_images/interaction-spatial-vrheadset_feature.png" src="../../_images/interaction-spatial-vrheadset_feature.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.27 </span><span class="caption-text">VR 头显和手环上的红外光学特征点。</span><a class="headerlink" href="#fig-interaction-spatial-vrheadset-feature" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>根据外部传感器探测到的特征点信息来估计用户位姿，所要求解的是一个多点透视问题（Perspective-n-Point，PnP）。</p>
+<p>PnP 问题的基本任务是根据一组点在世界空间中的三维坐标和它们在相机拍摄的二维图像中的对应投影坐标，计算出相机或设备在世界空间中的位姿，如<a class="reference internal" href="#fig-interaction-spatial-pnp"><span class="std std-numref">图 29.28</span></a> 所示。这一问题起源于相机校准，而后也被广泛用于计算机视觉和虚拟现实等领域。
+在用户位姿估计任务中，系统使用已校准好的相机和预设的特征点，因此特征点在用户坐标系（即固连于头显设备的局部坐标系）中的位置和在相机屏幕上的像素位置均为已知，从而可以利用 PnP 问题求解出相机坐标系相对于用户坐标系的相对位姿，因此在相机固定（相机坐标系与世界坐标系的变换关系已知）的前提下，可以通过 PnP 求解出的相对位姿逆推出用户坐标系的位姿（该逆推变换本质上就是刚体坐标系之间的转换，因此不再赘述）。</p>
+<figure class="align-default" id="fig-interaction-spatial-pnp">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-pnp.png"><img alt="../../_images/interaction-spatial-pnp.png" src="../../_images/interaction-spatial-pnp.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.28 </span><span class="caption-text">PnP 问题。已知若干点在世界空间中的三维坐标（<span class="math notranslate nohighlight">\(\boldsymbol{c}_1-\boldsymbol{c}_4\)</span>）和在相机屏幕上的二维投影点位置（<span class="math notranslate nohighlight">\(\boldsymbol{u}_1-\boldsymbol{u}_4\)</span>），求解相机在世界坐标系中的位姿（位置 <span class="math notranslate nohighlight">\(\boldsymbol{t}\)</span> 和旋转矩阵 <span class="math notranslate nohighlight">\(\boldsymbol{R}\)</span>）。</span><a class="headerlink" href="#fig-interaction-spatial-pnp" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>为了求解 PnP 问题，人们提出了不同的求解方法，下面我们将介绍由 Grunert 在1841年提出的经典求解方法。为了叙述简便，我们仍采用 PnP 问题的经典定义（<a class="reference internal" href="#fig-interaction-spatial-pnp"><span class="std std-numref">图 29.28</span></a>），即，任务目标为计算出相机在世界空间中的位姿。
+该方法分为两步，首先计算出相机与各特征点之间的距离，而后根据这些距离解出相机的位置 <span class="math notranslate nohighlight">\(\boldsymbol{X}_0\)</span> 与姿态 <span class="math notranslate nohighlight">\(\boldsymbol{R}\)</span>。</p>
+<figure class="sphinx-subfigure align-default" id="fig-interaction-spatial-pnp-alg" style="width: 80%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-AB" style="display: grid; gap: 16px; grid-gap: 16px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-pnp_alg1.png"><img alt="../../_images/interaction-spatial-pnp_alg1.png" src="../../_images/interaction-spatial-pnp_alg1.png" style="width: 90%;" />
+</a>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-pnp_alg2.png"><img alt="../../_images/interaction-spatial-pnp_alg2.png" src="../../_images/interaction-spatial-pnp_alg2.png" style="width: 90%;" />
+</a>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 29.29 </span><span class="caption-text">PnP 问题求解步骤1：计算出相机与各特征点之间的距离。左：任意两个特征点 <span class="math notranslate nohighlight">\(\boldsymbol{X}_1,\,\boldsymbol{X}_2\)</span> 和相机 <span class="math notranslate nohighlight">\(\boldsymbol{X}_0\)</span> 之间的相对关系。图中用绿色框出已知量，红色框出未知量；右：三个特征点可以在两两组合后分别列出三个方程。</span><a class="headerlink" href="#fig-interaction-spatial-pnp-alg" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>如<a class="reference internal" href="#fig-interaction-spatial-pnp-alg"><span class="std std-numref">图 29.29</span></a> 所示，当 <span class="math notranslate nohighlight">\(n=3\)</span> 时，P3P 问题是 PnP 问题的最小形式。记3个特征点为 <span class="math notranslate nohighlight">\(\boldsymbol{X}_1,\,\boldsymbol{X}_2,\,\boldsymbol{X}_3\)</span>。考察任两个特征点与相机之间的关系，如<a class="reference internal" href="#fig-interaction-spatial-pnp-alg"><span class="std std-numref">图 29.29</span></a>左所示，首先，可以计算出两个特征点之间的距离 <span class="math notranslate nohighlight">\(c\)</span>，通过它们在相机屏幕上的对应像素位置计算出它们之间的夹角 <span class="math notranslate nohighlight">\(\gamma\)</span>，于是通过余弦定理可以得到：
+<div class="math notranslate nohighlight">
+\[s_1^2+s_2^2-s_1s_2\cos{\gamma}=c^2，\]</div>
+
+其中 <span class="math notranslate nohighlight">\(s_1,\,s_2\)</span> 是特征点 <span class="math notranslate nohighlight">\(\boldsymbol{X}_1,\,\boldsymbol{X}_2\)</span> 与相机 <span class="math notranslate nohighlight">\(\boldsymbol{X}_0\)</span> 之间的距离，是待求的未知量。
+如<a class="reference internal" href="#fig-interaction-spatial-pnp-alg"><span class="std std-numref">图 29.29</span></a>右所示，P3P 问题中有三个未知量 <span class="math notranslate nohighlight">\(s_1,\,s_2,\,s_3\)</span> 并可以列出三个方程，因此可以从中解出三个未知量。但该方程的解的个数是不唯一的，如<a class="reference internal" href="#fig-interaction-spatial-pnp-4solu"><span class="std std-numref">图 29.30</span></a> 所示，故而通常至少需要再多使用一个特征点来消除不确定性并获得唯一解。当使用 <span class="math notranslate nohighlight">\(n&gt;4\)</span> 个点时，系统将可以获得更多的特征点对信息，并利用最小二乘（least sqaures）或随机抽样一致（Random sample consensus，RANSAC）等优化方法获得更精确且稳定的解，抵抗噪声和误匹配点等干扰。</p>
+<figure class="align-default" id="fig-interaction-spatial-pnp-4solu">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-pnp_4solu.png"><img alt="../../_images/interaction-spatial-pnp_4solu.png" src="../../_images/interaction-spatial-pnp_4solu.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.30 </span><span class="caption-text">P3P问题：求解特征点到相机的距离，可能存在 4 组可行解。</span><a class="headerlink" href="#fig-interaction-spatial-pnp-4solu" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>在解得特征点到相机的距离 <span class="math notranslate nohighlight">\(s_i,\,i = 1,2,\cdots,n\)</span> 后，我们可以列出特征点从世界坐标系到相机坐标系中的转换关系：
+<div class="math notranslate nohighlight">
+\[s_i \boldsymbol{x}^\mathrm{cam}_i = \boldsymbol{R}(\boldsymbol{X}_i-\boldsymbol{X}_0)，\]</div>
+
+其中 <span class="math notranslate nohighlight">\(\boldsymbol{x}^\mathrm{cam}_i\)</span> 是从相机位置 <span class="math notranslate nohighlight">\(\boldsymbol{X}_0\)</span> 观察特征点 <span class="math notranslate nohighlight">\(\boldsymbol{X}_i\)</span> 的方向向量，<span class="math notranslate nohighlight">\(\mathrm{cam}\)</span> 表示该向量是相机坐标系中观察得到的。联立<span class="math notranslate nohighlight">\(i = 1,2,\cdots,n\)</span>对应的方程，将方程间两两相减可消去含 <span class="math notranslate nohighlight">\(\boldsymbol{X}_0\)</span> 的项，可解出 <span class="math notranslate nohighlight">\(\boldsymbol{R}\)</span> 后（类似于<a class="reference internal" href="../../animation/elastomers/fem.html#sec-animation-elastomers-fem"><span class="std std-numref">§21.2</span></a>中解算四面体的形变梯度），代回方程解出 <span class="math notranslate nohighlight">\(\boldsymbol{X}_0\)</span>。对 <span class="math notranslate nohighlight">\(n&gt;4\)</span> 个控制点，同样可以使用最小二乘法最小化投影误差从而解出 <span class="math notranslate nohighlight">\(\boldsymbol{R}\)</span> 和 <span class="math notranslate nohighlight">\(\boldsymbol{X}_0\)</span>。</p>
+<figure class="align-default" id="fig-interaction-spatial-pnp-dlt">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-pnp_dlt.png"><img alt="../../_images/interaction-spatial-pnp_dlt.png" src="../../_images/interaction-spatial-pnp_dlt.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.31 </span><span class="caption-text">PnP 问题求解步骤2：恢复出相机的位姿。</span><a class="headerlink" href="#fig-interaction-spatial-pnp-dlt" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>基于外部传感器进行的位姿估计能提供高精度和低延迟的追踪，非常适合需要精确用户互动的高端VR应用。但其缺点是，外部传感器和设备安装复杂，整体设备成本也很高（通常超过$1500），并需要确保传感器覆盖区域与用户的活动区域相匹配，活动范围受限。</p>
+<p>另一种估计用户位姿的方法是利用内部引导技术，使用这类技术的包括Oculus Quest设备、甚至部分非 VR 的移动设备等。这种技术不需要设置外部设备，而是通过使用设备本身集成的传感器（如摄像头、加速度计、陀螺仪等）来实时估计用户的 6-DoF 位姿。这种方法依赖于视觉惯性里程计（Visual Inertial Odometry, VIO）来快速、准确地推算用户的位置和方向：</p>
+<ul class="simple">
+<li><p>视觉信息（Visual）：使用设备上的摄像头或传感器捕捉环境图像和环境特征点，并通过同步定位与地图构建（SLAM）算法来估算相机在环境中的位置和姿态。</p></li>
+<li><p>惯性信息（Inertial）：通过加速度计和陀螺仪来测量设备的加速度和角加速度，推算出设备的运动方向和转向。
+VIO技术融合了来自摄像头的<strong>视觉信息</strong>和来自加速度计与陀螺仪的<strong>惯性信息</strong>来更准确而稳定地估计用户的 6-DoF 位姿，视觉信息提供了设备相对于环境的空间定位，而惯性信息可以帮助修正由于快速运动或环境变化带来的误差。VIO技术可以在动态环境下快速响应用户的运动，提供连贯和平滑的用户体验。</p></li>
+</ul>
+<p>内部引导追踪技术的所需硬件可以被集成在 VR 设备之中，不依赖外部传感器，无需复杂的安装过程，因此设备成本相对较低，且更便携、易于普及，这使得相关技术也可以被应用于平板、手机等移动设备中，并因此催生了一系列基于手机就可以完成的 VR、AR 应用。不过，由于视觉信息需要依赖环境中的特征点，若环境中缺乏足够的纹理或存在光照变化，内部引导技术可能出现精度下降或追踪失败等问题，精度和稳定性略逊于外部引导。</p>
+</section>
+<section id="id2">
+<h3><span class="section-number">29.2.1.2. </span>无限空间体验<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>虽然我们可以对用户的位置和姿态进行精确而快速的估计了，但由于用户所处的物理空间是有限的，如果要为用户创造广阔的虚拟世界，那么就还需创新技术，在有限物理空间的基础上，扩展用户感知的活动空间。本节将介绍如何通过技术设计实现虚拟空间的无限体验和对用户空间感知的巧妙操控。</p>
+<figure class="align-default" id="fig-interaction-spatial-virtuix-omni">
+<img alt="../../_images/interaction-spatial-virtuix_omni.png" src="../../_images/interaction-spatial-virtuix_omni.png" />
+<figcaption>
+<p><span class="caption-number">图 29.32 </span><span class="caption-text">全向跑步机 Virtuix Omni。</span><a class="headerlink" href="#fig-interaction-spatial-virtuix-omni" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>全向跑步机</strong>（Omnidirectional Treadmill），如Virtuix Omni（如<a class="reference internal" href="#fig-interaction-spatial-virtuix-omni"><span class="std std-numref">图 29.32</span></a> 所示），提供了真实行走的体验而不离开原地，使得用户可以在物理空间受限的情况下，在虚拟环境中自由移动。这种设备是通过一个能够检测步伐方向和速度的低摩擦平台来实现的，用户佩戴专用鞋或滑动设备，可以在虚拟世界中360度的自由行走、跑步甚至旋转。但该技术系外部设备需求较高、价格昂贵，因此主要被应用于专业场地，且设备需要与用户接触，不能做到完全无感。</p>
+<p>重定向行走（Redirected Walking）与空间重映射（Spatial Remapping）技术是一种创新的解决方案，利用用户在空间感知上的不精确性，通过微妙的视觉或运动提示让用户在虚拟世界中行走更远的距离，而实际上只在较小的物理空间中移动，如<a class="reference internal" href="#fig-interaction-spatial-rdw"><span class="std std-numref">图 29.33</span></a> 所示。这种技术可以有效地扩展虚拟环境的探索范围，提高空间利用效率。</p>
+<p><strong>重定向行走</strong>技术的设计来源于人对自身位姿感知的不确定性和对视觉信息的依赖性，人通过需要视觉信息进行辅助获知自己的位姿改变情况，例如，让蒙上眼的人走直线或转特定角度总是困难的。而当分别来自视觉和运动速度等感官的信息发生冲突时，视觉通常会占据主导地位——视觉能欺骗大脑对自身运动的感知。
+因此，基于一下两部分技术原理，VR 系统可以实现用户的重定向行走：</p>
+<ul class="simple">
+<li><p>被动重定向（睁眼时）：当用户行走时，如果视觉和运动反馈之间的冲突非常小，用户几乎不会察觉到自己的空间感知被“欺骗”。例如，在用户转向时，系统可以巧妙地让他们多转一点，这种微调对于大多数人来说是无法察觉的。</p></li>
+<li><p>主动重定向（眨眼或扫视时）：当用户的视觉暂时失效（如眨眼或扫视等动作）时，由于视觉注意力的转移，系统通过将虚拟世界中的画面稍作调整，使得用户产生一种“转多了”的错觉，从而下意识地做出相应的转向或行动，从而实现更大范围的空间调整。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-rdw">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-rdw.png"><img alt="../../_images/interaction-spatial-rdw.png" src="../../_images/interaction-spatial-rdw.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.33 </span><span class="caption-text">通过重定向行走 3.5 米 <span class="math notranslate nohighlight">\(\times\)</span> 3.5 米的真实房间中记录的物理路径（蓝色曲线）和 6.4 米 <span class="math notranslate nohighlight">\(\times\)</span> 6.4 米的合成空间中的虚拟路径（橙色曲线）的俯视图。<span id="id3">[<a class="reference internal" href="summary.html#id19" title="Qi Sun, Anjul Patney, Li-Yi Wei, Omer Shapira, Jingwan Lu, Paul Asente, Suwen Zhu, Morgan McGuire, David P. Luebke, and Arie E. Kaufman. Towards virtual reality infinite walking. ACM Transactions on Graphics (TOG), 37:1 - 13, 2018.">SPW+18</a>]</span></span><a class="headerlink" href="#fig-interaction-spatial-rdw" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>用户进行低速运动时给系统提供了足够的重定向的余地，但当用户需要进行跑跳等快速运动时，在有限的物理空间中很容易撞上障碍物或墙壁。对此，一个可以累加在重定向行走技术之上的解决方案是空间重映射，如<a class="reference internal" href="#fig-interaction-spatial-remapping"><span class="std std-numref">图 29.34</span></a> 所示，</p>
+<p><strong>空间重映射</strong>技术通过在虚拟空间和物理空间之间建立空间映射关系，将规整的物理空间及其边界与扭曲的虚拟空间及其边界相对应。映射过程需要尽量<strong>保距</strong>，即确保行走的距离不会被改变，因为人类对行走的距离有较为精确的感知；但不需要<strong>保角</strong>，因为人类对于转向角度的敏感度较低。因此，通过对虚拟空间的扭曲，系统在尽量不让用户察觉的情况下使虚拟环境与物理空间相匹配，同时保持较好的几何对齐。</p>
+<p>更加智能化的空间重映射技术，将能够实时适应用户的行为和环境变化。通过集成更高级的传感技术和深度学习算法，系统可以更精确地预测用户的移动意图和可能路径，从而提前进行空间调整，确保虚拟环境的连贯性和真实感。此外，算法优化还需要考虑减少对用户认知和感知的干扰，使重定向行走更自然、不易被察觉。</p>
+<figure class="align-default" id="fig-interaction-spatial-remapping">
+<img alt="../../_images/interaction-spatial-remapping.png" src="../../_images/interaction-spatial-remapping.png" />
+<figcaption>
+<p><span class="caption-number">图 29.34 </span><span class="caption-text">虚拟空间扭曲映射。</span><a class="headerlink" href="#fig-interaction-spatial-remapping" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>在重定向行走的两项方案中，被动式重定向限制于用户自身的转向行为，因此主动式重定向是空间调整的重点。主动式重定向在用户在感知失明时进行空间调整：利用高级眼动追踪技术，系统可以在用户眨眼（瞳孔的瞬间遮挡或缩小）或扫视（瞳孔在短时间内的快速偏移）时精确地检测到这一行为，并且可以根据虚拟世界探索需要或现实空间中的障碍物情况规划重定向路径，随后实时调整虚拟环境的方向或位置。</p>
+<p>另外，如<a class="reference internal" href="#fig-interaction-spatial-sgd"><span class="std std-numref">图 29.35</span></a> 所示，系统还可以使用微妙视线诱导（Subtle Gaze Direction，SGD）技术，通过在用户的视野外围的某些区域进行细微调整，诱导用户产生扫视行为。这不仅可以用于大型展览中心引导参观者的视线，还可以在VR中应用，通过控制视线方向和扫视行为来调整用户在虚拟环境中的方向和位置。</p>
+<figure class="align-default" id="fig-interaction-spatial-sgd">
+<a class="reference internal image-reference" href="../../_images/interaction-spatial-sgd.png"><img alt="../../_images/interaction-spatial-sgd.png" src="../../_images/interaction-spatial-sgd.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 29.35 </span><span class="caption-text">SGD 方法。</span><a class="headerlink" href="#fig-interaction-spatial-sgd" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id4">
+<h3><span class="section-number">29.2.1.3. </span>未来发展<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p><strong>设备精确性与反应速度的提高</strong> ：随着硬件技术的进步，未来的 VR 设备将提供更高的精确性和更快的反应速度。这包括更高分辨率的眼动追踪系统、更灵敏的运动传感器以及更快速的处理器，这些都是实现复杂空间重映射技术的关键。高精度的传感器和快速的反应能力能够确保虚拟环境中的任何微小调整都即时且精确地反映用户的实际动作，增强沉浸感和现实感。</p>
+<p><strong>用户体验的舒适性和自然性</strong> ：提高用户体验的舒适性和自然性是VR技术发展的另一个重要方向。这不仅涉及硬件设计的人体工程学优化，如更轻便的头显和更适合长时间佩戴的材料，还包括软件界面的用户友好性改进。例如，通过改进用户界面（UI）和用户体验（UX）设计，使得用户在进行复杂的虚拟操作时感觉更直观和轻松。此外，对VR环境的声音、光影和质感进行真实的模拟，也是提升自然性的关键。</p>
+<p><strong>综合应用和跨领域融合</strong> ：随着 VR 技术的成熟，其应用领域将进一步扩展，不仅限于娱乐和游戏，还将深入到教育、训练、医疗和工业设计等多个领域。跨领域的融合将推动 VR 技术与其他先进技术如人工智能、大数据和物联网的结合，共同创造出全新的应用场景和用户体验。</p>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">29.2.2. </span>增强/混合现实<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<!-- Orion has the largest field of view in the smallest AR glasses form to date. That field of view unlocks truly immersive use cases for Orion, from multitasking windows and big-screen entertainment to life-size holograms of people – all digital content that can seamlessly blend with your view of the physical world.
+But what makes Orion unique is that it is unmistakably a pair of glasses in both look and feel – complete with transparent lenses. Unlike MR headsets or other AR glasses today, you can still see other people’s eyes and expressions, so you can be present and share the experience with the people around you.
+According to The Verge, producing a unit costs about $10,000, with much of that cost coming from its silicon carbide lenses. For now, Meta is using them for internal development and external demos while working on more commercially viable versions for the future. -->
+<p>虚拟-现实融合是增强现实（AR）和混合现实（MR）中的关键技术，目标是将虚拟物体无缝、自然地集成到现实环境中。这一过程涉及多个层面的技术挑战，包括光影一致性、几何一致性和交互一致性，所有这些都依赖于精确的三维注册技术。</p>
+<p><strong>三维注册</strong> （如<a class="reference internal" href="#fig-interaction-spatial-3dregistration"><span class="std std-numref">图 29.36</span></a> 所示）是将虚拟物体准确地放置和定位于现实世界的过程，涉及环境感知与建模、虚拟对象定位与对齐等任务。它的核心目标是确保虚拟内容能够自然地与现实环境相结合，从而提供更加沉浸的体验。</p>
+<figure class="align-default" id="fig-interaction-spatial-3dregistration">
+<img alt="../../_images/interaction-spatial-3Dregistration.png" src="../../_images/interaction-spatial-3Dregistration.png" />
+<figcaption>
+<p><span class="caption-number">图 29.36 </span><span class="caption-text">三维注册。</span><a class="headerlink" href="#fig-interaction-spatial-3dregistration" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>光影一致性</strong> ：如<a class="reference internal" href="#fig-interaction-spatial-lighting-consistency"><span class="std std-numref">图 29.37</span></a> 所示，光影一致性指的是确保虚拟物体在现实世界中的光照效果与其周围环境匹配，从而增强真实感。实现光影一致性通常涉及以下技术：</p>
+<ul class="simple">
+<li><p>光照重建：使用传感器捕捉现场的光照条件，例如光强度和方向，然后在渲染虚拟物体时模拟这些光照条件。</p></li>
+<li><p>真实感渲染：采用高级渲染技术，如光线追踪或全局光照算法，确保虚拟物体的阴影和高光与现实环境中的光线完美融合。</p></li>
+</ul>
+<figure class="align-default" id="fig-interaction-spatial-lighting-consistency">
+<img alt="../../_images/interaction-spatial-lighting_consistency.png" src="../../_images/interaction-spatial-lighting_consistency.png" />
+<figcaption>
+<p><span class="caption-number">图 29.37 </span><span class="caption-text">光影一致性。</span><a class="headerlink" href="#fig-interaction-spatial-lighting-consistency" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>几何一致性</strong> ：如<a class="reference internal" href="#fig-interaction-spatial-geometry-consistency"><span class="std std-numref">图 29.38</span></a> 所示，几何一致性指的是确保虚拟物体与现实环境之间的空间关系准确无误，尤其是遮挡和相对位置的正确性。为了实现这一目标，系统需要充分理解和利用环境的三维几何信息，例如场景的深度数据和结构。
+尺寸、位置和方向准确无误。这需要精确的物体位姿估计与跟踪、场景多属性建模以及场景理解。技术实现通常包括：</p>
+<figure class="align-default" id="fig-interaction-spatial-geometry-consistency">
+<img alt="../../_images/interaction-spatial-geometry_consistency.png" src="../../_images/interaction-spatial-geometry_consistency.png" />
+<figcaption>
+<p><span class="caption-number">图 29.38 </span><span class="caption-text">几何一致性。</span><a class="headerlink" href="#fig-interaction-spatial-geometry-consistency" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>交互一致性</strong>：如<a class="reference internal" href="#fig-interaction-spatial-interaction-consistency"><span class="std std-numref">图 29.39</span></a> 所示，交互一致性指的是确保虚拟物体能够正确响应来自用户和环境的交互行为，保证虚拟物体在与现实世界互动时符合物理规律（如图左，弹弓和小球弹道的运动需要符合固体力学）和场景语义（如图右，虚拟人需要正确行走在地面上）。交互一致性的实现依赖于以下多项技术：</p>
+<ul class="simple">
+<li><p>物体位姿估计与跟踪：使用各种传感器和算法持续跟踪虚拟物体在空间中的位置和姿态，确保其与现实世界中的对象保持准确的相对位置，避免虚拟物体与现实场景产生不自然的偏差。</p></li>
+<li><p>场景理解与场景多属性建模：通过高级的视觉和数据处理算法可以分析环境数据，识别和解释物理空间的布局和物理属性（如材质、结构、光反射特性），从而正确地建立包含各种物理属性和视觉属性的虚拟世界场景模型。有了对现实环境的正确认识，系统才能令虚拟物体在交互时做出与现实环境相匹配的反馈行为。</p></li>
+<li><p>物理仿真：在虚拟物体与现实世界交互时，确保其行为符合物理规律，如碰撞、重力和材料互动。这不仅增强了虚拟物体的真实感，也使用户的交互更加自然和可预测。</p></li>
+</ul>
+<figure class="sphinx-subfigure align-default" id="fig-interaction-spatial-interaction-consistency" style="width: 80%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-AB" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="与虚拟的弹弓进行交互。" src="../../_images/interaction-spatial-3Dregistration_spring.png" />
+<span class="caption">与虚拟的弹弓进行交互。</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="在包含虚拟元素的场景中交互。" src="../../_images/interaction-spatial-3Dregistration_drive.png" />
+<span class="caption">在包含虚拟元素的场景中交互。</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 29.39 </span><span class="caption-text">交互一致性。</span><a class="headerlink" href="#fig-interaction-spatial-interaction-consistency" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>深入的场景理解能够支持更复杂的交互，包括物理仿真，这是实现几何一致性和交互一致性的关键。这也对 AR/MR 技术和设备算力提出了要求。
+实时交互对系统的响应速度要求极高，任何延迟都可能打破用户的沉浸感。但不论是场景多属性建模还是物理仿真，要做到实时仍然是值得深入研究的挑战。优化系统架构和算法以提升交互效率、减少交互延迟，是提升用户体验的关键。</p>
+<p>未来，随着计算能力的提升和算法的优化，虚拟-现实融合技术将更加成熟，实现更加自然和无缝的融合，促进 AR/MR 设备的实用和普及。这将推动从娱乐和游戏到教育、工业和医疗等多个领域的革新，开辟虚拟和现实交互的新时代。</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="input.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">29.1. </span>三维交互技术</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="summary.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">29.3. </span>本章小结</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vr">29.2.1. 虚拟现实（VR）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-position-and-pose-estimation">29.2.1.1. 用户位姿估计（User Position and Pose Estimation）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">29.2.1.2. 无限空间体验</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">29.2.1.3. 未来发展</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">29.2.2. 增强/混合现实</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

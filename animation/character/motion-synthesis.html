@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>20.2. 动作合成 &#8212; 可视计算与交互概论</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=051c1eab"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'animation/character/motion-synthesis';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="20.3. 骨骼蒙皮" href="skinning.html" />
+    <link rel="prev" title="20.1. 动作捕捉" href="motion-capture.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">跳转至主要内容</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>回到顶部</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="版本警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">可视计算与交互概论</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">搜索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">1. 引言</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">I. 入门：二维图形</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/basics/index.html">2. 二维图形基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/pixel-vector.html">2.1. 像素与矢量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/hardware.html">2.2. 显示原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/basics/summary.html">2.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/color/index.html">3. 颜色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-physics.html">3.1. 颜色的物理与感知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-representation.html">3.2. 颜色的离散表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-display.html">3.3. 颜色显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/color-psychology.html">3.4. 颜色感知与心理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/color/summary.html">3.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/drawing-2d/index.html">4. 绘图</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/rasterization.html">4.1. 光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/polygon.html">4.2. 多边形</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/composition.html">4.3. 合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/drawing-2d/summary.html">4.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/anti-aliasing/index.html">5. 反走样</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/signal-theory.html">5.1. 信号理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/aa-principle.html">5.2. 反走样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/anti-aliasing/summary.html">5.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/curves/index.html">6. 曲线</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-basic.html">6.1. 曲线数学基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-spline.html">6.2. 样条曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-bezier.html">6.3. 贝塞尔曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/curve-rasterization.html">6.4. 曲线光栅化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/curves/summary.html">6.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting-started/images/index.html">7. 图像处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/filtering.html">7.1. 图像滤波</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/poisson.html">7.2. 图像补全与融合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/segmentation.html">7.3. 图像分割与抠图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/dithering.html">7.4. 图像抖动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/seam.html">7.5. 图像缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting-started/images/summary.html">7.6. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II. 几何建模</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/basics/index.html">8. 几何建模基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/representation.html">8.1. 几何形状的表示方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/model.html">8.2. 几何形状的建模</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/display.html">8.3. 几何形状的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/basics/summary.html">8.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/representation/index.html">9. 几何表达</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/mesh.html">9.1. 网格表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/voxel-and-point-cloud.html">9.2. 体素和点云表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/implicit-field.html">9.3. 隐式表达</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/representation/summary.html">9.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/reconstruction/index.html">10. 几何重建</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/point-cloud.html">10.1. 点云的获取与配准</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/surface.html">10.2. 点云的表面重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/fit.html">10.3. 点云的模型拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/reconstruction/summary.html">10.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/processing/index.html">11. 几何处理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/ddg.html">11.1. 离散微分几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/smoothing.html">11.2. 网格平滑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/simplification.html">11.3. 网格简化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/subdivision.html">11.4. 网格细分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/editing.html">11.5. 网格编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/processing/summary.html">11.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../geometry/transformation/index.html">12. 几何变换</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/2d.html">12.1. 二维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/3d.html">12.2. 三维几何变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/system.html">12.3. 坐标系变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/projection.html">12.4. 投影变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../geometry/transformation/summary.html">12.5. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">III. 渲染</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/basics/index.html">13. 渲染基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/context.html">13.1. 渲染的定义与发展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/description.html">13.2. 渲染场景的描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/paradigm.html">13.3. 渲染的基本范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/basics/summary.html">13.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/shading/index.html">14. 光照与着色</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/pipeline.html">14.1. 实时渲染管线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/empirical-lighting.html">14.2. 经验光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/npr.html">14.3. 非真实感渲染</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/shading/summary.html">14.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/textures/index.html">15. 纹理映射</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/filtering.html">15.1. 纹理过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/reflectance.html">15.2. 反射贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/bump.html">15.3. 凹凸贴图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/shadows.html">15.4. 阴影映射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/textures/summary.html">15.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/global-illum/index.html">16. 全局光照</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/equation.html">16.1. 渲染方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/physical-lighting.html">16.2. 基于物理的光照模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/approximations.html">16.3. 间接光照的近似算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/ray-tracing.html">16.4. 光线追踪算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/global-illum/summary.html">16.5. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../rendering/acc-structs/index.html">17. 空间加速结构</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/bvh.html">17.1. 层次包围体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/kd-trees.html">17.2. KD 树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/grids.html">17.3. 均匀网格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rendering/acc-structs/summary.html">17.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IV. 动态生成</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/index.html">18. 动态生成基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/subjective.html">18.1. 主观动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/physics.html">18.2. 物理动态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics/summary.html">18.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kinematic-principles/index.html">19. 运动学原理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/rotation-representation.html">19.1. 旋转的表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/kinematics.html">19.2. 运动学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kinematic-principles/summary.html">19.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">20. 角色动画</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="motion-capture.html">20.1. 动作捕捉</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">20.2. 动作合成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skinning.html">20.3. 骨骼蒙皮</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary.html">20.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elastomers/index.html">21. 弹性体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/mass-spring.html">21.1. 弹簧质点系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/fem.html">21.2. 有限元方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elastomers/summary.html">21.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../rigid-bodies/index.html">22. 刚体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/rigid-body-dynamics.html">22.1. 刚体动力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/contact-and-friction.html">22.2. 碰撞与摩擦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/articulated-rigid-body.html">22.3. 铰链刚体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rigid-bodies/summary.html">22.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fluids/index.html">23. 流体模拟</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/fluid-physics.html">23.1. 流体的物理模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/sph-method.html">23.2. 光滑粒子流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/eulerian-fluid.html">23.3. 欧拉网格流体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluids/summary.html">23.4. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">V. 可视化与交互</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/basics/index.html">24. 可视化基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/overview.html">24.1. 可视化概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/content.html">24.2. 可视化研究内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/design.html">24.3. 可视化设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/data.html">24.4. 数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/interaction.html">24.5. 可视化中的交互</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/basics/summary.html">24.6. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/scientific/index.html">25. 科学可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/dimensional.html">25.1. 标量场、矢量场、张量场数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/spatial.html">25.2. 表面数据、体积数据的可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/scientific/summary.html">25.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/informational/index.html">26. 信息可视化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/plot.html">26.1. 基础绘图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/types.html">26.2. 不同类型的信息可视化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/informational/summary.html">26.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../visualization/analytics/index.html">27. 可视分析学</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/overview.html">27.1. 可视分析概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/system.html">27.2. 可视分析系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../visualization/analytics/summary.html">27.3. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/basics/index.html">28. 人机交互基础</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/overview.html">28.1. 总览：理解交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/device.html">28.2. 经典交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/assess.html">28.3. 交互技术的评估方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/basics/summary.html">28.4. 本章小结</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../interaction/spatial/index.html">29. 空间交互技术</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/input.html">29.1. 三维交互技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/xr-techniques.html">29.2. 虚拟现实与增强现实</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interaction/spatial/summary.html">29.3. 本章小结</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/animation/character/motion-synthesis.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="亮色"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="暗色"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>动作合成</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-animation-character-motion-synthesis-bvh">20.2.1. 动作数据</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">20.2.2. 动作重定向</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">20.2.3. 动作连接</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">20.2.3.1. 基础的动作连接方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">20.2.3.2. 平滑的动作连接</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">20.2.3.3. 动作对齐</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">20.2.3.4. 曲线跟踪</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">20.2.4. 动作图</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">20.2.5. 其他动作合成方法</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  
+<style>
+  .ss-layout-default-AB { grid-template-areas: 'A B'; }
+  .ss-layout-default-ABC { grid-template-areas: 'A B C'; }
+@media (max-width: 576px) {
+  .ss-layout-sm-A_B { grid-template-areas: 'A' 'B'; }
+  .ss-layout-sm-A_B_C { grid-template-areas: 'A' 'B' 'C'; }
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="sec-animation-character-motion-synthesis">
+<span id="id1"></span><h1><span class="section-number">20.2. </span>动作合成<a class="headerlink" href="#sec-animation-character-motion-synthesis" title="Link to this heading">#</a></h1>
+<p>利用上一节的动捕技术，我们可以得到一系列动作数据，接下来我们会介绍利用这些数据能够完成哪些任务。</p>
+<section id="sec-animation-character-motion-synthesis-bvh">
+<span id="id2"></span><h2><span class="section-number">20.2.1. </span>动作数据<a class="headerlink" href="#sec-animation-character-motion-synthesis-bvh" title="Link to this heading">#</a></h2>
+<p>在开始之前，我们首先需要了解动作数据在计算机中是以什么样的格式存储的。动捕数据一般以 BVH 文件（Biovision Hierarchy 文件）的形式存储，这类文件一般包含两部分（如<a class="reference internal" href="#fig-animation-character-motion-data"><span class="std std-numref">图 20.13</span></a>）：</p>
+<ol class="arabic simple">
+<li><p>动捕角色在 T 型姿势下的大小和姿态。</p></li>
+<li><p>每一帧的角色姿态描述。这部分信息被表示成一个集合 <span class="math notranslate nohighlight">\(\{\boldsymbol p_t\}\)</span>，每一帧的信息 <span class="math notranslate nohighlight">\(\boldsymbol p_t\)</span> 形如 <span class="math notranslate nohighlight">\(\boldsymbol p_t=(\boldsymbol t_0,\boldsymbol R_0,\boldsymbol R_1,\boldsymbol R_2,\cdots)\)</span>，其中 <span class="math notranslate nohighlight">\(\boldsymbol t_0\)</span> 表示角色根节点（还记得 <a class="reference internal" href="../kinematic-principles/kinematics.html#sec-animation-kinematic-principles-kinematics-forward"><span class="std std-numref">§19.2.1</span></a> 中我们将人体骨骼结构抽象成一棵树吗？）的三维坐标，<span class="math notranslate nohighlight">\(\boldsymbol R_0,\boldsymbol R_1,\boldsymbol R_2,\cdots\)</span> 分别表示每个关节的旋转。</p></li>
+</ol>
+<p>显然，我们可以根据文件中的数据还原出一个角色的动作序列。</p>
+<figure class="align-default" id="fig-animation-character-motion-data">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_data.png"><img alt="../../_images/animation-character-motion_data.png" src="../../_images/animation-character-motion_data.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.13 </span><span class="caption-text">动作数据</span><a class="headerlink" href="#fig-animation-character-motion-data" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>利用这些数据通常分为几个环节（如<a class="reference internal" href="#fig-animation-character-using-motion-data"><span class="std std-numref">图 20.14</span></a>），首先需要把采集到的数据重定向（retargeting）到虚拟角色上，在此基础上我们需要对动作进行编辑（editing），然后进行动作的连接和混合（transition and blending），最后我们会把动作放到动作图（motion graph）中，实现可交互的动作组成（composition）和生成。</p>
+<figure class="align-default" id="fig-animation-character-using-motion-data">
+<a class="reference internal image-reference" href="../../_images/animation-character-using_motion_data.png"><img alt="../../_images/animation-character-using_motion_data.png" src="../../_images/animation-character-using_motion_data.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.14 </span><span class="caption-text">动作数据的使用</span><a class="headerlink" href="#fig-animation-character-using-motion-data" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id3">
+<h2><span class="section-number">20.2.2. </span>动作重定向<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="fig-animation-character-motion-retargeting">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_retargeting.png"><img alt="../../_images/animation-character-motion_retargeting.png" src="../../_images/animation-character-motion_retargeting.png" style="width: 40%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.15 </span><span class="caption-text">动作重定向</span><a class="headerlink" href="#fig-animation-character-motion-retargeting" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>一般来讲，动作捕捉的采集对象是人，而虚拟角色往往多种多样，其身体结构可能也会比人复杂得多，这个时候我们就需要进行动作重定向（如<a class="reference internal" href="#fig-animation-character-motion-retargeting"><span class="std std-numref">图 20.15</span></a>）。和人相比，虚拟角色可能具有不同数量的骨骼、不同的骨骼名称、不同的静止姿态、不同的骨骼比例、不同的骨架结构等等。正是这种复杂性，使得重定向任务会遇到各种各样的问题，例如一些不够鲁棒的重定向会导致角色的脚底离开地面（如<a class="reference internal" href="#fig-animation-character-motion-retargeting-problem"><span class="std std-numref">图 20.16</span></a>(a)），或者出现穿模现象（如<a class="reference internal" href="#fig-animation-character-motion-retargeting-problem"><span class="std std-numref">图 20.16</span></a>(b)）。</p>
+<figure class="sphinx-subfigure align-default" id="fig-animation-character-motion-retargeting-problem" style="width: 100%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-A_B" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="(a) 角色脚底离开地面" src="../../_images/animation-character-motion_retargeting_floating.png" />
+<span class="caption">(a) 角色脚底离开地面</span>
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="(b) 穿模" src="../../_images/animation-character-motion_retargeting_collision.png" />
+<span class="caption">(b) 穿模</span>
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 20.16 </span><span class="caption-text">动作重定向时会遇到的问题</span><a class="headerlink" href="#fig-animation-character-motion-retargeting-problem" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>动作重定向的流程可以分为以下几步：</p>
+<ol class="arabic simple">
+<li><p><strong>关节映射。</strong> 在动捕数据中的关节和虚拟角色的关节之间建立一个映射。</p></li>
+<li><p><strong>调整大小。</strong> 有时动捕数据中的长度单位与虚拟角色的不一致，动捕数据中的单位大多为米或英尺，而虚拟角色用的则可能是任何单位。这个步骤要处理的一个典型场景是走路的动作，对于这个场景我们通常会把根关节的位移缩放到高度与虚拟角色腿长相近，从而保证走路过程中脚不离地。</p></li>
+<li><p><strong>复制或重定向关节旋转以修正初始姿态。</strong> 为虚拟角色计算出每个关节的旋转以使它的初始姿态（T 型姿势或 A 型姿势，A 型姿势可参考 <a class="reference internal" href="skinning.html#sec-animation-character-skinning"><span class="std std-numref">§20.3</span></a>）能够匹配动捕数据的初始姿态。这个步骤在虚拟角色和动捕数据中的身体长度不一致时会比较繁琐，此时我们可以借助一些启发性的规则来确定关节旋转，例如对于动捕数据中没有出现的关节我们可以将其旋转设为零或设置为相邻关节旋转的平均值。</p></li>
+<li><p><strong>使用逆向运动学进行后处理，以解决诸如脚底打滑、穿模等问题。</strong> 这些问题往往需要调整关节位置来解决，仅仅修改动捕数据中的关节旋转是不够的，所以逆向运动学就不可避免。</p></li>
+</ol>
+<p>为了更方便地进行重定向，业界提出了一些新的动捕数据的表示方式（其重定向效果如<a class="reference internal" href="#fig-animation-character-ik-rig"><span class="std std-numref">图 20.17</span></a>），称为反向运动学绑定（IK rig）。在这种表示方式中，我们不再记录每个关节的旋转，而是记录一些关键关节的位置。于是我们只需要重定向相应关节的位置，再在虚拟角色上做逆向运动学，即可完成高质量的动作重定向。目前很热门的虚幻引擎（Unreal）也支持反向运动学绑定的格式（如<a class="reference internal" href="#fig-animation-character-ik-rig-unreal"><span class="std std-numref">图 20.18</span></a>）。</p>
+<figure class="align-default" id="fig-animation-character-ik-rig">
+<a class="reference internal image-reference" href="../../_images/animation-character-ik_rig.png"><img alt="../../_images/animation-character-ik_rig.png" src="../../_images/animation-character-ik_rig.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.17 </span><span class="caption-text">反向运动学绑定原型</span><a class="headerlink" href="#fig-animation-character-ik-rig" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-animation-character-ik-rig-unreal">
+<a class="reference internal image-reference" href="../../_images/animation-character-ik_rig_unreal.png"><img alt="../../_images/animation-character-ik_rig_unreal.png" src="../../_images/animation-character-ik_rig_unreal.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.18 </span><span class="caption-text">虚幻引擎中的反向运动学绑定</span><a class="headerlink" href="#fig-animation-character-ik-rig-unreal" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id4">
+<h2><span class="section-number">20.2.3. </span>动作连接<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>在完成动作重定向之后，我们还需要进行动作连接，这是因为我们采集到的动捕数据往往只是一个动作片段，为生成完整、流畅的动作还需要将多段动捕数据中的动作串联起来。例如我们现在已经重定向好了一段走路的动作和一段跑步的动作，我们想让虚拟角色先走路两秒钟，再跑步两秒钟，那么就需要借助动作连接技术从走路尽可能连贯地过渡到跑步。</p>
+<figure class="sphinx-subfigure align-default" id="fig-animation-character-motion-transition-steps" style="width: 100%">
+<div class="sphinx-subfigure-grid ss-layout-default-ABC ss-layout-sm-A_B_C" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="../../_images/animation-character-motion_transition1.png" src="../../_images/animation-character-motion_transition1.png" />
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="../../_images/animation-character-motion_transition2.png" src="../../_images/animation-character-motion_transition2.png" />
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: C;">
+<img alt="../../_images/animation-character-motion_transition3.png" src="../../_images/animation-character-motion_transition3.png" />
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 20.19 </span><span class="caption-text">动作连接的步骤</span><a class="headerlink" href="#fig-animation-character-motion-transition-steps" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id5">
+<h3><span class="section-number">20.2.3.1. </span>基础的动作连接方法<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>我们假设需要连接的两个动作分别为动作 <span class="math notranslate nohighlight">\(A\)</span> 和动作 <span class="math notranslate nohighlight">\(B\)</span>，一个最简单的动作连接可以分为以下三步（如<a class="reference internal" href="#fig-animation-character-motion-transition-steps"><span class="std std-numref">图 20.19</span></a>）：</p>
+<ol class="arabic simple">
+<li><p>在 <span class="math notranslate nohighlight">\(A\)</span> 的动作序列和 <span class="math notranslate nohighlight">\(B\)</span> 的动作序列中分别挑选一帧，这两帧越相近越好，如<a class="reference internal" href="#fig-animation-character-motion-transition-steps"><span class="std std-numref">图 20.19</span></a> 中的过渡帧（transition frame）。</p></li>
+<li><p>将 <span class="math notranslate nohighlight">\(A\)</span> 与 <span class="math notranslate nohighlight">\(B\)</span> 的动作序列进行时间对齐，使得挑选出的过渡帧处于同一时刻。</p></li>
+<li><p>保留 <span class="math notranslate nohighlight">\(A\)</span> 序列过渡帧前的部分和 <span class="math notranslate nohighlight">\(B\)</span> 序列过渡帧后的部分，并直接拼接形成新的动作序列。</p></li>
+</ol>
+<p>这个方法的缺点很明显：除非保证 <span class="math notranslate nohighlight">\(A\)</span>、<span class="math notranslate nohighlight">\(B\)</span> 动作在过渡帧完全相同，拼接处会出现一个不连续的跳变。但是这个方法在游戏中很常见，因为游戏中经常会有一些循环动作，角色在做完一个动作后总要恢复到动作开始前的姿态，比如我们经常看到一个角色做完“挥拳”或者“开枪”的动作之后总会恢复站立的姿态。</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">20.2.3.2. </span>平滑的动作连接<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="fig-animation-character-motion-transition-interpolation">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_transition_interpolation.png"><img alt="../../_images/animation-character-motion_transition_interpolation.png" src="../../_images/animation-character-motion_transition_interpolation.png" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.20 </span><span class="caption-text">平滑的动作连接</span><a class="headerlink" href="#fig-animation-character-motion-transition-interpolation" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>在一般情况下，我们在动作过渡的时候需要做一个平滑操作。这时我们不应再只考虑一帧的切换，而是要考虑两个动作在过渡帧前后一段时间的序列。如<a class="reference internal" href="#fig-animation-character-motion-transition-interpolation"><span class="std std-numref">图 20.20</span></a> 所示，我们设这个过渡片段的开始时间为 <span class="math notranslate nohighlight">\(0\)</span>，结束时间为 <span class="math notranslate nohighlight">\(1\)</span>，再设动作序列 <span class="math notranslate nohighlight">\(A\)</span> 为 <span class="math notranslate nohighlight">\(\boldsymbol p_0\)</span>，<span class="math notranslate nohighlight">\(B\)</span> 为 <span class="math notranslate nohighlight">\(\boldsymbol p_1\)</span>，那么对于时刻 <span class="math notranslate nohighlight">\(t\in[0,1]\)</span>，我们的过渡动作可以取动作序列 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 的线性插值：</p>
+<div class="math notranslate nohighlight" id="equation-animation-character-motion-transition-linear">
+<span class="eqno">(20.1)<a class="headerlink" href="#equation-animation-character-motion-transition-linear" title="Link to this equation">#</a></span>\[
+\boldsymbol p(t)=(1-t)\boldsymbol p_0(i)+t\boldsymbol p_1(i)
+\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(i\)</span> 表示时刻 <span class="math notranslate nohighlight">\(t\)</span> 对应的帧数，使用这样的插值我们能做到在时间从 <span class="math notranslate nohighlight">\(0\)</span> 到 <span class="math notranslate nohighlight">\(1\)</span> 推进的过程中，角色动作会从 <span class="math notranslate nohighlight">\(A\)</span> 逐渐过渡到 <span class="math notranslate nohighlight">\(B\)</span>。为了达到一些特殊的平滑效果，我们也可以不使用线性插值，将式 <a class="reference internal" href="#equation-animation-character-motion-transition-linear">(20.1)</a> 中的 <span class="math notranslate nohighlight">\(t\)</span> 换成一个关于 <span class="math notranslate nohighlight">\(t\)</span> 的单调增函数 <span class="math notranslate nohighlight">\(\phi(t)\in[0,1]\)</span>，变成如下形式：</p>
+<div class="math notranslate nohighlight" id="equation-animation-character-motion-transition-nonlinear">
+<span class="eqno">(20.2)<a class="headerlink" href="#equation-animation-character-motion-transition-nonlinear" title="Link to this equation">#</a></span>\[
+\boldsymbol p(t)=(1-\phi(t))\boldsymbol p_0(i)+\phi(t)\boldsymbol p_1(i)
+\]</div>
+<p>其中的 <span class="math notranslate nohighlight">\(\phi(t)\)</span> 可以取二次函数、指数函数等。</p>
+<p>这里需要注意的一点是，在对 <span class="math notranslate nohighlight">\(\boldsymbol p_0\)</span> 和 <span class="math notranslate nohighlight">\(\boldsymbol p_1\)</span> 进行插值的时候，会涉及到对旋转的插值，此时不能像对位置插值一样简单的用线性组合计算插值后的结果，对旋转的插值读者可以回顾 <a class="reference internal" href="../kinematic-principles/rotation-representation.html#sec-animation-kinematic-principles-rotation-representation-quaternion-interpolation"><span class="std std-numref">§19.1.2.4</span></a> 中介绍的方法。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">20.2.3.3. </span>动作对齐<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>至此我们已经能够较为平滑地拼接两段动作了，但是这样还会存在一个问题：例如动作 <span class="math notranslate nohighlight">\(A\)</span> 是一段向右的行走，动作 <span class="math notranslate nohighlight">\(B\)</span> 是一段向左的跑步，那么我们拼接之后会发现虚拟角色在从走切换到跑时突然调转了一个方向，并且在此过程中脚底还会出现明显的打滑现象。我们希望避免这种 <span class="math notranslate nohighlight">\(180\)</span> 度大转弯的现象，所以需要将 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 两段动作进行对齐（注意之前我们已经做过一次时间上的对齐了，现在我们要对齐的是 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 中人物的运动方向，如<a class="reference internal" href="#fig-animation-character-motion-transition-alignment"><span class="std std-numref">图 20.21</span></a>）。</p>
+<figure class="align-default" id="fig-animation-character-motion-transition-alignment">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_transition_alignment.png"><img alt="../../_images/animation-character-motion_transition_alignment.png" src="../../_images/animation-character-motion_transition_alignment.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.21 </span><span class="caption-text">运动方向对齐</span><a class="headerlink" href="#fig-animation-character-motion-transition-alignment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>在进行运动方向对齐之前，我们首先需要定义角色的朝向坐标系（facing frame），它是一个固定在角色身上的局部坐标系，一个局部坐标系可以由两个参数 <span class="math notranslate nohighlight">\((\boldsymbol R,\boldsymbol t)\)</span> 来表示，<span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 表示局部坐标系在世界坐标系下的旋转（即世界坐标系的 <span class="math notranslate nohighlight">\(3\)</span> 个坐标轴在旋转 <span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 变换下会变成局部坐标系的 <span class="math notranslate nohighlight">\(3\)</span> 个坐标轴在世界坐标系下的坐标），<span class="math notranslate nohighlight">\(\boldsymbol t\)</span> 表示局部坐标系的原点在世界坐标系下的位置。朝向坐标系的 <span class="math notranslate nohighlight">\(\boldsymbol t\)</span> 一般取根关节在世界坐标系下的坐标，<span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 一般有如下两种选取方式：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 是一个绕 <span class="math notranslate nohighlight">\(y\)</span> 轴的旋转（见式 <a class="reference internal" href="../kinematic-principles/rotation-representation.html#equation-animation-kinematic-principles-matrix-along-y">(19.4)</a>），满足朝向坐标系的 <span class="math notranslate nohighlight">\(z\)</span> 轴指向角色的面朝方向。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 是一个绕 <span class="math notranslate nohighlight">\(y\)</span> 轴的旋转，满足朝向坐标系的 <span class="math notranslate nohighlight">\(x\)</span> 轴是世界坐标系中肩膀方向与臀部方向的平均方向。</p></li>
+</ul>
+<p>我们采取前一种选取方式，<a class="reference internal" href="#fig-animation-character-facing-frame"><span class="std std-numref">图 20.22</span></a> 展示了某时刻角色的朝向坐标系，这里我们采用了 <span class="math notranslate nohighlight">\(y\)</span> 轴向上的习惯定义坐标轴（图中没有显示与纸面垂直的 <span class="math notranslate nohighlight">\(y\)</span> 轴）。</p>
+<figure class="align-default" id="fig-animation-character-facing-frame">
+<a class="reference internal image-reference" href="../../_images/animation-character-facing_frame.png"><img alt="../../_images/animation-character-facing_frame.png" src="../../_images/animation-character-facing_frame.png" style="width: 30%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.22 </span><span class="caption-text">朝向坐标系。图为俯视角色视角，<span class="math notranslate nohighlight">\(\boldsymbol R\)</span> 采用轴角法表示，<span class="math notranslate nohighlight">\(z\)</span> 轴指向角色面朝方向，<span class="math notranslate nohighlight">\(y\)</span> 轴垂直纸面向外。</span><a class="headerlink" href="#fig-animation-character-facing-frame" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>接下来我们假设每一帧中的坐标都是在该帧的朝向坐标系下定义的。那么接下来我们可以将动作 <span class="math notranslate nohighlight">\(B\)</span> 在过渡帧时刻的朝向坐标系进行旋转、平移，使其变为与动作 <span class="math notranslate nohighlight">\(A\)</span> 在过渡帧时刻的朝向坐标系相同，并按照同样的旋转、平移去变换 <span class="math notranslate nohighlight">\(B\)</span> 序列中每一时刻的朝向坐标系（如<a class="reference internal" href="#fig-animation-character-motion-transition-alignment-math"><span class="std std-numref">图 20.23</span></a>），记变换后的序列为 <span class="math notranslate nohighlight">\(B'\)</span>，那么我们对 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B'\)</span> 进行平滑操作即可。</p>
+<figure class="align-default" id="fig-animation-character-motion-transition-alignment-math">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_transition_alignment_math.png"><img alt="../../_images/animation-character-motion_transition_alignment_math.png" src="../../_images/animation-character-motion_transition_alignment_math.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.23 </span><span class="caption-text">将两个序列进行运动方向对齐</span><a class="headerlink" href="#fig-animation-character-motion-transition-alignment-math" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>接下来的问题就在于如何计算这个“对齐变换”。参考<a class="reference internal" href="#fig-animation-character-motion-transition-alignment-math"><span class="std std-numref">图 20.23</span></a>，我们考虑过渡帧后的某一帧 <span class="math notranslate nohighlight">\(i\)</span>，在 <span class="math notranslate nohighlight">\(B\)</span> 序列中的朝向坐标系为 <span class="math notranslate nohighlight">\(\boldsymbol R_1(i),\boldsymbol t_1(i)\)</span>，在 <span class="math notranslate nohighlight">\(A\)</span> 序列中的朝向坐标系为 <span class="math notranslate nohighlight">\(\boldsymbol R(i),\boldsymbol t(i)\)</span>，另外设过渡帧时刻 <span class="math notranslate nohighlight">\(A\)</span>、<span class="math notranslate nohighlight">\(B\)</span> 序列中的朝向坐标系分别为<span class="math notranslate nohighlight">\(\boldsymbol R_0,\boldsymbol t_0\)</span> 和 <span class="math notranslate nohighlight">\(\boldsymbol R_1,\boldsymbol t_1\)</span>，那么这其中只有 <span class="math notranslate nohighlight">\(\boldsymbol R(i),\boldsymbol t(i)\)</span> 是我们想求的变量，其余均为已知量。考虑在帧 <span class="math notranslate nohighlight">\(i\)</span> 时刻任取一个<span class="math notranslate nohighlight">\(\boldsymbol R_1(i),\boldsymbol t_1(i)\)</span> 坐标系下的三维坐标 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span>，设其转换为 <span class="math notranslate nohighlight">\(\boldsymbol R_1,\boldsymbol t_1\)</span> 坐标系下的坐标为 <span class="math notranslate nohighlight">\(\boldsymbol x_1\)</span>；然后在 <span class="math notranslate nohighlight">\(\boldsymbol R(i),\boldsymbol t(i)\)</span> 坐标系下去同样的坐标 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span>，设其转换为 <span class="math notranslate nohighlight">\(\boldsymbol R_0,\boldsymbol t_0\)</span> 坐标系下的坐标为 <span class="math notranslate nohighlight">\(\boldsymbol x_0\)</span>；那么我们应该有如下关系（这也是“对齐”的含义）：</p>
+<div class="math notranslate nohighlight" id="equation-animation-character-motion-alignment">
+<span class="eqno">(20.3)<a class="headerlink" href="#equation-animation-character-motion-alignment" title="Link to this equation">#</a></span>\[
+\boldsymbol x_0=\boldsymbol x_1。
+\]</div>
+<p>首先我们考虑如何将 <span class="math notranslate nohighlight">\(\boldsymbol R_1(i),\boldsymbol t_1(i)\)</span> 坐标系下的 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> 转换为 <span class="math notranslate nohighlight">\(\boldsymbol x_1\)</span>。这可以拆成两步来做：将 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> 转换为世界坐标系下的坐标 <span class="math notranslate nohighlight">\(\boldsymbol x_B\)</span>，然后将 <span class="math notranslate nohighlight">\(\boldsymbol x_B\)</span> 转换为 <span class="math notranslate nohighlight">\(\boldsymbol x_1\)</span>。第一步转换只需要将局部坐标系的旋转和平移依次作用在 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> 上：</p>
+<div class="math notranslate nohighlight" id="equation-animation-character-motion-alignment-x-to-x-b">
+<span class="eqno">(20.4)<a class="headerlink" href="#equation-animation-character-motion-alignment-x-to-x-b" title="Link to this equation">#</a></span>\[
+\boldsymbol x_B=\boldsymbol R_1(i)\boldsymbol x+\boldsymbol t_1(i)。
+\]</div>
+<p>第二步转换由于是世界坐标变为局部坐标，所以是一个逆变换，也就是先做平移的逆变换，再做旋转的逆变换：</p>
+<div class="math notranslate nohighlight" id="equation-animation-character-motion-alignment-x-b-to-x-1">
+<span class="eqno">(20.5)<a class="headerlink" href="#equation-animation-character-motion-alignment-x-b-to-x-1" title="Link to this equation">#</a></span>\[
+\boldsymbol x_1=\boldsymbol R_1^\top(\boldsymbol x_B-\boldsymbol t_1)。
+\]</div>
+<p>由式 <a class="reference internal" href="#equation-animation-character-motion-alignment-x-to-x-b">(20.4)</a> 和 <a class="reference internal" href="#equation-animation-character-motion-alignment-x-b-to-x-1">(20.5)</a> 可得</p>
+<div class="math notranslate nohighlight" id="equation-animation-character-motion-alignment-x-to-x-1">
+<span class="eqno">(20.6)<a class="headerlink" href="#equation-animation-character-motion-alignment-x-to-x-1" title="Link to this equation">#</a></span>\[
+\boldsymbol x_1=\boldsymbol R_1^\top[\boldsymbol R_1(i)\boldsymbol x+\boldsymbol t_1(i)-\boldsymbol t_1]。
+\]</div>
+<p>同理我们也可以得到 <span class="math notranslate nohighlight">\(\boldsymbol x_0\)</span> 与 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> 的关系：</p>
+<div class="math notranslate nohighlight" id="equation-animation-character-motion-alignment-x-to-x-0">
+<span class="eqno">(20.7)<a class="headerlink" href="#equation-animation-character-motion-alignment-x-to-x-0" title="Link to this equation">#</a></span>\[
+\boldsymbol x_0=\boldsymbol R_0^\top[\boldsymbol R(i)\boldsymbol x+\boldsymbol t(i)-\boldsymbol t_0]。
+\]</div>
+<p>那么由式 <a class="reference internal" href="#equation-animation-character-motion-alignment">(20.3)</a>、<a class="reference internal" href="#equation-animation-character-motion-alignment-x-to-x-1">(20.6)</a> 和 <a class="reference internal" href="#equation-animation-character-motion-alignment-x-to-x-0">(20.7)</a> 可得</p>
+<div class="math notranslate nohighlight">
+\[
+[\boldsymbol R_1^\top\boldsymbol R_1(i)-\boldsymbol R_0^\top\boldsymbol R(i)]\boldsymbol x=\boldsymbol R_0^\top\boldsymbol t(i)-\boldsymbol R_0^\top\boldsymbol t_0-\boldsymbol R_1^\top\boldsymbol t_1(i)+\boldsymbol R_1^\top\boldsymbol t_1。
+\]</div>
+<p>由 <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> 的任意性可知</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\boldsymbol R_1^\top\boldsymbol R_1(i)-\boldsymbol R_0^\top\boldsymbol R(i)&amp;=\boldsymbol 0，\\
+\boldsymbol R_0^\top\boldsymbol t(i)-\boldsymbol R_0^\top\boldsymbol t_0-\boldsymbol R_1^\top\boldsymbol t_1(i)+\boldsymbol R_1^\top\boldsymbol t_1&amp;=\boldsymbol 0，
+\end{aligned}
+\end{split}\]</div>
+<p>解得</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\boldsymbol R(i)&amp;=\boldsymbol R_0\boldsymbol R_1^\top\boldsymbol R_1(i)，\\
+\boldsymbol t(i)&amp;=\boldsymbol R_0\boldsymbol R_1^\top[\boldsymbol t_1(i)-\boldsymbol t_1]+\boldsymbol t_0。
+\end{aligned}
+\end{split}\]</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">20.2.3.4. </span>曲线跟踪<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>当然我们有时候并不需要进行对齐，比如你就想要实现一个走路过程中突然掉头跑步的效果，直接做插值就可以了。另外，很多时候我们拿到的动作数据已经去掉了全局的位置信息，即根关节的位置（有时也有朝向）不随时间变化，此时就不涉及到两段动作序列之间对齐的问题了，我们需要自己逐帧确定根关节的位置和朝向。这种去掉全局位置信息的动作数据在游戏中很常见，根关节的位置是游戏程序实时确定的，我们在网络卡顿的时候经常看到一个人在原地跑步就是由于在播放动作数据，但游戏程序的位置更新没有跟上。</p>
+<p>使用没有全局位置信息的动作数据需要进行曲线跟踪（path fitting），我们需要手动指定角色根关节在一段时间内移动的路径（一般假定这个路径是在一个平面内），那么对于路径上任意一点，其切向即为角色的朝向，位置即为角色根关节的位置，由此可以确定出相应时刻下角色的朝向坐标系（如<a class="reference internal" href="#fig-animation-character-path-fitting"><span class="std std-numref">图 20.24</span></a>）。</p>
+<figure class="align-default" id="fig-animation-character-path-fitting">
+<a class="reference internal image-reference" href="../../_images/animation-character-path_fitting.png"><img alt="../../_images/animation-character-path_fitting.png" src="../../_images/animation-character-path_fitting.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.24 </span><span class="caption-text">曲线跟踪</span><a class="headerlink" href="#fig-animation-character-path-fitting" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">20.2.4. </span>动作图<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>至此，我们掌握的技术仅仅能够将两个动作平滑地链接在一起。但这还不够，我们还希望实现更加丰富的动作合成（motion composition），即希望让计算机能够自动化地计算出角色动画，使其能够支持：</p>
+<ul class="simple">
+<li><p>实时的用户控制。</p></li>
+<li><p>角色自动避开场景里的障碍物。</p></li>
+<li><p>与场景中其他角色进行交互。</p></li>
+<li><p>其他需要的功能或特性。</p></li>
+</ul>
+<p>动作图 （motion graph）就是用来描述动作合成规则的数据结构。</p>
+<p>动作图的本质是一个有限状态自动机（finite state automata），每个状态表示一个动作，状态之间如果满足一定条件就会发生转移，在动作图中。用一个节点表示一个状态，用一条有向边表示一个可能的转移，每一条边会对应一个转移条件，<a class="reference internal" href="#fig-animation-character-motion-graph"><span class="std std-numref">图 20.25</span></a> 展示了一个简单的动作图。在生成一段动作时，我们会根据动作图，从某一个状态开始，当遇到用户输入打断或者当前动作播放完毕时，选择一个符合条件的转移并执行。在从一个动作状态转移到另一个动作状态时，我们可以使用前面介绍的插值方法做一个平滑的过渡。而对于如何选择下一个动作，取决于我们任务的复杂性，有时我们可以直接挑选一个合适的动作进行转移，有时则需要向后多考虑几步转移以进行更长远的规划（例如当我们让虚拟角色走上一个台阶时，需要指定每跨出一步后脚的位置，就可以借助深度优先搜索以做出后几步的规划）。</p>
+<figure class="align-default" id="fig-animation-character-motion-graph">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_graph.png"><img alt="../../_images/animation-character-motion_graph.png" src="../../_images/animation-character-motion_graph.png" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.25 </span><span class="caption-text">一个动作图</span><a class="headerlink" href="#fig-animation-character-motion-graph" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-animation-character-motion-graph-matrix">
+<a class="reference internal image-reference" href="../../_images/animation-character-motion_graph_matrix.png"><img alt="../../_images/animation-character-motion_graph_matrix.png" src="../../_images/animation-character-motion_graph_matrix.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">图 20.26 </span><span class="caption-text">由一段动捕数据构建出的一个矩阵。矩阵的元素值越大颜色越深，绿色的点为极小值点。</span><a class="headerlink" href="#fig-animation-character-motion-graph-matrix" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>那么给定一段动捕数据，如何生成一个动作图呢？假设动捕数据包含 <span class="math notranslate nohighlight">\(n\)</span> 帧，我们可以构造一个 <span class="math notranslate nohighlight">\(n\times n\)</span> 的矩阵（如<a class="reference internal" href="#fig-animation-character-motion-graph-matrix"><span class="std std-numref">图 20.26</span></a>），第 <span class="math notranslate nohighlight">\(i\)</span> 行第 <span class="math notranslate nohighlight">\(j\)</span> 列元素表示第 <span class="math notranslate nohighlight">\(i\)</span> 帧动作与第 <span class="math notranslate nohighlight">\(j\)</span> 帧动作的距离。这里我们可以根据需要去定义一个距离，例如采用每个关节的旋转的距离，或是利用前向运动学计算每个关节的位置差，还可以考虑速度等信息。接下来我们找出矩阵元素中所有的极小值点，假设第 <span class="math notranslate nohighlight">\(a\)</span> 行第 <span class="math notranslate nohighlight">\(b\)</span> 列是一个极小值点，那么说明我们可以在动作的第 <span class="math notranslate nohighlight">\(a\)</span> 帧和第 <span class="math notranslate nohighlight">\(b\)</span> 帧进行一个分割，并且这两帧可以互相转移。这样根据所有的极小值点，我们可以将动捕数据分割成多个小段，每个小段可以作为动作图的一个节点，再通过潜在的转移关系在这些节点之间连边，从而构造出动作图。当然，直接这样构造出的动作图可能质量很差（比如它可能包含过多的状态，每个状态的动作太短），实践中还需要用户手动筛选一些极小值点，并做一些其他的处理。</p>
+<p>总体而言，在动作图的基础上，我们实现动作合成是在以下步骤中不断循环的过程（每一帧执行一次这样的循环）：</p>
+<ol class="arabic simple">
+<li><p>检查用户输入。</p></li>
+<li><p>检查当前场景的环境信息。</p></li>
+<li><p>检查当前场景中是否存在需要互动的其他角色。</p></li>
+<li><p>根据所有信息决定是否要进行状态转移。</p></li>
+<li><p>在状态转移之后，要去获取下一个动作的姿态。</p></li>
+<li><p>进行后处理。</p></li>
+<li><p>更新角色姿态。</p></li>
+<li><p>更新环境信息。</p></li>
+</ol>
+</section>
+<section id="id10">
+<h2><span class="section-number">20.2.5. </span>其他动作合成方法<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>动作图的应用虽然广泛，但是在实际应用的时候还需要很多的技巧和方法才能够生成高质量的动作合成。因此，人们提出了一些新的方法用于动作合成，包括动作匹配（motion matching）以及一些基于学习的方法。</p>
+<p>动作匹配比动作图实现了更细粒度的动作控制，它会在每一帧都去判断下一帧要切换到哪个动作，切换的粒度不再是动作片段，而是姿态。这种细粒度的切换能够带来更快的用户操作响应，并且由于每一帧都会自动在动捕数据中搜索一帧最合适的姿态作为下一帧，它不再需要构建动作图时对数据的切割、建立转移等复杂的操作了。</p>
+<p>随着机器学习的兴起以及生成模型的流行，这些方法也被引入到动作生成的任务当中来。相比传统的基于数据的方法，基于学习的方法不再是对数据的简单重组，而是会从数据中提取一些模型并用于生成。<a class="reference internal" href="#fig-animation-character-motion-learning-based"><span class="std std-numref">图 20.27</span></a> 展示了两种基于学习的动作合成工作。</p>
+<figure class="sphinx-subfigure align-default" id="fig-animation-character-motion-learning-based" style="width: 100%">
+<div class="sphinx-subfigure-grid ss-layout-default-AB ss-layout-sm-A_B" style="display: grid; gap: 8px; grid-gap: 8px;">
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: A;">
+<img alt="../../_images/animation-character-motion_learning_based1.png" src="../../_images/animation-character-motion_learning_based1.png" />
+</div>
+<div class="sphinx-subfigure-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center; grid-area: B;">
+<img alt="../../_images/animation-character-motion_learning_based2.png" src="../../_images/animation-character-motion_learning_based2.png" />
+</div>
+</div>
+<figcaption>
+<p><span class="caption-number">图 20.27 </span><span class="caption-text">基于学习的方法</span><a class="headerlink" href="#fig-animation-character-motion-learning-based" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="motion-capture.html"
+       title="上一页">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title"><span class="section-number">20.1. </span>动作捕捉</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="skinning.html"
+       title="下一页">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title"><span class="section-number">20.3. </span>骨骼蒙皮</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-animation-character-motion-synthesis-bvh">20.2.1. 动作数据</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">20.2.2. 动作重定向</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">20.2.3. 动作连接</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">20.2.3.1. 基础的动作连接方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">20.2.3.2. 平滑的动作连接</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">20.2.3.3. 动作对齐</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">20.2.3.4. 曲线跟踪</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">20.2.4. 动作图</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">20.2.5. 其他动作合成方法</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： 北京大学可视计算与学习实验室
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, 北京大学可视计算与学习实验室.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
