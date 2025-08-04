@@ -46,7 +46,7 @@ $$ (eq-geometry-basics-representation-func)
 将曲线采样为一系列点。
 ```
 
-采样方法基于这样一个最基本的思想：对于连续函数所表示的几何形状，构成它的点集往往具有无穷多个元素，因而必须依赖解析的表达式来隐式地描述；那么，如果从这个无穷点集中采样有限个点作为代表，便可以显式地通过枚举这些元素来表达形状本身。如图 {numref}`fig-geometry-basis-curve_sample`，在一个复杂曲线上采样有限的点，便可以在保留形状信息的同时方便地储存形状数据。将这种方法应用在三维曲面上，采样得到的点便构成了点云（point cloud）这种三维表示方法。{numref}`sec-geometry-representation-voxel-pcd` 中我们将进一步讨论点云这种表示的实现与应用。
+采样方法基于这样一个最基本的思想：对于连续函数所表示的几何形状，构成它的点集往往具有无穷多个元素，因而必须依赖解析的表达式来隐式地描述；那么，如果从这个无穷点集中采样有限个点作为代表，便可以显式地通过枚举这些元素来表达形状本身。如 {numref}`fig-geometry-basis-curve_sample`，在一个复杂曲线上采样有限的点，便可以在保留形状信息的同时方便地储存形状数据。将这种方法应用在三维曲面上，采样得到的点便构成了点云（point cloud）这种三维表示方法。{numref}`sec-geometry-representation-voxel-pcd` 中我们将进一步讨论点云这种表示的实现与应用。
 
 ```{important}
 形式上来说，点云是指一组三维空间中有限个坐标点的集合：$\left\{(x_i,y_i,z_i)|i=1,\dots,N\right\}$，这些点所描述的几何形状 $M$ 满足：对于点云中任意的点 $\left(x_i,y_i,z_i\right)$，有 $\mathcal{S}_{M}\left(x_i,y_i,z_i\right)=0$。
@@ -63,7 +63,7 @@ $$ (eq-geometry-basics-representation-func)
 将几何形状的曲线边界（左）通过采样的方式（中），用一系列线段进行近似（右），从而得到线形拟合结果。
 ```
 
-与采样不同，线性拟合方法仍然试图得到连续表示的几何形状，从而最大限度地保留原本形状的拓扑关系。如图 {numref}`fig-geometry-basis-curve_linear_fit`，一个复杂曲线总是可以用若干线段来进行分段近似。线性拟合正是出于这样一种思想，它在采样方法的基础上，进一步保留了散点之间的连接关系，在相邻的散点之间使用线性插值来估计因采样不足而丢失的其他点。相较于直接采样，这种采样后使用线段进行分段近似的手段所得到的仍然是连续的几何表示，因此随着采样密度下降，其几何细节的丢失也更少。将这种线性拟合方法应用在三维曲面上，便得到了网格模型（mesh model）这种三维表示方法。{numref}`sec-geometry-representation-mesh` 和 {numref}`chap-geometry-processing` 中我们将进一步讨论网格模型这种表示的实现和应用；同时 {numref}`sec-geometry-reconstruction-surface` 还会介绍如何通过表面重建算法将点云转化为网格模型。
+与采样不同，线性拟合方法仍然试图得到连续表示的几何形状，从而最大限度地保留原本形状的拓扑关系。如 {numref}`fig-geometry-basis-curve_linear_fit`，一个复杂曲线总是可以用若干线段来进行分段近似。线性拟合正是出于这样一种思想，它在采样方法的基础上，进一步保留了散点之间的连接关系，在相邻的散点之间使用线性插值来估计因采样不足而丢失的其他点。相较于直接采样，这种采样后使用线段进行分段近似的手段所得到的仍然是连续的几何表示，因此随着采样密度下降，其几何细节的丢失也更少。将这种线性拟合方法应用在三维曲面上，便得到了网格模型（mesh model）这种三维表示方法。{numref}`sec-geometry-representation-mesh` 和 {numref}`chap-geometry-processing` 中我们将进一步讨论网格模型这种表示的实现和应用；同时 {numref}`sec-geometry-reconstruction-surface` 还会介绍如何通过表面重建算法将点云转化为网格模型。
 
 ```{important}
 形式上来说，网格模型是指一组三维空间中有限个坐标点构成的顶点集合 $\mathcal{V}=\left\{\mathbf{v}_i\right\}$ 和一组描述顶点连接关系的面集合 $\mathcal{F}=\left\{\mathbf{f}_i\right\}$ 所构成的表示，每个面 $\mathbf{f}_i$ 由 $K$ 个 $\mathcal{V}$ 中的顶点构成，表示这些顶点依次连接连成的 $K$ 边形面。这样的网格模型所描述的几何形状 $M$ 满足：对于任意 $\mathbf{f}_i$ 所表示的 $K$ 边形面，其上的任意一点 $\left(x_i,y_i,z_i\right)$ 都有 $\mathcal{S}_{M}\left(x_i,y_i,z_i\right)=0$。

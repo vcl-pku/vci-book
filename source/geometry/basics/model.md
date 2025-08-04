@@ -11,7 +11,7 @@
 Blender 软件界面。
 ```
 
-计算机辅助设计（Computer-Aided Design，CAD），指的是利用计算机软件协助，来对某种设计进行创建、修改、分析或优化。在几何建模领域，CAD 建模通常指使用特定软件（例如 Blender、Autodesk）来创建三维实体模型的过程，如图 {numref}`fig-geometry-basis-blender` 所示。
+计算机辅助设计（Computer-Aided Design，CAD），指的是利用计算机软件协助，来对某种设计进行创建、修改、分析或优化。在几何建模领域，CAD 建模通常指使用特定软件（例如 Blender、Autodesk）来创建三维实体模型的过程，如 {numref}`fig-geometry-basis-blender` 所示。
 
 早期的 CAD 建模使用参数化建模作为核心技术，通过定义几何模型的参数与约束关系实现可驱动、可编辑的数字化设计。其核心思想是将几何形状抽象为数学参数（如尺寸、角度、位置等）及逻辑约束（如平行、垂直、相切等关系），并建立参数间的动态关联。当修改某一参数时，模型能根据预设的约束规则自动调整形态，保证设计的一致性与合理性。参数化建模的核心要素包括：
 
@@ -42,4 +42,4 @@ Blender 软件界面。
 重建得到的高精度几何模型。
 ```
 
-如图 {numref}`fig-geometry-basis-recon` 所示，前沿的三维重建能够以较高的质量恢复目标对象的几何形状，为后续的分析处理奠定了基础。三维重建作为 3D 数据的重要来源，也是可视计算领域密切关注的主题，我们将在 {numref}`chap-geometry-reconstruction` 中进一步详细介绍。
+如 {numref}`fig-geometry-basis-recon` 所示，前沿的三维重建能够以较高的质量恢复目标对象的几何形状，为后续的分析处理奠定了基础。三维重建作为 3D 数据的重要来源，也是可视计算领域密切关注的主题，我们将在 {numref}`chap-geometry-reconstruction` 中进一步详细介绍。

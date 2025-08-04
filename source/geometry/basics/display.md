@@ -21,7 +21,7 @@
 针孔相机模型。
 ```
 
-如图 {numref}`fig-geometry-basis-pinhole`，针孔相机模型基于小孔成像原理，描述了三维对象显示在二维屏幕上的过程。对于三维相机空间（camera space）中的点 $x,y,z$，根据相似三角形的原理，成像平面上将会得到如下的像素空间（pixel space）中的二维坐标 $x',y'$：
+如 {numref}`fig-geometry-basis-pinhole`，针孔相机模型基于小孔成像原理，描述了三维对象显示在二维屏幕上的过程。对于三维相机空间（camera space）中的点 $x,y,z$，根据相似三角形的原理，成像平面上将会得到如下的像素空间（pixel space）中的二维坐标 $x',y'$：
 
 $$
 \left\{\begin{aligned}
